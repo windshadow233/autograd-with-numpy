@@ -503,3 +503,11 @@ class NormBackward(BackwardFcn):
     def calculate_grad(self, grad, children, place):
         child, p, y = children[0]
         return grad * y * child.data ** (p - 1.)
+
+
+class ConvBackward(BackwardFcn):
+    def __init__(self):
+        super(ConvBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        return

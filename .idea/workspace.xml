@@ -2,17 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/nptorch/nn/modules/sequential.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/my_deeplearning_frame.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/nptorch/nn/modules/convolution.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nptorch/nn/modules/pooling.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/backward.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/backward.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/functional.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/module.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/linear.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/linear.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/sequential.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/container.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +44,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JupyterTrust" id="919b7189-1494-49a0-9b67-e59ffeeaab19" />
   <component name="ProjectId" id="1ilqbeAM9oVs78rKRAe567DUtjt" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -57,7 +56,6 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="deletionFromPopupRequiresConfirmation" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../LFW" />
@@ -93,7 +91,7 @@
       <method v="2" />
     </configuration>
     <configuration name="mnist" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="my_deeplearning_frame" />
+      <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -147,7 +145,8 @@
       <workItem from="1603040433886" duration="2517000" />
       <workItem from="1603043943641" duration="737000" />
       <workItem from="1603075534016" duration="4242000" />
-      <workItem from="1603087334562" duration="21481000" />
+      <workItem from="1603087334562" duration="24335000" />
+      <workItem from="1603125418036" duration="3457000" />
     </task>
     <servers />
   </component>
@@ -166,10 +165,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="477" y="57" key="#backward/0.0.1536.864@0.0.1536.864" timestamp="1602861527397" />
-    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603114205661">
+    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603126170154">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1603114205661" />
+    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1603126170154" />
     <state x="421" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1602996164476">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -178,30 +177,34 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.864@0.0.1536.864" timestamp="1602598990627" />
+    <state x="477" y="57" key="#mnist" timestamp="1603126188553">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="477" y="57" key="#mnist/0.0.1536.864@0.0.1536.864" timestamp="1603126188553" />
     <state x="372" y="24" key="CommitChangelistDialog2" timestamp="1603087606159">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="372" y="24" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1603087606159" />
-    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1603114726414">
+    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1603127101333">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1603114726414" />
-    <state width="1493" height="415" key="GridCell.Tab.0.bottom" timestamp="1603110644417">
+    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1603127101333" />
+    <state width="1493" height="415" key="GridCell.Tab.0.bottom" timestamp="1603125154826">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="415" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1603110644417" />
-    <state width="1493" height="415" key="GridCell.Tab.0.center" timestamp="1603110644417">
+    <state width="1493" height="415" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1603125154826" />
+    <state width="1493" height="415" key="GridCell.Tab.0.center" timestamp="1603125154826">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="415" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1603110644417" />
-    <state width="1493" height="415" key="GridCell.Tab.0.left" timestamp="1603110644417">
+    <state width="1493" height="415" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1603125154826" />
+    <state width="1493" height="415" key="GridCell.Tab.0.left" timestamp="1603125154826">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="415" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1603110644417" />
-    <state width="1493" height="415" key="GridCell.Tab.0.right" timestamp="1603110644417">
+    <state width="1493" height="415" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1603125154826" />
+    <state width="1493" height="415" key="GridCell.Tab.0.right" timestamp="1603125154826">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="415" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1603110644417" />
+    <state width="1493" height="415" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1603125154826" />
     <state width="1493" height="374" key="GridCell.Tab.1.bottom" timestamp="1603004928770">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -218,10 +221,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1493" height="374" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1603004928770" />
-    <state x="270" y="74" key="SettingsEditor" timestamp="1603114290374">
+    <state x="270" y="74" key="SettingsEditor" timestamp="1603126212145">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="270" y="74" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1603114290374" />
+    <state x="270" y="74" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1603126212145" />
     <state width="775" height="439" key="XDebugger.FullValuePopup" timestamp="1602955032185">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -242,6 +245,16 @@
           <url>file://$PROJECT_DIR$/nptorch/backward.py</url>
           <line>448</line>
           <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/nptorch/nn/functional.py</url>
+          <line>78</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/nptorch/nn/functional.py</url>
+          <line>82</line>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

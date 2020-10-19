@@ -1,7 +1,8 @@
 import numpy as np
+from numpy.lib.stride_tricks import as_strided
 from ..tensor import array, Tensor
 from ..random import rand_like
-from ..backward import CrossEntropyBackward
+from ..backward import CrossEntropyBackward, ConvBackward
 
 
 def relu(x: Tensor):
@@ -26,6 +27,13 @@ def one_hot(n, x: Tensor):
     return array(np.eye(n)[x.data])
 
 
+def linear(x: Tensor, w: Tensor, b: Tensor = None):
+    output = x.matmul(w.T)
+    if b is not None:
+        output = output + b
+    return output
+
+
 def dropout(x: Tensor, p=0.5, training=True):
     """
 
@@ -38,6 +46,47 @@ def dropout(x: Tensor, p=0.5, training=True):
     mask = (rand_like(x) > p).float()
     y = x / (1 - p) * mask if training else x
     return y
+
+
+def split_by_strides(input_data: Tensor, kernel_x, kernel_y, stride):
+    """
+    将张量按卷积核尺寸与步长进行分割
+    :param input_data: 被卷积的张量(四维)
+    :param kernel_x: 卷积核的高度
+    :param kernel_y: 卷积核的宽度
+    :param stride: 步长
+    :return: output_data: 按卷积步骤展开后的矩阵
+
+    Example: [[1, 2, 3, 4],    2, 2, 2       [[[[1, 2],
+              [5, 6, 7, 8],             =>      [5, 6]],
+              [9, 10, 11, 12],                 [[3, 4],
+              [13, 14, 15, 16]]                 [7, 8]]],
+                                              [[[9, 10],
+                                                [13, 14]],
+                                               [[11, 12],
+                                                [15, 16]]]]
+    """
+    input_data = input_data.data
+    batches, channels, x, y = input_data.shape
+    out_x, out_y = (x - kernel_x) // stride + 1, (y - kernel_y) // stride + 1
+    shape = (batches, channels, out_x, out_y, kernel_x, kernel_y)
+    strides = (*input_data.strides[:-2], input_data.strides[-2] * stride,
+               input_data.strides[-1] * stride, *input_data.strides[-2:])
+    output_data = as_strided(input_data, shape, strides=strides)
+    return output_data
+
+
+def max_pool(x: Tensor, kernel_size, stride=None):
+    stride = stride or kernel_size
+
+
+def conv(x: Tensor, kernels: Tensor, stride=1):
+    split = split_by_strides(x, *kernels.shape[:-2], stride=stride)
+    output = Tensor(np.tensordot(split, kernels, axes=[(1, 4, 5), (1, 2, 3)]).transpose((0, 3, 1, 2)), requires_grad=x.requires_grad)
+    if output.requires_grad:
+        output.children = [(x, None), (kernels, stride)]
+        output.grad_fn = ConvBackward()
+    return output
 
 
 def cross_entropy(x: Tensor, target):
