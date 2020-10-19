@@ -14,7 +14,7 @@ class Tensor:
                 self.data = self.data.astype(np.float32)
         else:
             self.data = np.array(data, dtype=dtype)
-        if self.dtype.name not in ['float16', 'float32', 'float64'] and requires_grad:
+        if 'float' not in self.dtype.name and requires_grad:
             raise RuntimeError('Only Arrays of floating point dtype can require gradients')
         self.requires_grad = requires_grad
         self.grad_fn = None
@@ -552,6 +552,63 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None)]
             self.grad_fn = CoshBackward()
+        self.data = y
+
+    def asin(self):
+        self._check_type('asin')
+        y = Tensor(np.arcsin(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
+        if y.requires_grad:
+            y.children = [(self, None)]
+            y.grad_fn = ASinBackward()
+        return y
+
+    def asin_(self):
+        self._check_type('asin')
+        self._check_inplace()
+        y = np.arcsin(self.data)
+        if self.requires_grad:
+            child = deepcopy(self)
+            child.children = self.children
+            self.children = [(child, None)]
+            self.grad_fn = ASinBackward()
+        self.data = y
+
+    def acos(self):
+        self._check_type('acos')
+        y = Tensor(np.arccos(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
+        if y.requires_grad:
+            y.children = [(self, None)]
+            y.grad_fn = ACosBackward()
+        return y
+
+    def acos_(self):
+        self._check_type('acos')
+        self._check_inplace()
+        y = np.arccos(self.data)
+        if self.requires_grad:
+            child = deepcopy(self)
+            child.children = self.children
+            self.children = [(child, None)]
+            self.grad_fn = ACosBackward()
+        self.data = y
+
+    def atan(self):
+        self._check_type('atan')
+        y = Tensor(np.arctan(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
+        if y.requires_grad:
+            y.children = [(self, None)]
+            y.grad_fn = ATanBackward()
+        return y
+
+    def atan_(self):
+        self._check_type('atan')
+        self._check_inplace()
+        y = np.arctan(self.data)
+        if self.requires_grad:
+            child = deepcopy(self)
+            child.children = self.children
+            self.children = [(child, None)]
+            self.grad_fn = ATanBackward()
         self.data = y
 
     def tanh(self):

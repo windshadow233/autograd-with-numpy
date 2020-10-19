@@ -50,6 +50,18 @@ def tanh(x: Tensor):
     return x.tanh()
 
 
+def asin(x: Tensor):
+    return x.asin()
+
+
+def acos(x: Tensor):
+    return x.acos()
+
+
+def atan(x: Tensor):
+    return x.atan()
+
+
 def log(x: Tensor, base=None):
     return x.log(base)
 

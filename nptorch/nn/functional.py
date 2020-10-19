@@ -29,7 +29,9 @@ def one_hot(n, x: Tensor):
 def dropout(x: Tensor, p=0.5, training=True):
     """
 
+    @param x: 输入的张量
     @param p: 神经元失活率
+    @param training: 是否处于训练模式
     """
     if not 0. <= p <= 1.:
         raise ValueError(f'dropout probability has to be between 0 and 1, but got {p}')

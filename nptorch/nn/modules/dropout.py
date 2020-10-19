@@ -10,8 +10,8 @@ class Dropout(Module):
             raise ValueError(f'dropout probability has to be between 0 and 1, but got {p}')
         self.p = p
 
-    def __repr__(self):
-        return f'Dropout(p={self.p})'
+    def extra_repr(self):
+        return f'p={self.p}'
 
     def forward(self, x: Tensor):
         return dropout(x, self.p, self.training)

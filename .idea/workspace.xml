@@ -2,20 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/nptorch/nn/modules/dropout.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iris.py" beforeDir="false" afterPath="$PROJECT_DIR$/iris.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/backward.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/backward.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/functional.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/nn/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/nn/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/functional.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/activation.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/activation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/dropout.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/dropout.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/linear.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/linear.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/module.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/optim/sgd.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/optim/sgd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/random.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/random.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/optim/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/optim/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +70,26 @@
       <recent name="F:\pycharmProjects\my_deeplearning_frame\mnist" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.mnist">
+  <component name="RunManager" selected="Python.dnn">
+    <configuration name="dnn" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="my_deeplearning_frame" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dnn.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="iris" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="my_deeplearning_frame" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -118,9 +134,11 @@
     <list>
       <item itemvalue="Python.iris" />
       <item itemvalue="Python.mnist" />
+      <item itemvalue="Python.dnn" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.dnn" />
         <item itemvalue="Python.mnist" />
         <item itemvalue="Python.iris" />
       </list>
@@ -151,7 +169,7 @@
       <workItem from="1603040433886" duration="2517000" />
       <workItem from="1603043943641" duration="737000" />
       <workItem from="1603075534016" duration="4242000" />
-      <workItem from="1603087334562" duration="8063000" />
+      <workItem from="1603087334562" duration="18120000" />
     </task>
     <servers />
   </component>
@@ -170,10 +188,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="477" y="57" key="#backward/0.0.1536.864@0.0.1536.864" timestamp="1602861527397" />
-    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603040590728">
+    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603110642546">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1603040590728" />
+    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1603110642546" />
     <state x="421" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1602996164476">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -190,22 +208,22 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1603096714249" />
-    <state width="1493" height="347" key="GridCell.Tab.0.bottom" timestamp="1603040360091">
+    <state width="1493" height="415" key="GridCell.Tab.0.bottom" timestamp="1603110644417">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="347" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1603040360091" />
-    <state width="1493" height="347" key="GridCell.Tab.0.center" timestamp="1603040360091">
+    <state width="1493" height="415" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1603110644417" />
+    <state width="1493" height="415" key="GridCell.Tab.0.center" timestamp="1603110644417">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="347" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1603040360091" />
-    <state width="1493" height="347" key="GridCell.Tab.0.left" timestamp="1603040360091">
+    <state width="1493" height="415" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1603110644417" />
+    <state width="1493" height="415" key="GridCell.Tab.0.left" timestamp="1603110644417">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="347" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1603040360091" />
-    <state width="1493" height="347" key="GridCell.Tab.0.right" timestamp="1603040360091">
+    <state width="1493" height="415" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1603110644417" />
+    <state width="1493" height="415" key="GridCell.Tab.0.right" timestamp="1603110644417">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="347" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1603040360091" />
+    <state width="1493" height="415" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1603110644417" />
     <state width="1493" height="374" key="GridCell.Tab.1.bottom" timestamp="1603004928770">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -244,7 +262,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/nptorch/backward.py</url>
-          <line>457</line>
+          <line>448</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
@@ -260,6 +278,7 @@
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$tensor.coverage" NAME="tensor Coverage Results" MODIFIED="1602992967456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$functional__1_.coverage" NAME="functional (1) Coverage Results" MODIFIED="1603002232345" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="E:/anaconda/anaconda/envs/pytorch/Lib/site-packages/torch/nn" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$test.coverage" NAME="test Coverage Results" MODIFIED="1602954812479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/autograd_with_numpy$test.coverage" NAME="test Coverage Results" MODIFIED="1603103727671" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$calculate_graph.coverage" NAME="calculate_graph Coverage Results" MODIFIED="1602564048204" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$boardcast.coverage" NAME="boardcast Coverage Results" MODIFIED="1602591121189" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$train.coverage" NAME="train Coverage Results" MODIFIED="1602954304621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -274,6 +293,7 @@
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$broadcast.coverage" NAME="broadcast Coverage Results" MODIFIED="1602952458170" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$iris.coverage" NAME="iris Coverage Results" MODIFIED="1602958464581" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$functional.coverage" NAME="functional Coverage Results" MODIFIED="1602999200945" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork/nn" />
+    <SUITE FILE_PATH="coverage/autograd_with_numpy$dnn.coverage" NAME="dnn Coverage Results" MODIFIED="1603110638892" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$random.coverage" NAME="random Coverage Results" MODIFIED="1602922263259" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$pytest_in_mnist_py.coverage" NAME="pytest in mnist.py Coverage Results" MODIFIED="1603040350102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1602957651211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../深度学习课程" />

@@ -1,5 +1,4 @@
 import numpy as np
-import nptorch
 from nptorch.tensor import Tensor
 from .module import Module
 from nptorch.random import normal
@@ -16,8 +15,8 @@ class Linear(Module):
         if use_bias:
             self.bias = zeros(out_features, requires_grad=True)
 
-    def __repr__(self):
-        return f'Linear(in_features={self.in_features}, out_features={self.out_features}, bias={self.use_bias})'
+    def extra_repr(self):
+        return f'in_features={self.in_features}, out_features={self.out_features}, bias={self.use_bias}'
 
     def forward(self, x: Tensor):
         result = x.matmul(self.weight.T)
