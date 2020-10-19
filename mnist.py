@@ -26,6 +26,7 @@ class DNN(nn.Module):
 
 
 def test_model(model, test_loader: DataLoader):
+    model.eval()
     count = 0
     for d, lb in test_loader:
         p = model(d).argmax(-1)
@@ -40,7 +41,7 @@ def load_mnist(img_path, label_path):
     with open(img_path, 'rb') as img:
         _, num, rows, cols = struct.unpack('>IIII', img.read(16))
         images = np.fromfile(img, dtype=np.uint8).reshape(num, rows * cols)
-    return nptorch.tensor(images, dtype=np.float32), nptorch.tensor(labels)
+    return nptorch.array(images, dtype=np.float32), nptorch.array(labels)
 
 
 random.seed(0)
@@ -58,6 +59,7 @@ loss_fcn = nn.CrossEntropyLoss()
 for i in tqdm(range(5)):
     count = 0
     for n, data in enumerate(train_loader, 1):
+        dnn.train()
         d, lb = data
         count += len(d)
         print(n)
@@ -67,6 +69,7 @@ for i in tqdm(range(5)):
         loss = loss_fcn(y_hat, lb)
         loss.backward()
         optimizer.step()
+        dnn.eval()
         p = dnn(d).argmax(-1)
         print('优化后预测:', p)
         optimizer.zero_grad()

@@ -1,7 +1,7 @@
 import nptorch.nn
-import nptorch.functional
 import nptorch.optim
 import nptorch.utils
 import nptorch.random
+from .nn.functional import sigmoid, softmax, relu, dropout
 from .functional import *
-from .tensor import tensor, Tensor
+from .tensor import array, Tensor

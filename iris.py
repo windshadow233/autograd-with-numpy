@@ -34,8 +34,8 @@ def test_model(model, test_dataset: DataLoader):
 
 def load_iris_data():
     iris = load_iris()
-    data = nptorch.tensor(iris['data'])
-    labels = nptorch.tensor(iris['target'])
+    data = nptorch.array(iris['data'])
+    labels = nptorch.array(iris['target'])
     return DataSet(data, labels)
 
 

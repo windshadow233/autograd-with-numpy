@@ -1,75 +1,74 @@
-import nptorch
 import numpy as np
-from .tensor import tensor
+from .tensor import array, Tensor
 
 
 def zeros(shape, dtype=None, requires_grad=False):
-    return tensor(np.zeros(shape=shape), dtype=dtype, requires_grad=requires_grad)
+    return array(np.zeros(shape=shape), dtype=dtype, requires_grad=requires_grad)
 
 
 def ones(shape, dtype=None, requires_grad=False):
-    return tensor(np.ones(shape), dtype=dtype, requires_grad=requires_grad)
+    return array(np.ones(shape), dtype=dtype, requires_grad=requires_grad)
 
 
-def zeros_like(x: nptorch.tensor.Tensor, dtype=None, requires_grad=False):
-    return tensor(np.zeros_like(x.data), dtype=dtype, requires_grad=requires_grad)
+def zeros_like(x: Tensor, dtype=None, requires_grad=False):
+    return array(np.zeros_like(x.data), dtype=dtype, requires_grad=requires_grad)
 
 
-def ones_like(x: nptorch.tensor.Tensor, dtype=None, requires_grad=False):
-    return tensor(np.ones_like(x.data), dtype=dtype, requires_grad=requires_grad)
+def ones_like(x: Tensor, dtype=None, requires_grad=False):
+    return array(np.ones_like(x.data), dtype=dtype, requires_grad=requires_grad)
 
 
-def abs(x: nptorch.tensor.Tensor):
+def abs(x: Tensor):
     return x.abs()
 
 
-def sqrt(x: nptorch.tensor.Tensor):
+def sqrt(x: Tensor):
     return x.sqrt()
 
 
-def sin(x: nptorch.tensor.Tensor):
+def sin(x: Tensor):
     return x.sin()
 
 
-def cos(x: nptorch.tensor.Tensor):
+def cos(x: Tensor):
     return x.cos()
 
 
-def tan(x: nptorch.tensor.Tensor):
+def tan(x: Tensor):
     return x.tan()
 
 
-def sinh(x: nptorch.tensor.Tensor):
+def sinh(x: Tensor):
     return x.sinh()
 
 
-def cosh(x: nptorch.tensor.Tensor):
+def cosh(x: Tensor):
     return x.cosh()
 
 
-def tanh(x: nptorch.tensor.Tensor):
+def tanh(x: Tensor):
     return x.tanh()
 
 
-def log(x: nptorch.tensor.Tensor, base=None):
+def log(x: Tensor, base=None):
     return x.log(base)
 
 
-def exp(x: nptorch.tensor.Tensor):
+def exp(x: Tensor):
     return x.exp()
 
 
-def pow(x: nptorch.tensor.Tensor, exponent):
+def pow(x: Tensor, exponent):
     return x.pow(exponent)
 
 
-def floor(x: nptorch.tensor.Tensor):
+def floor(x: Tensor):
     return x.floor()
 
 
-def ceil(x: nptorch.tensor.Tensor):
+def ceil(x: Tensor):
     return x.ceil()
 
 
-def norm(x: nptorch.tensor.Tensor, p=2.0):
+def norm(x: Tensor, p=2.0):
     return x.norm(p)

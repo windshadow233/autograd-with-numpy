@@ -1,31 +1,44 @@
 import numpy as np
-from ..tensor import tensor
+from ..tensor import array, Tensor
+from ..random import rand_like
 from ..backward import CrossEntropyBackward
 
 
-def relu(x):
+def relu(x: Tensor):
     return x.relu()
 
 
-def sigmoid(x):
+def sigmoid(x: Tensor):
     return x.sigmoid()
 
 
-def softmax(x, dim):
+def softmax(x: Tensor, dim):
     return x.softmax(dim)
 
 
-def one_hot(n, x):
+def one_hot(n, x: Tensor):
     """
     编码one_hot向量
     :param n: 类别数
     :param x: 标签,行张量
     :return: ont_hot张量
     """
-    return tensor(np.eye(n)[x.data])
+    return array(np.eye(n)[x.data])
 
 
-def cross_entropy(x, target):
+def dropout(x: Tensor, p=0.5, training=True):
+    """
+
+    @param p: 神经元失活率
+    """
+    if not 0. <= p <= 1.:
+        raise ValueError(f'dropout probability has to be between 0 and 1, but got {p}')
+    mask = (rand_like(x) > p).float()
+    y = x / (1 - p) * mask if training else x
+    return y
+
+
+def cross_entropy(x: Tensor, target):
     """
     交叉熵
     :param x: 二维张量,每一行表示一个数据

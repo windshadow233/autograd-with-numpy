@@ -1,5 +1,6 @@
 import numpy as np
 import nptorch
+from nptorch.tensor import Tensor
 from .module import Module
 from nptorch.random import normal
 from nptorch.functional import zeros
@@ -18,7 +19,7 @@ class Linear(Module):
     def __repr__(self):
         return f'Linear(in_features={self.in_features}, out_features={self.out_features}, bias={self.use_bias})'
 
-    def forward(self, x: nptorch.tensor.Tensor):
+    def forward(self, x: Tensor):
         result = x.matmul(self.weight.T)
         if self.use_bias:
             result = result + self.bias

@@ -2,7 +2,7 @@ from copy import deepcopy
 from .backward import *
 
 
-def tensor(data, dtype=None, requires_grad=False):
+def array(data, dtype=None, requires_grad=False):
     return Tensor(data, dtype, requires_grad)
 
 

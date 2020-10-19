@@ -1,4 +1,4 @@
-import nptorch
+from nptorch.tensor import Tensor
 from ..functional import cross_entropy
 from .module import Module
 
@@ -11,7 +11,7 @@ class Softmax(Module):
     def __repr__(self):
         return f'Softmax(dim={self.dim})'
 
-    def forward(self, x: nptorch.tensor.Tensor):
+    def forward(self, x: Tensor):
         return x.softmax(self.dim)
 
 
@@ -22,7 +22,7 @@ class Sigmoid(Module):
     def __repr__(self):
         return 'Sigmoid()'
 
-    def forward(self, x: nptorch.tensor.Tensor):
+    def forward(self, x: Tensor):
         return x.sigmoid()
 
 
@@ -33,7 +33,7 @@ class ReLU(Module):
     def __repr__(self):
         return 'ReLU()'
 
-    def forward(self, x: nptorch.tensor.Tensor):
+    def forward(self, x: Tensor):
         return x.relu()
 
 
@@ -44,7 +44,7 @@ class Tanh(Module):
     def __repr__(self):
         return 'Tanh()'
 
-    def forward(self, x):
+    def forward(self, x: Tensor):
         return x.tanh()
 
 
@@ -55,5 +55,5 @@ class CrossEntropyLoss(Module):
     def __repr__(self):
         return 'CrossEntropyLoss()'
 
-    def forward(self, x, target):
+    def forward(self, x: Tensor, target: Tensor):
         return cross_entropy(x, target)
