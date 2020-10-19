@@ -1,2 +1,2 @@
 # autograd_with_numpy
-本项目旨在用numpy实现计算图，从而进行自动求梯度
+本项目旨在用numpy实现计算图，从而进行梯度的自动计算
