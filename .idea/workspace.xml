@@ -2,11 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/my_deeplearning_frame.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/my_deeplearning_frame.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iris.py" beforeDir="false" afterPath="$PROJECT_DIR$/iris.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/backward.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/backward.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/broadcast.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/broadcast.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/functional.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/functional.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/linear.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/linear.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/optim/sgd.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/optim/sgd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/random.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/random.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,7 +66,7 @@
       <recent name="F:\pycharmProjects\my_deeplearning_frame\mnist" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.iris">
+  <component name="RunManager" selected="Python.mnist">
     <configuration name="iris" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="my_deeplearning_frame" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -88,9 +93,6 @@
       <module name="my_deeplearning_frame" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -112,8 +114,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.iris" />
         <item itemvalue="Python.mnist" />
+        <item itemvalue="Python.iris" />
       </list>
     </recent_temporary>
   </component>
@@ -142,7 +144,7 @@
       <workItem from="1603040433886" duration="2517000" />
       <workItem from="1603043943641" duration="737000" />
       <workItem from="1603075534016" duration="4242000" />
-      <workItem from="1603087334562" duration="272000" />
+      <workItem from="1603087334562" duration="2755000" />
     </task>
     <servers />
   </component>
@@ -153,6 +155,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="361" y="91" width="814" height="729" key="#Intentions" timestamp="1603091736143">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="361" y="91" width="814" height="729" key="#Intentions/0.0.1536.864@0.0.1536.864" timestamp="1603091736143" />
     <state x="477" y="57" key="#backward" timestamp="1602861527397">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

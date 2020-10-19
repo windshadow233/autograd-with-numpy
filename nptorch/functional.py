@@ -1,22 +1,22 @@
 import nptorch
 import numpy as np
-from .tensor import array
+from .tensor import tensor
 
 
 def zeros(shape, dtype=None, requires_grad=False):
-    return array(np.zeros(shape=shape), dtype=dtype, requires_grad=requires_grad)
+    return tensor(np.zeros(shape=shape), dtype=dtype, requires_grad=requires_grad)
 
 
 def ones(shape, dtype=None, requires_grad=False):
-    return array(np.ones(shape), dtype=dtype, requires_grad=requires_grad)
+    return tensor(np.ones(shape), dtype=dtype, requires_grad=requires_grad)
 
 
 def zeros_like(x: nptorch.tensor.Tensor, dtype=None, requires_grad=False):
-    return array(np.zeros_like(x.data), dtype=dtype, requires_grad=requires_grad)
+    return tensor(np.zeros_like(x.data), dtype=dtype, requires_grad=requires_grad)
 
 
 def ones_like(x: nptorch.tensor.Tensor, dtype=None, requires_grad=False):
-    return array(np.ones_like(x.data), dtype=dtype, requires_grad=requires_grad)
+    return tensor(np.ones_like(x.data), dtype=dtype, requires_grad=requires_grad)
 
 
 def abs(x: nptorch.tensor.Tensor):

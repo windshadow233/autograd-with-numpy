@@ -8,7 +8,6 @@ from nptorch.functional import zeros
 class Linear(Module):
     def __init__(self, in_features, out_features, use_bias=True):
         super(Linear, self).__init__()
-        super(Linear, self).__init__()
         self.in_features = in_features
         self.out_features = out_features
         self.use_bias = use_bias

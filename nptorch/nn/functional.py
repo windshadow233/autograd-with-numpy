@@ -1,5 +1,5 @@
 import numpy as np
-from ..tensor import array
+from ..tensor import tensor
 from ..backward import CrossEntropyBackward
 
 
@@ -22,7 +22,7 @@ def one_hot(n, x):
     :param x: 标签,行张量
     :return: ont_hot张量
     """
-    return array(np.eye(n)[x.data])
+    return tensor(np.eye(n)[x.data])
 
 
 def cross_entropy(x, target):

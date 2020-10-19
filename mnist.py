@@ -40,7 +40,7 @@ def load_mnist(img_path, label_path):
     with open(img_path, 'rb') as img:
         _, num, rows, cols = struct.unpack('>IIII', img.read(16))
         images = np.fromfile(img, dtype=np.uint8).reshape(num, rows * cols)
-    return nptorch.array(images, dtype=np.float32), nptorch.array(labels)
+    return nptorch.tensor(images, dtype=np.float32), nptorch.tensor(labels)
 
 
 random.seed(0)
@@ -52,7 +52,7 @@ train_loader = DataLoader(train_set, batch_size=64)
 test_loader = DataLoader(test_set, batch_size=64)
 
 dnn = DNN()
-optim = SGD(dnn.parameters(), lr=1e-1, weight_decay=0.001, momentum=0.0)
+optimizer = SGD(dnn.parameters(), lr=1e-1, momentum=0.5)
 loss_fcn = nn.CrossEntropyLoss()
 
 for i in tqdm(range(5)):
@@ -66,10 +66,10 @@ for i in tqdm(range(5)):
         y_hat = dnn(d)
         loss = loss_fcn(y_hat, lb)
         loss.backward()
-        optim.step()
+        optimizer.step()
         p = dnn(d).argmax(-1)
         print('优化后预测:', p)
-        optim.zero_grad()
+        optimizer.zero_grad()
         print(f'优化后的准确比率:{(p == lb).float().sum().item() / len(d)}')
 
 
