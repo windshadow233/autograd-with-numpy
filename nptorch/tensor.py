@@ -768,14 +768,14 @@ class Tensor:
     def reshape(self, *shape):
         result = Tensor(self.data.reshape(shape), requires_grad=self.requires_grad)
         if result.requires_grad:
-            result.children = [(self, self.data.shape)]
+            result.children = [(self, None)]
             result.grad_fn = ReshapeBackward()
         return result
 
     def flatten(self):
         result = Tensor(self.data.flatten(), requires_grad=self.requires_grad)
         if result.requires_grad:
-            result.children = [(self, self.data.shape)]
+            result.children = [(self, None)]
             result.grad_fn = ReshapeBackward()
         return
 
@@ -785,14 +785,14 @@ class Tensor:
         else:
             result = Tensor(self.data.squeeze(), dtype=self.dtype, requires_grad=self.requires_grad)
         if result.requires_grad:
-            result.children = [(self, self.data.shape)]
+            result.children = [(self, None)]
             result.grad_fn = ReshapeBackward()
         return result
 
     def unsqueeze(self, *axes):
         result = Tensor(np.expand_dims(self.data, axes), dtype=self.dtype, requires_grad=self.requires_grad)
         if result.requires_grad:
-            result.children = [(self, self.data.shape)]
+            result.children = [(self, None)]
             result.grad_fn = ReshapeBackward()
         return result
 

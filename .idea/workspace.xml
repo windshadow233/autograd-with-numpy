@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="" />
+    <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/backward.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/backward.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/broadcast.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/broadcast.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,6 +38,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1ilqbeAM9oVs78rKRAe567DUtjt" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -39,6 +49,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="deletionFromPopupRequiresConfirmation" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -50,11 +61,14 @@
       <recent name="F:\pycharmProjects\my_deeplearning_frame\mnist" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.mnist">
+  <component name="RunManager" selected="Python.iris">
     <configuration name="iris" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="my_deeplearning_frame" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -74,6 +88,9 @@
       <module name="my_deeplearning_frame" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -95,8 +112,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.mnist" />
         <item itemvalue="Python.iris" />
+        <item itemvalue="Python.mnist" />
       </list>
     </recent_temporary>
   </component>
@@ -122,12 +139,18 @@
       <workItem from="1602903845248" duration="50743000" />
       <workItem from="1602992481345" duration="34389000" />
       <workItem from="1603040210208" duration="196000" />
-      <workItem from="1603040433886" duration="1923000" />
+      <workItem from="1603040433886" duration="2517000" />
+      <workItem from="1603043943641" duration="737000" />
+      <workItem from="1603075534016" duration="4242000" />
+      <workItem from="1603087334562" duration="272000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
   <component name="WindowStateProjectService">
     <state x="477" y="57" key="#backward" timestamp="1602861527397">
@@ -146,10 +169,14 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.864@0.0.1536.864" timestamp="1602598990627" />
-    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1603037060902">
+    <state x="372" y="24" key="CommitChangelistDialog2" timestamp="1603087606159">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1603037060902" />
+    <state x="372" y="24" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1603087606159" />
+    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1603081224505">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1603081224505" />
     <state width="1493" height="347" key="GridCell.Tab.0.bottom" timestamp="1603040360091">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -182,10 +209,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1493" height="374" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1603004928770" />
-    <state x="270" y="74" key="SettingsEditor" timestamp="1603040464888">
+    <state x="270" y="74" key="SettingsEditor" timestamp="1603043954953">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="270" y="74" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1603040464888" />
+    <state x="270" y="74" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1603043954953" />
     <state width="775" height="439" key="XDebugger.FullValuePopup" timestamp="1602955032185">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

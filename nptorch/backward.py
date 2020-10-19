@@ -305,7 +305,7 @@ class ReshapeBackward(BackwardFcn):
         self.name = 'ReshapeBackward'
 
     def calculate_grad(self, grad, children, place):
-        return grad.reshape(children[0][1])
+        return grad.reshape(children[0][0].shape)
 
 
 class SqrtBackward(BackwardFcn):
@@ -472,7 +472,7 @@ class CrossEntropyBackward(BackwardFcn):
     def calculate_grad(self, grad, children, place):
         x_softmax, target = children[0][1:]
         target = target.data
-        return (x_softmax - target) / target.shape[0]
+        return grad * (x_softmax - target) / target.shape[0]
 
 
 class FloorBackward(BackwardFcn):

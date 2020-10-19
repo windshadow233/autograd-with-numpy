@@ -4,10 +4,11 @@ import numpy as np
 def set_ndim_eq(a: np.ndarray, b: np.ndarray):
     if a.ndim == b.ndim:
         return a, b
-    while a.ndim < b.ndim:
-        a = np.expand_dims(a, 0)
-    while a.ndim > b.ndim:
-        b = np.expand_dims(b, 0)
+    diff_dims = tuple(range(abs(a.ndim - b.ndim)))
+    if a.ndim < b.ndim:
+        a = np.expand_dims(a, diff_dims)
+    else:
+        b = np.expand_dims(b, diff_dims)
     return a, b
 
 
