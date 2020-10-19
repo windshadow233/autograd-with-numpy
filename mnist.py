@@ -11,17 +11,16 @@ from nptorch.utils.data import DataSet, DataLoader
 class DNN(nn.Module):
     def __init__(self):
         super(DNN, self).__init__()
-        self.linear1 = nn.Linear(784, 512)
-        self.linear2 = nn.Linear(512, 128)
-        self.linear3 = nn.Linear(128, 10)
-        self.activate = nn.ReLU()
+        self.layers = nn.Sequential(
+            nn.Linear(784, 512),
+            nn.ReLU(),
+            nn.Linear(512, 128),
+            nn.ReLU(),
+            nn.Linear(128, 10)
+        )
 
     def forward(self, x: nptorch.Tensor):
-        x = self.linear1(x)
-        x = self.activate(x)
-        x = self.linear2(x)
-        x = self.activate(x)
-        x = self.linear3(x)
+        x = self.layers(x)
         return x
 
 

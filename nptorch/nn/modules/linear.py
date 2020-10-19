@@ -16,7 +16,7 @@ class Linear(Module):
             self.bias = zeros(out_features, requires_grad=True)
 
     def extra_repr(self):
-        return f'in_features={self.in_features}, out_features={self.out_features}, bias={self.use_bias}'
+        return f'in_features={self.in_features}, out_features={self.out_features}, use_bias={self.use_bias}'
 
     def forward(self, x: Tensor):
         result = x.matmul(self.weight.T)

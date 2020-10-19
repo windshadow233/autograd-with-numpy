@@ -1,1 +1,1 @@
-from .modules import Module, Linear, Softmax, Sigmoid, ReLU, Tanh, CrossEntropyLoss, Dropout
+from .modules import Module, Linear, Softmax, Sigmoid, ReLU, Tanh, CrossEntropyLoss, Dropout, Sequential
