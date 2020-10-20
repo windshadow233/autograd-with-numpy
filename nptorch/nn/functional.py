@@ -1,8 +1,7 @@
-import numpy as np
-from numpy.lib.stride_tricks import as_strided
 from ..tensor import array, Tensor
 from ..random import rand_like
 from ..backward import CrossEntropyBackward, ConvBackward
+from .conv_operations import *
 
 
 def relu(x: Tensor):
@@ -80,11 +79,19 @@ def max_pool(x: Tensor, kernel_size, stride=None):
     stride = stride or kernel_size
 
 
-def conv(x: Tensor, kernels: Tensor, stride=1):
-    split = split_by_strides(x, *kernels.shape[:-2], stride=stride)
-    output = Tensor(np.tensordot(split, kernels, axes=[(1, 4, 5), (1, 2, 3)]).transpose((0, 3, 1, 2)), requires_grad=x.requires_grad)
+def conv(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=1, padding=(0, 0)):
+    data = x.data
+    padding = ((padding[0], padding[0]), (padding[1], padding[1]))
+    data = padding_zeros(data, padding)
+    split = split_by_strides(data, *kernels.shape[-2:], stride=stride)
+    output = Tensor(np.tensordot(split, kernels.data, axes=[(1, 4, 5), (1, 2, 3)]).transpose((0, 3, 1, 2)), requires_grad=x.requires_grad)
+    if bias is not None:
+        output = output + bias.unsqueeze(-1, -2)
     if output.requires_grad:
         output.children = [(x, None), (kernels, stride)]
+        output.children = [(x, padding), (kernels, stride)]
+        if bias is not None:
+            output.children.append((bias, None))
         output.grad_fn = ConvBackward()
     return output
 
