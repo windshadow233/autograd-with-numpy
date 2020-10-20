@@ -911,7 +911,7 @@ class Tensor:
         矩阵乘法,支持broadcast
         """
         if not isinstance(other, Tensor):
-            raise TypeError(f"argument 'other' (position 1) must be Array, not {type(other)}")
+            raise TypeError(f"argument 'other' (position 1) must be Tensor, not {type(other)}")
         result = Tensor(np.matmul(self.data, other.data), requires_grad=self.requires_grad or other.requires_grad)
         if not result.requires_grad:
             return result

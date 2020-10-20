@@ -171,7 +171,7 @@ class PowerBackward(BackwardFcn):
                 grad = grad.sum(x_tile)
             return grad.reshape(x.shape)
         if isinstance(a, (int, float)):
-            grad = children[1][1] * np.log(a) * grad
+            grad = children[1][1] * math.log(a) * grad
             return grad
         a = a.data.astype(float)
         grad = children[1][1] * np.log(a) * grad
@@ -451,7 +451,7 @@ class ReluBackward(BackwardFcn):
         super(ReluBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
-        return grad * (children[0][0].data > 0).astype(np.float32)
+        return grad * (children[0][0].data > 0.).astype(np.float32)
 
 
 class SigmoidBackward(BackwardFcn):
@@ -561,3 +561,11 @@ class ConvBackward(BackwardFcn):
             return batch_transposed_conv(x, grad, rotate=False, invert=True)
         else:
             return np.sum(grad, (0, -1, -2))
+
+
+"""
+Todo:
+Softmax
+MaxPool
+MeanPool
+"""

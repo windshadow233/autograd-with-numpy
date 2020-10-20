@@ -9,7 +9,7 @@ def split_by_strides(input_data, kernel_x, kernel_y, stride=1):
     """
     将张量按卷积核尺寸与步长进行分割
     :param input_data: 被卷积的张量(四维)
-    :param kernel_x: 卷积核的高度
+    :param kernel_x: 卷积核的长度
     :param kernel_y: 卷积核的宽度
     :param stride: 步长
     :return: output_data: 按卷积步骤展开后的矩阵

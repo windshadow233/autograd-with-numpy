@@ -95,11 +95,6 @@ def conv(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=1, padding=(0, 
     return output
 
 
-def batch_norm(x: Tensor, weight, bias, running_mean, running_var, eps=1e-5):
-    y = weight * (x - running_mean) / (running_var + eps).sqrt() + bias
-    return y
-
-
 def cross_entropy(x: Tensor, target):
     """
     交叉熵

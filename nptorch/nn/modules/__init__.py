@@ -4,4 +4,3 @@ from .convolution import Conv
 from .module import Module, Parameters
 from .activation import Softmax, Sigmoid, ReLU, Tanh, CrossEntropyLoss
 from .container import Sequential
-from .norm import BatchNorm

@@ -10,3 +10,13 @@ class MaxPool(Module):
 
     def forward(self, x: Tensor):
         pass
+
+
+class MeanPool(Module):
+    def __init__(self, kernel_size, stride=None):
+        super(MeanPool, self).__init__()
+        self.stride = stride or kernel_size
+        self.kernel_size = kernel_size
+
+    def forward(self, x: Tensor):
+        pass
