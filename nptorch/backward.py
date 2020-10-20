@@ -1,7 +1,6 @@
 import numpy as np
 import math
 from nptorch.broadcast import get_tile_dims
-from .nn.conv_operations import *
 
 
 class BackwardFcn:
@@ -511,21 +510,4 @@ class ConvBackward(BackwardFcn):
         super(ConvBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
-        padding = children[0][1]
-        if place == 0:
-            kernel, stride = children[1]
-            grad = insert_zero(grad, stride)
-            delta_x_shape = children[0][0].shape[-2] + padding[0][0] * 2, children[0][0].shape[-1] + padding[1][0] * 2
-            add_rows, add_cols = np.array(delta_x_shape) + kernel.shape[-1] - 1 - np.array(grad.shape[-2:])
-            padding_x = np.floor(add_rows / 2).astype(int), np.ceil(add_rows / 2).astype(int)
-            padding_y = np.floor(add_cols / 2).astype(int), np.ceil(add_cols / 2).astype(int)
-            grad = padding_zeros(grad, (padding_x, padding_y))
-            kernel = kernel.data
-            return unwrap_padding(batch_transposed_conv(grad, kernel, rotate=True, invert=False), padding)
-        elif place == 1:
-            x = padding_zeros(children[0][0].data, padding)
-            stride = children[1][1]
-            grad = insert_zero(grad, stride)
-            return batch_transposed_conv(x, grad, rotate=False, invert=True)
-        else:
-            return np.sum(grad, (0, -1, -2))
+        return
