@@ -834,7 +834,7 @@ class Tensor:
         if result.requires_grad:
             result.children = [(self, None)]
             result.grad_fn = ReshapeBackward()
-        return
+        return result
 
     def squeeze(self, *axes):
         if axes:
