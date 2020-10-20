@@ -23,7 +23,7 @@ class Conv(Module):
 
     def extra_repr(self):
         return f'(in_channels={self.in_channels}, out_channels={self.out_channels},' \
-               f' kernel_size={self.kernel_size}, stride={self.stride}, use_bias={self.use_bias})'
+               f' kernel_size={self.kernel_size}, stride={self.stride}, padding={self.padding}, use_bias={self.use_bias})'
 
     def forward(self, x: Tensor):
         b, c, h, w = x.shape

@@ -64,9 +64,9 @@ def insert_zero(x, stride=1):
     """
     if stride == 1:
         return x
-    isize = x.shape
-    result = np.zeros((isize[0], isize[1], (isize[2] - 1) *
-                       stride + 1, (isize[3] - 1) * stride + 1), dtype=np.float32)
+    input_shape = x.shape
+    result = np.zeros((input_shape[0], input_shape[1], (input_shape[2] - 1) *
+                       stride + 1, (input_shape[3] - 1) * stride + 1), dtype=np.float32)
     result[..., ::stride, ::stride] = x
     return result
 
