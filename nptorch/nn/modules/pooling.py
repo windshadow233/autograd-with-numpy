@@ -1,4 +1,3 @@
-import numpy as np
 from nptorch.tensor import Tensor
 from .module import Module
 

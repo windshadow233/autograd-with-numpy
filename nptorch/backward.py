@@ -104,20 +104,20 @@ class DivBackward(BackwardFcn):
         x = children[place][0].data
         a = children[1 - place][0]
         if place == 0:
-            grad = grad / a
             if isinstance(a, (int, float)):
-                return np.ones_like(x) * grad
+                return np.ones_like(x) * grad / a
             a = a.data
+            grad = grad / a
             if x.shape == a.shape:
                 return grad
             x_tiles, _ = get_tile_dims(x, a)
             if x_tiles:
                 grad = np.array(grad.sum(x_tiles))
             return grad.reshape(x.shape)
-        grad = -a / x ** 2. * grad
         if isinstance(a, (int, float)):
-            return grad
+            return -a / x ** 2. * grad
         a = a.data
+        grad = -a / x ** 2. * grad
         if x.shape == a.shape:
             return grad
         x_tiles, _ = get_tile_dims(x, a)
@@ -241,6 +241,24 @@ class MeanBackward(BackwardFcn):
         tiles[axis] = x.data.shape[axis]
         grad = np.tile(grad, tiles)
         grad = grad / x.data.shape[axis]
+        return grad
+
+
+class VarBackward(BackwardFcn):
+    def __init__(self):
+        super(VarBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        x, axis, keepdims = children[0]
+        x = x.data
+        if axis is None:
+            return grad * 2 * (x - np.mean(x)) / (x.size - 1)
+        if not keepdims:
+            grad = np.expand_dims(grad, axis)
+        tiles = np.ones_like(np.array(x.shape))
+        tiles[axis] = x.shape[axis]
+        grad = np.tile(grad, tiles)
+        grad = grad * 2 * (x - np.mean(x, axis)) / (x.shape[axis] - 1)
         return grad
 
 
@@ -502,6 +520,22 @@ class NormBackward(BackwardFcn):
     def calculate_grad(self, grad, children, place):
         child, p, y = children[0]
         return grad * y * child.data ** (p - 1.)
+
+
+class MaxPoolBackward(BackwardFcn):
+    def __init__(self):
+        super(MaxPoolBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        pass
+
+
+class MeanPoolBackward(BackwardFcn):
+    def __init__(self):
+        super(MeanPoolBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        pass
 
 
 class ConvBackward(BackwardFcn):

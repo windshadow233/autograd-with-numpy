@@ -18,6 +18,22 @@ def ones_like(x: Tensor, dtype=None, requires_grad=False):
     return array(np.ones_like(x.data), dtype=dtype, requires_grad=requires_grad)
 
 
+def max(x: Tensor, axis=None, keepdims=False):
+    return x.max(axis, keepdims)
+
+
+def min(x: Tensor, axis=None, keepdims=False):
+    return x.min(axis, keepdims)
+
+
+def mean(x: Tensor, axis=None, keepdims=False):
+    return x.mean(axis, keepdims)
+
+
+def var(x: Tensor, axis=None, keepdims=False):
+    return x.var(axis, keepdims)
+
+
 def abs(x: Tensor):
     return x.abs()
 

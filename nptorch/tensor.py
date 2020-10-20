@@ -423,6 +423,14 @@ class Tensor:
             result.grad_fn = MeanBackward()
         return result
 
+    def var(self, axis=None, keepdims=False):
+        result = Tensor(np.var(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype,
+                        requires_grad=self.requires_grad)
+        if result.requires_grad:
+            result.children = [(self, axis, keepdims)]
+            result.grad_fn = VarBackward()
+        return result
+
     def abs(self):
         y = Tensor(np.abs(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
         if y.requires_grad:
