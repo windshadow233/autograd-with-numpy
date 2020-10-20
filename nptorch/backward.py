@@ -513,7 +513,7 @@ class ConvBackward(BackwardFcn):
         if place == 0:
             kernel, stride = children[1]
             grad = insert_zero(grad, stride)
-            delta_x_shape = children[0][0].shape[-2] + padding[0][0] * 2, children[0][0].shape[-1] + padding[1][0] * 2
+            delta_x_shape = children[0][0].shape[-2] + sum(padding[0]), children[0][0].shape[-1] + sum(padding[1])
             add_rows, add_cols = np.array(delta_x_shape) + kernel.shape[-1] - 1 - np.array(grad.shape[-2:])
             padding_x = np.floor(add_rows / 2).astype(int), np.ceil(add_rows / 2).astype(int)
             padding_y = np.floor(add_cols / 2).astype(int), np.ceil(add_cols / 2).astype(int)
