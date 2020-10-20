@@ -88,7 +88,6 @@ def conv(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=1, padding=(0, 
     if bias is not None:
         output = output + bias.unsqueeze(-1, -2)
     if output.requires_grad:
-        output.children = [(x, None), (kernels, stride)]
         output.children = [(x, padding), (kernels, stride)]
         if bias is not None:
             output.children.append((bias, None))
