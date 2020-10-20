@@ -11,14 +11,8 @@ from nptorch.utils.data import DataSet, DataLoader
 class DNN(nn.Module):
     def __init__(self):
         super(DNN, self).__init__()
-        self.layers1 = nn.Sequential(
-            nn.Conv(1, 32, 5),
-            nn.ReLU(),
-            nn.Conv(32, 64, 3),
-            nn.ReLU()
-        )
-        self.layers2 = nn.Sequential(
-            nn.Linear(22 * 22 * 64, 512),
+        self.layers = nn.Sequential(
+            nn.Linear(784, 512),
             nn.ReLU(),
             nn.Linear(512, 128),
             nn.ReLU(),
@@ -26,9 +20,7 @@ class DNN(nn.Module):
         )
 
     def forward(self, x: nptorch.Tensor):
-        x = self.layers1(x)
-        x = x.reshape(x.shape[0], -1)
-        x = self.layers2(x)
+        x = self.layers(x)
         return x
 
 
@@ -47,7 +39,7 @@ def load_mnist(img_path, label_path):
         labels = np.fromfile(label, dtype=np.uint8)
     with open(img_path, 'rb') as img:
         _, num, rows, cols = struct.unpack('>IIII', img.read(16))
-        images = np.fromfile(img, dtype=np.uint8).reshape(num, 1, rows, cols)
+        images = np.fromfile(img, dtype=np.uint8).reshape(num, rows * cols)
     return nptorch.array(images, dtype=np.float32), nptorch.array(labels)
 
 

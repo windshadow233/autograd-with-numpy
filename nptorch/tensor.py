@@ -115,7 +115,9 @@ class Tensor:
     def strides(self):
         return self.data.strides
 
-    def _check_inplace(self):
+    def _check_inplace(self, other=None):
+        if other is self:
+            raise RuntimeError('Prohibit doing inplace operations with self')
         if self.is_leaf and self.requires_grad:
             raise RuntimeError('a leaf Variable that requires grad has been used in an in-place operation.')
 
@@ -194,7 +196,7 @@ class Tensor:
         return result
 
     def __iadd__(self, other):
-        self._check_inplace()
+        self._check_inplace(other)
         if isinstance(other, (int, float)):
             y = self.data + other
         else:
@@ -204,7 +206,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None), (other, None)]
             self.grad_fn = AddBackward()
-        self.data = y
+        self.data = np.array(y)
         return self
 
     def __neg__(self):
@@ -228,7 +230,7 @@ class Tensor:
         return result
 
     def __isub__(self, other):
-        self._check_inplace()
+        self._check_inplace(other)
         if isinstance(other, (int, float)):
             y = self.data - other
         else:
@@ -238,7 +240,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None), (other, None)]
             self.grad_fn = SubBackward()
-        self.data = y
+        self.data = np.array(y)
         return self
 
     def __rmul__(self, other):
@@ -255,7 +257,7 @@ class Tensor:
         return result
 
     def __imul__(self, other):
-        self._check_inplace()
+        self._check_inplace(other)
         if isinstance(other, (int, float)):
             y = self.data * other
         else:
@@ -265,7 +267,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None), (other, None)]
             self.grad_fn = MulBackward()
-        self.data = y
+        self.data = np.array(y)
         return self
 
     def __rtruediv__(self, other):
@@ -289,7 +291,7 @@ class Tensor:
         return result
 
     def __itruediv__(self, other):
-        self._check_inplace()
+        self._check_inplace(other)
         if isinstance(other, (int, float)):
             y = self.data / other
         else:
@@ -299,7 +301,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None), (other, None)]
             self.grad_fn = DivBackward()
-        self.data = y
+        self.data = np.array(y)
         return self
 
     def __rfloordiv__(self, other):
@@ -323,7 +325,7 @@ class Tensor:
         return result
 
     def __ifloordiv__(self, other):
-        self._check_inplace()
+        self._check_inplace(other)
         if isinstance(other, (int, float)):
             y = self.data // other
         else:
@@ -333,7 +335,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None), (other, None)]
             self.grad_fn = FloordivBackward()
-        self.data = y
+        self.data = np.array(y)
         return self
 
     def __mod__(self, other):
@@ -348,7 +350,7 @@ class Tensor:
         return result
 
     def __imod__(self, other):
-        self._check_inplace()
+        self._check_inplace(other)
         if isinstance(other, Tensor):
             if other.requires_grad:
                 raise RuntimeError("the derivative for 'other' is not implemented")
@@ -359,7 +361,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None), (other, None)]
             self.grad_fn = RemainderBackward()
-        self.data = y
+        self.data = np.array(y)
         return self
 
     def __rpow__(self, power):
@@ -387,7 +389,9 @@ class Tensor:
         return result
 
     def __ipow__(self, power):
-        self._check_inplace()
+        self._check_inplace(power)
+        if power is self:
+            raise RuntimeError('Prohibit doing inplace operations with self')
         if isinstance(power, (int, float)):
             y = np.power(self.data, power)
         else:
@@ -397,7 +401,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, y), (power, y)]
             self.grad_fn = PowerBackward()
-        self.data = y
+        self.data = np.array(y)
         return self
 
     def max(self, axis=None, keepdims=False):
@@ -446,7 +450,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None)]
             self.grad_fn = AbsBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def sqrt(self):
         self._check_type('sqrt')
@@ -465,7 +469,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, y)]
             self.grad_fn = SqrtBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def sin(self):
         self._check_type('sin')
@@ -484,7 +488,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None)]
             self.grad_fn = SinBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def cos(self):
         self._check_type('cos')
@@ -503,7 +507,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None)]
             self.grad_fn = CosBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def tan(self):
         self._check_type('tan')
@@ -522,7 +526,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, y)]
             self.grad_fn = TanBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def sinh(self):
         self._check_type('sinh')
@@ -541,7 +545,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None)]
             self.grad_fn = SinhBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def cosh(self):
         self._check_type('cosh')
@@ -560,7 +564,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None)]
             self.grad_fn = CoshBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def asin(self):
         self._check_type('asin')
@@ -579,7 +583,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None)]
             self.grad_fn = ASinBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def acos(self):
         self._check_type('acos')
@@ -598,7 +602,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None)]
             self.grad_fn = ACosBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def atan(self):
         self._check_type('atan')
@@ -617,7 +621,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None)]
             self.grad_fn = ATanBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def tanh(self):
         self._check_type('tanh')
@@ -636,7 +640,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, y)]
             self.grad_fn = TanhBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def log(self, base=None):
         self._check_type('log')
@@ -667,7 +671,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, base)]
             self.grad_fn = LogBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def exp(self):
         self._check_type('exp')
@@ -686,7 +690,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, y)]
             self.grad_fn = ExpBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def relu(self):
         self._check_type('relu', ('bool', ))
@@ -705,7 +709,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None)]
             self.grad_fn = ReluBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def sigmoid(self):
         self._check_type('sigmoid')
@@ -724,7 +728,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, y)]
             self.grad_fn = SigmoidBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def softmax(self, dim):
         self._check_type('softmax', ('int8', 'int16', 'int32', 'int64', 'float16', 'bool'))
@@ -754,13 +758,13 @@ class Tensor:
             child.children = self.children
             self.children = [(child, dim, y)]
             self.grad_fn = SoftmaxBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def pow(self, power):
         return self.__pow__(power)
 
     def pow_(self, power):
-        self._check_inplace()
+        self._check_inplace(power)
         if isinstance(power, (int, float)):
             y = np.power(self.data, power)
         else:
@@ -768,9 +772,9 @@ class Tensor:
         if self.requires_grad:
             child = deepcopy(self)
             child.children = self.children
-            self.children = [(child, y), (power, y)]
+            self.children = [(child, y), (deepcopy(power), y)]
             self.grad_fn = PowerBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def floor(self):
         self._check_type('floor')
@@ -788,7 +792,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None)]
             self.grad_fn = FloordivBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def ceil(self):
         self._check_type('ceil')
@@ -806,7 +810,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None)]
             self.grad_fn = CeilBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def uniform_(self, low=0, high=1):
         self._check_type('uniform')
@@ -817,7 +821,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None)]
             self.grad_fn = UniformBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def normal_(self, mean=0, std=1):
         self._check_type('normal')
@@ -828,7 +832,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None)]
             self.grad_fn = NormalBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def reshape(self, *shape):
         result = Tensor(self.data.reshape(shape), requires_grad=self.requires_grad)
@@ -883,7 +887,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None)]
             self.grad_fn = FillBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def fill_(self, value):
         self._check_inplace()
@@ -893,7 +897,7 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None)]
             self.grad_fn = FillBackward()
-        self.data = y
+        self.data = np.array(y)
 
     def norm(self, p=2.0):
         self._check_type('norm')
