@@ -949,7 +949,6 @@ class Tensor:
                     child_tensor.grad = Tensor(np.zeros_like(child_tensor.data))
                 if id(self) in child_tensor.calculated:
                     child_tensor.grad = Tensor(np.zeros_like(child_tensor.data))
-                    child_tensor.parents = []
                 child_tensor.grad = child_tensor.grad + Tensor(self.grad_fn.calculate_grad(grad.data, self.children, i), dtype=np.float32)
                 child_tensor.calculated.append(id(self))
                 child_tensor.backward(child_tensor.grad, False)

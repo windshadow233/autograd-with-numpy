@@ -5,6 +5,6 @@ a = x+0
 a.pow_(2)
 b=a
 z = a / (b.sum())
-w = z.sum()
+w = z.sum()+b.sum()
 w.backward()
 print(x.grad)
