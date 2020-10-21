@@ -258,7 +258,7 @@ class VarBackward(BackwardFcn):
         tiles = np.ones_like(np.array(x.shape))
         tiles[axis] = x.shape[axis]
         grad = np.tile(grad, tiles)
-        grad = grad * 2 * (x - np.mean(x, axis)) / (x.shape[axis] - 1)
+        grad = grad * 2 * (x - np.mean(x, axis, keepdims=True)) / (x.shape[axis] - 1)
         return grad
 
 

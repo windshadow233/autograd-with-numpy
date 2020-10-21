@@ -1,6 +1,8 @@
 from copy import deepcopy
 from .backward import *
 
+np.set_printoptions(precision=4, suppress=True)
+
 
 def array(data, dtype=None, requires_grad=False):
     return Tensor(data, dtype, requires_grad)
@@ -193,7 +195,8 @@ class Tensor:
         if isinstance(other, (int, float)):
             result = Tensor(self.data + other, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
-            result = Tensor(self.data + other.data, dtype=self.dtype, requires_grad=self.requires_grad or other.requires_grad)
+            result = Tensor(self.data + other.data, dtype=self.dtype,
+                            requires_grad=self.requires_grad or other.requires_grad)
         if result.requires_grad:
             result.children = [(self, None), (other, None)]
             result.grad_fn = AddBackward()
@@ -227,7 +230,8 @@ class Tensor:
         if isinstance(other, (int, float)):
             result = Tensor(self.data - other, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
-            result = Tensor(self.data - other.data, dtype=self.dtype, requires_grad=self.requires_grad or other.requires_grad)
+            result = Tensor(self.data - other.data, dtype=self.dtype,
+                            requires_grad=self.requires_grad or other.requires_grad)
         if result.requires_grad:
             result.children = [(self, None), (other, None)]
             result.grad_fn = SubBackward()
@@ -254,7 +258,8 @@ class Tensor:
         if isinstance(other, (int, float)):
             result = Tensor(self.data * other, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
-            result = Tensor(self.data * other.data, dtype=self.dtype, requires_grad=self.requires_grad or other.requires_grad)
+            result = Tensor(self.data * other.data, dtype=self.dtype,
+                            requires_grad=self.requires_grad or other.requires_grad)
         if result.requires_grad:
             result.children = [(self, None), (other, None)]
             result.grad_fn = MulBackward()
@@ -278,7 +283,8 @@ class Tensor:
         if isinstance(other, (int, float)):
             result = Tensor(other / self.data, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
-            result = Tensor(other.data / self.data, dtype=self.dtype, requires_grad=self.requires_grad or other.requires_grad)
+            result = Tensor(other.data / self.data, dtype=self.dtype,
+                            requires_grad=self.requires_grad or other.requires_grad)
         if result.requires_grad:
             result.children = [(other, None), (self, None)]
             result.grad_fn = DivBackward()
@@ -288,7 +294,8 @@ class Tensor:
         if isinstance(other, (int, float)):
             result = Tensor(self.data / other, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
-            result = Tensor(self.data / other.data, dtype=self.dtype, requires_grad=self.requires_grad or other.requires_grad)
+            result = Tensor(self.data / other.data, dtype=self.dtype,
+                            requires_grad=self.requires_grad or other.requires_grad)
         if result.requires_grad:
             result.children = [(self, None), (other, None)]
             result.grad_fn = DivBackward()
@@ -312,7 +319,8 @@ class Tensor:
         if isinstance(other, (int, float)):
             result = Tensor(other // self.data, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
-            result = Tensor(other.data // self.data, dtype=self.dtype, requires_grad=self.requires_grad or other.requires_grad)
+            result = Tensor(other.data // self.data, dtype=self.dtype,
+                            requires_grad=self.requires_grad or other.requires_grad)
         if result.requires_grad:
             result.children = [(other, None), (self, None)]
             result.grad_fn = FloordivBackward()
@@ -322,7 +330,8 @@ class Tensor:
         if isinstance(other, (int, float)):
             result = Tensor(self.data // other, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
-            result = Tensor(self.data // other.data, dtype=self.dtype, requires_grad=self.requires_grad or other.requires_grad)
+            result = Tensor(self.data // other.data, dtype=self.dtype,
+                            requires_grad=self.requires_grad or other.requires_grad)
         if result.requires_grad:
             result.children = [(self, None), (other, None)]
             result.grad_fn = FloordivBackward()
@@ -407,7 +416,8 @@ class Tensor:
         return self
 
     def max(self, axis=None, keepdims=False):
-        result = Tensor(np.max(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype, requires_grad=self.requires_grad)
+        result = Tensor(np.max(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype,
+                        requires_grad=self.requires_grad)
         indices = Tensor(np.argmax(self.data, axis=axis), dtype=np.int64)
         if result.requires_grad:
             result.children = [(self, result.data, axis, keepdims)]
@@ -415,7 +425,8 @@ class Tensor:
         return {'values': result, 'indices': indices}
 
     def min(self, axis=None, keepdims=False):
-        result = Tensor(np.min(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype, requires_grad=self.requires_grad)
+        result = Tensor(np.min(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype,
+                        requires_grad=self.requires_grad)
         indices = Tensor(np.argmin(self.data, axis=axis), dtype=np.int64)
         if result.requires_grad:
             result.children = [(self, result.data, axis, keepdims)]
@@ -423,7 +434,8 @@ class Tensor:
         return {'values': result, 'indices': indices}
 
     def mean(self, axis=None, keepdims=False):
-        result = Tensor(np.mean(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype, requires_grad=self.requires_grad)
+        result = Tensor(np.mean(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype,
+                        requires_grad=self.requires_grad)
         if result.requires_grad:
             result.children = [(self, axis, keepdims)]
             result.grad_fn = MeanBackward()
@@ -695,7 +707,7 @@ class Tensor:
         self.data = np.array(y)
 
     def relu(self):
-        self._check_type('relu', ('bool', ))
+        self._check_type('relu', ('bool',))
         y = Tensor(np.maximum(self.data, 0), dtype=self.dtype, requires_grad=self.requires_grad)
         if y.requires_grad:
             y.children = [(self, None)]
@@ -944,7 +956,7 @@ class Tensor:
             if isinstance(child_tensor, Tensor) and child_tensor.requires_grad:
                 if child_tensor.grad is None or id(self) in child_tensor.calculated:
                     child_tensor.grad = Tensor(np.zeros_like(child_tensor.data))
-                child_tensor.grad = child_tensor.grad + Tensor(self.grad_fn.calculate_grad(grad.data, self.children, i), dtype=np.float32)
+                child_tensor.grad = child_tensor.grad + Tensor(self.grad_fn.calculate_grad(grad.data, self.children, i),
+                                                               dtype=np.float32)
                 child_tensor.calculated.append(id(self))
                 child_tensor.backward(child_tensor.grad, False)
-
