@@ -20,6 +20,7 @@ class Tensor:
         self.grad_fn = None
         self.children = None
         self.grad = None
+        self.calculated = []
 
     def __repr__(self):
         return self.__str__()
@@ -52,6 +53,9 @@ class Tensor:
         result.children = [(self, item)]
         result.grad_fn = SliceBackward()
         return result
+
+    def __bool__(self):
+        return self.any().item()
 
     def __eq__(self, other):
         if isinstance(other, Tensor):
@@ -372,7 +376,7 @@ class Tensor:
             y = np.power(power.data, self.data)
             result = Tensor(power, dtype=self.dtype, requires_grad=self.requires_grad or power.requires_grad)
         if result.requires_grad:
-            result.children = [(power, y), (self, y)]
+            result.children = [(power, None), (self, y)]
             result.grad_fn = PowerBackward()
         return result
 
@@ -384,7 +388,7 @@ class Tensor:
             y = np.power(self.data, power.data)
             result = Tensor(y, dtype=self.dtype, requires_grad=self.requires_grad or power.requires_grad)
         if result.requires_grad:
-            result.children = [(self, y), (power, y)]
+            result.children = [(self, None), (power, y)]
             result.grad_fn = PowerBackward()
         return result
 
@@ -399,7 +403,7 @@ class Tensor:
         if self.requires_grad:
             child = deepcopy(self)
             child.children = self.children
-            self.children = [(child, y), (power, y)]
+            self.children = [(child, None), (power, y)]
             self.grad_fn = PowerBackward()
         self.data = np.array(y)
         return self
@@ -433,6 +437,7 @@ class Tensor:
         if result.requires_grad:
             result.children = [(self, axis, keepdims)]
             result.grad_fn = VarBackward()
+            self.add_parent(result)
         return result
 
     def abs(self):
@@ -772,7 +777,7 @@ class Tensor:
         if self.requires_grad:
             child = deepcopy(self)
             child.children = self.children
-            self.children = [(child, y), (deepcopy(power), y)]
+            self.children = [(child, None), (power, y)]
             self.grad_fn = PowerBackward()
         self.data = np.array(y)
 
@@ -782,6 +787,7 @@ class Tensor:
         if result.requires_grad:
             result.children = [(self, None)]
             result.grad_fn = FloorBackward()
+        return result
 
     def floor_(self):
         self._check_type('floor')
@@ -800,6 +806,7 @@ class Tensor:
         if result.requires_grad:
             result.children = [(self, None)]
             result.grad_fn = CeilBackward()
+        return result
 
     def ceil_(self):
         self._check_type('ceil')
@@ -936,12 +943,11 @@ class Tensor:
         if not isinstance(grad, Tensor):
             grad = Tensor(grad)
         for i, child in enumerate(self.children):
-            child = child[0]
-            if isinstance(child, Tensor) and child.requires_grad:
-                if child.grad is None:
-                    child.grad = Tensor(np.zeros_like(child.data))
-                child.grad = child.grad + Tensor(self.grad_fn.calculate_grad(grad.data, self.children, i), dtype=np.float32)
-                child.backward(child.grad, False)
-        if self.requires_grad and not self.is_leaf:
-            self.grad = None
-            self.children = None
+            child_tensor = child[0]
+            if isinstance(child_tensor, Tensor) and child_tensor.requires_grad:
+                if child_tensor.grad is None or self in child_tensor.calculated:
+                    child_tensor.grad = Tensor(np.zeros_like(child_tensor.data))
+                child_tensor.grad = child_tensor.grad + Tensor(self.grad_fn.calculate_grad(grad.data, self.children, i), dtype=np.float32)
+                child_tensor.calculated.append(self)
+                child_tensor.backward(child_tensor.grad, False)
+

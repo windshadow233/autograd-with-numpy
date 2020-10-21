@@ -5,7 +5,7 @@ from .nn.conv_operations import *
 
 class BackwardFcn:
     def __init__(self):
-        self.operands = []
+        pass
 
     def __repr__(self):
         return self.__str__()
@@ -160,10 +160,10 @@ class PowerBackward(BackwardFcn):
         a = children[1 - place][0]
         if place == 0:
             if isinstance(a, (int, float)):
-                grad = a * children[0][1] / x * grad
+                grad = a * np.power(x, a - 1) * grad
                 return grad
             a = a.data.astype(float)
-            grad = a * children[0][1] / x * grad
+            grad = a * np.power(x, a - 1) * grad
             if x.shape == a.shape:
                 return grad
             x_tile, _ = get_tile_dims(x, a)
