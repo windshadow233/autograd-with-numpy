@@ -953,6 +953,4 @@ class Tensor:
                 child_tensor.grad = child_tensor.grad + Tensor(self.grad_fn.calculate_grad(grad.data, self.children, i), dtype=np.float32)
                 child_tensor.calculated.append(id(self))
                 child_tensor.backward(child_tensor.grad, False)
-        if self.requires_grad and not self.is_leaf:
-            self.calculated = []
 

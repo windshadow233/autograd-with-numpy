@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,7 +59,7 @@
       <recent name="F:\pycharmProjects\my_deeplearning_frame\mnist" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.mnist">
+  <component name="RunManager" selected="Python.test">
     <configuration name="iris" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -175,8 +173,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.mnist" />
         <item itemvalue="Python.test" />
+        <item itemvalue="Python.mnist" />
         <item itemvalue="Python.linear" />
         <item itemvalue="Python.tensor" />
         <item itemvalue="Python.iris" />
@@ -213,7 +211,7 @@
       <workItem from="1603200850322" duration="3719000" />
       <workItem from="1603204596676" duration="10178000" />
       <workItem from="1603215405002" duration="1477000" />
-      <workItem from="1603250507284" duration="9307000" />
+      <workItem from="1603250507284" duration="9851000" />
     </task>
     <servers />
   </component>
@@ -260,10 +258,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="372" y="24" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1603087606159" />
-    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1603262350775">
+    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1603263287822">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1603262350775" />
+    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1603263287822" />
     <state width="1493" height="415" key="GridCell.Tab.0.bottom" timestamp="1603261284492">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
