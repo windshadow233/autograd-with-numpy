@@ -1,4 +1,5 @@
 import math
+from itertools import product
 from nptorch.broadcast import get_tile_dims
 from .nn.conv_operations import *
 
@@ -553,12 +554,12 @@ class MeanPoolBackward(BackwardFcn):
 
     def calculate_grad(self, grad, children, place):
         x, kernel_size, stride = children[0]
-        grad = grad.repeat(kernel_size, axis=-1).repeat(kernel_size, axis=-2)
-        current_shape = grad.shape[-2:]
-        if current_shape != x.shape[-2:]:
-            pad_x, pad_y = x.shape[-2] - current_shape[0], x.shape[-1] - current_shape[1]
-            grad = np.pad(grad, ((0, 0), (0, 0), (0, pad_x), (0, pad_y)), 'constant', constant_values=0)
-        return grad / kernel_size ** 2.
+        new_grad = np.zeros_like(x.data)
+        grad = grad / kernel_size ** 2
+        B, C, H, W = grad.shape
+        for b, c, h, w in product(range(B), range(C), range(H), range(W)):
+            new_grad[b, c, h * stride: h * stride + kernel_size, w * stride: w * stride + kernel_size] += grad[b, c, h, w]
+        return new_grad
 
 
 class MaxPoolBackward(BackwardFcn):
@@ -572,5 +573,4 @@ class MaxPoolBackward(BackwardFcn):
 Todo:
 Softmax
 MaxPool
-MeanPool
 """

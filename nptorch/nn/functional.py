@@ -69,9 +69,8 @@ def max_pool(x: Tensor, kernel_size):
     stride = kernel_size
 
 
-def mean_pool(x: Tensor, kernel_size):
-    # stride = stride or kernel_size
-    stride = kernel_size
+def mean_pool(x: Tensor, kernel_size, stride):
+    stride = stride or kernel_size
     split = split_by_strides(x.data, kernel_size, kernel_size, stride)
     mean = np.mean(split, axis=(-1, -2))
     output = Tensor(mean, requires_grad=x.requires_grad)
