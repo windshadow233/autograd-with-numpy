@@ -558,7 +558,8 @@ class MeanPoolBackward(BackwardFcn):
         grad = grad / kernel_size ** 2
         B, C, H, W = grad.shape
         for b, c, h, w in product(range(B), range(C), range(H), range(W)):
-            new_grad[b, c, h * stride: h * stride + kernel_size, w * stride: w * stride + kernel_size] += grad[b, c, h, w]
+            new_grad[b, c, h * stride: h * stride + kernel_size, w * stride: w * stride + kernel_size] += grad[
+                b, c, h, w]
         return new_grad
 
 
@@ -567,10 +568,16 @@ class MaxPoolBackward(BackwardFcn):
         super(MaxPoolBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
-        pass
+        x, argmax, kernel_size, stride = children[0]
+        new_grad = np.zeros_like(x.data)
+        B, C, H, W = grad.shape
+        for index, m in zip(product(range(B), range(C), range(H), range(W)), argmax):
+            b, c, h, w = index
+            mh, mw = m // kernel_size, m % kernel_size
+            new_grad[b, c, h * stride + mh, w * stride + mw] += grad[b, c, h, w]
+        return new_grad
 
 """
 Todo:
 Softmax
-MaxPool
 """

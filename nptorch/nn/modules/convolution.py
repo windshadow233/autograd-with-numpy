@@ -22,8 +22,8 @@ class Conv(Module):
             self.bias = nptorch.zeros(out_channels, requires_grad=True)
 
     def extra_repr(self):
-        return f'(in_channels={self.in_channels}, out_channels={self.out_channels},' \
-               f' kernel_size={self.kernel_size}, stride={self.stride}, padding={self.padding}, use_bias={self.use_bias})'
+        return f'in_channels={self.in_channels}, out_channels={self.out_channels},' \
+               f' kernel_size={self.kernel_size}, stride={self.stride}, padding={self.padding}, use_bias={self.use_bias}'
 
     def forward(self, x: Tensor):
         b, c, h, w = x.shape

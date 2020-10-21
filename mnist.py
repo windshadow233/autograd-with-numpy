@@ -8,11 +8,19 @@ from nptorch.optim import SGD
 from nptorch.utils.data import DataSet, DataLoader
 
 
-class DNN(nn.Module):
+class CNN(nn.Module):
     def __init__(self):
-        super(DNN, self).__init__()
-        self.layers = nn.Sequential(
-            nn.Linear(784, 512),
+        super(CNN, self).__init__()
+        self.layers1 = nn.Sequential(
+            nn.Conv(1, 8, 3, padding=(1, 1)),
+            nn.MaxPool(2),
+            nn.ReLU(),
+            nn.Conv(8, 16, 3, padding=(1, 1)),
+            nn.MaxPool(2),
+            nn.ReLU()
+        )
+        self.layers2 = nn.Sequential(
+            nn.Linear(16 * 7 * 7, 512),
             nn.ReLU(),
             nn.Linear(512, 128),
             nn.ReLU(),
@@ -20,7 +28,9 @@ class DNN(nn.Module):
         )
 
     def forward(self, x: nptorch.Tensor):
-        x = self.layers(x)
+        x = self.layers1(x)
+        x = x.reshape(x.shape[0], -1)
+        x = self.layers2(x)
         return x
 
 
@@ -39,7 +49,7 @@ def load_mnist(img_path, label_path):
         labels = np.fromfile(label, dtype=np.uint8)
     with open(img_path, 'rb') as img:
         _, num, rows, cols = struct.unpack('>IIII', img.read(16))
-        images = np.fromfile(img, dtype=np.uint8).reshape(num, rows * cols)
+        images = np.fromfile(img, dtype=np.uint8).reshape(num, 1, rows, cols)
     return nptorch.array(images, dtype=np.float32), nptorch.array(labels)
 
 
@@ -51,29 +61,29 @@ test_set = DataSet(test_data, test_lbs, transform=lambda x: (x / 255))
 train_loader = DataLoader(train_set, batch_size=64)
 test_loader = DataLoader(test_set, batch_size=64)
 
-dnn = DNN()
-optimizer = SGD(dnn.parameters(), lr=5e-2, momentum=0.7)
+cnn = CNN()
+optimizer = SGD(cnn.parameters(), lr=5e-2, momentum=0.7)
 loss_fcn = nn.CrossEntropyLoss()
 
 for i in tqdm(range(5)):
     count = 0
     for n, data in enumerate(train_loader, 1):
-        dnn.train()
+        cnn.train()
         d, lb = data
         count += len(d)
         print(n)
         print(count)
         print('标签:', lb)
-        y_hat = dnn(d)
+        y_hat = cnn(d)
         loss = loss_fcn(y_hat, lb)
         loss.backward()
         optimizer.step()
-        dnn.eval()
-        p = dnn(d).argmax(-1)
+        cnn.eval()
+        p = cnn(d).argmax(-1)
         print('优化后预测:', p)
         optimizer.zero_grad()
         print(f'优化后的准确比率:{(p == lb).float().sum().item() / len(d)}')
 
 
-print(f'测试集准确率{test_model(dnn, test_loader)}')
-print(f'训练集准确率{test_model(dnn, train_loader)}')
+print(f'测试集准确率{test_model(cnn, test_loader)}')
+print(f'训练集准确率{test_model(cnn, train_loader)}')
