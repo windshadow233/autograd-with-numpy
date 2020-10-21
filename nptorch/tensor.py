@@ -55,7 +55,7 @@ class Tensor:
         return result
 
     def __bool__(self):
-        return self.any().item()
+        return self.all().item()
 
     def __eq__(self, other):
         if isinstance(other, Tensor):
@@ -121,7 +121,7 @@ class Tensor:
 
     def _check_inplace(self, other=None):
         if other is self:
-            raise RuntimeError('Prohibit doing inplace operations with self')
+            raise RuntimeError('prohibit doing inplace operations with self')
         if self.is_leaf and self.requires_grad:
             raise RuntimeError('a leaf Variable that requires grad has been used in an in-place operation.')
 
@@ -394,8 +394,6 @@ class Tensor:
 
     def __ipow__(self, power):
         self._check_inplace(power)
-        if power is self:
-            raise RuntimeError('Prohibit doing inplace operations with self')
         if isinstance(power, (int, float)):
             y = np.power(self.data, power)
         else:
@@ -437,7 +435,6 @@ class Tensor:
         if result.requires_grad:
             result.children = [(self, axis, keepdims)]
             result.grad_fn = VarBackward()
-            self.add_parent(result)
         return result
 
     def abs(self):
@@ -571,6 +568,25 @@ class Tensor:
             self.grad_fn = CoshBackward()
         self.data = np.array(y)
 
+    def tanh(self):
+        self._check_type('tanh')
+        y = Tensor(np.tanh(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
+        if y.requires_grad:
+            y.children = [(self, y.data)]
+            y.grad_fn = TanhBackward()
+        return y
+
+    def tanh_(self):
+        self._check_type('tanh')
+        self._check_inplace()
+        y = np.tanh(self.data)
+        if self.requires_grad:
+            child = deepcopy(self)
+            child.children = self.children
+            self.children = [(child, y)]
+            self.grad_fn = TanhBackward()
+        self.data = np.array(y)
+
     def asin(self):
         self._check_type('asin')
         y = Tensor(np.arcsin(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
@@ -626,25 +642,6 @@ class Tensor:
             child.children = self.children
             self.children = [(child, None)]
             self.grad_fn = ATanBackward()
-        self.data = np.array(y)
-
-    def tanh(self):
-        self._check_type('tanh')
-        y = Tensor(np.tanh(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
-        if y.requires_grad:
-            y.children = [(self, y.data)]
-            y.grad_fn = TanhBackward()
-        return y
-
-    def tanh_(self):
-        self._check_type('tanh')
-        self._check_inplace()
-        y = np.tanh(self.data)
-        if self.requires_grad:
-            child = deepcopy(self)
-            child.children = self.children
-            self.children = [(child, y)]
-            self.grad_fn = TanhBackward()
         self.data = np.array(y)
 
     def log(self, base=None):
@@ -906,14 +903,14 @@ class Tensor:
             self.grad_fn = FillBackward()
         self.data = np.array(y)
 
-    def norm(self, p=2.0):
+    def norm(self, p=2.):
         self._check_type('norm')
         data = self.data
         s = (np.abs(data) ** p).sum()
-        y = s ** (1 / p)
-        result = Tensor(y, dtype=self.dtype, requires_grad=self.requires_grad)
+        y = s ** (1. / p - 1.)
+        result = Tensor(y * s, dtype=self.dtype, requires_grad=self.requires_grad)
         if result.requires_grad:
-            result.children = [(self, p, y / s)]
+            result.children = [(self, p, y)]
             result.grad_fn = NormBackward()
         return result
 

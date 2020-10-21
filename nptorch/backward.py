@@ -522,22 +522,6 @@ class NormBackward(BackwardFcn):
         return grad * y * child.data ** (p - 1.)
 
 
-class MaxPoolBackward(BackwardFcn):
-    def __init__(self):
-        super(MaxPoolBackward, self).__init__()
-
-    def calculate_grad(self, grad, children, place):
-        pass
-
-
-class MeanPoolBackward(BackwardFcn):
-    def __init__(self):
-        super(MeanPoolBackward, self).__init__()
-
-    def calculate_grad(self, grad, children, place):
-        pass
-
-
 class ConvBackward(BackwardFcn):
     def __init__(self):
         super(ConvBackward, self).__init__()
@@ -562,6 +546,27 @@ class ConvBackward(BackwardFcn):
         else:
             return np.sum(grad, (0, -1, -2))
 
+
+class MeanPoolBackward(BackwardFcn):
+    def __init__(self):
+        super(MeanPoolBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        x, kernel_size, stride = children[0]
+        grad = grad.repeat(kernel_size, axis=-1).repeat(kernel_size, axis=-2)
+        current_shape = grad.shape[-2:]
+        if current_shape != x.shape[-2:]:
+            pad_x, pad_y = x.shape[-2] - current_shape[0], x.shape[-1] - current_shape[1]
+            grad = np.pad(grad, ((0, 0), (0, 0), (0, pad_x), (0, pad_y)), 'constant', constant_values=0)
+        return grad / kernel_size ** 2.
+
+
+class MaxPoolBackward(BackwardFcn):
+    def __init__(self):
+        super(MaxPoolBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        pass
 
 """
 Todo:

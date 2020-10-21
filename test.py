@@ -1,10 +1,8 @@
 import nptorch
 
-x = nptorch.Tensor([2.,3], requires_grad=True)
-a = x+0
-a.pow_(2)
-b=a
-z = a / (b.sum())
-w = z.sum()+b.sum()
-w.backward()
+
+nptorch.random.seed(0)
+x = nptorch.random.randint(size=(2, 3,4,4),low=0, high=5, dtype=float, requires_grad=True)
+y = nptorch.mean_pool(x, 2)
+y.tan().sum().backward()
 print(x.grad)

@@ -52,7 +52,7 @@ train_loader = DataLoader(train_set, batch_size=64)
 test_loader = DataLoader(test_set, batch_size=64)
 
 dnn = DNN()
-optimizer = SGD(dnn.parameters(), lr=1e-1, momentum=0.5)
+optimizer = SGD(dnn.parameters(), lr=5e-2, momentum=0.7)
 loss_fcn = nn.CrossEntropyLoss()
 
 for i in tqdm(range(5)):
