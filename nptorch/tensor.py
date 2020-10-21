@@ -1,7 +1,7 @@
 from copy import deepcopy
 from .backward import *
 
-np.set_printoptions(precision=4, suppress=True)
+# np.set_printoptions(precision=4, suppress=True)
 
 
 def array(data, dtype=None, requires_grad=False):

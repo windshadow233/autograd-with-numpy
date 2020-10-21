@@ -253,13 +253,13 @@ class VarBackward(BackwardFcn):
         x, axis, keepdims = children[0]
         x = x.data
         if axis is None:
-            return grad * 2 * (x - np.mean(x)) / (x.size - 1)
+            return grad * 2. * (x - np.mean(x)) / (x.size - 1.)
         if not keepdims:
             grad = np.expand_dims(grad, axis)
         tiles = np.ones_like(np.array(x.shape))
         tiles[axis] = x.shape[axis]
         grad = np.tile(grad, tiles)
-        grad = grad * 2 * (x - np.mean(x, axis, keepdims=True)) / (x.shape[axis] - 1)
+        grad = grad * 2. * (x - np.mean(x, axis, keepdims=True)) / (x.shape[axis] - 1.)
         return grad
 
 
@@ -269,7 +269,7 @@ class AbsBackward(BackwardFcn):
 
     def calculate_grad(self, grad, children, place):
         x = children[0][0].data
-        return (2. * (x >= 0).astype(float) - 1.) * grad
+        return (2. * (x >= 0.).astype(float) - 1.) * grad
 
 
 class TBackward(BackwardFcn):
@@ -576,6 +576,22 @@ class MaxPoolBackward(BackwardFcn):
             mh, mw = m // kernel_size, m % kernel_size
             new_grad[b, c, h * stride + mh, w * stride + mw] += grad[b, c, h, w]
         return new_grad
+
+
+# class BatchNormBackward(BackwardFcn):
+#     def __init__(self):
+#         super(BatchNormBackward, self).__init__()
+#
+#     def calculate_grad(self, grad, children, place):
+#         x, x_hat, var, mean, eps= children[0]
+#         gamma = children[1][0]
+#         beta = children[2][0]
+#         n = grad.shape[0]
+#         if place == 0:
+#             return grad * gamma.data / (n * np.sqrt(var + eps))
+#         elif place == 1:
+#             return np.sum(np.mean(grad * x_hat, 0))
+
 
 """
 Todo:

@@ -1,1 +1,2 @@
-from .modules import Module, Linear, Softmax, Sigmoid, ReLU, Tanh, CrossEntropyLoss, Dropout, Sequential, Conv, MaxPool, MeanPool
+from .modules import Module, Linear, Softmax, Sigmoid, ReLU, Tanh, CrossEntropyLoss, \
+    Dropout, Sequential, Conv, MaxPool, MeanPool, BatchNorm

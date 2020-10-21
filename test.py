@@ -1,4 +1,3 @@
 import nptorch
 nptorch.random.seed(0)
-x = nptorch.random.randint(size=(2, 3, 4, 5), low=0, high=5, dtype=float, requires_grad=True)
-y = nptorch.max_pool(x, 2, 1)
+x = nptorch.random.rand(size=(5), dtype=float, requires_grad=True)

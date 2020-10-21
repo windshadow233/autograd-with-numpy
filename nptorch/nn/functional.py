@@ -87,6 +87,12 @@ def max_pool(x: Tensor, kernel_size, stride=None):
     return output
 
 
+def batch_norm(x: Tensor, gamma: Tensor, beta: Tensor, running_mean: Tensor, running_var: Tensor, eps=1e-5):
+    x_hat = (x - running_mean) / (running_var + eps).sqrt()
+    output = gamma * x_hat + beta
+    return output
+
+
 def cross_entropy(x: Tensor, target):
     """
     交叉熵
