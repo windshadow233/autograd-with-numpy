@@ -1,4 +1,5 @@
 from nptorch.tensor import Tensor
+from ..parameter import Parameter
 from .module import Module
 from ..functional import batch_norm
 
@@ -10,8 +11,13 @@ class BatchNorm(Module):
         self.eps = eps
         self.momentum = momentum
         self.affine = affine
-        self.gamma = Tensor(1., requires_grad=affine)
-        self.beta = Tensor(0., requires_grad=affine)
+        if affine:
+            self.gamma = Parameter(Tensor(1.))
+            self.beta = Parameter(Tensor(0.))
+        else:
+            self.gamma = Tensor(1.)
+            self.beta = Tensor(1.)
+
         self.running_mean = Tensor(0.)
         self.running_var = Tensor(1.)
 

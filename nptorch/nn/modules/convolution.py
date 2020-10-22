@@ -1,6 +1,7 @@
 import numpy as np
 import nptorch
 from nptorch.tensor import Tensor
+from ..parameter import Parameter
 from nptorch.random import normal
 from ..functional import conv
 from .module import Module
@@ -16,10 +17,10 @@ class Conv(Module):
         self.padding = padding
         self.use_bias = use_bias
         n = out_channels * kernel_size ** 2
-        self.kernels = normal((out_channels, in_channels, kernel_size, kernel_size), mean=0., std=np.sqrt(2 / n),
-                              requires_grad=True)
+        self.kernels = Parameter(
+            normal((out_channels, in_channels, kernel_size, kernel_size), mean=0., std=np.sqrt(2 / n)))
         if self.use_bias:
-            self.bias = nptorch.zeros(out_channels, requires_grad=True)
+            self.bias = Parameter(nptorch.zeros(out_channels))
 
     def extra_repr(self):
         return f'in_channels={self.in_channels}, out_channels={self.out_channels},' \

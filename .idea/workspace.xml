@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nptorch/nn/parameter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/convolution.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/convolution.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/linear.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/linear.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/module.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/norm.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/norm.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +65,7 @@
       <recent name="F:\pycharmProjects\my_deeplearning_frame\mnist" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunManager" selected="Python.mnist">
     <configuration name="functional" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -151,6 +155,9 @@
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -175,8 +182,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test" />
         <item itemvalue="Python.mnist" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.functional" />
         <item itemvalue="Python.linear" />
         <item itemvalue="Python.tensor" />
@@ -216,6 +223,7 @@
       <workItem from="1603250507284" duration="40002000" />
       <workItem from="1603342518125" duration="29000" />
       <workItem from="1603342597206" duration="25022000" />
+      <workItem from="1603370666283" duration="2075000" />
     </task>
     <servers />
   </component>
@@ -262,10 +270,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="372" y="24" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1603087606159" />
-    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1603366532850">
+    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1603370905031">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1603366532850" />
+    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1603370905031" />
     <state width="1493" height="401" key="GridCell.Tab.0.bottom" timestamp="1603369332439">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

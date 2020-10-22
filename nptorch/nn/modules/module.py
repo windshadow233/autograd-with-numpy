@@ -1,4 +1,4 @@
-from nptorch.tensor import Tensor
+from ..parameter import Parameter
 
 
 def indent(s: str):
@@ -58,7 +58,7 @@ class Module:
         raise NotImplementedError
 
     def parameters(self, is_first_call=True):
-        params = [v for v in self.__dict__.values() if isinstance(v, Tensor) and v.requires_grad]
+        params = [v for v in self.__dict__.values() if isinstance(v, Parameter)]
         for module in self.children():
             params.extend(module.parameters(False))
         if is_first_call:
