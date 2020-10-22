@@ -228,6 +228,24 @@ class MinBackward(BackwardFcn):
         return grad * (values.data == min_values).astype(int)
 
 
+class MeanBackward(BackwardFcn):
+    def __init__(self):
+        super(MeanBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        x, axis, keepdims = children[0]
+        x = x.data
+        if axis is None:
+            return grad / x.size
+        if not keepdims:
+            grad = np.expand_dims(grad, axis)
+        tiles = np.ones_like(np.array(x.shape))
+        tiles[axis] = x.shape[axis]
+        grad = np.tile(grad, tiles)
+        grad = grad / x.shape[axis]
+        return grad
+
+
 class VarBackward(BackwardFcn):
     def __init__(self):
         super(VarBackward, self).__init__()
