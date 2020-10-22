@@ -17,16 +17,15 @@ class CNN(nn.Module):
             nn.ReLU(),
             nn.Conv(8, 16, 3, padding=(1, 1)),
             nn.MaxPool(2),
+            nn.ReLU(),
+            nn.Conv(16, 32, 3, padding=(1, 1)),
+            nn.MaxPool(2),
             nn.ReLU()
         )
         self.layers2 = nn.Sequential(
-            nn.Linear(16 * 7 * 7, 512),
+            nn.Linear(32 * 3 * 3, 64),
             nn.ReLU(),
-            nn.Dropout(0.5),
-            nn.Linear(512, 128),
-            nn.ReLU(),
-            nn.Dropout(0.5),
-            nn.Linear(128, 10)
+            nn.Linear(64, 10)
         )
 
     def forward(self, x: nptorch.Tensor):

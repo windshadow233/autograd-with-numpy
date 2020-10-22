@@ -5,7 +5,7 @@
 猥琐处理了有环图的情形，增加了均值池化层和最大池化层
 
 ## 2020/10/20
-增加可做padding的卷积层Conv及其backward
+增加可做padding的卷积层Conv及其backward，使用卷积mnist准确率进一步提升，证明卷积没写错
 
 ## 2020/10/19
 实现Dropout层，完善SGD（增加动量，L1、L2正则化），模仿pytorch对代码进行良好封装、模仿pytorch实现模型的可视化打印功能

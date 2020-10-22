@@ -198,7 +198,6 @@ class Tensor:
             result = Tensor(self.data + other.data, dtype=self.dtype,
                             requires_grad=self.requires_grad or other.requires_grad)
         if result.requires_grad:
-
             result.children = [(self, None), (other, None)]
             result.grad_fn = AddBackward()
         return result
@@ -234,7 +233,6 @@ class Tensor:
             result = Tensor(self.data - other.data, dtype=self.dtype,
                             requires_grad=self.requires_grad or other.requires_grad)
         if result.requires_grad:
-
             result.children = [(self, None), (other, None)]
             result.grad_fn = SubBackward()
         return result
@@ -263,7 +261,6 @@ class Tensor:
             result = Tensor(self.data * other.data, dtype=self.dtype,
                             requires_grad=self.requires_grad or other.requires_grad)
         if result.requires_grad:
-
             result.children = [(self, None), (other, None)]
             result.grad_fn = MulBackward()
         return result
@@ -289,7 +286,6 @@ class Tensor:
             result = Tensor(other.data / self.data, dtype=self.dtype,
                             requires_grad=self.requires_grad or other.requires_grad)
         if result.requires_grad:
-
             result.children = [(other, None), (self, None)]
             result.grad_fn = DivBackward()
         return result
@@ -301,9 +297,7 @@ class Tensor:
             result = Tensor(self.data / other.data, dtype=self.dtype,
                             requires_grad=self.requires_grad or other.requires_grad)
         if result.requires_grad:
-
             result.children = [(self, None), (other, None)]
-            del other
             result.grad_fn = DivBackward()
         return result
 
@@ -328,7 +322,6 @@ class Tensor:
             result = Tensor(other.data // self.data, dtype=self.dtype,
                             requires_grad=self.requires_grad or other.requires_grad)
         if result.requires_grad:
-
             result.children = [(other, None), (self, None)]
             result.grad_fn = FloordivBackward()
         return result
@@ -340,7 +333,6 @@ class Tensor:
             result = Tensor(self.data // other.data, dtype=self.dtype,
                             requires_grad=self.requires_grad or other.requires_grad)
         if result.requires_grad:
-
             result.children = [(self, None), (other, None)]
             result.grad_fn = FloordivBackward()
         return result
@@ -366,7 +358,6 @@ class Tensor:
             other = other.data
         result = Tensor(self.data % other, dtype=self.dtype, requires_grad=self.requires_grad)
         if result.requires_grad:
-
             result.children = [(self, None), (other, None)]
             result.grad_fn = RemainderBackward()
         return result

@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/backward.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/backward.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
@@ -55,7 +53,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="deletionFromPopupRequiresConfirmation" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../LFW" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../cTensor-master" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -218,7 +216,7 @@
       <workItem from="1603215405002" duration="1477000" />
       <workItem from="1603250507284" duration="40002000" />
       <workItem from="1603342518125" duration="29000" />
-      <workItem from="1603342597206" duration="9012000" />
+      <workItem from="1603342597206" duration="17506000" />
     </task>
     <servers />
   </component>
@@ -245,10 +243,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="421" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.864@0.0.1536.864" timestamp="1602996164476" />
-    <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1603192625698">
+    <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1603360887636">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.864@0.0.1536.864" timestamp="1603192625698" />
+    <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.864@0.0.1536.864" timestamp="1603360887636" />
     <state x="477" y="57" key="#iris" timestamp="1603188191023">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -257,50 +255,50 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="477" y="57" key="#mnist/0.0.1536.864@0.0.1536.864" timestamp="1603126188553" />
-    <state x="524" y="134" key="#xdebugger.evaluate" timestamp="1603261020527">
+    <state x="524" y="134" key="#xdebugger.evaluate" timestamp="1603359567043">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="524" y="134" key="#xdebugger.evaluate/0.0.1536.864@0.0.1536.864" timestamp="1603261020527" />
+    <state x="524" y="134" key="#xdebugger.evaluate/0.0.1536.864@0.0.1536.864" timestamp="1603359567043" />
     <state x="372" y="24" key="CommitChangelistDialog2" timestamp="1603087606159">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="372" y="24" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1603087606159" />
-    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1603346019467">
+    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1603353341221">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1603346019467" />
-    <state width="723" height="401" key="GridCell.Tab.0.bottom" timestamp="1603348860598">
+    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1603353341221" />
+    <state width="1493" height="401" key="GridCell.Tab.0.bottom" timestamp="1603360266188">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="723" height="401" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1603348860598" />
-    <state width="723" height="401" key="GridCell.Tab.0.center" timestamp="1603348860597">
+    <state width="1493" height="401" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1603360266188" />
+    <state width="1493" height="401" key="GridCell.Tab.0.center" timestamp="1603360266188">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="723" height="401" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1603348860597" />
-    <state width="723" height="401" key="GridCell.Tab.0.left" timestamp="1603348860597">
+    <state width="1493" height="401" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1603360266188" />
+    <state width="1493" height="401" key="GridCell.Tab.0.left" timestamp="1603360266188">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="723" height="401" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1603348860597" />
-    <state width="723" height="401" key="GridCell.Tab.0.right" timestamp="1603348860597">
+    <state width="1493" height="401" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1603360266188" />
+    <state width="1493" height="401" key="GridCell.Tab.0.right" timestamp="1603360266188">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="723" height="401" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1603348860597" />
-    <state width="723" height="401" key="GridCell.Tab.1.bottom" timestamp="1603348860598">
+    <state width="1493" height="401" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1603360266188" />
+    <state width="1493" height="401" key="GridCell.Tab.1.bottom" timestamp="1603360266189">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="723" height="401" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1603348860598" />
-    <state width="723" height="401" key="GridCell.Tab.1.center" timestamp="1603348860598">
+    <state width="1493" height="401" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1603360266189" />
+    <state width="1493" height="401" key="GridCell.Tab.1.center" timestamp="1603360266189">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="723" height="401" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1603348860598" />
-    <state width="723" height="401" key="GridCell.Tab.1.left" timestamp="1603348860598">
+    <state width="1493" height="401" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1603360266189" />
+    <state width="1493" height="401" key="GridCell.Tab.1.left" timestamp="1603360266188">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="723" height="401" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1603348860598" />
-    <state width="723" height="401" key="GridCell.Tab.1.right" timestamp="1603348860598">
+    <state width="1493" height="401" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1603360266188" />
+    <state width="1493" height="401" key="GridCell.Tab.1.right" timestamp="1603360266189">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="723" height="401" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1603348860598" />
+    <state width="1493" height="401" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1603360266189" />
     <state x="270" y="74" key="SettingsEditor" timestamp="1603342603718">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -338,7 +336,7 @@
     <SUITE FILE_PATH="coverage/autograd_with_numpy$tensor.coverage" NAME="tensor Coverage Results" MODIFIED="1603254451124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$functional__1_.coverage" NAME="functional (1) Coverage Results" MODIFIED="1603002232345" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="E:/anaconda/anaconda/envs/pytorch/Lib/site-packages/torch/nn" />
     <SUITE FILE_PATH="coverage/autograd_with_numpy$conv_operate.coverage" NAME="conv_operate Coverage Results" MODIFIED="1603177034754" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch/nn" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$test.coverage" NAME="test Coverage Results" MODIFIED="1603348509640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/autograd_with_numpy$test.coverage" NAME="test Coverage Results" MODIFIED="1603360183882" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/autograd_with_numpy$functional.coverage" NAME="functional Coverage Results" MODIFIED="1603276881147" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch/nn" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$linear.coverage" NAME="linear Coverage Results" MODIFIED="1602940767632" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork/nn" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$array.coverage" NAME="array Coverage Results" MODIFIED="1602860668412" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork" />
