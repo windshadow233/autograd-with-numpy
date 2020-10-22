@@ -1,4 +1,4 @@
-# autograd_with_numpy
+# autograd with numpy
 本项目旨在用numpy实现计算图，从而进行梯度的自动计算
 
 ## 2020/10/21
