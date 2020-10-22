@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -214,7 +216,7 @@
       <workItem from="1603215405002" duration="1477000" />
       <workItem from="1603250507284" duration="40002000" />
       <workItem from="1603342518125" duration="29000" />
-      <workItem from="1603342597206" duration="21469000" />
+      <workItem from="1603342597206" duration="24535000" />
     </task>
     <servers />
   </component>
@@ -265,38 +267,38 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1603366532850" />
-    <state width="723" height="401" key="GridCell.Tab.0.bottom" timestamp="1603364523918">
+    <state width="1493" height="401" key="GridCell.Tab.0.bottom" timestamp="1603369332439">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="723" height="401" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1603364523918" />
-    <state width="723" height="401" key="GridCell.Tab.0.center" timestamp="1603364523918">
+    <state width="1493" height="401" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1603369332439" />
+    <state width="1493" height="401" key="GridCell.Tab.0.center" timestamp="1603369332439">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="723" height="401" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1603364523918" />
-    <state width="723" height="401" key="GridCell.Tab.0.left" timestamp="1603364523918">
+    <state width="1493" height="401" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1603369332439" />
+    <state width="1493" height="401" key="GridCell.Tab.0.left" timestamp="1603369332439">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="723" height="401" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1603364523918" />
-    <state width="723" height="401" key="GridCell.Tab.0.right" timestamp="1603364523918">
+    <state width="1493" height="401" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1603369332439" />
+    <state width="1493" height="401" key="GridCell.Tab.0.right" timestamp="1603369332439">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="723" height="401" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1603364523918" />
-    <state width="723" height="401" key="GridCell.Tab.1.bottom" timestamp="1603364523919">
+    <state width="1493" height="401" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1603369332439" />
+    <state width="1493" height="401" key="GridCell.Tab.1.bottom" timestamp="1603369332440">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="723" height="401" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1603364523919" />
-    <state width="723" height="401" key="GridCell.Tab.1.center" timestamp="1603364523919">
+    <state width="1493" height="401" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1603369332440" />
+    <state width="1493" height="401" key="GridCell.Tab.1.center" timestamp="1603369332440">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="723" height="401" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1603364523919" />
-    <state width="723" height="401" key="GridCell.Tab.1.left" timestamp="1603364523918">
+    <state width="1493" height="401" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1603369332440" />
+    <state width="1493" height="401" key="GridCell.Tab.1.left" timestamp="1603369332440">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="723" height="401" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1603364523918" />
-    <state width="723" height="401" key="GridCell.Tab.1.right" timestamp="1603364523919">
+    <state width="1493" height="401" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1603369332440" />
+    <state width="1493" height="401" key="GridCell.Tab.1.right" timestamp="1603369332440">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="723" height="401" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1603364523919" />
+    <state width="1493" height="401" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1603369332440" />
     <state x="270" y="74" key="SettingsEditor" timestamp="1603342603718">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -319,6 +321,15 @@
     <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1603011163979" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/nptorch/tensor.py</url>
+          <line>959</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="child_tensor.calculated" language="Python" />
@@ -334,7 +345,7 @@
     <SUITE FILE_PATH="coverage/autograd_with_numpy$tensor.coverage" NAME="tensor Coverage Results" MODIFIED="1603254451124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$functional__1_.coverage" NAME="functional (1) Coverage Results" MODIFIED="1603002232345" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="E:/anaconda/anaconda/envs/pytorch/Lib/site-packages/torch/nn" />
     <SUITE FILE_PATH="coverage/autograd_with_numpy$conv_operate.coverage" NAME="conv_operate Coverage Results" MODIFIED="1603177034754" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch/nn" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$test.coverage" NAME="test Coverage Results" MODIFIED="1603364508363" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/autograd_with_numpy$test.coverage" NAME="test Coverage Results" MODIFIED="1603368646670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/autograd_with_numpy$functional.coverage" NAME="functional Coverage Results" MODIFIED="1603276881147" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch/nn" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$linear.coverage" NAME="linear Coverage Results" MODIFIED="1602940767632" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork/nn" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$array.coverage" NAME="array Coverage Results" MODIFIED="1602860668412" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork" />

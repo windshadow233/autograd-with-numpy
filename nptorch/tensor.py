@@ -22,6 +22,7 @@ class Tensor:
         self.grad_fn = None
         self.children = None
         self.grad = None
+        self.calculated = set()
 
     def __repr__(self):
         return self.__str__()
@@ -954,14 +955,15 @@ class Tensor:
             return
         if not isinstance(grad, Tensor):
             grad = Tensor(grad)
+        recurse_children = []
         for i, child in enumerate(self.children):
             child_tensor = child[0]
             if isinstance(child_tensor, Tensor) and child_tensor.requires_grad:
-                if child_tensor.grad is None:
+                recurse_children.append(child_tensor)
+                if child_tensor.grad is None or (id(self) in child_tensor.calculated and child_tensor.is_leaf):
                     child_tensor.grad = Tensor(np.zeros_like(child_tensor.data))
                 child_tensor.grad = child_tensor.grad + Tensor(self.grad_fn.calculate_grad(grad.data, self.children, i),
                                                                dtype=np.float32)
-        for child in self.children:
-            child_tensor = child[0]
-            if isinstance(child_tensor, Tensor) and child_tensor.requires_grad:
-                child_tensor.backward(child_tensor.grad, False)
+                child_tensor.calculated.add(id(self))
+        for child_tensor in recurse_children:
+            child_tensor.backward(child_tensor.grad, False)
