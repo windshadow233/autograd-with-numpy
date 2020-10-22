@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/nptorch/nn/modules/norm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/backward.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/backward.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/functional.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +50,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="deletionFromPopupRequiresConfirmation" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../deep learning" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -116,6 +108,9 @@
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -157,6 +152,9 @@
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -219,7 +217,8 @@
       <workItem from="1603200850322" duration="3719000" />
       <workItem from="1603204596676" duration="10178000" />
       <workItem from="1603215405002" duration="1477000" />
-      <workItem from="1603250507284" duration="39962000" />
+      <workItem from="1603250507284" duration="40002000" />
+      <workItem from="1603342518125" duration="29000" />
     </task>
     <servers />
   </component>
@@ -302,10 +301,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1493" height="378" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1603277083812" />
-    <state x="270" y="74" key="SettingsEditor" timestamp="1603126212145">
+    <state x="270" y="74" key="SettingsEditor" timestamp="1603342603718">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="270" y="74" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1603126212145" />
+    <state x="270" y="74" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1603342603718" />
     <state width="775" height="439" key="XDebugger.FullValuePopup" timestamp="1602955032185">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
