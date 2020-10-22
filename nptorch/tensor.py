@@ -1,4 +1,4 @@
-from copy import deepcopy, copy
+from copy import deepcopy
 from .backward import *
 
 # np.set_printoptions(precision=4, suppress=True)
@@ -22,7 +22,6 @@ class Tensor:
         self.grad_fn = None
         self.children = None
         self.grad = None
-        self.calculated = []
 
     def __repr__(self):
         return self.__str__()
@@ -960,10 +959,9 @@ class Tensor:
             child_tensor = child[0]
             if isinstance(child_tensor, Tensor) and child_tensor.requires_grad:
                 recurse_children.append(child_tensor)
-                if child_tensor.grad is None or (id(self) in child_tensor.calculated and child_tensor.is_leaf):
+                if child_tensor.grad is None:
                     child_tensor.grad = Tensor(np.zeros_like(child_tensor.data))
                 child_tensor.grad = child_tensor.grad + Tensor(self.grad_fn.calculate_grad(grad.data, self.children, i),
                                                                dtype=np.float32)
-                child_tensor.calculated.append(id(self))
         for child_tensor in recurse_children:
             child_tensor.backward(child_tensor.grad, False)
