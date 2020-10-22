@@ -22,8 +22,10 @@ class CNN(nn.Module):
         self.layers2 = nn.Sequential(
             nn.Linear(16 * 7 * 7, 512),
             nn.ReLU(),
+            nn.Dropout(0.5),
             nn.Linear(512, 128),
             nn.ReLU(),
+            nn.Dropout(0.5),
             nn.Linear(128, 10)
         )
 
