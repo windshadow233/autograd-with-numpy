@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
@@ -62,7 +61,7 @@
       <recent name="F:\pycharmProjects\my_deeplearning_frame\mnist" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.mnist">
+  <component name="RunManager" selected="Python.test">
     <configuration name="functional" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -176,8 +175,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.mnist" />
         <item itemvalue="Python.test" />
+        <item itemvalue="Python.mnist" />
         <item itemvalue="Python.functional" />
         <item itemvalue="Python.linear" />
         <item itemvalue="Python.tensor" />
@@ -216,7 +215,7 @@
       <workItem from="1603215405002" duration="1477000" />
       <workItem from="1603250507284" duration="40002000" />
       <workItem from="1603342518125" duration="29000" />
-      <workItem from="1603342597206" duration="24535000" />
+      <workItem from="1603342597206" duration="25022000" />
     </task>
     <servers />
   </component>
@@ -321,15 +320,6 @@
     <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1603011163979" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/nptorch/tensor.py</url>
-          <line>959</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="child_tensor.calculated" language="Python" />

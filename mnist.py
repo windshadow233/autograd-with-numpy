@@ -11,28 +11,28 @@ from nptorch.utils.data import DataSet, DataLoader
 class CNN(nn.Module):
     def __init__(self):
         super(CNN, self).__init__()
-        self.layers1 = nn.Sequential(
-            nn.Conv(1, 8, 3, padding=(1, 1)),
-            nn.MaxPool(2),
-            nn.ReLU(),
-            nn.Conv(8, 16, 3, padding=(1, 1)),
-            nn.MaxPool(2),
-            nn.ReLU(),
-            nn.Conv(16, 32, 3, padding=(1, 1)),
-            nn.MaxPool(2),
-            nn.ReLU()
-        )
+        # self.layers1 = nn.Sequential(
+        #     nn.Conv(1, 8, 3, padding=(1, 1)),
+        #     nn.MaxPool(2),
+        #     nn.ReLU(),
+        #     nn.Conv(8, 16, 3, padding=(1, 1)),
+        #     nn.MaxPool(2),
+        #     nn.ReLU(),
+        #     nn.Conv(16, 32, 3, padding=(1, 1)),
+        #     nn.MaxPool(2),
+        #     nn.ReLU()
+        # )
         self.layers2 = nn.Sequential(
-            nn.Linear(32 * 3 * 3, 128),
+            nn.Linear(784, 512),
             nn.ReLU(),
-            nn.Linear(128, 64),
+            nn.Linear(512, 128),
             nn.ReLU(),
-            nn.Linear(64, 10)
+            nn.Linear(128, 10)
         )
 
     def forward(self, x: nptorch.Tensor):
-        x = self.layers1(x)
-        x = x.reshape(x.shape[0], -1)
+        # x = self.layers1(x)
+        # x = x.reshape(x.shape[0], -1)
         x = self.layers2(x)
         return x
 
@@ -52,7 +52,7 @@ def load_mnist(img_path, label_path):
         labels = np.fromfile(label, dtype=np.uint8)
     with open(img_path, 'rb') as img:
         _, num, rows, cols = struct.unpack('>IIII', img.read(16))
-        images = np.fromfile(img, dtype=np.uint8).reshape(num, 1, rows, cols)
+        images = np.fromfile(img, dtype=np.uint8).reshape(num, rows * cols)
     return nptorch.array(images, dtype=np.float32), nptorch.array(labels)
 
 
