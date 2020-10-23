@@ -1,7 +1,8 @@
 import nptorch
 nptorch.random.seed(0)
-x = nptorch.random.randint((1,),low=1,high=5, dtype=float, requires_grad=True)
-b = x.pow(2)
-c = b/b
-c.sum().backward()
+x = nptorch.array(2., requires_grad=True)
+a=x+x
+b=a+a
+c=b+b+x
+c.backward()
 print(x.grad)

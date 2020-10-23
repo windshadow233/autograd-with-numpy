@@ -24,8 +24,10 @@ class CNN(nn.Module):
         )
         self.layers2 = nn.Sequential(
             nn.Linear(64 * 9, 128),
+            nn.Dropout(0.5),
             nn.ReLU(),
             nn.Linear(128, 64),
+            nn.Dropout(0.5),
             nn.ReLU(),
             nn.Linear(64, 10)
         )
@@ -65,7 +67,7 @@ train_loader = DataLoader(train_set, batch_size=128)
 test_loader = DataLoader(test_set, batch_size=64)
 
 cnn = CNN()
-optimizer = SGD(cnn.parameters(), lr=1e-1)
+optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.7)
 loss_fcn = nn.CrossEntropyLoss()
 
 for i in tqdm(range(5)):

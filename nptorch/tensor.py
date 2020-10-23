@@ -1,4 +1,4 @@
-from copy import deepcopy
+from copy import deepcopy, copy
 from .backward import *
 
 # np.set_printoptions(precision=4, suppress=True)
@@ -20,7 +20,7 @@ class Tensor:
             raise RuntimeError('Only Arrays of floating point dtype can require gradients')
         self.requires_grad = requires_grad
         self.grad_fn = None
-        self.children = None
+        self.children = []
         self.grad = None
 
     def __repr__(self):
@@ -954,14 +954,11 @@ class Tensor:
             return
         if not isinstance(grad, Tensor):
             grad = Tensor(grad)
-        recurse_children = []
         for i, child in enumerate(self.children):
             child_tensor = child[0]
             if isinstance(child_tensor, Tensor) and child_tensor.requires_grad:
-                recurse_children.append(child_tensor)
                 if child_tensor.grad is None:
                     child_tensor.grad = Tensor(np.zeros_like(child_tensor.data))
-                child_tensor.grad = child_tensor.grad + Tensor(self.grad_fn.calculate_grad(grad.data, self.children, i),
-                                                               dtype=np.float32)
-        for child_tensor in recurse_children:
-            child_tensor.backward(child_tensor.grad, False)
+                child_grad = self.grad_fn.calculate_grad(grad.data, self.children, i)
+                child_tensor.grad = child_tensor.grad + Tensor(child_grad, dtype=np.float32)
+                child_tensor.backward(child_grad, False)
