@@ -33,16 +33,10 @@ x = nt.random.rand(size=(3, 4), dtype=nt.float32, requires_grad=True)
 x = nt.random.normal(size=(3, 4), mean=0., std=1.)
 ```
 ### 数据集
-项目封装了一个简单的data.py文件用以封装数据，功能比较简单，以后再完善
-```python
-import nptorch as nt
-from nptorch.utils.data import DataSet, DataLoader
-data = nt.random.rand((100, 5), dtype=nt.float32)
-labels = nt.random.randint(4, low=0, high=3, dtype=nt.int32)
-dataset = DataSet(data, labels, transform=lambda x: x)
-dataloader = DataLoader(dataset, batch_size=10, shuffle=True)
-```
-
+1. 项目封装了一个简单的data.py文件用以封装数据，功能比较简单。使用方法也类似pytorch，不过功能少了一些，以后再慢慢完善。
+2. 自定义的数据集类需要继承DataSet类并完善__len__与__getitem__方法。
+3. DataLoader初始化放入DataSet类型的实例，可选参数有batch_size、shuffle与collate_fn，并通过生成一个迭代器的方式批量获取其中的数据。
+4. 具体使用实例可以看mnist.py文件。
 ### 模型搭建与使用
 使用方法与pytorch高度相似，以卷积神经网络为例
 ```python
@@ -86,29 +80,20 @@ cnn = CNN()
 # 该类输入一个Tensor类型，返回Parameter类，继承Tensor所有运算
 optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
-
 ## 更新日志
-
 ### 2020/10/23
 调整了反向传播算法，增加了激活函数LeakyReLU，ELU，增加模型保存方法，目前只保存完整模型，以后再写仅保存参数的
-
 ### 2020/10/22
 实现了一个简单的模型训练参数类Parameter
-
 ### 2020/10/21
 增加了均值池化层和最大池化层
-
 ### 2020/10/20
 增加可做padding的卷积层Conv及其backward，使用卷积mnist准确率进一步提升，证明卷积没写错
-
 ### 2020/10/19
 实现Dropout层，完善SGD（增加动量，L1、L2正则化），模仿pytorch对代码进行良好封装、模仿pytorch实现模型的可视化打印功能
-
 ### 2020/10/18
 实现了一个简单的SGD优化器，首次用线性层跑通mnist数据集
-
 ### 2020/10/13~2020/10/17
 尝试了N种数据结构，最后借助numpy的ndarray类型封装了一个Tensor类，为计算图的节点，同时重写或补充了适用于Tensor类的上百个方法与函数，基本的运算均实现了backward
-
 ### 2020/10/12
 产生“写个计算图玩玩”的idea
