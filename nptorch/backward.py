@@ -593,14 +593,26 @@ class MaxPoolBackward(BackwardFcn):
 #         elif place == 1:
 #             return np.sum(np.mean(grad * x_hat, 0))
 
-class LeakyReluBackward(BackwardFcn):
+class LeakyReLUBackward(BackwardFcn):
     def __init__(self):
-        super(LeakyReluBackward, self).__init__()
+        super(LeakyReLUBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
         x, leaky_rate = children[0]
         data = x.data
         return grad * ((data > 0.) + leaky_rate * (data <= 0.)).astype(np.float32)
+
+
+class ELUBackward(BackwardFcn):
+    def __init__(self):
+        super(ELUBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        x, alpha = children[0]
+        data = x.data
+        return grad * ((data > 0.) + (data <= 0.) * alpha * np.exp(data)).astype(np.float32)
+
+
 """
 Todo:
 Softmax

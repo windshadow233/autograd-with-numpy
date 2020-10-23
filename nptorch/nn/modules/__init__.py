@@ -4,6 +4,6 @@ from .convolution import Conv
 from .pooling import MaxPool, MeanPool
 from .norm import BatchNorm
 from .module import Module
-from .activation import Softmax, Sigmoid, ReLU, Tanh, LeakyReLU
+from .activation import Softmax, Sigmoid, ReLU, Tanh, LeakyReLU, ELU
 from .loss import CrossEntropyLoss
 from .container import Sequential

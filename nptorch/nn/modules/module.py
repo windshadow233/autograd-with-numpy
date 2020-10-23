@@ -1,3 +1,4 @@
+import pickle
 from ..parameter import Parameter, Parameters
 
 
@@ -62,6 +63,10 @@ class Module:
             return Parameters(params)
         else:
             return params
+
+    def save_model(self, file_name):
+        with open(file_name, 'wb') as f:
+            pickle.dump(self, f)
 
     def forward(self, *args):
         raise NotImplementedError

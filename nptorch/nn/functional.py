@@ -1,6 +1,7 @@
 from ..tensor import array, Tensor
 from ..random import rand_like
-from ..backward import CrossEntropyBackward, ConvBackward, MeanPoolBackward, MaxPoolBackward, LeakyReluBackward
+from ..backward import CrossEntropyBackward, ConvBackward, MeanPoolBackward, MaxPoolBackward,\
+    LeakyReLUBackward, ELUBackward
 from .conv_operations import *
 
 
@@ -116,5 +117,17 @@ def leaky_relu(x: Tensor, leaky_rate=0.01):
     y = Tensor(((data > 0.) + (data <= 0.) * leaky_rate).astype(np.float32) * data, requires_grad=x.requires_grad)
     if y.requires_grad:
         y.children = [(x, leaky_rate)]
-        y.grad_fn = LeakyReluBackward()
+        y.grad_fn = LeakyReLUBackward()
+    return y
+
+
+def elu(x: Tensor, alpha=1.):
+    data = x.data
+    if 'float' not in data.dtype.name:
+        raise RuntimeError(f"'elu' operation not implement for '{data.dtype}'")
+    y = Tensor(((data > 0.) * data + (data <= 0.) * alpha * (np.exp(data) - 1.)).astype(np.float32),
+               requires_grad=x.requires_grad)
+    if y.requires_grad:
+        y.children = [(x, alpha)]
+        y.grad_fn = ELUBackward()
     return y

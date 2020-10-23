@@ -46,3 +46,15 @@ class LeakyReLU(Module):
 
     def forward(self, x: Tensor):
         return F.leaky_relu(x, self.leaky_rate)
+
+
+class ELU(Module):
+    def __init__(self, alpha=1.):
+        super(ELU, self).__init__()
+        self.alpha = alpha
+
+    def extra_repr(self):
+        return f'alpha={self.alpha}'
+
+    def forward(self, x: Tensor):
+        return F.elu(x, self.alpha)
