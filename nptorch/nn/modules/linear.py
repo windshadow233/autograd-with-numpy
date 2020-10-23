@@ -1,5 +1,4 @@
-import numpy as np
-from nptorch.tensor import Tensor
+from nptorch.tensor import *
 from ..parameter import Parameter
 from .module import Module
 from nptorch.random import normal

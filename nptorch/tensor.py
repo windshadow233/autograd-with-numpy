@@ -1,5 +1,6 @@
-from copy import deepcopy, copy
+from copy import deepcopy
 from .backward import *
+from numpy import float16, float32, float64, int8, int16, int32, int64, bool_
 
 # np.set_printoptions(precision=4, suppress=True)
 
@@ -12,8 +13,8 @@ class Tensor:
     def __init__(self, data, dtype=None, requires_grad=False):
         if dtype is None:
             self.data = np.array(data)
-            if self.dtype == np.float64:
-                self.data = self.data.astype(np.float32)
+            if self.dtype == float64:
+                self.data = self.data.astype(float32)
         else:
             self.data = np.array(data, dtype=dtype)
         if 'float' not in self.dtype.name and requires_grad:
@@ -131,40 +132,40 @@ class Tensor:
             raise RuntimeError(f"'{operation}' not implemented for '{self.dtype.name}'")
 
     def half(self):
-        result = Tensor(self.data.astype(np.float16), dtype=np.float16, requires_grad=self.requires_grad)
+        result = Tensor(self.data.astype(float16), dtype=float16, requires_grad=self.requires_grad)
         if result.requires_grad:
             result.children = [(self, None)]
             result.grad_fn = CopyBackward()
         return result
 
     def float(self):
-        result = Tensor(self.data.astype(np.float32), dtype=np.float32, requires_grad=self.requires_grad)
+        result = Tensor(self.data.astype(np.float32), dtype=float32, requires_grad=self.requires_grad)
         if result.requires_grad:
             result.children = [(self, None)]
             result.grad_fn = CopyBackward()
         return result
 
     def double(self):
-        result = Tensor(self.data.astype(np.float64), dtype=np.float64, requires_grad=self.requires_grad)
+        result = Tensor(self.data.astype(float64), dtype=float64, requires_grad=self.requires_grad)
         if result.requires_grad:
             result.children = [(self, None)]
             result.grad_fn = CopyBackward()
         return result
 
     def char(self):
-        return Tensor(self.data.astype(np.int8), dtype=np.int8)
+        return Tensor(self.data.astype(int8), dtype=int8)
 
     def short(self):
-        return Tensor(self.data.astype(np.int16), dtype=np.int16)
+        return Tensor(self.data.astype(int16), dtype=int16)
 
     def int(self):
-        return Tensor(self.data.astype(np.int32), dtype=np.int32)
+        return Tensor(self.data.astype(int32), dtype=int32)
 
     def long(self):
-        return Tensor(self.data.astype(np.int64), dtype=np.int64)
+        return Tensor(self.data.astype(int64), dtype=int64)
 
     def bool(self):
-        return Tensor(self.data.astype(np.bool), dtype=np.bool_)
+        return Tensor(self.data.astype(bool_), dtype=bool_)
 
     def all(self, axis=None, keepdims=False):
         return Tensor(self.data.all(axis=axis, keepdims=keepdims))
@@ -176,10 +177,10 @@ class Tensor:
         return self.data.item()
 
     def argmax(self, axis=None):
-        return Tensor(self.data.argmax(axis), dtype=np.int64)
+        return Tensor(self.data.argmax(axis), dtype=int64)
 
     def argmin(self, axis=None):
-        return Tensor(self.data.argmin(axis), dtype=np.int64)
+        return Tensor(self.data.argmin(axis), dtype=int64)
 
     def detach(self):
         return Tensor(self.data)
@@ -417,7 +418,7 @@ class Tensor:
     def max(self, axis=None, keepdims=False):
         result = Tensor(np.max(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype,
                         requires_grad=self.requires_grad)
-        indices = Tensor(np.argmax(self.data, axis=axis), dtype=np.int64)
+        indices = Tensor(np.argmax(self.data, axis=axis), dtype=int64)
         if result.requires_grad:
             result.children = [(self, result.data, axis, keepdims)]
             result.grad_fn = MaxBackward()
@@ -426,7 +427,7 @@ class Tensor:
     def min(self, axis=None, keepdims=False):
         result = Tensor(np.min(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype,
                         requires_grad=self.requires_grad)
-        indices = Tensor(np.argmin(self.data, axis=axis), dtype=np.int64)
+        indices = Tensor(np.argmin(self.data, axis=axis), dtype=int64)
         if result.requires_grad:
             result.children = [(self, result.data, axis, keepdims)]
             result.grad_fn = MinBackward()
@@ -925,6 +926,18 @@ class Tensor:
             result.grad_fn = NormBackward()
         return result
 
+    def outer(self, other):
+        """
+        向量外积
+        """
+        if self.ndim != 1 or other.ndim != 1:
+            raise RuntimeError('only vectors allow outer product operations')
+        result = Tensor(np.outer(self.data, other.data), requires_grad=self.requires_grad or other.requires_grad)
+        if result.requires_grad:
+            result.children = [(self, None), (other, None)]
+            result.grad_fn = OuterBackward()
+        return result
+
     def matmul(self, other):
         """
         矩阵乘法,支持broadcast
@@ -956,5 +969,5 @@ class Tensor:
                 if child_tensor.grad is None:
                     child_tensor.grad = Tensor(np.zeros_like(child_tensor.data))
                 child_grad = self.grad_fn.calculate_grad(grad.data, self.children, i)
-                child_tensor.grad = child_tensor.grad + Tensor(child_grad, dtype=np.float32)
+                child_tensor.grad = child_tensor.grad + Tensor(child_grad, dtype=float32)
                 child_tensor.backward(child_grad, False)

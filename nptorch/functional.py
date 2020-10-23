@@ -1,20 +1,23 @@
-import numpy as np
-from .tensor import array, Tensor
+from .tensor import *
 
 
-def zeros(shape, dtype=None, requires_grad=False):
+def eye(n, m, dtype=float32, requires_grad=False):
+    return array(np.eye(n, m), dtype=dtype, requires_grad=requires_grad)
+
+
+def zeros(shape, dtype=float32, requires_grad=False):
     return array(np.zeros(shape=shape), dtype=dtype, requires_grad=requires_grad)
 
 
-def ones(shape, dtype=None, requires_grad=False):
+def ones(shape, dtype=float32, requires_grad=False):
     return array(np.ones(shape), dtype=dtype, requires_grad=requires_grad)
 
 
-def zeros_like(x: Tensor, dtype=None, requires_grad=False):
+def zeros_like(x: Tensor, dtype=float32, requires_grad=False):
     return array(np.zeros_like(x.data), dtype=dtype, requires_grad=requires_grad)
 
 
-def ones_like(x: Tensor, dtype=None, requires_grad=False):
+def ones_like(x: Tensor, dtype=float32, requires_grad=False):
     return array(np.ones_like(x.data), dtype=dtype, requires_grad=requires_grad)
 
 
@@ -98,5 +101,5 @@ def ceil(x: Tensor):
     return x.ceil()
 
 
-def norm(x: Tensor, p=2.0):
+def norm(x: Tensor, p=2.):
     return x.norm(p)

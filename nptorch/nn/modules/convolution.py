@@ -1,6 +1,5 @@
-import numpy as np
 import nptorch
-from nptorch.tensor import Tensor
+from nptorch.tensor import *
 from ..parameter import Parameter
 from nptorch.random import normal
 from .. import functional as F

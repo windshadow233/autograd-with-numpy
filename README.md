@@ -1,26 +1,114 @@
 # autograd with numpy
 本项目旨在用numpy实现计算图，从而进行梯度的自动计算
 
-## 2020/10/23
+## 使用文档
+本项目使用风格与numpy和pytorch类似，如果你会用pytorch，那么下面的基本不用看了。
+
+### 基本使用
+```python
+import nptorch as nt
+# 定义张量，可指定数据类型和是否需要梯度（float类型可以求梯度），返回Tensor类型
+x = nt.array([1., 2., 3.], dtype=nt.float32, requires_grad=True)
+y = nt.array([2., 3., 4.], dtype=nt.float32, requires_grad=False)
+print(x)
+print(type(x))
+# array([1., 2., 3.], dtype=float32, requires_grad=True)
+# <class 'nptorch.tensor.Tensor'>
+
+# 转换数据类型
+x = x.int()
+x = x.long()
+
+# 四则运算与矩阵运算，为了方便只定义了两矩阵乘法函数，
+# matmul涵盖所有可能的矩阵乘，支持broadcast，当前例子中是点积
+# outer可以进行向量外积，matmul也可以做到不过需要扩展维度
+a = x + y
+b = x.matmul(y)
+b = x.outer(y)
+
+# 随机函数调用，同样可以指定数据类型以及是否需要梯度
+# 0-1上的均匀分布
+x = nt.random.rand(size=(3, 4), dtype=nt.float32, requires_grad=True)
+# 正态分布
+x = nt.random.normal(size=(3, 4), mean=0., std=1.)
+```
+### 数据集
+项目封装了一个简单的data.py文件用以封装数据，功能比较简单，以后再完善
+```python
+import nptorch as nt
+from nptorch.utils.data import DataSet, DataLoader
+data = nt.random.rand((100, 5), dtype=nt.float32)
+labels = nt.random.randint(4, low=0, high=3, dtype=nt.int32)
+dataset = DataSet(data, labels, transform=lambda x: x)
+dataloader = DataLoader(dataset, batch_size=10, shuffle=True)
+```
+
+### 模型搭建与使用
+使用方法与pytorch高度相似，以卷积神经网络为例
+```python
+from nptorch import nn
+from nptorch.optim import SGD
+
+# 模型创建
+class CNN(nn.Module):
+    def __init__(self):
+        super(CNN, self).__init__()
+        self.layer1 = nn.Sequential(
+            nn.Conv(1, 16, 3, padding=(1, 1)),
+            nn.MaxPool(2),
+            nn.ReLU(),
+            nn.Conv(16, 32, 3, padding=(1, 1)),
+            nn.MaxPool(2),
+            nn.ReLU(),
+            nn.Conv(32, 64, 3, padding=(1, 1)),
+            nn.MaxPool(2),
+            nn.ReLU()
+        )
+        self.layer2 = nn.Sequential(
+            nn.Linear(64 * 9, 128),
+            nn.Dropout(0.5),
+            nn.ReLU(),
+            nn.Linear(128, 64),
+            nn.ReLU(),
+            nn.Linear(64, 10)
+        )
+
+    def forward(self, x):
+        x = self.layer1(x)
+        x = x.reshape(x.shape[0], -1)
+        x = self.layer2(x)
+        return x
+
+cnn = CNN()
+# 优化器，暂时只定义了SGD，支持动量与L1、L2正则化
+# 通过.parameters()方法获得模型所有待训练参数
+# 内置模型有默认待训练参数，若需要手动添加需训练参数，可使用nn.Parameter()类
+# 该类输入一个Tensor类型，返回Parameter类，继承Tensor所有运算
+optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
+```
+
+## 更新日志
+
+### 2020/10/23
 调整了反向传播算法，增加了激活函数LeakyReLU，ELU，增加模型保存方法，目前只保存完整模型，以后再写仅保存参数的
 
-## 2020/10/22
+### 2020/10/22
 实现了一个简单的模型训练参数类Parameter
 
-## 2020/10/21
+### 2020/10/21
 增加了均值池化层和最大池化层
 
-## 2020/10/20
+### 2020/10/20
 增加可做padding的卷积层Conv及其backward，使用卷积mnist准确率进一步提升，证明卷积没写错
 
-## 2020/10/19
+### 2020/10/19
 实现Dropout层，完善SGD（增加动量，L1、L2正则化），模仿pytorch对代码进行良好封装、模仿pytorch实现模型的可视化打印功能
 
-## 2020/10/18
+### 2020/10/18
 实现了一个简单的SGD优化器，首次用线性层跑通mnist数据集
 
-## 2020/10/13~2020/10/17
+### 2020/10/13~2020/10/17
 尝试了N种数据结构，最后借助numpy的ndarray类型封装了一个Tensor类，为计算图的节点，同时重写或补充了适用于Tensor类的上百个方法与函数，基本的运算均实现了backward
 
-## 2020/10/12
+### 2020/10/12
 产生“写个计算图玩玩”的idea

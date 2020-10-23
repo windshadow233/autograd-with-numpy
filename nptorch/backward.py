@@ -317,6 +317,15 @@ class SqrtBackward(BackwardFcn):
         return result
 
 
+class OuterBackward(BackwardFcn):
+    def __init__(self):
+        super(OuterBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        a = children[1 - place][0].data
+        return grad.dot(a)
+
+
 class DotBackward(BackwardFcn):
     def __init__(self):
         super(DotBackward, self).__init__()

@@ -26,7 +26,7 @@ class DataSet:
 
 class DataLoader:
     """
-    用来批量打包数据
+    用来批量输出数据
     """
     def __init__(self, dataset: DataSet, batch_size=1, shuffle=True):
         self.dataset = dataset
