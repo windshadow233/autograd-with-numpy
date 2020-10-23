@@ -1,7 +1,7 @@
-from ..parameter import Parameter
+from ..parameter import Parameter, Parameters
 
 
-def indent(s: str):
+def make_indent(s: str):
     s1 = s.split('\n')
     if not s1:
         return s
@@ -19,7 +19,7 @@ class Module:
         extra_lines = extra_repr.split('\n') if extra_repr else []
         child_lines = []
         for name, child in self.named_children():
-            mod_str = indent(repr(child))
+            mod_str = make_indent(repr(child))
             child_lines.append('(' + name + '): ' + mod_str)
         lines = extra_lines + child_lines
         s = self.__class__.__name__ + '('
@@ -31,11 +31,11 @@ class Module:
         s += ')'
         return s
 
-    def extra_repr(self):
-        return ''
-
     def __call__(self, *args):
         return self.forward(*args)
+
+    def extra_repr(self):
+        return ''
 
     def children(self):
         for name, module in self.named_children():
@@ -54,9 +54,6 @@ class Module:
     def eval(self):
         self.train(False)
 
-    def forward(self, *args):
-        raise NotImplementedError
-
     def parameters(self, is_first_call=True):
         params = [v for v in self.__dict__.values() if isinstance(v, Parameter)]
         for module in self.children():
@@ -66,22 +63,6 @@ class Module:
         else:
             return params
 
+    def forward(self, *args):
+        raise NotImplementedError
 
-class Parameters:
-    def __init__(self, params):
-        self.params = params
-        self.number = len(params)
-        self.counter = 0
-
-    def __iter__(self):
-        self.counter = 0
-        return self
-
-    def __next__(self):
-        self.counter += 1
-        if self.counter > self.number:
-            raise StopIteration
-        return self.params[self.counter - 1]
-
-    def __len__(self):
-        return self.number

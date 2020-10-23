@@ -4,7 +4,7 @@ from ..parameter import Parameter
 from .module import Module
 from nptorch.random import normal
 from nptorch.functional import zeros
-from ..functional import linear
+from .. import functional as F
 
 
 class Linear(Module):
@@ -22,6 +22,6 @@ class Linear(Module):
 
     def forward(self, x: Tensor):
         if self.use_bias:
-            return linear(x, self.weight, self.bias)
+            return F.linear(x, self.weight, self.bias)
         else:
-            return linear(x, self.weight)
+            return F.linear(x, self.weight)

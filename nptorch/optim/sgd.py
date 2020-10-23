@@ -1,5 +1,5 @@
 import numpy as np
-from ..nn.modules import Parameters
+from ..nn import Parameters
 
 
 class SGD:

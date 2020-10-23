@@ -1,6 +1,6 @@
 from ..tensor import array, Tensor
 from ..random import rand_like
-from ..backward import CrossEntropyBackward, ConvBackward, MeanPoolBackward, MaxPoolBackward
+from ..backward import CrossEntropyBackward, ConvBackward, MeanPoolBackward, MaxPoolBackward, LeakyReluBackward
 from .conv_operations import *
 
 
@@ -110,3 +110,11 @@ def cross_entropy(x: Tensor, target):
         loss.grad_fn = CrossEntropyBackward()
     return loss
 
+
+def leaky_relu(x: Tensor, leaky_rate=0.01):
+    data = x.data
+    y = Tensor(((data > 0.) + (data <= 0.) * leaky_rate).astype(np.float32) * data, requires_grad=x.requires_grad)
+    if y.requires_grad:
+        y.children = [(x, leaky_rate)]
+        y.grad_fn = LeakyReluBackward()
+    return y

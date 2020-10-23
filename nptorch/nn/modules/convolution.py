@@ -3,7 +3,7 @@ import nptorch
 from nptorch.tensor import Tensor
 from ..parameter import Parameter
 from nptorch.random import normal
-from ..functional import conv
+from .. import functional as F
 from .module import Module
 
 
@@ -31,7 +31,7 @@ class Conv(Module):
         oc, ic, kh, kw = self.kernels.shape
         assert c == ic, 'Conv channels not equal'
         if self.use_bias:
-            result = conv(x, self.kernels, self.bias, stride=self.stride, padding=self.padding)
+            result = F.conv(x, self.kernels, self.bias, stride=self.stride, padding=self.padding)
         else:
-            return conv(x, self.kernels, stride=self.stride, padding=self.padding)
+            return F.conv(x, self.kernels, stride=self.stride, padding=self.padding)
         return result

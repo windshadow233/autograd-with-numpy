@@ -1,5 +1,5 @@
 from nptorch.tensor import Tensor
-from ..functional import max_pool, mean_pool
+from .. import functional as F
 from .module import Module
 
 
@@ -13,7 +13,7 @@ class MeanPool(Module):
         return f'kernel_size={self.kernel_size}, stride={self.stride}'
 
     def forward(self, x: Tensor):
-        return mean_pool(x, self.kernel_size, self.stride)
+        return F.mean_pool(x, self.kernel_size, self.stride)
 
 
 class MaxPool(Module):
@@ -27,4 +27,4 @@ class MaxPool(Module):
         return f'kernel_size={self.kernel_size}, stride={self.stride}'
 
     def forward(self, x: Tensor):
-        return max_pool(x, self.kernel_size, self.stride)
+        return F.max_pool(x, self.kernel_size, self.stride)

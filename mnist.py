@@ -27,7 +27,6 @@ class CNN(nn.Module):
             nn.Dropout(0.5),
             nn.ReLU(),
             nn.Linear(128, 64),
-            nn.Dropout(0.5),
             nn.ReLU(),
             nn.Linear(64, 10)
         )
@@ -58,16 +57,16 @@ def load_mnist(img_path, label_path):
     return nptorch.array(images, dtype=np.float32), nptorch.array(labels)
 
 
-random.seed(0)
+random.seed(2)
 train_data, train_lbs = load_mnist('mnist/MNIST/raw/train-images-idx3-ubyte', 'mnist/MNIST/raw/train-labels-idx1-ubyte')
 test_data, test_lbs = load_mnist('mnist/MNIST/raw/t10k-images-idx3-ubyte', 'mnist/MNIST/raw/t10k-labels-idx1-ubyte')
 train_set = DataSet(train_data, train_lbs, transform=lambda x: (x / 255))
 test_set = DataSet(test_data, test_lbs, transform=lambda x: (x / 255))
-train_loader = DataLoader(train_set, batch_size=128)
+train_loader = DataLoader(train_set, batch_size=64)
 test_loader = DataLoader(test_set, batch_size=64)
 
 cnn = CNN()
-optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.7)
+optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 loss_fcn = nn.CrossEntropyLoss()
 
 for i in tqdm(range(5)):

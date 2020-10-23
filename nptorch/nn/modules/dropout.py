@@ -1,5 +1,5 @@
 from nptorch.tensor import Tensor
-from nptorch.nn.functional import dropout
+from .. import functional as F
 from .module import Module
 
 
@@ -14,5 +14,5 @@ class Dropout(Module):
         return f'p={self.p}'
 
     def forward(self, x: Tensor):
-        return dropout(x, self.p, self.training)
+        return F.dropout(x, self.p, self.training)
 

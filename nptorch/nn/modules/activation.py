@@ -1,6 +1,6 @@
 from nptorch.tensor import Tensor
-from ..functional import cross_entropy
 from .module import Module
+from .. import functional as F
 
 
 class Softmax(Module):
@@ -36,9 +36,13 @@ class Tanh(Module):
         return x.tanh()
 
 
-class CrossEntropyLoss(Module):
-    def __init__(self):
-        super(CrossEntropyLoss, self).__init__()
+class LeakyReLU(Module):
+    def __init__(self, leaky_rate=0.01):
+        super(LeakyReLU, self).__init__()
+        self.leaky_rate = leaky_rate
 
-    def forward(self, x: Tensor, target: Tensor):
-        return cross_entropy(x, target)
+    def extra_repr(self):
+        return f'leaky_rate={self.leaky_rate}'
+
+    def forward(self, x: Tensor):
+        return F.leaky_relu(x, self.leaky_rate)
