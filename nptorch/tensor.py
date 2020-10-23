@@ -443,10 +443,6 @@ class Tensor:
     def var(self, axis=None, keepdims=False):
         result = Tensor(np.var(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype,
                         requires_grad=self.requires_grad)
-        if not axis:
-            result.data *= self.data.size / (self.data.size - 1)
-        else:
-            result.data *= self.data.shape[axis] / (self.data.shape[axis] - 1)
         if result.requires_grad:
             result.children = [(self, axis, keepdims)]
             result.grad_fn = VarBackward()

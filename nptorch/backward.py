@@ -254,13 +254,13 @@ class VarBackward(BackwardFcn):
         x, axis, keepdims = children[0]
         x = x.data
         if axis is None:
-            return grad * 2. * (x - np.mean(x)) / (x.size - 1.)
+            return grad * 2. * (x - np.mean(x)) / x.size
         if not keepdims:
             grad = np.expand_dims(grad, axis)
         tiles = np.ones_like(np.array(x.shape))
         tiles[axis] = x.shape[axis]
         grad = np.tile(grad, tiles)
-        grad = grad * 2. * (x - np.mean(x, axis, keepdims=True)) / (x.shape[axis] - 1.)
+        grad = grad * 2. * (x - np.mean(x, axis, keepdims=True)) / x.shape[axis]
         return grad
 
 
