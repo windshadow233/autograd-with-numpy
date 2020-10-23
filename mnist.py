@@ -8,6 +8,19 @@ from nptorch.optim import SGD
 from nptorch.utils.data import DataSet, DataLoader
 
 
+class MNISTDataset(DataSet):
+    def __init__(self, data_path, label_path):
+        super(MNISTDataset, self).__init__()
+        self.data, self.label = load_mnist(data_path, label_path)
+        self.data = self.data / 255.
+
+    def __len__(self):
+        return len(self.label)
+
+    def __getitem__(self, item):
+        return self.data[item], self.label[item]
+
+
 class CNN(nn.Module):
     def __init__(self):
         super(CNN, self).__init__()
@@ -58,10 +71,8 @@ def load_mnist(img_path, label_path):
 
 
 random.seed(2)
-train_data, train_lbs = load_mnist('mnist/MNIST/raw/train-images-idx3-ubyte', 'mnist/MNIST/raw/train-labels-idx1-ubyte')
-test_data, test_lbs = load_mnist('mnist/MNIST/raw/t10k-images-idx3-ubyte', 'mnist/MNIST/raw/t10k-labels-idx1-ubyte')
-train_set = DataSet(train_data, train_lbs, transform=lambda x: (x / 255))
-test_set = DataSet(test_data, test_lbs, transform=lambda x: (x / 255))
+train_set = MNISTDataset('mnist/MNIST/raw/train-images-idx3-ubyte', 'mnist/MNIST/raw/train-labels-idx1-ubyte')
+test_set = MNISTDataset('mnist/MNIST/raw/t10k-images-idx3-ubyte', 'mnist/MNIST/raw/t10k-labels-idx1-ubyte')
 train_loader = DataLoader(train_set, batch_size=64)
 test_loader = DataLoader(test_set, batch_size=64)
 

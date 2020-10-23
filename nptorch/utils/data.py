@@ -1,67 +1,59 @@
-import numpy as np
+from nptorch.tensor import *
+import math
+
+
+def default_collate_fn(all_data: list):
+    data_list = []
+    data_length = len(all_data[0])
+    for i in range(data_length):
+        data_list.append([data[i].data for data in all_data])
+    for i, data in enumerate(data_list):
+        data_list[i] = Tensor(np.r_[data])
+    return data_list
 
 
 class DataSet:
-    def __init__(self, data, labels, transform=lambda x: x):
-        """
-        初始化
-        :param data: 数据矩阵,第0维度表示数据的索引,若为图片数据,则为四维张量
-                     若为向量数据,则为二维矩阵。第一维度统一为数据索引
-        :param labels: 标签
-        :param transform: 数据变换函数
-        """
-        self.data = transform(data)
-        self.labels = labels
+    def __init__(self):
+        pass
 
     def __len__(self):
-        return len(self.data)
+        raise NotImplementedError
 
-    def __setitem__(self, key, value):
-        self.data[key] = value[0]
-        self.labels[key] = value[1]
-
-    def __getitem__(self, index):
-        return self.data[index], self.labels[index]
+    def __getitem__(self, item):
+        raise NotImplementedError
 
 
 class DataLoader:
-    """
-    用来批量输出数据
-    """
-    def __init__(self, dataset: DataSet, batch_size=1, shuffle=True):
+    def __init__(self, dataset: DataSet, batch_size=1, shuffle=True, collate_fn=default_collate_fn):
         self.dataset = dataset
         self.batch_size = batch_size
-        self.n_batches = int(np.ceil(len(dataset) / self.batch_size))
+        self.shuffle = shuffle
+        self.collate_fn = collate_fn
 
-        if shuffle:
-            np.random.shuffle(self.dataset)
-
-    def __iter__(self):
-        self.counter = 0
-        return self
+        self.n_batches = math.ceil(len(dataset) / batch_size)
+        self.indices = []
 
     def __len__(self):
         return self.n_batches
 
+    def __iter__(self):
+        self.indices = list(range(len(self.dataset)))
+        return self
+
     def __next__(self):
-        if self.counter >= self.n_batches:
+        if not self.indices:
             raise StopIteration
-        if self.counter < self.n_batches - 1:
-            data, labels = self.dataset[self.counter * self.batch_size: (self.counter + 1) * self.batch_size]
+        if len(self.indices) <= self.batch_size:
+            return self.get_batches(self.indices)
+        if self.shuffle:
+            chosen_indices = np.random.choice(self.indices, self.batch_size, replace=False)
         else:
-            data, labels = self.dataset[self.counter * self.batch_size:]
-        self.counter += 1
-        return data, labels
+            chosen_indices = self.indices[:self.batch_size]
+        self.indices = list(set(self.indices) - set(chosen_indices))
+        return self.get_batches(chosen_indices)
+
+    def get_batches(self, indices):
+        all_data = [self.dataset[index] for index in indices]
+        return self.collate_fn(all_data)
 
 
-def random_split(dataset: DataSet, lens):
-    if sum(lens) != len(dataset):
-        raise RuntimeError('Sum of input lengths does not equal the length of the input dataset!')
-    indices = list(range(len(dataset)))
-    np.random.shuffle(indices)
-    datasets = []
-    place = 0
-    for l in lens:
-        datasets.append(DataSet(*dataset[indices[place: place + l]]))
-        place += l
-    return datasets
