@@ -23,7 +23,7 @@ class Tensor:
         self.grad_fn = None
         self.children = []
         self.grad = None
-        self.retain = True if self.is_leaf else False
+        self.retain_ = False
 
     def __repr__(self):
         return self.__str__()
@@ -122,6 +122,12 @@ class Tensor:
     def strides(self):
         return self.data.strides
 
+    @property
+    def _retain(self):
+        if self.is_leaf:
+            return True
+        return self.retain_
+
     def _check_inplace(self, other=None):
         if other is self:
             raise RuntimeError('prohibit doing inplace operations with self')
@@ -187,7 +193,7 @@ class Tensor:
         return Tensor(self.data)
 
     def retain_grad(self, mode=True):
-        self.retain = mode
+        self.retain_ = mode
 
     def numpy(self):
         return self.data
@@ -961,8 +967,11 @@ class Tensor:
         return result
 
     def backward(self, grad=1.0, is_last=True):
-        if self.size > 1 and is_last:
-            raise RuntimeError('grad can be implicitly created only for scalar outputs')
+        if is_last:
+            if self.size > 1:
+                raise RuntimeError('grad can be implicitly created only for scalar outputs')
+            if self._retain:
+                self.grad = Tensor(np.ones_like(self.data))
         if self.is_leaf:
             return
         if not isinstance(grad, Tensor):
@@ -970,9 +979,9 @@ class Tensor:
         for i, child in enumerate(self.children):
             child_tensor = child[0]
             if isinstance(child_tensor, Tensor) and child_tensor.requires_grad:
-                if child_tensor.grad is None and child_tensor.retain:
+                if child_tensor.grad is None and child_tensor._retain:
                     child_tensor.grad = Tensor(np.zeros_like(child_tensor.data))
                 child_grad = self.grad_fn.calculate_grad(grad.data, self.children, i)
-                if child_tensor.retain:
+                if child_tensor._retain:
                     child_tensor.grad = child_tensor.grad + Tensor(child_grad, dtype=float32)
                 child_tensor.backward(child_grad, False)

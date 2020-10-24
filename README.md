@@ -7,9 +7,9 @@
 ### 基本使用
 ```python
 import nptorch as nt
-# 定义张量，可指定数据类型和是否需要梯度（float类型可以求梯度），返回Tensor类型
-x = nt.array([1., 2., 3.], dtype=nt.float32, requires_grad=True)
-y = nt.array([2., 3., 4.], dtype=nt.float32, requires_grad=False)
+# 定义张量，可指定数据类型，返回Tensor类型
+x = nt.array([1., 2., 3.], dtype=nt.float32)
+y = nt.array([2., 3., 4.], dtype=nt.float32)
 print(x)
 print(type(x))
 # array([1., 2., 3.], dtype=float32, requires_grad=True)
@@ -31,6 +31,21 @@ b = x.outer(y)
 x = nt.random.rand(size=(3, 4), dtype=nt.float32, requires_grad=True)
 # 正态分布
 x = nt.random.normal(size=(3, 4), mean=0., std=1.)
+```
+#### 自动求导
+1. 定义float类型的张量时，可指定参数requires_grad=True来声明需要对此张量求梯度。
+2. 当得到标量结果时，可对该标量调用backward()方法，得到叶子节点的梯度。
+3. 非叶子节点默认不会存储梯度，若需要其存储梯度，可调用其retain_grad()方法。
+```python
+import nptorch as nt
+x = nt.array([1., 2., 3.], dtype=nt.float32, requires_grad=True)
+y = x * 2
+y.retain_grad()
+y.sum().backward()
+print(y.grad)
+print(x.grad)
+# array([1., 1., 1.], dtype=float32)
+# array([2., 2., 2.], dtype=float32)
 ```
 ### 数据集
 1. 项目封装了一个简单的data.py文件用以封装数据，功能比较简单。使用方法也类似pytorch，不过功能少了一些，以后再慢慢完善。
