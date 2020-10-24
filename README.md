@@ -1,5 +1,5 @@
 # autograd with numpy
-本项目旨在用numpy实现计算图，从而进行梯度的自动计算。
+本项目用以学习，其旨在用numpy实现计算图，从而进行梯度的自动计算。
 
 ## 使用文档
 本项目使用风格与numpy和pytorch类似，如果你会用pytorch，那么下面的基本不用看了。
