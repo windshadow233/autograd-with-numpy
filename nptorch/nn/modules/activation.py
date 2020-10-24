@@ -29,7 +29,9 @@ class ReLU(Module):
         return f'inplace={self.inplace}'
 
     def forward(self, x: Tensor):
-        return F.relu(x, inplace=self.inplace)
+        if self.inplace:
+            return F.relu_(x)
+        return F.relu(x)
 
 
 class Tanh(Module):

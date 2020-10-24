@@ -5,11 +5,13 @@ from ..backward import CrossEntropyBackward, ConvBackward, MeanPoolBackward, Max
 from .conv_operations import *
 
 
-def relu(x: Tensor, inplace=False):
-    if inplace:
-        x.relu_()
-        return x
+def relu(x: Tensor):
     return x.relu()
+
+
+def relu_(x: Tensor):
+    x.relu_()
+    return x
 
 
 def sigmoid(x: Tensor):

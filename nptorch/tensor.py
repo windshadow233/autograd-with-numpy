@@ -128,9 +128,7 @@ class Tensor:
             return True
         return self._retain
 
-    def _check_inplace(self, other=None):
-        if other is self:
-            raise RuntimeError('prohibit doing inplace operations with self')
+    def _check_inplace(self):
         if self.is_leaf and self.requires_grad:
             raise RuntimeError('a leaf Variable that requires grad has been used in an in-place operation.')
 
@@ -213,7 +211,7 @@ class Tensor:
         return result
 
     def __iadd__(self, other):
-        self._check_inplace(other)
+        self._check_inplace()
         if isinstance(other, (int, float)):
             y = self.data + other
         else:
@@ -248,7 +246,7 @@ class Tensor:
         return result
 
     def __isub__(self, other):
-        self._check_inplace(other)
+        self._check_inplace()
         if isinstance(other, (int, float)):
             y = self.data - other
         else:
@@ -276,7 +274,7 @@ class Tensor:
         return result
 
     def __imul__(self, other):
-        self._check_inplace(other)
+        self._check_inplace()
         if isinstance(other, (int, float)):
             y = self.data * other
         else:
@@ -312,7 +310,7 @@ class Tensor:
         return result
 
     def __itruediv__(self, other):
-        self._check_inplace(other)
+        self._check_inplace()
         if isinstance(other, (int, float)):
             y = self.data / other
         else:
@@ -348,7 +346,7 @@ class Tensor:
         return result
 
     def __ifloordiv__(self, other):
-        self._check_inplace(other)
+        self._check_inplace()
         if isinstance(other, (int, float)):
             y = self.data // other
         else:
@@ -373,7 +371,7 @@ class Tensor:
         return result
 
     def __imod__(self, other):
-        self._check_inplace(other)
+        self._check_inplace()
         if isinstance(other, Tensor):
             if other.requires_grad:
                 raise RuntimeError("the derivative for 'other' is not implemented")
@@ -412,7 +410,7 @@ class Tensor:
         return result
 
     def __ipow__(self, power):
-        self._check_inplace(power)
+        self._check_inplace()
         if isinstance(power, (int, float)):
             y = np.power(self.data, power)
         else:
@@ -788,7 +786,7 @@ class Tensor:
         return self.__pow__(power)
 
     def pow_(self, power):
-        self._check_inplace(power)
+        self._check_inplace()
         if isinstance(power, (int, float)):
             y = np.power(self.data, power)
         else:
