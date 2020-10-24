@@ -759,7 +759,7 @@ class Tensor:
         if dim is None:
             dim = -1
         data = self.data
-        maximum = np.max(data, dim, keepdims=True)
+        maximum = np.max(data)
         data = data - maximum
         data = np.exp(data)
         data = data / data.sum(dim, keepdims=True)
