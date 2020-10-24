@@ -23,6 +23,7 @@ class Tensor:
         self.grad_fn = None
         self.children = []
         self.grad = None
+        self.retain = True if self.is_leaf else False
 
     def __repr__(self):
         return self.__str__()
@@ -184,6 +185,9 @@ class Tensor:
 
     def detach(self):
         return Tensor(self.data)
+
+    def retain_grad(self, mode=True):
+        self.retain = mode
 
     def numpy(self):
         return self.data
@@ -966,8 +970,9 @@ class Tensor:
         for i, child in enumerate(self.children):
             child_tensor = child[0]
             if isinstance(child_tensor, Tensor) and child_tensor.requires_grad:
-                if child_tensor.grad is None:
+                if child_tensor.grad is None and child_tensor.retain:
                     child_tensor.grad = Tensor(np.zeros_like(child_tensor.data))
                 child_grad = self.grad_fn.calculate_grad(grad.data, self.children, i)
-                child_tensor.grad = child_tensor.grad + Tensor(child_grad, dtype=float32)
+                if child_tensor.retain:
+                    child_tensor.grad = child_tensor.grad + Tensor(child_grad, dtype=float32)
                 child_tensor.backward(child_grad, False)

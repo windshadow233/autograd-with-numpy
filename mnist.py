@@ -76,29 +76,29 @@ test_set = MNISTDataset('mnist/MNIST/raw/t10k-images-idx3-ubyte', 'mnist/MNIST/r
 train_loader = DataLoader(train_set, batch_size=64)
 test_loader = DataLoader(test_set, batch_size=64)
 
-# cnn = CNN()
-# optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
-# loss_fcn = nn.CrossEntropyLoss()
-#
-# for i in tqdm(range(5)):
-#     count = 0
-#     for n, data in enumerate(train_loader, 1):
-#         cnn.train()
-#         d, lb = data
-#         count += len(d)
-#         print(n)
-#         print(count)
-#         print('标签:', lb)
-#         y_hat = cnn(d)
-#         loss = loss_fcn(y_hat, lb)
-#         loss.backward()
-#         optimizer.step()
-#         cnn.eval()
-#         p = cnn(d).argmax(-1)
-#         print('优化后预测:', p)
-#         optimizer.zero_grad()
-#         print(f'优化后的准确比率:{(p == lb).float().sum().item() / len(d)}')
-#
-#
-# print(f'测试集准确率{test_model(cnn, test_loader)}')
-# print(f'训练集准确率{test_model(cnn, train_loader)}')
+cnn = CNN()
+optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
+loss_fcn = nn.CrossEntropyLoss()
+
+for i in tqdm(range(5)):
+    count = 0
+    for n, data in enumerate(train_loader, 1):
+        cnn.train()
+        d, lb = data
+        count += len(d)
+        print(n)
+        print(count)
+        print('标签:', lb)
+        y_hat = cnn(d)
+        loss = loss_fcn(y_hat, lb)
+        loss.backward()
+        optimizer.step()
+        cnn.eval()
+        p = cnn(d).argmax(-1)
+        print('优化后预测:', p)
+        optimizer.zero_grad()
+        print(f'优化后的准确比率:{(p == lb).float().sum().item() / len(d)}')
+
+
+print(f'测试集准确率{test_model(cnn, test_loader)}')
+print(f'训练集准确率{test_model(cnn, train_loader)}')

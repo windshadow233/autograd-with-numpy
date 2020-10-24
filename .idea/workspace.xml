@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/utils/data.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/utils/data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -199,7 +201,7 @@
       <workItem from="1603424795796" duration="33863000" />
       <workItem from="1603473246656" duration="670000" />
       <workItem from="1603474101615" duration="4869000" />
-      <workItem from="1603505726380" duration="2893000" />
+      <workItem from="1603505726380" duration="6089000" />
     </task>
     <servers />
   </component>
