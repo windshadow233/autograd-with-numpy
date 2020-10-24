@@ -6,9 +6,7 @@ def default_collate_fn(all_data: list):
     data_list = []
     data_length = len(all_data[0])
     for i in range(data_length):
-        data_list.append([data[i].data for data in all_data])
-    for i, data in enumerate(data_list):
-        data_list[i] = Tensor(np.r_[data])
+        data_list.append(np.r_[[data[i].data for data in all_data]])
     return data_list
 
 
@@ -23,8 +21,20 @@ class DataSet:
         raise NotImplementedError
 
 
+class SubSet:
+    def __init__(self, dataset: DataSet, indices: list):
+        self.dataset = dataset
+        self.indices = indices
+
+    def __len__(self):
+        return len(self.indices)
+
+    def __getitem__(self, item):
+        return self.dataset[self.indices[item]]
+
+
 class DataLoader:
-    def __init__(self, dataset: DataSet, batch_size=1, shuffle=True, collate_fn=default_collate_fn):
+    def __init__(self, dataset: DataSet or SubSet, batch_size=1, shuffle=True, collate_fn=default_collate_fn):
         self.dataset = dataset
         self.batch_size = batch_size
         self.shuffle = shuffle
@@ -44,16 +54,30 @@ class DataLoader:
         if not self.indices:
             raise StopIteration
         if len(self.indices) <= self.batch_size:
-            return self.get_batches(self.indices)
+            chosen_indices = self.indices
+            self.indices = []
+            return self.get_batches(chosen_indices)
         if self.shuffle:
             chosen_indices = np.random.choice(self.indices, self.batch_size, replace=False)
         else:
             chosen_indices = self.indices[:self.batch_size]
-        self.indices = list(set(self.indices) - set(chosen_indices))
+        for index in chosen_indices:
+            self.indices.remove(index)
         return self.get_batches(chosen_indices)
 
     def get_batches(self, indices):
         all_data = [self.dataset[index] for index in indices]
         return self.collate_fn(all_data)
+
+
+def random_split(dataset: DataSet, split):
+    if sum(split) != len(dataset):
+        raise ValueError('Sum of input lengths does not equal the length of the input dataset!')
+    indices = list(range(sum(split)))
+    np.random.shuffle(indices)
+    current_index = 0
+    for s in split:
+        yield SubSet(dataset=dataset, indices=indices[current_index: current_index + s])
+        current_index += s
 
 
