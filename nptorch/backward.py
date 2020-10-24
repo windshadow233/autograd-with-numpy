@@ -492,6 +492,14 @@ class CrossEntropyBackward(BackwardFcn):
         return grad * (x_softmax - target) / target.shape[0]
 
 
+class NLLLossBackward(BackwardFcn):
+    def __init__(self):
+        super(NLLLossBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        return - grad * children[0][1].data
+
+
 class FloorBackward(BackwardFcn):
     def __init__(self):
         super(FloorBackward, self).__init__()

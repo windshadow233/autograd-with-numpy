@@ -99,6 +99,7 @@ optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ## 更新日志
 ### 2020/10/24
 更新了DataSet、SubSet、DataLoader类与random_split函数。
+更新了NLLLoss、MSELoss。
 ### 2020/10/23
 调整了反向传播算法，增加了激活函数LeakyReLU，ELU，增加模型保存方法，目前只保存完整模型，以后再写仅保存参数的。
 ### 2020/10/22

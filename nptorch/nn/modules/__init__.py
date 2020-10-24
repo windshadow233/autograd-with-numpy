@@ -5,5 +5,5 @@ from .pooling import MaxPool, MeanPool
 from .norm import BatchNorm
 from .module import Module
 from .activation import Softmax, Sigmoid, ReLU, Tanh, LeakyReLU, ELU
-from .loss import CrossEntropyLoss
+from .loss import CrossEntropyLoss, MSELoss, NLLLoss
 from .container import Sequential
