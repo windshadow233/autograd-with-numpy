@@ -27,10 +27,10 @@ class CNN(nn.Module):
         self.layers1 = nn.Sequential(
             nn.Conv(1, 16, 3, padding=(1, 1)),
             nn.MaxPool(2),
-            nn.ReLU(),
+            nn.ReLU(inplace=True),
             nn.Conv(16, 32, 3, padding=(1, 1)),
             nn.MaxPool(2),
-            nn.ReLU(),
+            nn.ReLU(inplace=True),
             nn.Conv(32, 64, 3, padding=(1, 1)),
             nn.MaxPool(2),
             nn.ReLU()

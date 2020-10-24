@@ -5,7 +5,10 @@ from ..backward import CrossEntropyBackward, ConvBackward, MeanPoolBackward, Max
 from .conv_operations import *
 
 
-def relu(x: Tensor):
+def relu(x: Tensor, inplace=False):
+    if inplace:
+        x.relu_()
+        return x
     return x.relu()
 
 

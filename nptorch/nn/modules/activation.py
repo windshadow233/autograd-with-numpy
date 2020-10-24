@@ -21,11 +21,15 @@ class Sigmoid(Module):
 
 
 class ReLU(Module):
-    def __init__(self):
+    def __init__(self, inplace=False):
         super(ReLU, self).__init__()
+        self.inplace = inplace
+
+    def extra_repr(self):
+        return f'inplace={self.inplace}'
 
     def forward(self, x: Tensor):
-        return x.relu()
+        return F.relu(x, inplace=self.inplace)
 
 
 class Tanh(Module):
