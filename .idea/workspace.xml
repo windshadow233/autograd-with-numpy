@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/utils/data.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/utils/data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +198,7 @@
       <workItem from="1603424795796" duration="33863000" />
       <workItem from="1603473246656" duration="670000" />
       <workItem from="1603474101615" duration="4869000" />
-      <workItem from="1603505726380" duration="1231000" />
+      <workItem from="1603505726380" duration="1664000" />
     </task>
     <servers />
   </component>
@@ -303,10 +301,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="762" y="0" width="781" height="870" key="dock-window-1/0.0.1536.864@0.0.1536.864" timestamp="1603270427926" />
-    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1603455974039">
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1603507121807">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1603455974039" />
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1603507121807" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
