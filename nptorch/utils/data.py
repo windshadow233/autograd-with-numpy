@@ -14,6 +14,9 @@ class DataSet:
     def __init__(self):
         pass
 
+    def __repr__(self):
+        return f'DataSet Name:{self.__class__.__name__}\nLength:{self.__len__()}'
+
     def __len__(self):
         raise NotImplementedError
 
@@ -25,6 +28,9 @@ class SubSet:
     def __init__(self, dataset: DataSet, indices: list):
         self.dataset = dataset
         self.indices = indices
+
+    def __repr__(self):
+        return f'SubSet of DataSet:{self.dataset.__class__.__name__}\nLength:{self.__len__()}'
 
     def __len__(self):
         return len(self.indices)
