@@ -23,7 +23,7 @@ class Tensor:
         self.grad_fn = None
         self.children = []
         self.grad = None
-        self.retain_ = False
+        self._retain = False
 
     def __repr__(self):
         return self.__str__()
@@ -123,10 +123,10 @@ class Tensor:
         return self.data.strides
 
     @property
-    def _retain(self):
+    def _retain_grad(self):
         if self.is_leaf:
             return True
-        return self.retain_
+        return self._retain
 
     def _check_inplace(self, other=None):
         if other is self:
@@ -193,7 +193,7 @@ class Tensor:
         return Tensor(self.data)
 
     def retain_grad(self, mode=True):
-        self.retain_ = mode
+        self._retain = mode
 
     def numpy(self):
         return self.data
@@ -970,7 +970,7 @@ class Tensor:
         if is_last:
             if self.size > 1:
                 raise RuntimeError('grad can be implicitly created only for scalar outputs')
-            if self._retain:
+            if self._retain_grad:
                 self.grad = Tensor(np.ones_like(self.data))
         if self.is_leaf:
             return
@@ -979,9 +979,9 @@ class Tensor:
         for i, child in enumerate(self.children):
             child_tensor = child[0]
             if isinstance(child_tensor, Tensor) and child_tensor.requires_grad:
-                if child_tensor.grad is None and child_tensor._retain:
+                if child_tensor.grad is None and child_tensor._retain_grad:
                     child_tensor.grad = Tensor(np.zeros_like(child_tensor.data))
                 child_grad = self.grad_fn.calculate_grad(grad.data, self.children, i)
-                if child_tensor._retain:
+                if child_tensor._retain_grad:
                     child_tensor.grad = child_tensor.grad + Tensor(child_grad, dtype=float32)
                 child_tensor.backward(child_grad, False)
