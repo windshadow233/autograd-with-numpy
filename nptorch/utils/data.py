@@ -10,7 +10,7 @@ def default_collate_fn(all_data: list):
     return data_list
 
 
-class DataSet:
+class Dataset:
     def __init__(self):
         pass
 
@@ -24,8 +24,8 @@ class DataSet:
         raise NotImplementedError
 
 
-class SubSet:
-    def __init__(self, dataset: DataSet, indices: list):
+class Subset:
+    def __init__(self, dataset: Dataset, indices: list):
         self.dataset = dataset
         self.indices = indices
 
@@ -40,7 +40,7 @@ class SubSet:
 
 
 class DataLoader:
-    def __init__(self, dataset: DataSet or SubSet, batch_size=1, shuffle=True, collate_fn=default_collate_fn):
+    def __init__(self, dataset: Dataset or Subset, batch_size=1, shuffle=True, collate_fn=default_collate_fn):
         self.dataset = dataset
         self.batch_size = batch_size
         self.shuffle = shuffle
@@ -73,14 +73,14 @@ class DataLoader:
         return self.collate_fn(all_data)
 
 
-def random_split(dataset: DataSet, split):
+def random_split(dataset: Dataset, split):
     if sum(split) != len(dataset):
         raise ValueError('Sum of input lengths does not equal the length of the input dataset!')
     indices = list(range(sum(split)))
     np.random.shuffle(indices)
     current_index = 0
     for s in split:
-        yield SubSet(dataset=dataset, indices=indices[current_index: current_index + s])
+        yield Subset(dataset=dataset, indices=indices[current_index: current_index + s])
         current_index += s
 
 

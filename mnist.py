@@ -5,10 +5,10 @@ import nptorch
 from nptorch import random
 from nptorch import nn
 from nptorch.optim import SGD
-from nptorch.utils.data import DataSet, DataLoader, random_split
+from nptorch.utils.data import Dataset, DataLoader, random_split
 
 
-class MNISTDataset(DataSet):
+class MNISTDataset(Dataset):
     def __init__(self, data_path, label_path):
         super(MNISTDataset, self).__init__()
         self.data, self.label = load_mnist(data_path, label_path)
