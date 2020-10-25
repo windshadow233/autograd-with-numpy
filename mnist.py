@@ -25,14 +25,16 @@ class CNN(nn.Module):
     def __init__(self):
         super(CNN, self).__init__()
         self.layers1 = nn.Sequential(
-            nn.Conv(1, 16, 3, padding=(1, 1)),
-            nn.MaxPool(2),
+            nn.Conv2d(1, 16, 3, padding=(1, 1)),
+            nn.MaxPool2d(2),
+            nn.BatchNorm2d(16),
             nn.ReLU(inplace=True),
-            nn.Conv(16, 32, 3, padding=(1, 1)),
-            nn.MaxPool(2),
+            nn.Conv2d(16, 32, 3, padding=(1, 1)),
+            nn.MaxPool2d(2),
+            nn.BatchNorm2d(32),
             nn.ReLU(inplace=True),
-            nn.Conv(32, 64, 3, padding=(1, 1)),
-            nn.MaxPool(2),
+            nn.Conv2d(32, 64, 3, padding=(1, 1)),
+            nn.MaxPool2d(2),
             nn.ReLU()
         )
         self.layers2 = nn.Sequential(

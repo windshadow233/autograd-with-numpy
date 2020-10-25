@@ -6,9 +6,9 @@ from .. import functional as F
 from .module import Module
 
 
-class Conv(Module):
+class Conv2d(Module):
     def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=(0, 0), use_bias=True):
-        super(Conv, self).__init__()
+        super(Conv2d, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.kernel_size = kernel_size
@@ -30,7 +30,7 @@ class Conv(Module):
         oc, ic, kh, kw = self.kernels.shape
         assert c == ic, 'Conv channels not equal'
         if self.use_bias:
-            result = F.conv(x, self.kernels, self.bias, stride=self.stride, padding=self.padding)
+            result = F.conv2d(x, self.kernels, self.bias, stride=self.stride, padding=self.padding)
         else:
-            return F.conv(x, self.kernels, stride=self.stride, padding=self.padding)
+            return F.conv2d(x, self.kernels, stride=self.stride, padding=self.padding)
         return result

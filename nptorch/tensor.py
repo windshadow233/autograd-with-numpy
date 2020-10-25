@@ -172,6 +172,9 @@ class Tensor:
     def bool(self):
         return Tensor(self.data.astype(bool_), dtype=bool_)
 
+    def tolist(self):
+        return self.data.tolist()
+
     def all(self, axis=None, keepdims=False):
         return Tensor(self.data.all(axis=axis, keepdims=keepdims))
 

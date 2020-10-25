@@ -541,9 +541,9 @@ class NormBackward(BackwardFcn):
         return grad * y * child.data ** (p - 1.)
 
 
-class ConvBackward(BackwardFcn):
+class Conv2dBackward(BackwardFcn):
     def __init__(self):
-        super(ConvBackward, self).__init__()
+        super(Conv2dBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
         padding = children[0][1]
@@ -566,9 +566,9 @@ class ConvBackward(BackwardFcn):
             return np.sum(grad, (0, -1, -2))
 
 
-class MeanPoolBackward(BackwardFcn):
+class MeanPool2dBackward(BackwardFcn):
     def __init__(self):
-        super(MeanPoolBackward, self).__init__()
+        super(MeanPool2dBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
         x, kernel_size, stride = children[0]
@@ -581,9 +581,9 @@ class MeanPoolBackward(BackwardFcn):
         return new_grad
 
 
-class MaxPoolBackward(BackwardFcn):
+class MaxPool2dBackward(BackwardFcn):
     def __init__(self):
-        super(MaxPoolBackward, self).__init__()
+        super(MaxPool2dBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
         x, argmax, kernel_size, stride = children[0]
@@ -596,19 +596,25 @@ class MaxPoolBackward(BackwardFcn):
         return new_grad
 
 
-# class BatchNormBackward(BackwardFcn):
-#     def __init__(self):
-#         super(BatchNormBackward, self).__init__()
-#
-#     def calculate_grad(self, grad, children, place):
-#         x, x_hat, var, mean, eps= children[0]
-#         gamma = children[1][0]
-#         beta = children[2][0]
-#         n = grad.shape[0]
-#         if place == 0:
-#             return grad * gamma.data / (n * np.sqrt(var + eps))
-#         elif place == 1:
-#             return np.sum(np.mean(grad * x_hat, 0))
+class BatchNorm2dBackward(BackwardFcn):
+    def __init__(self):
+        super(BatchNorm2dBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        x, x_hat, mean, var, eps = children[0]
+        gamma = children[1][0]
+        grad_x_hat = grad * np.expand_dims(gamma.data, (0, -1, -2))
+        if place == 0:
+            n = grad.shape[0] * grad.shape[-1] * grad.shape[-2]
+            dx = n * grad_x_hat - np.sum(grad_x_hat, axis=(0, -1, -2), keepdims=True) - \
+                x_hat * np.sum(x_hat * grad_x_hat, axis=(0, -1, -2), keepdims=True)
+            dx = dx / (n * np.sqrt(var + eps))
+            return dx
+        elif place == 1:
+            return np.sum(x_hat, axis=(0, -1, -2))
+        else:
+            return np.sum(grad, axis=(0, -1, -2))
+
 
 class LeakyReLUBackward(BackwardFcn):
     def __init__(self):

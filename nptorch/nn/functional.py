@@ -1,6 +1,6 @@
 from ..tensor import *
 from ..random import rand_like
-from ..backward import CrossEntropyBackward, ConvBackward, MeanPoolBackward, MaxPoolBackward,\
+from ..backward import CrossEntropyBackward, Conv2dBackward, MeanPool2dBackward, MaxPool2dBackward,\
     LeakyReLUBackward, ELUBackward
 from .conv_operations import *
 
@@ -74,7 +74,7 @@ def dropout(x: Tensor, p=0.5, training=True):
     return y
 
 
-def conv(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=1, padding=(0, 0)):
+def conv2d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=1, padding=(0, 0)):
     data = x.data
     padding = ((padding[0], padding[0]), (padding[1], padding[1]))
     data = padding_zeros(data, padding)
@@ -87,22 +87,22 @@ def conv(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=1, padding=(0, 
         output.children = [(x, padding), (kernels, stride)]
         if bias is not None:
             output.children.append((bias, None))
-        output.grad_fn = ConvBackward()
+        output.grad_fn = Conv2dBackward()
     return output
 
 
-def mean_pool(x: Tensor, kernel_size, stride):
+def mean_pool2d(x: Tensor, kernel_size, stride):
     stride = stride or kernel_size
     split = split_by_strides(x.data, kernel_size, kernel_size, stride)
     mean_data = np.mean(split, axis=(-1, -2))
     output = Tensor(mean_data, requires_grad=x.requires_grad)
     if output.requires_grad:
         output.children = [(x, kernel_size, stride)]
-        output.grad_fn = MeanPoolBackward()
+        output.grad_fn = MeanPool2dBackward()
     return output
 
 
-def max_pool(x: Tensor, kernel_size, stride=None):
+def max_pool2d(x: Tensor, kernel_size, stride=None):
     stride = stride or kernel_size
     split = split_by_strides(x.data, kernel_size, kernel_size, stride)
     max_data = np.max(split, axis=(-1, -2))
@@ -110,13 +110,17 @@ def max_pool(x: Tensor, kernel_size, stride=None):
     output = Tensor(max_data, requires_grad=x.requires_grad)
     if output.requires_grad:
         output.children = [(x, argmax, kernel_size, stride)]
-        output.grad_fn = MaxPoolBackward()
+        output.grad_fn = MaxPool2dBackward()
     return output
 
 
-def batch_norm(x: Tensor, gamma: Tensor, beta: Tensor, running_mean: Tensor, running_var: Tensor, eps=1e-5):
-    x_hat = (x - running_mean) / (running_var + eps).sqrt()
-    output = gamma * x_hat + beta
+def batch_norm2d(x: Tensor, mean: Tensor, var: Tensor, gamma: Tensor, beta: Tensor, eps=1e-5):
+    x_hat = (x.data - mean.data) / np.sqrt(var.data + eps)
+    output = Tensor(gamma.unsqueeze(0, -1, -2).data * x_hat + beta.unsqueeze(0, -1, -2).data,
+                    requires_grad=x.requires_grad or gamma.requires_grad or beta.requires_grad)
+    if output.requires_grad:
+        output.grad_fn = BatchNorm2dBackward()
+        output.children = [(x, x_hat, mean.data, var.data, eps), (gamma, None), (beta, None)]
     return output
 
 
@@ -140,7 +144,7 @@ def cross_entropy(x: Tensor, target):
     return loss
 
 
-def mse(x: Tensor, target: Tensor):
+def mse_loss(x: Tensor, target: Tensor):
     """
     均方误差
     @param x: 预测值

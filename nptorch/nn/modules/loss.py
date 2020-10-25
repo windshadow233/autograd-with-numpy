@@ -16,7 +16,7 @@ class MSELoss(Module):
         super(MSELoss, self).__init__()
 
     def forward(self, x: Tensor, target: Tensor):
-        return F.mse(x, target)
+        return F.mse_loss(x, target)
 
 
 class NLLLoss(Module):

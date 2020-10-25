@@ -97,22 +97,29 @@ cnn = CNN()
 optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
 ## 更新日志
+### 2020/10/25
+* 更新了BatchNorm
 ### 2020/10/24
-更新了DataSet、SubSet、DataLoader类与random_split函数。
-更新了NLLLoss、MSELoss。
+* 更新了DataSet、SubSet、DataLoader类与random_split函数。
+* 增加了NLLLoss、MSELoss。
 ### 2020/10/23
-调整了反向传播算法，增加了激活函数LeakyReLU，ELU，增加模型保存方法，目前只保存完整模型，以后再写仅保存参数的。
+* 调整了反向传播算法。
+* 增加了激活函数LeakyReLU，ELU。
+* 增加模型保存方法，目前只保存完整模型，以后再写仅保存参数的。
 ### 2020/10/22
-实现了一个简单的模型训练参数类Parameter。
+* 实现了一个简单的模型训练参数类Parameter。
 ### 2020/10/21
-增加了均值池化层和最大池化层。
+* 增加了均值池化层和最大池化层。
 ### 2020/10/20
-增加可做padding的卷积层Conv及其backward，使用卷积mnist准确率进一步提升，证明卷积没写错。
+* 增加可做padding的卷积层Conv及其backward，使用卷积mnist准确率进一步提升，证明卷积没写错。
 ### 2020/10/19
-实现Dropout层，完善SGD（增加动量，L1、L2正则化），模仿pytorch对代码进行良好封装、模仿pytorch实现模型的可视化打印功能。
+* 实现Dropout层，完善SGD（增加动量，L1、L2正则化）
+* 模仿pytorch对代码进行良好封装、模仿pytorch实现模型的可视化打印功能。
 ### 2020/10/18
-实现了一个简单的SGD优化器，首次用线性层跑通mnist数据集。
+* 实现了一个简单的SGD优化器。
+* 首次用线性层跑通mnist数据集。
 ### 2020/10/13~2020/10/17
-尝试了N种数据结构，最后借助numpy的ndarray类型封装了一个Tensor类，为计算图的节点，同时重写或补充了适用于Tensor类的上百个方法与函数，基本的运算均实现了backward。
+* 尝试了N种数据结构，最后借助numpy的ndarray类型封装了一个Tensor类，为计算图的节点，同时重写或补充了适用于Tensor类的上百个方法与函数，基本的运算均实现了backward。
+* 实现线性层。
 ### 2020/10/12
 产生“写个计算图玩玩”的idea。
