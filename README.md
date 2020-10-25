@@ -64,14 +64,14 @@ class CNN(nn.Module):
     def __init__(self):
         super(CNN, self).__init__()
         self.layer1 = nn.Sequential(
-            nn.Conv(1, 16, 3, padding=(1, 1)),
-            nn.MaxPool(2),
+            nn.Conv2d(1, 16, 3, padding=(1, 1)),
+            nn.MaxPool2d(2),
             nn.ReLU(),
-            nn.Conv(16, 32, 3, padding=(1, 1)),
-            nn.MaxPool(2),
+            nn.Conv2d(16, 32, 3, padding=(1, 1)),
+            nn.MaxPool2d(2),
             nn.ReLU(),
-            nn.Conv(32, 64, 3, padding=(1, 1)),
-            nn.MaxPool(2),
+            nn.Conv2d(32, 64, 3, padding=(1, 1)),
+            nn.MaxPool2d(2),
             nn.ReLU()
         )
         self.layer2 = nn.Sequential(
@@ -98,7 +98,7 @@ optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
 ## 更新日志
 ### 2020/10/25
-* 更新了BatchNorm
+* 更新了BatchNorm2d
 ### 2020/10/24
 * 更新了DataSet、SubSet、DataLoader类与random_split函数。
 * 增加了NLLLoss、MSELoss。
@@ -109,9 +109,9 @@ optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ### 2020/10/22
 * 实现了一个简单的模型训练参数类Parameter。
 ### 2020/10/21
-* 增加了均值池化层和最大池化层。
+* 增加了二维的均值池化层和最大池化层。
 ### 2020/10/20
-* 增加可做padding的卷积层Conv及其backward，使用卷积mnist准确率进一步提升，证明卷积没写错。
+* 增加可做padding的二维卷积层Conv2d及其backward，使用卷积mnist准确率进一步提升，证明卷积没写错。
 ### 2020/10/19
 * 实现Dropout层，完善SGD（增加动量，L1、L2正则化）
 * 模仿pytorch对代码进行良好封装、模仿pytorch实现模型的可视化打印功能。
