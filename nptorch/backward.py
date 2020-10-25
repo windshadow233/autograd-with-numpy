@@ -58,7 +58,7 @@ class NegBackward(BackwardFcn):
         super(NegBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
-        return - np.ones_like(children[place][0]) * grad
+        return - np.ones_like(children[place][0].data) * grad
 
 
 class SubBackward(BackwardFcn):
@@ -68,7 +68,7 @@ class SubBackward(BackwardFcn):
     def calculate_grad(self, grad, children, place):
         x = children[place][0].data
         a = children[1 - place][0]
-        grad = (-2. * place + 1.) * np.ones_like(children[place][0]) * grad
+        grad = (-2. * place + 1.) * np.ones_like(x) * grad
         if isinstance(a, (int, float)) or x.shape == a.data.shape:
             return grad
         a = a.data
@@ -189,7 +189,7 @@ class SumBackward(BackwardFcn):
         super(SumBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
-        return np.ones_like(children[0][0]) * grad
+        return np.ones_like(children[0][0].data) * grad
 
 
 class MaxBackward(BackwardFcn):
@@ -521,7 +521,7 @@ class UniformBackward(BackwardFcn):
         super(UniformBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
-        return grad * np.ones_like(children[0][0])
+        return grad * np.ones_like(children[0][0].data)
 
 
 class NormalBackward(BackwardFcn):
@@ -529,7 +529,7 @@ class NormalBackward(BackwardFcn):
         super(NormalBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
-        return grad * np.ones_like(children[0][0])
+        return grad * np.ones_like(children[0][0].data)
 
 
 class NormBackward(BackwardFcn):
