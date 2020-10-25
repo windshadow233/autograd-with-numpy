@@ -11,7 +11,7 @@ class _DropoutNd(Module):
         self.p = p
 
     def forward(self, *args):
-        pass
+        raise NotImplementedError
 
 
 class Dropout(_DropoutNd):

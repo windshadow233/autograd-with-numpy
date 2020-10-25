@@ -6,15 +6,23 @@ from .. import functional as F
 from .module import Module
 
 
-class Conv2d(Module):
+class _ConvNd(Module):
     def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=(0, 0), use_bias=True):
-        super(Conv2d, self).__init__()
+        super(_ConvNd, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.kernel_size = kernel_size
         self.stride = stride
         self.padding = padding
         self.use_bias = use_bias
+
+    def forward(self, *args):
+        raise NotImplementedError
+
+
+class Conv2d(_ConvNd):
+    def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=(0, 0), use_bias=True):
+        super(Conv2d, self).__init__(in_channels, out_channels, kernel_size, stride, padding, use_bias)
         n = out_channels * kernel_size ** 2
         self.kernels = Parameter(
             normal((out_channels, in_channels, kernel_size, kernel_size), mean=0., std=np.sqrt(2 / n)))
