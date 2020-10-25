@@ -33,19 +33,27 @@ def split_by_strides(input_data, kernel_x, kernel_y, stride=1):
 
 
 def padding_zeros(x, padding):
+    """
+    在张量周围填补0
+    @param x: 需要被padding的张量,ndarray类型
+    @param padding: 一个二元组,其每个元素也是一个二元组,分别表示x,y方向需要padding的数量
+    @return: padding的结果
+    """
     if padding == ((0, 0), (0, 0)):
         return x
-    b, c, h, w = x.shape
-    p, q = padding
-    result = np.zeros((b, c, h + p[0] + p[1], w + q[0] + q[1]))
-    result[:, :, p[0]:-p[1], q[0]:-q[1]] = x
-    return result
+    n = x.ndim - 2
+    x = np.pad(x, ((0, 0),) * n + padding, 'constant', constant_values=0)
+    return x
 
 
 def unwrap_padding(x, padding):
     if padding == ((0, 0), (0, 0)):
         return x
     p, q = padding
+    if p == (0, 0):
+        return x[..., :, q[0]:-q[1]]
+    if q == (0, 0):
+        return x[..., p[0]:-p[1], :]
     return x[..., p[0]:-p[1], q[0]:-q[1]]
 
 
