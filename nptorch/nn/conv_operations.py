@@ -71,7 +71,7 @@ def insert_zero(x, stride=1):
     return result
 
 
-def reverse_conv(x, kernel, rotate=False, invert=False):
+def reverse_conv2d(x, kernel, rotate=False, invert=False):
     """
     反向卷积,求梯度时用的
     @param x: 被卷积的张量

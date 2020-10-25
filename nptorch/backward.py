@@ -556,12 +556,12 @@ class Conv2dBackward(BackwardFcn):
             padding_y = np.floor(add_cols / 2).astype(int), np.ceil(add_cols / 2).astype(int)
             grad = padding_zeros(grad, (padding_x, padding_y))
             kernel = kernel.data
-            return unwrap_padding(reverse_conv(grad, kernel, rotate=True, invert=False), padding)
+            return unwrap_padding(reverse_conv2d(grad, kernel, rotate=True, invert=False), padding)
         elif place == 1:
             x = padding_zeros(children[0][0].data, padding)
             stride = children[1][1]
             grad = insert_zero(grad, stride)
-            return reverse_conv(x, grad, rotate=False, invert=True)
+            return reverse_conv2d(x, grad, rotate=False, invert=True)
         else:
             return np.sum(grad, (0, -1, -2))
 
