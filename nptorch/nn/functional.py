@@ -1,5 +1,5 @@
 from ..tensor import *
-from ..random import rand_like
+from .. import random
 from ..backward import CrossEntropyBackward, Conv2dBackward, MeanPool2dBackward, MaxPool2dBackward,\
     LeakyReLUBackward, ELUBackward
 from .conv_operations import *
@@ -62,15 +62,27 @@ def linear(x: Tensor, w: Tensor, b: Tensor = None):
 
 def dropout(x: Tensor, p=0.5, training=True):
     """
-
+    普通dropout,每个元素有p的概率置0
     @param x: 输入的张量
-    @param p: 神经元失活率
+    @param p: 失活率
     @param training: 是否处于训练模式
     """
     if not 0. <= p <= 1.:
         raise ValueError(f'dropout probability has to be between 0 and 1, but got {p}')
-    mask = (rand_like(x) > p).float()
-    y = x / (1 - p) * mask if training else x
+    y = x / (1 - p) * (random.rand_like(x) > p).float() if training else x
+    return y
+
+
+def dropout2d(x: Tensor, p=0.5, training=True):
+    """
+    二维dropout,每个channel有p的概率置0
+    @param x: 输入的张量,(B,C,H,W)
+    @param p: 失活率
+    @param training: 是否处于训练模式
+    """
+    if not 0. <= p <= 1.:
+        raise ValueError(f'dropout probability has to be between 0 and 1, but got {p}')
+    y = x / (1 - p) * (random.rand((1, x.shape[1], 1, 1)) > p).float() if training else x
     return y
 
 

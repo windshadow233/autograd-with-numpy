@@ -98,7 +98,7 @@ optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
 ## 更新日志
 ### 2020/10/25
-* 更新了BatchNorm2d，2d部分基本写完了，开始补作业，隔段时间空了补充1d。
+* 增加了BatchNorm2d，Dropout2d，2d部分基本写完了，开始补作业，隔段时间空了补充1d。
 ### 2020/10/24
 * 更新了DataSet、SubSet、DataLoader类与random_split函数。
 * 增加了NLLLoss、MSELoss。
