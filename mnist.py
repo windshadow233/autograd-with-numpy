@@ -36,7 +36,7 @@ class CNN(nn.Module):
             nn.Conv2d(32, 64, 3, padding=(1, 1)),
             nn.MaxPool2d(2),
             nn.BatchNorm2d(64),
-            nn.ReLU()
+            nn.ReLU(inplace=True)
         )
         self.layers2 = nn.Sequential(
             nn.Linear(64 * 9, 128),

@@ -25,18 +25,18 @@ class Conv2d(_ConvNd):
         super(Conv2d, self).__init__(in_channels, out_channels, kernel_size, stride, padding, use_bias)
         n = out_channels * kernel_size ** 2
         self.kernels = Parameter(
-            normal((out_channels, in_channels, kernel_size, kernel_size), mean=0., std=np.sqrt(2 / n)))
+            normal((out_channels, in_channels, kernel_size, kernel_size), mean=0., std=np.sqrt(2. / n)))
         if self.use_bias:
             self.bias = Parameter(nptorch.zeros(out_channels))
 
     def extra_repr(self):
-        return f'in_channels={self.in_channels}, out_channels={self.out_channels},' \
-               f' kernel_size={self.kernel_size}, stride={self.stride}, padding={self.padding}, use_bias={self.use_bias}'
+        return f'in_channels={self.in_channels}, out_channels={self.out_channels}, kernel_size={self.kernel_size},' \
+               f' stride={self.stride}, padding={self.padding}, use_bias={self.use_bias}'
 
     def forward(self, x: Tensor):
         b, c, h, w = x.shape
         oc, ic, kh, kw = self.kernels.shape
-        assert c == ic, 'Conv channels not equal'
+        assert c == ic, 'Conv2d channels not equal'
         if self.use_bias:
             result = F.conv2d(x, self.kernels, self.bias, stride=self.stride, padding=self.padding)
         else:
