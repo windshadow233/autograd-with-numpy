@@ -73,7 +73,7 @@ def load_mnist(img_path, label_path):
     return nptorch.array(images, dtype=np.float32), nptorch.array(labels)
 
 
-random.seed(0)
+random.seed(6)
 train_set = MNISTDataset('mnist/MNIST/raw/train-images-idx3-ubyte', 'mnist/MNIST/raw/train-labels-idx1-ubyte')
 test_set = MNISTDataset('mnist/MNIST/raw/t10k-images-idx3-ubyte', 'mnist/MNIST/raw/t10k-labels-idx1-ubyte')
 train_loader = DataLoader(train_set, batch_size=128)
@@ -83,7 +83,7 @@ cnn = CNN()
 optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.7)
 loss_fcn = nn.CrossEntropyLoss()
 
-for i in tqdm(range(5)):
+for i in tqdm(range(10)):
     count = 0
     for n, data in enumerate(train_loader, 1):
         cnn.train()

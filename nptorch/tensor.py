@@ -1,6 +1,6 @@
 from copy import deepcopy
 from .backward import *
-from numpy import float16, float32, float64, int8, int16, int32, int64, bool_
+from numpy import float16, float32, float64, int8, int16, int32, int64, bool_, uint8, uint16, uint32, uint64
 
 # np.set_printoptions(precision=4, suppress=True)
 
