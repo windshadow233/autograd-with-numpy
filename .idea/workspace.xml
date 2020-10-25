@@ -48,7 +48,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="deletionFromPopupRequiresConfirmation" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../LFW" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -225,6 +225,7 @@
       <workItem from="1603548258743" duration="13553000" />
       <workItem from="1603600044455" duration="16603000" />
       <workItem from="1603623896067" duration="6457000" />
+      <workItem from="1603637147177" duration="1245000" />
     </task>
     <servers />
   </component>
