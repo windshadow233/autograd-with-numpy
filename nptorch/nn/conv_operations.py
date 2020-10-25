@@ -53,7 +53,7 @@ def kernel_rotate180(kernel):
     return kernel[..., ::-1, ::-1]
 
 
-def insert_zero(x, stride=1):
+def insert_zeros(x, stride=1):
     """
     按一定步长填充0
     Example: [[1, 2, 3], 2    [[1, 0, 2, 0, 3],

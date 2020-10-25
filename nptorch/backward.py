@@ -549,7 +549,7 @@ class Conv2dBackward(BackwardFcn):
         padding = children[0][1]
         if place == 0:
             kernel, stride = children[1]
-            grad = insert_zero(grad, stride)
+            grad = insert_zeros(grad, stride)
             delta_x_shape = children[0][0].shape[-2] + sum(padding[0]), children[0][0].shape[-1] + sum(padding[1])
             add_rows, add_cols = np.array(delta_x_shape) + kernel.shape[-1] - 1 - np.array(grad.shape[-2:])
             padding_x = np.floor(add_rows / 2).astype(int), np.ceil(add_rows / 2).astype(int)
@@ -560,7 +560,7 @@ class Conv2dBackward(BackwardFcn):
         elif place == 1:
             x = padding_zeros(children[0][0].data, padding)
             stride = children[1][1]
-            grad = insert_zero(grad, stride)
+            grad = insert_zeros(grad, stride)
             return reverse_conv2d(x, grad, rotate=False, invert=True)
         else:
             return np.sum(grad, (0, -1, -2))
