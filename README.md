@@ -99,6 +99,7 @@ optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 
 ### 2020/10/26
 * 增加了Adam优化器。
+* 增加ToTensor、Reshape与GaryScale三个图像transform
 ### 2020/10/25
 * 增加了BatchNorm2d，Dropout2d，2d部分基本写完了，开始补作业，隔段时间空了补充1d。
 ### 2020/10/24
