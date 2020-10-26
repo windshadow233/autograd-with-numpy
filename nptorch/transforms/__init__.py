@@ -1,1 +1,1 @@
-from .transforms import Compose, ToTensor
+from .transforms import Compose, ToTensor, Resize, Grayscale

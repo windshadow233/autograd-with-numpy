@@ -24,3 +24,22 @@ def to_tensor(img):
         img = np.array(img) / 255.
     img = img.transpose((2, 0, 1))
     return Tensor(img, dtype=np.float32)
+
+
+def resize(img, size):
+    if not isinstance(img, Image.Image):
+        raise TypeError(f'img should be PIL Image. Got {type(img)}')
+    img = img.resize(size)
+    return img
+
+
+def gray_scale(img, out_channels):
+    if out_channels not in {1, 3}:
+        raise ValueError(f'output_channels should be either 1 or 3. Got {out_channels}')
+    if not isinstance(img, Image.Image):
+        raise TypeError(f'img should be PIL Image. Got {type(img)}')
+    img = img.convert('L')
+    if out_channels == 1:
+        return img
+    img = Image.merge('RGB', (img, img, img))
+    return img
