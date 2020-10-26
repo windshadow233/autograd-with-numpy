@@ -79,7 +79,7 @@ def load_mnist(img_path, label_path):
 random.seed(6)
 train_set = MNISTDataset('mnist/MNIST/raw/train-images-idx3-ubyte', 'mnist/MNIST/raw/train-labels-idx1-ubyte')
 test_set = MNISTDataset('mnist/MNIST/raw/t10k-images-idx3-ubyte', 'mnist/MNIST/raw/t10k-labels-idx1-ubyte')
-train_loader = DataLoader(train_set, batch_size=128)
+train_loader = DataLoader(train_set, batch_size=64)
 test_loader = DataLoader(test_set, batch_size=128)
 
 cnn = CNN()

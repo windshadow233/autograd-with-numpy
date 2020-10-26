@@ -34,7 +34,7 @@ x = nt.random.normal(size=(3, 4), mean=0., std=1.)
 ```
 ### 自动求导
 1. 定义float类型的张量时，可指定参数requires_grad=True来声明需要对此张量求梯度。
-2. 当得到标量结果时，可对该标量调用backward()方法，得到叶子节点的梯度。
+2. 当得到标量结果时，可对该标量调用backward()方法，得到与该标量相关的计算图中所有叶子节点的梯度。
 3. 非叶子节点默认不会存储梯度，若需要其存储梯度，可调用其retain_grad()方法。
 ```python
 import nptorch as nt
