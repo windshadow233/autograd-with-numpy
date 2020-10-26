@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class Dataset:
+class Dataset(object):
     def __init__(self):
         pass
 
@@ -15,7 +15,7 @@ class Dataset:
         raise NotImplementedError
 
 
-class Subset:
+class Subset(object):
     def __init__(self, dataset: Dataset, indices: list):
         self.dataset = dataset
         self.indices = indices

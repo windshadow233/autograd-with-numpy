@@ -5,14 +5,17 @@ import nptorch
 from nptorch import random
 from nptorch import nn
 from nptorch.optim import SGD
+from nptorch.transforms import ToTensor, Compose
 from nptorch.utils.data import Dataset, DataLoader
+
+trans = Compose([ToTensor()])
 
 
 class MNISTDataset(Dataset):
     def __init__(self, data_path, label_path):
         super(MNISTDataset, self).__init__()
         self.data, self.label = load_mnist(data_path, label_path)
-        self.data = self.data / 255.
+        self.data = trans(self.data)
 
     def __len__(self):
         return len(self.label)
@@ -70,7 +73,7 @@ def load_mnist(img_path, label_path):
     with open(img_path, 'rb') as img:
         _, num, rows, cols = struct.unpack('>IIII', img.read(16))
         images = np.fromfile(img, dtype=np.uint8).reshape(num, 1, rows, cols)
-    return nptorch.array(images, dtype=np.float32), nptorch.array(labels)
+    return images, nptorch.array(labels)
 
 
 random.seed(6)

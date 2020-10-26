@@ -2,15 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/nptorch/transform/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nptorch/utils/data/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nptorch/utils/data/dataloader.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nptorch/utils/data/dataset.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/utils/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/utils/data.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/transforms/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/transforms/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/transforms/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/transforms/functional.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/transforms/transforms.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/transforms/transforms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/utils/data/dataloader.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/utils/data/dataloader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/utils/data/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/utils/data/dataset.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -233,7 +231,7 @@
       <workItem from="1603600044455" duration="16603000" />
       <workItem from="1603623896067" duration="6457000" />
       <workItem from="1603637147177" duration="1245000" />
-      <workItem from="1603687099082" duration="2289000" />
+      <workItem from="1603687099082" duration="5342000" />
     </task>
     <servers />
   </component>
