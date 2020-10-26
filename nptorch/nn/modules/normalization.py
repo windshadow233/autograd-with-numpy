@@ -22,13 +22,17 @@ class _BatchNormNd(Module):
             self.running_mean = Tensor(0.)
             self.running_var = Tensor(1.)
 
+    def extra_repr(self):
+        return f'num_feature={self.num_features}, momentum={self.momentum}, affine={self.affine},' \
+               f' track_running_stats={self.track_running_stats}'
+
     def forward(self, *args):
         raise NotImplementedError
 
 
 class BatchNorm2d(_BatchNormNd):
     """
-    批归一化层
+    2d批归一化层
     """
     def __init__(self, num_features, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True):
         """
@@ -40,10 +44,6 @@ class BatchNorm2d(_BatchNormNd):
         @param track_running_stats: 是否更新统计特征
         """
         super(BatchNorm2d, self).__init__(num_features, eps, momentum, affine, track_running_stats)
-
-    def extra_repr(self):
-        return f'num_feature={self.num_features}, momentum={self.momentum}, affine={self.affine},' \
-               f' track_running_stats={self.track_running_stats}'
 
     def forward(self, x: Tensor):
         """

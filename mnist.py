@@ -15,13 +15,12 @@ class MNISTDataset(Dataset):
     def __init__(self, data_path, label_path):
         super(MNISTDataset, self).__init__()
         self.data, self.label = load_mnist(data_path, label_path)
-        self.data = trans(self.data)
 
     def __len__(self):
         return len(self.label)
 
     def __getitem__(self, item):
-        return self.data[item], self.label[item]
+        return trans(self.data[item]), self.label[item]
 
 
 class CNN(nn.Module):
@@ -72,11 +71,11 @@ def load_mnist(img_path, label_path):
         labels = np.fromfile(label, dtype=np.uint8)
     with open(img_path, 'rb') as img:
         _, num, rows, cols = struct.unpack('>IIII', img.read(16))
-        images = np.fromfile(img, dtype=np.uint8).reshape(num, 1, rows, cols)
+        images = np.fromfile(img, dtype=np.uint8).reshape(num, rows, cols, 1)
     return images, nptorch.array(labels)
 
 
-random.seed(6)
+random.seed(0)
 train_set = MNISTDataset('mnist/MNIST/raw/train-images-idx3-ubyte', 'mnist/MNIST/raw/train-labels-idx1-ubyte')
 test_set = MNISTDataset('mnist/MNIST/raw/t10k-images-idx3-ubyte', 'mnist/MNIST/raw/t10k-labels-idx1-ubyte')
 train_loader = DataLoader(train_set, batch_size=64)

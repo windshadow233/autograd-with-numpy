@@ -6,7 +6,7 @@ from .optimizer import Optimizer
 class SGD(Optimizer):
     def __init__(self, params: Parameters, lr=1e-3, momentum=0., alpha=0., weight_decay=0.):
         """
-        随机梯度下降优化器
+        SGD优化器
         @param params: 需要优化的模型参数
         @param lr: 学习率
         @param momentum: 动量
