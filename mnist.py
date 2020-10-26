@@ -5,7 +5,7 @@ import nptorch
 from nptorch import random
 from nptorch import nn
 from nptorch.optim import SGD
-from nptorch.utils.data import Dataset, DataLoader, random_split
+from nptorch.utils.data import Dataset, DataLoader
 
 
 class MNISTDataset(Dataset):
