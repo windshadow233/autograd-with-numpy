@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/transforms/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/transforms/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/transforms/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/transforms/functional.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/transforms/transforms.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/transforms/transforms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -231,7 +227,7 @@
       <workItem from="1603623896067" duration="6457000" />
       <workItem from="1603637147177" duration="1245000" />
       <workItem from="1603687099082" duration="5847000" />
-      <workItem from="1603696969841" duration="17425000" />
+      <workItem from="1603696969841" duration="18545000" />
     </task>
     <servers />
   </component>
@@ -318,10 +314,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state width="1493" height="274" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1603610094997" />
-    <state x="270" y="74" key="SettingsEditor" timestamp="1603342603718">
+    <state x="270" y="74" key="SettingsEditor" timestamp="1603717595850">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="270" y="74" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1603342603718" />
+    <state x="270" y="74" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1603717595850" />
     <state width="775" height="439" key="XDebugger.FullValuePopup" timestamp="1602955032185">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

@@ -1,6 +1,7 @@
 # autograd with numpy
 本项目用于自己学习，旨在用numpy实现计算图，进行梯度的自动计算，从而能完成一些深度学习任务。
 
+项目依赖的第三方库：numpy==1.19.1，pillow==8.0.1
 ## 使用文档
 本项目使用风格与numpy和pytorch类似，如果你会用pytorch，那么下面的基本不用看了。
 
