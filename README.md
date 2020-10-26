@@ -53,12 +53,11 @@ print(x.grad)
 3. DataLoader初始化放入Dataset或Subset类型的实例，可选参数有batch_size、shuffle与collate_fn，并通过生成一个迭代器的方式批量获取其中的数据。
 4. random_split函数传入一个Dataset类型实例与一个长度列表，返回按长度随机分割后的数据集。
 5. 具体使用实例可以看mnist.py文件。
-### 模型搭建与使用
-使用方法与pytorch高度相似，以卷积神经网络为例：
+### 模型搭建与优化
+内置模型的使用方法与pytorch高度相似，优化器目前实现了SGD与Adam两种。以一个简单的卷积神经网络和SGD优化器为例：
 ```python
 from nptorch import nn
 from nptorch.optim import SGD
-
 # 模型创建
 class CNN(nn.Module):
     def __init__(self):
@@ -90,10 +89,10 @@ class CNN(nn.Module):
         return x
 
 cnn = CNN()
-# 优化器，暂时只定义了SGD，支持动量与L1、L2正则化
-# 通过.parameters()方法获得模型所有待训练参数
-# 内置模型有默认待训练参数，若需要手动添加需训练参数，可使用nn.Parameter()类
-# 该类输入一个Tensor类型，返回Parameter类，继承Tensor所有运算
+# 调用模型的.parameters()方法获得模型所有待训练参数，它将返回Parameters类
+# 内置模型有默认待训练参数，若需要手动添加需训练参数，可使用nn.Parameter类
+# nn.Parameter类初始化需要一个Tensor类型，返回Parameter类，它继承Tensor的所有运算并将自动计算梯度
+# 优化器必须参数是Parameters类型，为全部待优化的参数，学习率等超参数有默认值，可自行修改
 optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
 ## 更新日志

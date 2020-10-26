@@ -11,7 +11,7 @@ def make_indent(s: str):
     return '\n'.join(s)
 
 
-class Module:
+class Module(object):
     def __init__(self):
         self.training = True
 
