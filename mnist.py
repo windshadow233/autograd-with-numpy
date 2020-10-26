@@ -4,7 +4,7 @@ import numpy as np
 import nptorch
 from nptorch import random
 from nptorch import nn
-from nptorch.optim import SGD
+from nptorch.optim import Adam
 from nptorch.transforms import ToTensor, Compose
 from nptorch.utils.data import Dataset, DataLoader
 
@@ -83,7 +83,7 @@ train_loader = DataLoader(train_set, batch_size=128)
 test_loader = DataLoader(test_set, batch_size=128)
 
 cnn = CNN()
-optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.7)
+optimizer = Adam(cnn.parameters(), lr=1e-2, betas=(0.9, 0.99), )
 loss_fcn = nn.CrossEntropyLoss()
 
 for i in tqdm(range(10)):

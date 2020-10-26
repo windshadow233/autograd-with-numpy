@@ -10,7 +10,7 @@ def default_collate_fn(all_data: list):
     @return: 按以上规则生成的数据列表
     """
     data_list = []
-    if not isinstance(all_data[0]):
+    if not isinstance(all_data[0], tuple):
         all_data = [(data, ) for data in all_data]
     data_length = len(all_data[0])
     for i in range(data_length):

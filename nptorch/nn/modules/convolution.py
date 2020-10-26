@@ -9,6 +9,10 @@ from .module import Module
 class _ConvNd(Module):
     def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=(0, 0), use_bias=True):
         super(_ConvNd, self).__init__()
+        if not isinstance(padding, tuple):
+            raise TypeError(f"padding must be a 'tuple', got '{type(padding)}'")
+        if len(padding) != 2 or padding[0] < 0 or padding[1] < 0:
+            raise ValueError(f"Invalid padding value: {padding}")
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.kernel_size = kernel_size
