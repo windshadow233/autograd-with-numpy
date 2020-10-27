@@ -14,8 +14,7 @@ class SGD(Optimizer):
         @param weight_decay: L2正则化系数
         """
         super(SGD, self).__init__(params, lr, alpha, weight_decay)
-        if not 0. <= momentum < 1.:
-            raise ValueError(f"Invalid momentum value: {momentum}")
+        assert 0. <= momentum < 1., f"Invalid momentum value: {momentum}"
         self.momentum = momentum
 
         if momentum != 0.:

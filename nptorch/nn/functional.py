@@ -33,8 +33,7 @@ def leaky_relu(x: Tensor, leaky_rate=0.01):
 
 def elu(x: Tensor, alpha=1.):
     data = x.data
-    if 'float' not in data.dtype.name:
-        raise RuntimeError(f"'elu' operation not implement for '{data.dtype}'")
+    assert 'float' in data.dtype.name, f"'elu' operation not implement for '{data.dtype}'"
     y = Tensor(((data > 0.) * data + (data <= 0.) * alpha * (np.exp(data) - 1.)).astype(float32),
                requires_grad=x.requires_grad)
     if y.requires_grad:
@@ -67,8 +66,7 @@ def dropout(x: Tensor, p=0.5, training=True):
     @param p: 失活率
     @param training: 是否处于训练模式
     """
-    if not 0. <= p <= 1.:
-        raise ValueError(f'dropout probability has to be between 0 and 1, but got {p}')
+    assert 0. <= p <= 1., f'dropout probability has to be between 0 and 1, but got {p}'
     y = x / (1 - p) * (random.rand_like(x) > p).float() if training else x
     return y
 
@@ -80,13 +78,17 @@ def dropout2d(x: Tensor, p=0.5, training=True):
     @param p: 失活率
     @param training: 是否处于训练模式
     """
-    if not 0. <= p <= 1.:
-        raise ValueError(f'dropout probability has to be between 0 and 1, but got {p}')
+    assert x.ndim == 4, 'x must be 4 dimensional'
+    assert 0. <= p <= 1., f'dropout probability has to be between 0 and 1, but got {p}'
     y = x / (1 - p) * (random.rand((1, x.shape[1], 1, 1)) > p).float() if training else x
     return y
 
 
 def conv2d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=(1, 1), padding=(0, 0)):
+    assert x.ndim == 4, 'x must be 4 dimensional'
+    b, c, h, w = x.shape
+    oc, ic, kh, kw = kernels.shape
+    assert c == ic, 'Conv2d channels not equal'
     if not isinstance(stride, tuple):
         stride = (stride, stride)
     data = x.data
@@ -106,6 +108,7 @@ def conv2d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=(1, 1), paddi
 
 
 def mean_pool2d(x: Tensor, kernel_size, stride):
+    assert x.ndim == 4, 'x must be 4 dimensional'
     stride = stride or (kernel_size, kernel_size)
     if not isinstance(stride, tuple):
         stride = (stride, stride)
@@ -119,6 +122,7 @@ def mean_pool2d(x: Tensor, kernel_size, stride):
 
 
 def max_pool2d(x: Tensor, kernel_size, stride=None):
+    assert x.ndim == 4, 'x must be 4 dimensional'
     stride = stride or (kernel_size, kernel_size)
     if not isinstance(stride, tuple):
         stride = (stride, stride)
@@ -133,6 +137,7 @@ def max_pool2d(x: Tensor, kernel_size, stride=None):
 
 
 def batch_norm2d(x: Tensor, mean: Tensor, var: Tensor, gamma: Tensor, beta: Tensor, eps=1e-5):
+    assert x.ndim == 4, 'x must be 4 dimensional'
     x_hat = (x.data - mean.data) / np.sqrt(var.data + eps)
     output = Tensor(gamma.unsqueeze(0, -1, -2).data * x_hat + beta.unsqueeze(0, -1, -2).data,
                     requires_grad=x.requires_grad or gamma.requires_grad or beta.requires_grad)
@@ -143,12 +148,28 @@ def batch_norm2d(x: Tensor, mean: Tensor, var: Tensor, gamma: Tensor, beta: Tens
 
 
 def mean_pool1d(x: Tensor, kernel_size, stride=None):
+    assert x.ndim == 3, 'x must be 3 dimensional'
     stride = stride or kernel_size
+    assert isinstance(stride, int), f'stride must be int. Got{type(stride)}'
     split = split_by_strides(x.data, 1, kernel_size, (1, stride))
-    output = Tensor(split.mean(-1).squeeze(), requires_grad=x.requires_grad)
+    output = Tensor(split.mean(-1).squeeze(-1), requires_grad=x.requires_grad)
     if output.requires_grad:
         output.children = [(x, kernel_size, stride)]
         output.grad_fn = MeanPool1dBackward()
+    return output
+
+
+def max_pool1d(x: Tensor, kernel_size, stride=None):
+    assert x.ndim == 3, 'x must be 3 dimensional'
+    stride = stride or kernel_size
+    assert isinstance(stride, int), f'stride must be int. Got {type(stride)}'
+    split = split_by_strides(x.data, 1, kernel_size, (1, stride))
+    max_data = np.max(split, axis=-1).squeeze(-1)
+    argmax = np.argmax(split.reshape(-1, kernel_size), axis=-1).flatten()
+    output = Tensor(max_data, requires_grad=x.requires_grad)
+    if output.requires_grad:
+        output.children = [(x, argmax, kernel_size, stride)]
+        output.grad_fn = MaxPool1dBackward()
     return output
 
 

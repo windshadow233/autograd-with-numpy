@@ -6,8 +6,7 @@ from .module import Module
 class _DropoutNd(Module):
     def __init__(self, p):
         super(_DropoutNd, self).__init__()
-        if not 0. <= p <= 1.:
-            raise ValueError(f'dropout probability has to be between 0 and 1, but got {p}')
+        assert 0. <= p <= 1., f'dropout probability has to be between 0 and 1, but got {p}'
         self.p = p
 
     def extra_repr(self):

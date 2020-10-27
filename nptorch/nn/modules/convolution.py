@@ -30,9 +30,8 @@ class Conv2d(_ConvNd):
         if not isinstance(self.stride, tuple):
             self.stride = (self.stride, self.stride)
         if not isinstance(padding, tuple):
-            raise TypeError(f"padding must be a 'tuple', got '{type(padding)}'")
-        if len(padding) != 2 or padding[0] < 0 or padding[1] < 0:
-            raise ValueError(f"Invalid padding value: {padding}")
+            self.padding = (self.padding, self.padding)
+        assert len(padding) == 2 and padding[0] >= 0 and padding[1] >= 0, f"Invalid padding value: {padding}"
         n = out_channels * self.kernel_size ** 2
         self.kernels = Parameter(
             normal((out_channels, in_channels, self.kernel_size, self.kernel_size), mean=0., std=np.sqrt(2. / n)))
@@ -40,9 +39,6 @@ class Conv2d(_ConvNd):
             self.bias = Parameter(nptorch.zeros(out_channels))
 
     def forward(self, x: Tensor):
-        b, c, h, w = x.shape
-        oc, ic, kh, kw = self.kernels.shape
-        assert c == ic, 'Conv2d channels not equal'
         if self.use_bias:
             result = F.conv2d(x, self.kernels, self.bias, stride=self.stride, padding=self.padding)
         else:

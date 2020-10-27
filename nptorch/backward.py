@@ -586,7 +586,13 @@ class MeanPool1dBackward(BackwardFcn):
         super(MeanPool1dBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
-        pass
+        x, kernel_size, stride = children[0]
+        new_grad = np.zeros_like(x.data)
+        grad = grad / kernel_size
+        B, L, D = grad.shape
+        for b, l, d in product(range(B), range(L), range(D)):
+            new_grad[b, l, d * stride: d * stride + kernel_size] += grad[b, l, d]
+        return new_grad
 
 
 class MaxPool2dBackward(BackwardFcn):
@@ -601,6 +607,20 @@ class MaxPool2dBackward(BackwardFcn):
             b, c, h, w = index
             mh, mw = m // kernel_size, m % kernel_size
             new_grad[b, c, h * stride[0] + mh, w * stride[1] + mw] += grad[b, c, h, w]
+        return new_grad
+
+
+class MaxPool1dBackward(BackwardFcn):
+    def __init__(self):
+        super(MaxPool1dBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        x, argmax, kernel_size, stride = children[0]
+        new_grad = np.zeros_like(x.data)
+        B, L, D = grad.shape
+        for index, m in zip(product(range(B), range(L), range(D)), argmax):
+            b, l, d = index
+            new_grad[b, l, d * stride + m] += grad[b, l, d]
         return new_grad
 
 

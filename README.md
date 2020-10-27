@@ -98,10 +98,11 @@ optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
 ## 更新日志
 ### 2020/10/27
-* 增加ToPILImage变换
+* 增加了ToPILImage变换。
+* 增加了MaxPool1d与MeanPool1d。
 ### 2020/10/26
 * 增加了Adam优化器。
-* 增加ToTensor、Reshape与GaryScale三个图像transform
+* 增加了ToTensor、Reshape与GaryScale三个图像transform。
 ### 2020/10/25
 * 增加了BatchNorm2d，Dropout2d，2d部分基本写完了，开始补作业，隔段时间空了补充1d。
 ### 2020/10/24
@@ -118,7 +119,7 @@ optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ### 2020/10/20
 * 增加可做padding的二维卷积层Conv2d及其backward，使用卷积mnist准确率进一步提升，证明卷积没写错。
 ### 2020/10/19
-* 实现Dropout层，完善SGD（增加动量，L1、L2正则化）
+* 实现Dropout层，完善SGD（增加动量，L1、L2正则化）。
 * 模仿pytorch对代码进行良好封装、模仿pytorch实现模型的可视化打印功能。
 ### 2020/10/18
 * 实现了一个简单的SGD优化器。

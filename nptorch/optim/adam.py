@@ -15,10 +15,8 @@ class Adam(Optimizer):
         @param weight_decay: L2正则化系数
         """
         super(Adam, self).__init__(params, lr, alpha, weight_decay)
-        if eps < 0.:
-            raise ValueError(f"Invalid epsilon value: {eps}")
-        if not 0. <= betas[0] < 1. or not 0. <= betas[1] < 1.:
-            raise ValueError(f"Invalid betas value: {betas}")
+        assert eps >= 0., f"Invalid epsilon value: {eps}"
+        assert 0. <= betas[0] < 1. and 0. <= betas[1] < 1., f"Invalid betas value: {betas}"
         self.betas = betas
         self.eps = eps
 

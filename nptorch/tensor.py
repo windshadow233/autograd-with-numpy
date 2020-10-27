@@ -17,8 +17,8 @@ class Tensor:
                 self.data = self.data.astype(float32)
         else:
             self.data = np.array(data, dtype=dtype)
-        if 'float' not in self.dtype.name and requires_grad:
-            raise RuntimeError('Only Arrays of floating point dtype can require gradients')
+        assert 'float' in self.dtype.name or not requires_grad, \
+            'Only Arrays of floating point dtype can require gradients'
         self.requires_grad = requires_grad
         self.grad_fn = None
         self.children = []
@@ -129,12 +129,11 @@ class Tensor:
         return self._retain
 
     def _check_inplace(self):
-        if self.is_leaf and self.requires_grad:
-            raise RuntimeError('a leaf Variable that requires grad has been used in an in-place operation.')
+        assert not (self.is_leaf and self.requires_grad), \
+            'a leaf Variable that requires grad has been used in an in-place operation.'
 
     def _check_type(self, operation, excludes=('int8', 'int16', 'int32', 'int64', 'bool')):
-        if self.dtype.name in excludes:
-            raise RuntimeError(f"'{operation}' not implemented for '{self.dtype.name}'")
+        assert self.dtype.name not in excludes, f"'{operation}' not implemented for '{self.dtype.name}'"
 
     def half(self):
         result = Tensor(self.data.astype(float16), dtype=float16, requires_grad=self.requires_grad)
@@ -941,8 +940,7 @@ class Tensor:
         """
         向量外积
         """
-        if self.ndim != 1 or other.ndim != 1:
-            raise RuntimeError('only vectors allow outer product operations')
+        assert self.ndim == 1 and other.ndim == 1, 'only vectors allow outer product operations'
         result = Tensor(np.outer(self.data, other.data), requires_grad=self.requires_grad or other.requires_grad)
         if result.requires_grad:
             result.children = [(self, None), (other, None)]
@@ -953,8 +951,7 @@ class Tensor:
         """
         矩阵乘法,支持broadcast
         """
-        if not isinstance(other, Tensor):
-            raise TypeError(f"argument 'other' (position 1) must be Tensor, not {type(other)}")
+        assert isinstance(other, Tensor), f"argument 'other' (position 1) must be Tensor, not {type(other)}"
         result = Tensor(np.matmul(self.data, other.data), requires_grad=self.requires_grad or other.requires_grad)
         if not result.requires_grad:
             return result
@@ -969,8 +966,7 @@ class Tensor:
 
     def backward(self, grad=1.0, is_last=True):
         if is_last:
-            if self.size > 1:
-                raise RuntimeError('grad can be implicitly created only for scalar outputs')
+            assert self.size == 1, 'grad can be implicitly created only for scalar outputs'
             if self._retain_grad:
                 self.grad = Tensor(np.ones_like(self.data))
         if self.is_leaf:
