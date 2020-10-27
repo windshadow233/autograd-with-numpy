@@ -5,7 +5,7 @@ import numpy as np
 from numpy.lib.stride_tricks import as_strided
 
 
-def split_by_strides(input_data: np.ndarray, kernel_h, kernel_w, stride=1):
+def split_by_strides(input_data: np.ndarray, kernel_h, kernel_w, stride=(1, 1)):
     """
     将张量按卷积核尺寸与步长进行分割
     :param input_data: 被卷积的张量
@@ -24,10 +24,10 @@ def split_by_strides(input_data: np.ndarray, kernel_h, kernel_w, stride=1):
                                                 [15, 16]]]]
     """
     *bc, h, w = input_data.shape
-    out_x, out_y = (h - kernel_h) // stride + 1, (w - kernel_w) // stride + 1
-    shape = (*bc, out_x, out_y, kernel_h, kernel_w)
-    strides = (*input_data.strides[:-2], input_data.strides[-2] * stride,
-               input_data.strides[-1] * stride, *input_data.strides[-2:])
+    out_h, out_y = (h - kernel_h) // stride[0] + 1, (w - kernel_w) // stride[1] + 1
+    shape = (*bc, out_h, out_y, kernel_h, kernel_w)
+    strides = (*input_data.strides[:-2], input_data.strides[-2] * stride[0],
+               input_data.strides[-1] * stride[1], *input_data.strides[-2:])
     output_data = as_strided(input_data, shape, strides=strides)
     return output_data
 
@@ -61,7 +61,7 @@ def kernel_rotate180(kernel: np.ndarray):
     return kernel[..., ::-1, ::-1]
 
 
-def dilate(x: np.ndarray, stride=1):
+def dilate(x: np.ndarray, stride=(1, 1)):
     """
     膨胀,按一定步长填充0
     Example: [[1, 2, 3], 2    [[1, 0, 2, 0, 3],
@@ -70,11 +70,11 @@ def dilate(x: np.ndarray, stride=1):
                                [0, 0, 0, 0, 0],
                                [7, 0, 8, 0, 9]]
     """
-    if stride == 1:
+    if stride == (1, 1):
         return x
     *bc, h, w = x.shape
-    result = np.zeros((*bc, (h - 1) * stride + 1, (w - 1) * stride + 1), dtype=np.float32)
-    result[..., ::stride, ::stride] = x
+    result = np.zeros((*bc, (h - 1) * stride[0] + 1, (w - 1) * stride[1] + 1), dtype=np.float32)
+    result[..., ::stride[0], ::stride[1]] = x
     return result
 
 

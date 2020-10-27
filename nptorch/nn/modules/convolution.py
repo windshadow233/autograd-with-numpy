@@ -29,11 +29,13 @@ class _ConvNd(Module):
 
 
 class Conv2d(_ConvNd):
-    def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=(0, 0), use_bias=True):
+    def __init__(self, in_channels, out_channels, kernel_size, stride=(1, 1), padding=(0, 0), use_bias=True):
         super(Conv2d, self).__init__(in_channels, out_channels, kernel_size, stride, padding, use_bias)
-        n = out_channels * kernel_size ** 2
+        if not isinstance(stride, tuple):
+            self.stride = (stride, stride)
+        n = out_channels * self.kernel_size ** 2
         self.kernels = Parameter(
-            normal((out_channels, in_channels, kernel_size, kernel_size), mean=0., std=np.sqrt(2. / n)))
+            normal((out_channels, in_channels, self.kernel_size, self.kernel_size), mean=0., std=np.sqrt(2. / n)))
         if self.use_bias:
             self.bias = Parameter(nptorch.zeros(out_channels))
 

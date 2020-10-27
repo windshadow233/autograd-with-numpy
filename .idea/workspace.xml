@@ -3,10 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/transforms/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/transforms/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/transforms/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/transforms/functional.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/transforms/transforms.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/transforms/transforms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/backward.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/backward.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/conv_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/conv_operations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/functional.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/convolution.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/convolution.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/pooling.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/pooling.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +56,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="deletionFromPopupRequiresConfirmation" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../LFW" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -153,9 +155,6 @@
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -234,7 +233,7 @@
       <workItem from="1603637147177" duration="1245000" />
       <workItem from="1603687099082" duration="5847000" />
       <workItem from="1603696969841" duration="21720000" />
-      <workItem from="1603788132439" duration="3952000" />
+      <workItem from="1603788132439" duration="8896000" />
     </task>
     <servers />
   </component>
@@ -285,42 +284,42 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="372" y="24" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1603087606159" />
-    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1603788265256">
+    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1603793255055">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1603788265256" />
-    <state width="1493" height="274" key="GridCell.Tab.0.bottom" timestamp="1603610094997">
+    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1603793255055" />
+    <state width="1493" height="274" key="GridCell.Tab.0.bottom" timestamp="1603796036128">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="274" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1603610094997" />
-    <state width="1493" height="274" key="GridCell.Tab.0.center" timestamp="1603610094997">
+    <state width="1493" height="274" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1603796036128" />
+    <state width="1493" height="274" key="GridCell.Tab.0.center" timestamp="1603796036128">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="274" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1603610094997" />
-    <state width="1493" height="274" key="GridCell.Tab.0.left" timestamp="1603610094997">
+    <state width="1493" height="274" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1603796036128" />
+    <state width="1493" height="274" key="GridCell.Tab.0.left" timestamp="1603796036127">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="274" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1603610094997" />
-    <state width="1493" height="274" key="GridCell.Tab.0.right" timestamp="1603610094997">
+    <state width="1493" height="274" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1603796036127" />
+    <state width="1493" height="274" key="GridCell.Tab.0.right" timestamp="1603796036128">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="274" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1603610094997" />
-    <state width="1493" height="274" key="GridCell.Tab.1.bottom" timestamp="1603610094997">
+    <state width="1493" height="274" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1603796036128" />
+    <state width="1493" height="274" key="GridCell.Tab.1.bottom" timestamp="1603796036128">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="274" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1603610094997" />
-    <state width="1493" height="274" key="GridCell.Tab.1.center" timestamp="1603610094997">
+    <state width="1493" height="274" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1603796036128" />
+    <state width="1493" height="274" key="GridCell.Tab.1.center" timestamp="1603796036128">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="274" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1603610094997" />
-    <state width="1493" height="274" key="GridCell.Tab.1.left" timestamp="1603610094997">
+    <state width="1493" height="274" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1603796036128" />
+    <state width="1493" height="274" key="GridCell.Tab.1.left" timestamp="1603796036128">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="274" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1603610094997" />
-    <state width="1493" height="274" key="GridCell.Tab.1.right" timestamp="1603610094997">
+    <state width="1493" height="274" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1603796036128" />
+    <state width="1493" height="274" key="GridCell.Tab.1.right" timestamp="1603796036128">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="274" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1603610094997" />
+    <state width="1493" height="274" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1603796036128" />
     <state x="270" y="74" key="SettingsEditor" timestamp="1603717595850">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -333,16 +332,29 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="332" y="35" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.864@0.0.1536.864" timestamp="1602524644898" />
+    <state x="562" y="349" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603795014109">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="562" y="349" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.864@0.0.1536.864" timestamp="1603795014109" />
     <state x="762" y="0" width="781" height="870" key="dock-window-1" timestamp="1603270427926">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="762" y="0" width="781" height="870" key="dock-window-1/0.0.1536.864@0.0.1536.864" timestamp="1603270427926" />
-    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1603714773794">
+    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1603797055516">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1603714773794" />
+    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1603797055516" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/nptorch/backward.py</url>
+          <line>583</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="child_tensor.calculated" language="Python" />

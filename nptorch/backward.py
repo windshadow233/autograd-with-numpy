@@ -581,6 +581,14 @@ class MeanPool2dBackward(BackwardFcn):
         return new_grad
 
 
+class MeanPool1dBackward(BackwardFcn):
+    def __init__(self):
+        super(MeanPool1dBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        pass
+
+
 class MaxPool2dBackward(BackwardFcn):
     def __init__(self):
         super(MaxPool2dBackward, self).__init__()

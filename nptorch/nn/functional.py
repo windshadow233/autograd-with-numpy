@@ -86,7 +86,7 @@ def dropout2d(x: Tensor, p=0.5, training=True):
     return y
 
 
-def conv2d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=1, padding=(0, 0)):
+def conv2d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=(1, 1), padding=(0, 0)):
     data = x.data
     padding = ((padding[0], padding[0]), (padding[1], padding[1]))
     data = padding_zeros(data, padding)
@@ -105,7 +105,7 @@ def conv2d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=1, padding=(0
 
 def mean_pool2d(x: Tensor, kernel_size, stride):
     stride = stride or kernel_size
-    split = split_by_strides(x.data, kernel_size, kernel_size, stride)
+    split = split_by_strides(x.data, kernel_size, kernel_size, (stride, stride))
     mean_data = np.mean(split, axis=(-1, -2))
     output = Tensor(mean_data, requires_grad=x.requires_grad)
     if output.requires_grad:
@@ -116,7 +116,7 @@ def mean_pool2d(x: Tensor, kernel_size, stride):
 
 def max_pool2d(x: Tensor, kernel_size, stride=None):
     stride = stride or kernel_size
-    split = split_by_strides(x.data, kernel_size, kernel_size, stride)
+    split = split_by_strides(x.data, kernel_size, kernel_size, (stride, stride))
     max_data = np.max(split, axis=(-1, -2))
     argmax = np.argmax(split.reshape(-1, kernel_size * kernel_size), axis=-1).flatten()
     output = Tensor(max_data, requires_grad=x.requires_grad)
@@ -133,6 +133,16 @@ def batch_norm2d(x: Tensor, mean: Tensor, var: Tensor, gamma: Tensor, beta: Tens
     if output.requires_grad:
         output.grad_fn = BatchNorm2dBackward()
         output.children = [(x, x_hat, mean.data, var.data, eps), (gamma, None), (beta, None)]
+    return output
+
+
+def mean_pool1d(x: Tensor, kernel_size, stride=None):
+    stride = stride or kernel_size
+    split = split_by_strides(x.data, 1, kernel_size, (1, stride))
+    output = Tensor(split.mean(-1).squeeze(), requires_grad=x.requires_grad)
+    if output.requires_grad:
+        output.children = [(x, kernel_size, stride)]
+        output.grad_fn = MeanPool1dBackward()
     return output
 
 

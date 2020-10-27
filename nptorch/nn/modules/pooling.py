@@ -30,3 +30,11 @@ class MaxPool2d(_PoolNd):
 
     def forward(self, x: Tensor):
         return F.max_pool2d(x, self.kernel_size, self.stride)
+
+
+class MeanPool1d(_PoolNd):
+    def __init__(self, kernel_size, stride=None):
+        super(MeanPool1d, self).__init__(kernel_size, stride)
+
+    def forward(self, x: Tensor):
+        return F.mean_pool1d(x, self.kernel_size, self.stride)
