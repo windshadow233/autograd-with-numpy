@@ -4,9 +4,9 @@ from .module import Module
 
 
 class _PoolNd(Module):
-    def __init__(self, kernel_size, stride=None):
+    def __init__(self, kernel_size, stride):
         super(_PoolNd, self).__init__()
-        self.stride = stride or kernel_size
+        self.stride = stride or (kernel_size, kernel_size)
         self.kernel_size = kernel_size
 
     def extra_repr(self):
@@ -27,6 +27,8 @@ class MeanPool2d(_PoolNd):
 class MaxPool2d(_PoolNd):
     def __init__(self, kernel_size, stride=None):
         super(MaxPool2d, self).__init__(kernel_size, stride)
+        if not isinstance(self.stride, tuple):
+            self.stride = (self.stride, self.stride)
 
     def forward(self, x: Tensor):
         return F.max_pool2d(x, self.kernel_size, self.stride)
@@ -35,6 +37,8 @@ class MaxPool2d(_PoolNd):
 class MeanPool1d(_PoolNd):
     def __init__(self, kernel_size, stride=None):
         super(MeanPool1d, self).__init__(kernel_size, stride)
+        if not isinstance(self.stride, tuple):
+            self.stride = (self.stride, self.stride)
 
     def forward(self, x: Tensor):
         return F.mean_pool1d(x, self.kernel_size, self.stride)
