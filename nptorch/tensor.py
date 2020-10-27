@@ -841,7 +841,7 @@ class Tensor:
     def uniform_(self, low=0, high=1):
         self._check_type('uniform')
         self._check_inplace()
-        y = np.random.uniform(low, high, size=self.data.shape)
+        y = np.random.uniform(low, high, size=self.shape)
         if self.requires_grad:
             child = deepcopy(self)
             child.children = self.children
@@ -852,7 +852,7 @@ class Tensor:
     def normal_(self, mean=0, std=1):
         self._check_type('normal')
         self._check_inplace()
-        y = np.random.normal(mean, std, size=self.data.shape)
+        y = np.random.normal(mean, std, size=self.shape)
         if self.requires_grad:
             child = deepcopy(self)
             child.children = self.children
@@ -956,9 +956,9 @@ class Tensor:
         if not result.requires_grad:
             return result
         result.children = [(self, None), (other, None)]
-        if self.data.ndim == 1 and other.data.ndim == 1:
+        if self.ndim == 1 and other.ndim == 1:
             result.grad_fn = DotBackward()
-        elif self.data.ndim == 1 or other.data.ndim == 1:
+        elif self.ndim == 1 or other.ndim == 1:
             result.grad_fn = MvBackward()
         else:
             result.grad_fn = MmBackward()

@@ -44,7 +44,7 @@ class AddBackward(BackwardFcn):
         x = children[place][0].data
         a = children[1 - place][0]
         grad = np.ones_like(x) * grad
-        if isinstance(a, (int, float)) or x.shape == a.data.shape:
+        if isinstance(a, (int, float)) or x.shape == a.shape:
             return grad
         a = a.data
         x_tiles, _ = get_tile_dims(x, a)
@@ -69,7 +69,7 @@ class SubBackward(BackwardFcn):
         x = children[place][0].data
         a = children[1 - place][0]
         grad = (-2. * place + 1.) * np.ones_like(x) * grad
-        if isinstance(a, (int, float)) or x.shape == a.data.shape:
+        if isinstance(a, (int, float)) or x.shape == a.shape:
             return grad
         a = a.data
         x_tiles, _ = get_tile_dims(x, a)
@@ -143,7 +143,7 @@ class RemainderBackward(BackwardFcn):
         x = children[0][0].data
         a = children[1][0]
         grad = np.ones_like(x) * grad
-        if isinstance(a, (int, float)) or x.shape == a.data.shape:
+        if isinstance(a, (int, float)) or x.shape == a.shape:
             return grad
         a = a.data
         x_tiles, _ = get_tile_dims(x, a)
