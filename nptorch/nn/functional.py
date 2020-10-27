@@ -87,6 +87,8 @@ def dropout2d(x: Tensor, p=0.5, training=True):
 
 
 def conv2d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=(1, 1), padding=(0, 0)):
+    if not isinstance(stride, tuple):
+        stride = (stride, stride)
     data = x.data
     padding = ((padding[0], padding[0]), (padding[1], padding[1]))
     data = padding_zeros(data, padding)
@@ -104,8 +106,10 @@ def conv2d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=(1, 1), paddi
 
 
 def mean_pool2d(x: Tensor, kernel_size, stride):
-    stride = stride or kernel_size
-    split = split_by_strides(x.data, kernel_size, kernel_size, (stride, stride))
+    stride = stride or (kernel_size, kernel_size)
+    if not isinstance(stride, tuple):
+        stride = (stride, stride)
+    split = split_by_strides(x.data, kernel_size, kernel_size, stride)
     mean_data = np.mean(split, axis=(-1, -2))
     output = Tensor(mean_data, requires_grad=x.requires_grad)
     if output.requires_grad:
@@ -115,8 +119,10 @@ def mean_pool2d(x: Tensor, kernel_size, stride):
 
 
 def max_pool2d(x: Tensor, kernel_size, stride=None):
-    stride = stride or kernel_size
-    split = split_by_strides(x.data, kernel_size, kernel_size, (stride, stride))
+    stride = stride or (kernel_size, kernel_size)
+    if not isinstance(stride, tuple):
+        stride = (stride, stride)
+    split = split_by_strides(x.data, kernel_size, kernel_size, stride)
     max_data = np.max(split, axis=(-1, -2))
     argmax = np.argmax(split.reshape(-1, kernel_size * kernel_size), axis=-1).flatten()
     output = Tensor(max_data, requires_grad=x.requires_grad)

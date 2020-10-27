@@ -576,8 +576,8 @@ class MeanPool2dBackward(BackwardFcn):
         grad = grad / kernel_size ** 2
         B, C, H, W = grad.shape
         for b, c, h, w in product(range(B), range(C), range(H), range(W)):
-            new_grad[b, c, h * stride: h * stride + kernel_size, w * stride: w * stride + kernel_size] += grad[
-                b, c, h, w]
+            new_grad[b, c, h * stride[0]: h * stride[0] + kernel_size, w * stride[1]: w * stride[1] + kernel_size]\
+                += grad[b, c, h, w]
         return new_grad
 
 
@@ -600,7 +600,7 @@ class MaxPool2dBackward(BackwardFcn):
         for index, m in zip(product(range(B), range(C), range(H), range(W)), argmax):
             b, c, h, w = index
             mh, mw = m // kernel_size, m % kernel_size
-            new_grad[b, c, h * stride + mh, w * stride + mw] += grad[b, c, h, w]
+            new_grad[b, c, h * stride[0] + mh, w * stride[1] + mw] += grad[b, c, h, w]
         return new_grad
 
 
