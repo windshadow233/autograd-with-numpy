@@ -33,7 +33,7 @@ class Transform(object):
 
 class ToTensor(Transform):
     """
-    将PIL.Image.Image类型或numpy.ndarray类型转换为Tensor,数据范围在0-1
+    将PIL.Image.Image类型或numpy.ndarray类型转换为Tensor,数据范围在0-1,若为多通道,则放在最后一维
     """
     def __call__(self, img):
         return F.to_tensor(img)
@@ -67,4 +67,18 @@ class Grayscale(Transform):
 
     def __call__(self, img):
         return F.gray_scale(img, self.out_channels)
+
+
+class ToPILImage(Transform):
+    """
+    将Tensor或np.ndarray类型转为PIL.Image.Image,若为多通道图像,需要指定mode
+    """
+    def __init__(self, mode=None):
+        self.mode = mode
+
+    def extra_repr(self):
+        return f'mode={self.mode}'
+
+    def __call__(self, img):
+        return F.to_pil_image(img, self.mode)
 

@@ -1,1 +1,1 @@
-from .transforms import Compose, ToTensor, Resize, Grayscale
+from .transforms import Compose, ToTensor, Resize, Grayscale, ToPILImage

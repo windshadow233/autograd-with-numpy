@@ -41,5 +41,30 @@ def gray_scale(img, out_channels):
     img = img.convert('L')
     if out_channels == 1:
         return img
-    img = Image.merge('RGB', (img, img, img))
+    img = Image.merge('RGB', (img,) * 3)
+    return img
+
+
+def to_pil_image(img: np.ndarray or Tensor, mode=None):
+    if not isinstance(img, (np.ndarray, Tensor)):
+        raise TypeError(f'img should be ndarray or Tensor. Got {type(img)}.')
+    if img.ndim not in {2, 3}:
+        raise ValueError(f'img should be 2 or 3 dimensional. Got {img.ndim} dimensions.')
+    if isinstance(img, Tensor):
+        img = img.data
+    if img.ndim == 3:
+        if img.shape[0] == 3:
+            img = img.transpose((1, 2, 0))
+        elif img.shape[0] == 1:
+            img = img.squeeze()
+    if np.max(img) <= 1.0:
+        img = img * 255
+    if mode == '1':
+        img = Image.fromarray(img, 'L').convert('1')
+        return img
+    if mode in {'L', 'P'}:
+        img = img.astype(np.uint8)
+    elif mode == 'I':
+        img = img.astype(np.uint32)
+    img = Image.fromarray(img, mode)
     return img

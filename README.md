@@ -97,7 +97,8 @@ cnn = CNN()
 optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
 ## 更新日志
-
+### 2020/10/27
+* 增加ToPILImage变换
 ### 2020/10/26
 * 增加了Adam优化器。
 * 增加ToTensor、Reshape与GaryScale三个图像transform
