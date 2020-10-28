@@ -25,7 +25,7 @@ def softmax(x: Tensor, dim):
 def leaky_relu(x: Tensor, leaky_rate=0.01):
     data = x.data
     y = Tensor(((data > 0.) + (data <= 0.) * leaky_rate).astype(float32) * data, requires_grad=x.requires_grad)
-    if y.requires_graph:
+    if y.grad_enable:
         y.children = [(x, leaky_rate)]
         y.grad_fn = LeakyReLUBackward()
     return y
@@ -36,7 +36,7 @@ def elu(x: Tensor, alpha=1.):
     assert 'float' in data.dtype.name, f"'elu' operation not implement for '{data.dtype}'"
     y = Tensor(((data > 0.) * data + (data <= 0.) * alpha * (np.exp(data) - 1.)).astype(float32),
                requires_grad=x.requires_grad)
-    if y.requires_graph:
+    if y.grad_enable:
         y.children = [(x, alpha)]
         y.grad_fn = ELUBackward()
     return y
@@ -103,7 +103,7 @@ def conv2d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=(1, 1), paddi
                     requires_grad=x.requires_grad)
     if bias is not None:
         output = output + bias.unsqueeze(-1, -2)
-    if output.requires_graph:
+    if output.grad_enable:
         output.children = [(x, padding), (kernels, stride)]
         if bias is not None:
             output.children.append((bias, None))
@@ -119,7 +119,7 @@ def mean_pool2d(x: Tensor, kernel_size, stride):
     split = split_by_strides(x.data, kernel_size, kernel_size, stride)
     mean_data = np.mean(split, axis=(-1, -2))
     output = Tensor(mean_data, requires_grad=x.requires_grad)
-    if output.requires_graph:
+    if output.grad_enable:
         output.children = [(x, kernel_size, stride)]
         output.grad_fn = MeanPool2dBackward()
     return output
@@ -134,7 +134,7 @@ def max_pool2d(x: Tensor, kernel_size, stride=None):
     max_data = np.max(split, axis=(-1, -2))
     argmax = np.argmax(split.reshape(-1, kernel_size * kernel_size), axis=-1).flatten()
     output = Tensor(max_data, requires_grad=x.requires_grad)
-    if output.requires_graph:
+    if output.grad_enable:
         output.children = [(x, argmax, kernel_size, stride)]
         output.grad_fn = MaxPool2dBackward()
     return output
@@ -145,7 +145,7 @@ def batch_norm2d(x: Tensor, mean: Tensor, var: Tensor, gamma: Tensor, beta: Tens
     x_hat = (x.data - mean.data) / np.sqrt(var.data + eps)
     output = Tensor(gamma.unsqueeze(0, -1, -2).data * x_hat + beta.unsqueeze(0, -1, -2).data,
                     requires_grad=x.requires_grad or gamma.requires_grad or beta.requires_grad)
-    if output.requires_graph:
+    if output.grad_enable:
         output.grad_fn = BatchNorm2dBackward()
         output.children = [(x, x_hat, mean.data, var.data, eps), (gamma, None), (beta, None)]
     return output
@@ -157,7 +157,7 @@ def mean_pool1d(x: Tensor, kernel_size, stride=None):
     assert isinstance(stride, int), f'stride must be int. Got{type(stride)}'
     split = split_by_strides(x.data, 1, kernel_size, (1, stride))
     output = Tensor(split.mean(-1).squeeze(-1), requires_grad=x.requires_grad)
-    if output.requires_graph:
+    if output.grad_enable:
         output.children = [(x, kernel_size, stride)]
         output.grad_fn = MeanPool1dBackward()
     return output
@@ -171,7 +171,7 @@ def max_pool1d(x: Tensor, kernel_size, stride=None):
     max_data = np.max(split, axis=-1).squeeze(-1)
     argmax = np.argmax(split.reshape(-1, kernel_size), axis=-1).flatten()
     output = Tensor(max_data, requires_grad=x.requires_grad)
-    if output.requires_graph:
+    if output.grad_enable:
         output.children = [(x, argmax, kernel_size, stride)]
         output.grad_fn = MaxPool1dBackward()
     return output
@@ -191,7 +191,7 @@ def cross_entropy(x: Tensor, target):
     n = target.size
     one_hot_target = one_hot(x.shape[-1], target)
     loss = - (one_hot_target * log_softmax).sum() / n
-    if x.requires_graph:
+    if x.grad_enable:
         loss.children = [(x, x_softmax.data, one_hot_target)]
         loss.grad_fn = CrossEntropyBackward()
     return loss
@@ -221,7 +221,7 @@ def nll_loss(x: Tensor, target: Tensor):
     n = target.size
     one_hot_target = one_hot(x.shape[-1], target)
     loss = - (one_hot_target * x).sum() / n
-    if x.requires_graph:
+    if x.grad_enable:
         loss.children = [(x, one_hot_target / n)]
         loss.grad_fn = NLLLossBackward()
     return loss
