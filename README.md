@@ -52,13 +52,13 @@ with nt.no_grad():
 # 下面的所有运算将不构造计算图
     y = x * 2
     print(y.children)
-    print(y.grad_fn is None)
+    print(type(y.grad_fn))
 # []
 # <class 'NoneType'>
 # 离开no.grad上下文,下面的运算将正常构造计算图
 y = x * 2
 print(y.children)
-print(y.grad_fn is None)
+print(type(y.grad_fn))
 # [(array([1., 2., 3.], dtype=float32, requires_grad=True), None), (2, None)]
 # <class 'nptorch.backward.MulBackward'>
 ```
