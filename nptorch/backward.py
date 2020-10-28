@@ -482,6 +482,16 @@ class SoftmaxBackward(BackwardFcn):
         _, dim, y = children[0]
 
 
+class SoftplusBackward(BackwardFcn):
+    def __init__(self):
+        super(SoftplusBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        x, y = children[0]
+        grad *= y / (1. + y) * (x.data < 0.) + 1. / (1. + y) * (x.data >= 0)
+        return grad
+
+
 class CrossEntropyBackward(BackwardFcn):
     def __init__(self):
         super(CrossEntropyBackward, self).__init__()

@@ -20,15 +20,15 @@ class Tensor:
             self.data = np.array(data, dtype=dtype)
         assert 'float' in self.dtype.name or not requires_grad, \
             'Only Arrays of floating point dtype can require gradients'
-        self._grad_requires = requires_grad
+        self.requires_grad = requires_grad
         self.grad_fn = None
         self.children = []
         self.grad = None
         self._retain = False
 
     @property
-    def requires_grad(self):
-        return self._grad_requires and grad_enable()
+    def requires_graph(self):
+        return self.requires_grad and grad_enable()
 
     def __repr__(self):
         return self.__str__()
@@ -56,7 +56,7 @@ class Tensor:
 
     def __getitem__(self, item):
         result = Tensor(self.data[item], dtype=self.dtype, requires_grad=self.requires_grad)
-        if not result.requires_grad:
+        if not result.requires_graph:
             return result
         result.children = [(self, item)]
         result.grad_fn = SliceBackward()
@@ -102,7 +102,7 @@ class Tensor:
     @property
     def T(self):
         result = Tensor(self.data.T, dtype=self.dtype, requires_grad=self.requires_grad)
-        if self.requires_grad:
+        if result.requires_graph:
             result.grad_fn = TBackward()
             result.children = [(self, None)]
         return result
@@ -142,21 +142,21 @@ class Tensor:
 
     def half(self):
         result = Tensor(self.data.astype(float16), dtype=float16, requires_grad=self.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, None)]
             result.grad_fn = CopyBackward()
         return result
 
     def float(self):
         result = Tensor(self.data.astype(np.float32), dtype=float32, requires_grad=self.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, None)]
             result.grad_fn = CopyBackward()
         return result
 
     def double(self):
         result = Tensor(self.data.astype(float64), dtype=float64, requires_grad=self.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, None)]
             result.grad_fn = CopyBackward()
         return result
@@ -212,7 +212,7 @@ class Tensor:
         else:
             result = Tensor(self.data + other.data, dtype=self.dtype,
                             requires_grad=self.requires_grad or other.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, None), (other, None)]
             result.grad_fn = AddBackward()
         return result
@@ -223,7 +223,7 @@ class Tensor:
             y = self.data + other
         else:
             y = self.data + other.data
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None), (other, None)]
@@ -233,7 +233,7 @@ class Tensor:
 
     def __neg__(self):
         result = Tensor(- self.data, dtype=self.dtype, requires_grad=self.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, None)]
             result.grad_fn = NegBackward()
         return result
@@ -247,7 +247,7 @@ class Tensor:
         else:
             result = Tensor(self.data - other.data, dtype=self.dtype,
                             requires_grad=self.requires_grad or other.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, None), (other, None)]
             result.grad_fn = SubBackward()
         return result
@@ -258,7 +258,7 @@ class Tensor:
             y = self.data - other
         else:
             y = self.data - other.data
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None), (other, None)]
@@ -275,7 +275,7 @@ class Tensor:
         else:
             result = Tensor(self.data * other.data, dtype=self.dtype,
                             requires_grad=self.requires_grad or other.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, None), (other, None)]
             result.grad_fn = MulBackward()
         return result
@@ -286,7 +286,7 @@ class Tensor:
             y = self.data * other
         else:
             y = self.data * other.data
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None), (other, None)]
@@ -300,7 +300,7 @@ class Tensor:
         else:
             result = Tensor(other.data / self.data, dtype=self.dtype,
                             requires_grad=self.requires_grad or other.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(other, None), (self, None)]
             result.grad_fn = DivBackward()
         return result
@@ -311,7 +311,7 @@ class Tensor:
         else:
             result = Tensor(self.data / other.data, dtype=self.dtype,
                             requires_grad=self.requires_grad or other.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, None), (other, None)]
             result.grad_fn = DivBackward()
         return result
@@ -322,7 +322,7 @@ class Tensor:
             y = self.data / other
         else:
             y = self.data / other.data
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None), (other, None)]
@@ -336,7 +336,7 @@ class Tensor:
         else:
             result = Tensor(other.data // self.data, dtype=self.dtype,
                             requires_grad=self.requires_grad or other.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(other, None), (self, None)]
             result.grad_fn = FloordivBackward()
         return result
@@ -347,7 +347,7 @@ class Tensor:
         else:
             result = Tensor(self.data // other.data, dtype=self.dtype,
                             requires_grad=self.requires_grad or other.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, None), (other, None)]
             result.grad_fn = FloordivBackward()
         return result
@@ -358,7 +358,7 @@ class Tensor:
             y = self.data // other
         else:
             y = self.data // other.data
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None), (other, None)]
@@ -372,7 +372,7 @@ class Tensor:
                 raise RuntimeError("the derivative for 'other' is not implemented")
             other = other.data
         result = Tensor(self.data % other, dtype=self.dtype, requires_grad=self.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, None), (other, None)]
             result.grad_fn = RemainderBackward()
         return result
@@ -384,7 +384,7 @@ class Tensor:
                 raise RuntimeError("the derivative for 'other' is not implemented")
             other = other.data
         y = self.data % other
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None), (other, None)]
@@ -399,7 +399,7 @@ class Tensor:
         else:
             y = np.power(power.data, self.data)
             result = Tensor(power, dtype=self.dtype, requires_grad=self.requires_grad or power.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(power, None), (self, y)]
             result.grad_fn = PowerBackward()
         return result
@@ -411,7 +411,7 @@ class Tensor:
         else:
             y = np.power(self.data, power.data)
             result = Tensor(y, dtype=self.dtype, requires_grad=self.requires_grad or power.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, None), (power, y)]
             result.grad_fn = PowerBackward()
         return result
@@ -422,7 +422,7 @@ class Tensor:
             y = np.power(self.data, power)
         else:
             y = np.power(self.data, power.data)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None), (power, y)]
@@ -434,7 +434,7 @@ class Tensor:
         result = Tensor(np.max(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype,
                         requires_grad=self.requires_grad)
         indices = Tensor(np.argmax(self.data, axis=axis), dtype=int64)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, result.data, axis, keepdims)]
             result.grad_fn = MaxBackward()
         return {'values': result, 'indices': indices}
@@ -443,7 +443,7 @@ class Tensor:
         result = Tensor(np.min(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype,
                         requires_grad=self.requires_grad)
         indices = Tensor(np.argmin(self.data, axis=axis), dtype=int64)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, result.data, axis, keepdims)]
             result.grad_fn = MinBackward()
         return {'values': result, 'indices': indices}
@@ -451,7 +451,7 @@ class Tensor:
     def mean(self, axis=None, keepdims=False):
         result = Tensor(np.mean(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype,
                         requires_grad=self.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, axis, keepdims)]
             result.grad_fn = MeanBackward()
         return result
@@ -459,14 +459,14 @@ class Tensor:
     def var(self, axis=None, keepdims=False):
         result = Tensor(np.var(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype,
                         requires_grad=self.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, axis, keepdims)]
             result.grad_fn = VarBackward()
         return result
 
     def abs(self):
         y = Tensor(np.abs(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
-        if y.requires_grad:
+        if y.requires_graph:
             y.children = [(self, None)]
             y.grad_fn = AbsBackward()
         return y
@@ -474,7 +474,7 @@ class Tensor:
     def abs_(self):
         self._check_inplace()
         y = np.abs(self.data)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None)]
@@ -484,7 +484,7 @@ class Tensor:
     def sqrt(self):
         self._check_type('sqrt')
         y = Tensor(np.sqrt(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
-        if y.requires_grad:
+        if y.requires_graph:
             y.children = [(self, y.data)]
             y.grad_fn = SqrtBackward()
         return y
@@ -493,7 +493,7 @@ class Tensor:
         self._check_type('sqrt')
         self._check_inplace()
         y = np.sqrt(self.data)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, y)]
@@ -503,7 +503,7 @@ class Tensor:
     def sin(self):
         self._check_type('sin')
         y = Tensor(np.sin(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
-        if y.requires_grad:
+        if y.requires_graph:
             y.children = [(self, None)]
             y.grad_fn = SinBackward()
         return y
@@ -512,7 +512,7 @@ class Tensor:
         self._check_type('sin')
         self._check_inplace()
         y = np.sin(self.data)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None)]
@@ -522,7 +522,7 @@ class Tensor:
     def cos(self):
         self._check_type('cos')
         y = Tensor(np.cos(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
-        if y.requires_grad:
+        if y.requires_graph:
             y.children = [(self, None)]
             y.grad_fn = CosBackward()
         return y
@@ -531,7 +531,7 @@ class Tensor:
         self._check_type('cos')
         self._check_inplace()
         y = np.cos(self.data)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None)]
@@ -541,7 +541,7 @@ class Tensor:
     def tan(self):
         self._check_type('tan')
         y = Tensor(np.tan(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
-        if y.requires_grad:
+        if y.requires_graph:
             y.children = [(self, y.data)]
             y.grad_fn = TanBackward()
         return y
@@ -550,7 +550,7 @@ class Tensor:
         self._check_type('tan')
         self._check_inplace()
         y = np.tan(self.data)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, y)]
@@ -560,7 +560,7 @@ class Tensor:
     def sinh(self):
         self._check_type('sinh')
         y = Tensor(np.sinh(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
-        if y.requires_grad:
+        if y.requires_graph:
             y.children = [(self, None)]
             y.grad_fn = SinhBackward()
         return y
@@ -569,7 +569,7 @@ class Tensor:
         self._check_type('sinh')
         self._check_inplace()
         y = np.sinh(self.data)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None)]
@@ -579,7 +579,7 @@ class Tensor:
     def cosh(self):
         self._check_type('cosh')
         y = Tensor(np.cosh(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
-        if y.requires_grad:
+        if y.requires_graph:
             y.children = [(self, None)]
             y.grad_fn = CoshBackward()
         return y
@@ -588,7 +588,7 @@ class Tensor:
         self._check_type('cosh')
         self._check_inplace()
         y = np.cosh(self.data)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None)]
@@ -598,7 +598,7 @@ class Tensor:
     def tanh(self):
         self._check_type('tanh')
         y = Tensor(np.tanh(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
-        if y.requires_grad:
+        if y.requires_graph:
             y.children = [(self, y.data)]
             y.grad_fn = TanhBackward()
         return y
@@ -607,7 +607,7 @@ class Tensor:
         self._check_type('tanh')
         self._check_inplace()
         y = np.tanh(self.data)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, y)]
@@ -617,7 +617,7 @@ class Tensor:
     def asin(self):
         self._check_type('asin')
         y = Tensor(np.arcsin(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
-        if y.requires_grad:
+        if y.requires_graph:
             y.children = [(self, None)]
             y.grad_fn = ASinBackward()
         return y
@@ -626,7 +626,7 @@ class Tensor:
         self._check_type('asin')
         self._check_inplace()
         y = np.arcsin(self.data)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None)]
@@ -636,7 +636,7 @@ class Tensor:
     def acos(self):
         self._check_type('acos')
         y = Tensor(np.arccos(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
-        if y.requires_grad:
+        if y.requires_graph:
             y.children = [(self, None)]
             y.grad_fn = ACosBackward()
         return y
@@ -645,7 +645,7 @@ class Tensor:
         self._check_type('acos')
         self._check_inplace()
         y = np.arccos(self.data)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None)]
@@ -655,7 +655,7 @@ class Tensor:
     def atan(self):
         self._check_type('atan')
         y = Tensor(np.arctan(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
-        if y.requires_grad:
+        if y.requires_graph:
             y.children = [(self, None)]
             y.grad_fn = ATanBackward()
         return y
@@ -664,7 +664,7 @@ class Tensor:
         self._check_type('atan')
         self._check_inplace()
         y = np.arctan(self.data)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None)]
@@ -680,7 +680,7 @@ class Tensor:
         else:
             y = Tensor(np.log(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
             base = math.e
-        if y.requires_grad:
+        if y.requires_graph:
             y.children = [(self, base)]
             y.grad_fn = LogBackward()
         return y
@@ -695,7 +695,7 @@ class Tensor:
         else:
             y = np.log(self.data)
             base = math.e
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, base)]
@@ -705,7 +705,7 @@ class Tensor:
     def exp(self):
         self._check_type('exp')
         y = Tensor(np.exp(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
-        if y.requires_grad:
+        if y.requires_graph:
             y.children = [(self, y.data)]
             y.grad_fn = ExpBackward()
         return y
@@ -714,7 +714,7 @@ class Tensor:
         self._check_type('exp')
         self._check_inplace()
         y = np.exp(self.data)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, y)]
@@ -724,7 +724,7 @@ class Tensor:
     def relu(self):
         self._check_type('relu', ('bool',))
         y = Tensor(np.maximum(self.data, 0), dtype=self.dtype, requires_grad=self.requires_grad)
-        if y.requires_grad:
+        if y.requires_graph:
             y.children = [(self, None)]
             y.grad_fn = ReluBackward()
         return y
@@ -733,7 +733,7 @@ class Tensor:
         self._check_type('relu', ('bool',))
         self._check_inplace()
         y = np.maximum(self.data, 0)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None)]
@@ -743,7 +743,7 @@ class Tensor:
     def sigmoid(self):
         self._check_type('sigmoid')
         y = Tensor(1.0 / (1 + np.exp(- self.data)), dtype=self.dtype, requires_grad=self.requires_grad)
-        if y.requires_grad:
+        if y.requires_graph:
             y.children = [(self, y.data)]
             y.grad_fn = SigmoidBackward()
         return y
@@ -752,7 +752,7 @@ class Tensor:
         self._check_type('sigmoid')
         self._check_inplace()
         y = 1.0 / (1.0 + np.exp(- self.data))
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, y)]
@@ -769,25 +769,19 @@ class Tensor:
         data = np.exp(data)
         data = data / data.sum(dim, keepdims=True)
         y = Tensor(data, dtype=self.dtype, requires_grad=self.requires_grad)
-        if y.requires_grad:
+        if y.requires_graph:
             y.children = [(self, dim, y.data)]
             y.grad_fn = SoftmaxBackward()
         return y
 
-    def softmax_(self, dim):
-        self._check_type('softmax', ('int8', 'int16', 'int32', 'int64', 'float16', 'bool'))
-        self._check_inplace()
-        data = self.data
-        maximum = np.max(data, dim, keepdims=True)
-        data = data - maximum
-        data = np.exp(data)
-        y = data / data.sum(dim, keepdims=True)
-        if self.requires_grad:
-            child = deepcopy(self)
-            child.children = self.children
-            self.children = [(child, dim, y)]
-            self.grad_fn = SoftmaxBackward()
-        self.data = np.array(y)
+    def softplus(self):
+        self._check_type('softplus')
+        y = np.exp(- np.abs(self.data))
+        result = Tensor(np.log(1. + y) + self.data * (self.data >= 0.), requires_grad=self.requires_grad)
+        if result.requires_graph:
+            result.children = [(self, y)]
+            result.grad_fn = SoftplusBackward()
+        return result
 
     def pow(self, power):
         return self.__pow__(power)
@@ -798,7 +792,7 @@ class Tensor:
             y = np.power(self.data, power)
         else:
             y = np.power(self.data, power.data)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None), (power, y)]
@@ -808,7 +802,7 @@ class Tensor:
     def floor(self):
         self._check_type('floor')
         result = Tensor(np.floor(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, None)]
             result.grad_fn = FloorBackward()
         return result
@@ -817,7 +811,7 @@ class Tensor:
         self._check_type('floor')
         self._check_inplace()
         y = np.floor(self.data)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None)]
@@ -827,7 +821,7 @@ class Tensor:
     def ceil(self):
         self._check_type('ceil')
         result = Tensor(np.ceil(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, None)]
             result.grad_fn = CeilBackward()
         return result
@@ -836,7 +830,7 @@ class Tensor:
         self._check_type('ceil')
         self._check_inplace()
         y = np.ceil(self.data)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None)]
@@ -847,7 +841,7 @@ class Tensor:
         self._check_type('uniform')
         self._check_inplace()
         y = np.random.uniform(low, high, size=self.data.shape)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None)]
@@ -858,7 +852,7 @@ class Tensor:
         self._check_type('normal')
         self._check_inplace()
         y = np.random.normal(mean, std, size=self.data.shape)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None)]
@@ -867,14 +861,14 @@ class Tensor:
 
     def reshape(self, *shape):
         result = Tensor(self.data.reshape(shape), requires_grad=self.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, None)]
             result.grad_fn = ReshapeBackward()
         return result
 
     def flatten(self):
         result = Tensor(self.data.flatten(), requires_grad=self.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, None)]
             result.grad_fn = ReshapeBackward()
         return result
@@ -884,28 +878,28 @@ class Tensor:
             result = Tensor(self.data.squeeze(axes), dtype=self.dtype, requires_grad=self.requires_grad)
         else:
             result = Tensor(self.data.squeeze(), dtype=self.dtype, requires_grad=self.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, None)]
             result.grad_fn = ReshapeBackward()
         return result
 
     def unsqueeze(self, *axes):
         result = Tensor(np.expand_dims(self.data, axes), dtype=self.dtype, requires_grad=self.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, None)]
             result.grad_fn = ReshapeBackward()
         return result
 
     def transpose(self, *axes):
         result = Tensor(self.data.transpose(axes), dtype=self.dtype, requires_grad=self.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, axes)]
             result.grad_fn = TransposeBackward()
         return result
 
     def sum(self, axes=None, keepdims=False):
         result = Tensor(np.sum(self.data, axis=axes, keepdims=keepdims), requires_grad=self.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, axes)]
             result.grad_fn = SumBackward()
         return result
@@ -913,7 +907,7 @@ class Tensor:
     def zero_(self):
         self._check_inplace()
         y = np.zeros_like(self.data)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None)]
@@ -923,7 +917,7 @@ class Tensor:
     def fill_(self, value):
         self._check_inplace()
         y = value * np.ones_like(self.data)
-        if self.requires_grad:
+        if self.requires_graph:
             child = deepcopy(self)
             child.children = self.children
             self.children = [(child, None)]
@@ -936,7 +930,7 @@ class Tensor:
         s = (np.abs(data) ** p).sum()
         y = s ** (1. / p - 1.)
         result = Tensor(y * s, dtype=self.dtype, requires_grad=self.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, p, y)]
             result.grad_fn = NormBackward()
         return result
@@ -947,7 +941,7 @@ class Tensor:
         """
         assert self.data.ndim == 1 and other.data.ndim == 1, 'only vectors allow outer product operations'
         result = Tensor(np.outer(self.data, other.data), requires_grad=self.requires_grad or other.requires_grad)
-        if result.requires_grad:
+        if result.requires_graph:
             result.children = [(self, None), (other, None)]
             result.grad_fn = OuterBackward()
         return result
@@ -958,7 +952,7 @@ class Tensor:
         """
         assert isinstance(other, Tensor), f"argument 'other' (position 1) must be Tensor, not {type(other)}"
         result = Tensor(np.matmul(self.data, other.data), requires_grad=self.requires_grad or other.requires_grad)
-        if not result.requires_grad:
+        if not result.requires_graph:
             return result
         result.children = [(self, None), (other, None)]
         if self.data.ndim == 1 and other.data.ndim == 1:
@@ -980,8 +974,8 @@ class Tensor:
             grad = Tensor(grad)
         for i, child in enumerate(self.children):
             child_tensor = child[0]
-            if isinstance(child_tensor, Tensor) and child_tensor.requires_grad:
-                if child_tensor.grad is None and child_tensor._retain_grad:
+            if isinstance(child_tensor, Tensor) and child_tensor.requires_graph:
+                if child_tensor.grad is None and child_tensor.requires_graph:
                     child_tensor.grad = Tensor(np.zeros_like(child_tensor.data))
                 child_grad = self.grad_fn.calculate_grad(grad.data, self.children, i)
                 if child_tensor._retain_grad:
