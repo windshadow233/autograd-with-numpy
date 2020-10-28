@@ -49,11 +49,18 @@ print(x.grad)
 # array([1., 1., 1.], dtype=float32)
 # array([2., 2., 2.], dtype=float32)
 with nt.no_grad():
-    print(x.requires_grad)
+# 下面的所有运算将不构造计算图
     y = x * 2
-    print(y.requires_grad)
-# False
-# False
+    print(y.children)
+    print(y.grad_fn is None)
+# []
+# <class 'NoneType'>
+# 离开no.grad上下文,下面的运算将正常构造计算图
+y = x * 2
+print(y.children)
+print(y.grad_fn is None)
+# [(array([1., 2., 3.], dtype=float32, requires_grad=True), None), (2, None)]
+# <class 'nptorch.backward.MulBackward'>
 ```
 ### 数据集
 1. 项目封装了一个简单的data.py文件用以封装数据，功能比较简单。使用方法也类似pytorch，不过功能少了一些，以后再慢慢完善。
