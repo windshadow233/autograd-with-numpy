@@ -1,24 +1,25 @@
-from .tensor import *
+from .tensor import array, Tensor, float32
+import numpy as np
 
 
 def eye(n, m, dtype=float32, requires_grad=False):
-    return array(np.eye(n, m), dtype=dtype, requires_grad=requires_grad)
+    return Tensor(np.eye(n, m), dtype=dtype, requires_grad=requires_grad)
 
 
 def zeros(shape, dtype=float32, requires_grad=False):
-    return array(np.zeros(shape=shape), dtype=dtype, requires_grad=requires_grad)
+    return Tensor(np.zeros(shape=shape), dtype=dtype, requires_grad=requires_grad)
 
 
 def ones(shape, dtype=float32, requires_grad=False):
-    return array(np.ones(shape), dtype=dtype, requires_grad=requires_grad)
+    return Tensor(np.ones(shape), dtype=dtype, requires_grad=requires_grad)
 
 
 def zeros_like(x: Tensor, dtype=float32, requires_grad=False):
-    return array(np.zeros_like(x.data), dtype=dtype, requires_grad=requires_grad)
+    return Tensor(np.zeros_like(x.data), dtype=dtype, requires_grad=requires_grad)
 
 
 def ones_like(x: Tensor, dtype=float32, requires_grad=False):
-    return array(np.ones_like(x.data), dtype=dtype, requires_grad=requires_grad)
+    return Tensor(np.ones_like(x.data), dtype=dtype, requires_grad=requires_grad)
 
 
 def max(x: Tensor, axis=None, keepdims=False):

@@ -1,7 +1,7 @@
-from ..tensor import *
+from ..tensor import Tensor, float32
 from .. import random
 from ..backward import CrossEntropyBackward, Conv2dBackward, MeanPool2dBackward, MaxPool2dBackward,\
-    LeakyReLUBackward, ELUBackward
+    LeakyReLUBackward, ELUBackward, BatchNorm2dBackward, MeanPool1dBackward, MaxPool1dBackward, NLLLossBackward
 from .conv_operations import *
 
 
@@ -53,7 +53,7 @@ def one_hot(n, x: Tensor):
     :param x: 标签,行张量
     :return: ont_hot张量
     """
-    return array(np.eye(n)[x.data])
+    return Tensor(np.eye(n)[x.data])
 
 
 def linear(x: Tensor, w: Tensor, b: Tensor = None):
