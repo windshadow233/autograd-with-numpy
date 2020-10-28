@@ -64,3 +64,11 @@ class ELU(Module):
 
     def forward(self, x: Tensor):
         return F.elu(x, self.alpha)
+
+
+class Softplus(Module):
+    def __init__(self):
+        super(Softplus, self).__init__()
+
+    def forward(self, x: Tensor):
+        return F.softplus(x)
