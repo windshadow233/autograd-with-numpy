@@ -7,6 +7,7 @@ from nptorch import nn
 from nptorch.optim import SGD, Adam
 from nptorch.transforms import Compose, ToTensor, Resize, ToPILImage
 from nptorch.utils.data import Dataset, DataLoader
+import pickle
 
 trans = Compose([ToPILImage(),
                  Resize((32, 32)),
@@ -28,7 +29,7 @@ class MNISTDataset(Dataset):
 class LeNet(nn.Module):
     def __init__(self):
         super(LeNet, self).__init__()
-        self.layers1 = nn.Sequential(
+        self.layer1 = nn.Sequential(
             nn.Conv2d(1, 16, 5),
             nn.MaxPool2d(2),
             nn.Tanh(),
@@ -36,7 +37,7 @@ class LeNet(nn.Module):
             nn.MaxPool2d(2),
             nn.Tanh(),
         )
-        self.layers2 = nn.Sequential(
+        self.layer2 = nn.Sequential(
             nn.Linear(32 * 25, 128),
             nn.Sigmoid(),
             nn.Linear(128, 64),
@@ -45,9 +46,9 @@ class LeNet(nn.Module):
         )
 
     def forward(self, x: nptorch.Tensor):
-        x = self.layers1(x)
+        x = self.layer1(x)
         x = x.reshape(x.shape[0], -1)
-        x = self.layers2(x)
+        x = self.layer2(x)
         return x
 
 
@@ -101,5 +102,7 @@ for i in tqdm(range(5)):
         print(f'优化后的准确比率:{(p == lb).float().sum().item() / len(d)}')
 
 
+# with open('LeNet.pkl', 'rb') as f:
+#     model = pickle.load(f)
 print(f'测试集准确率{test_model(model, test_loader)}')
 print(f'训练集准确率{test_model(model, train_loader)}')

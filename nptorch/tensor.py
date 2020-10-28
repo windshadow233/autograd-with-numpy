@@ -975,7 +975,7 @@ class Tensor:
         for i, child in enumerate(self.children):
             child_tensor = child[0]
             if isinstance(child_tensor, Tensor) and child_tensor.grad_enable:
-                if child_tensor.grad is None and child_tensor.grad_enable:
+                if child_tensor._retain_grad and child_tensor.grad_enable and child_tensor.grad is None:
                     child_tensor.grad = Tensor(np.zeros_like(child_tensor.data))
                 child_grad = self.grad_fn.calculate_grad(grad.data, self.children, i)
                 if child_tensor._retain_grad:
