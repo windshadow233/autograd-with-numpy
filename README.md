@@ -37,6 +37,7 @@ x = nt.random.normal(size=(3, 4), mean=0., std=1.)
 1. 定义float类型的张量时，可指定参数requires_grad=True来声明需要对此张量求梯度。
 2. 当得到标量结果时，可对该标量调用backward()方法，得到与该标量相关的计算图中所有叶子节点的梯度。
 3. 非叶子节点默认不会存储梯度，若需要其存储梯度，可调用其retain_grad()方法。
+4. 上下文管理器no_grad可实现内部计算不进行计算图的搭建与求导。
 ```python
 import nptorch as nt
 x = nt.array([1., 2., 3.], dtype=nt.float32, requires_grad=True)
@@ -47,6 +48,12 @@ print(y.grad)
 print(x.grad)
 # array([1., 1., 1.], dtype=float32)
 # array([2., 2., 2.], dtype=float32)
+with nt.no_grad():
+    print(x.requires_grad)
+    y = x * 2
+    print(y.requires_grad)
+# False
+# False
 ```
 ### 数据集
 1. 项目封装了一个简单的data.py文件用以封装数据，功能比较简单。使用方法也类似pytorch，不过功能少了一些，以后再慢慢完善。

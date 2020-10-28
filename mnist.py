@@ -51,14 +51,14 @@ class LeNet(nn.Module):
         return x
 
 
+@nptorch.no_grad()
 def test_model(model, test_loader: DataLoader):
-    with nptorch.no_grad():
-        model.eval()
-        count = 0
-        for d, lb in test_loader:
-            p = model(d).argmax(-1)
-            count += (p == lb).float().sum()
-        return count.item() / len(test_loader.dataset)
+    model.eval()
+    count = 0
+    for d, lb in test_loader:
+        p = model(d).argmax(-1)
+        count += (p == lb).float().sum()
+    return count.item() / len(test_loader.dataset)
 
 
 def load_mnist(img_path, label_path):
