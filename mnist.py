@@ -5,10 +5,12 @@ import nptorch
 from nptorch import random
 from nptorch import nn
 from nptorch.optim import SGD, Adam
-from nptorch.transforms import ToTensor, Compose
+from nptorch.transforms import Compose, ToTensor, Resize, ToPILImage
 from nptorch.utils.data import Dataset, DataLoader
 
-trans = Compose([ToTensor()])
+trans = Compose([ToPILImage(),
+                 Resize((32, 32)),
+                 ToTensor()])
 
 
 class MNISTDataset(Dataset):
@@ -27,25 +29,18 @@ class CNN(nn.Module):
     def __init__(self):
         super(CNN, self).__init__()
         self.layers1 = nn.Sequential(
-            nn.Conv2d(1, 16, 3, padding=(1, 1)),
+            nn.Conv2d(1, 16, 5),
             nn.MaxPool2d(2),
-            nn.BatchNorm2d(16),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(16, 32, 3, padding=(1, 1)),
+            nn.Tanh(),
+            nn.Conv2d(16, 32, 5),
             nn.MaxPool2d(2),
-            nn.BatchNorm2d(32),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(32, 64, 3, padding=(1, 1)),
-            nn.MaxPool2d(2),
-            nn.BatchNorm2d(64),
-            nn.ReLU(inplace=True)
+            nn.Tanh(),
         )
         self.layers2 = nn.Sequential(
-            nn.Linear(64 * 9, 128),
-            nn.Dropout(0.5),
-            nn.ReLU(),
+            nn.Linear(32 * 25, 128),
+            nn.Sigmoid(),
             nn.Linear(128, 64),
-            nn.ReLU(),
+            nn.Sigmoid(),
             nn.Linear(64, 10)
         )
 
@@ -71,7 +66,7 @@ def load_mnist(img_path, label_path):
         labels = np.fromfile(label, dtype=np.uint8)
     with open(img_path, 'rb') as img:
         _, num, rows, cols = struct.unpack('>IIII', img.read(16))
-        images = np.fromfile(img, dtype=np.uint8).reshape(num, rows, cols, 1)
+        images = np.fromfile(img, dtype=np.uint8).reshape(num, rows, cols)
     return images, nptorch.array(labels)
 
 
@@ -82,10 +77,10 @@ train_loader = DataLoader(train_set, batch_size=64)
 test_loader = DataLoader(test_set, batch_size=128)
 
 cnn = CNN()
-optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.7)
+optimizer = SGD(cnn.parameters(), lr=1e-1, momentum=0.7)
 loss_fcn = nn.CrossEntropyLoss()
 
-for i in tqdm(range(10)):
+for i in tqdm(range(5)):
     count = 0
     for n, data in enumerate(train_loader, 1):
         cnn.train()

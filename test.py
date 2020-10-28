@@ -1,9 +1,9 @@
 import nptorch
-import numpy as np
-nptorch.random.seed(0)
-x = nptorch.random.rand((3,4,4), requires_grad=True)
-meanpool = nptorch.nn.MaxPool1d(2, 3)
-y = meanpool(x)
-y.log_()
-y.sum().backward()
-print(x.grad)
+x = nptorch.array([1,2,3.],requires_grad=True)
+print(x.requires_grad)
+with nptorch.no_grad():
+    print(x.requires_grad)
+    y = x + 1
+    print(y)
+y = x+1
+print(x.requires_grad)

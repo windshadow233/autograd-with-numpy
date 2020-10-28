@@ -1,5 +1,6 @@
 from copy import deepcopy
 from .backward import *
+from .grad_mode import grad_enable
 from numpy import float16, float32, float64, int8, int16, int32, int64, bool_, uint8, uint16, uint32, uint64
 
 # np.set_printoptions(precision=4, suppress=True)
@@ -19,11 +20,15 @@ class Tensor:
             self.data = np.array(data, dtype=dtype)
         assert 'float' in self.dtype.name or not requires_grad, \
             'Only Arrays of floating point dtype can require gradients'
-        self.requires_grad = requires_grad
+        self._grad_requires = requires_grad
         self.grad_fn = None
         self.children = []
         self.grad = None
         self._retain = False
+
+    @property
+    def requires_grad(self):
+        return self._grad_requires and grad_enable()
 
     def __repr__(self):
         return self.__str__()

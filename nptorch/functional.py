@@ -181,5 +181,37 @@ def ceil_(x: Tensor):
     return x
 
 
+def reshape(x: Tensor, *shape):
+    return x.reshape(shape)
+
+
+def flatten(x: Tensor):
+    return x.flatten()
+
+
+def squeeze(x: Tensor, *axes):
+    return x.squeeze(axes)
+
+
+def unsqueeze(x: Tensor, *axes):
+    return x.unsqueeze(axes)
+
+
+def transpose(x: Tensor, *axes):
+    return x.transpose(axes)
+
+
+def sum(x: Tensor, axes=None, keepdims=False):
+    return x.sum(axes, keepdims)
+
+
 def norm(x: Tensor, p=2.):
     return x.norm(p)
+
+
+def outer(x: Tensor, y: Tensor):
+    return x.outer(y)
+
+
+def matmul(x: Tensor, y: Tensor):
+    return x.matmul(y)

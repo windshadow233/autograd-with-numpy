@@ -97,6 +97,8 @@ cnn = CNN()
 optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
 ## 更新日志
+### 2020/10/28
+* 实现了一个简单的上下文管理器no_grad，在该环境下的所有运算皆不计算梯度。
 ### 2020/10/27
 * 增加了ToPILImage变换。
 * 增加了MaxPool1d与MeanPool1d。
