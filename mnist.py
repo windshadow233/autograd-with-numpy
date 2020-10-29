@@ -5,13 +5,23 @@ import nptorch
 from nptorch import random
 from nptorch import nn
 from nptorch.optim import SGD, Adam
-from nptorch.transforms import Compose, ToTensor, Resize, ToPILImage
+from nptorch import transforms as T
 from nptorch.utils.data import Dataset, DataLoader
 import pickle
 
-trans = Compose([ToPILImage(),
-                 Resize((32, 32)),
-                 ToTensor()])
+trans = T.Compose([T.ToPILImage(),
+                  T.Resize((32, 32)),
+                  T.ToTensor()])
+
+
+def load_mnist(img_path, label_path):
+    with open(label_path, 'rb') as label:
+        struct.unpack('>II', label.read(8))
+        labels = np.fromfile(label, dtype=np.uint8)
+    with open(img_path, 'rb') as img:
+        _, num, rows, cols = struct.unpack('>IIII', img.read(16))
+        images = np.fromfile(img, dtype=np.uint8).reshape(num, rows, cols)
+    return images, nptorch.array(labels)
 
 
 class MNISTDataset(Dataset):
@@ -60,16 +70,6 @@ def test_model(model, test_loader: DataLoader):
         p = model(d).argmax(-1)
         count += (p == lb).float().sum()
     return count.item() / len(test_loader.dataset)
-
-
-def load_mnist(img_path, label_path):
-    with open(label_path, 'rb') as label:
-        struct.unpack('>II', label.read(8))
-        labels = np.fromfile(label, dtype=np.uint8)
-    with open(img_path, 'rb') as img:
-        _, num, rows, cols = struct.unpack('>IIII', img.read(16))
-        images = np.fromfile(img, dtype=np.uint8).reshape(num, rows, cols)
-    return images, nptorch.array(labels)
 
 
 random.seed(0)

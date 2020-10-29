@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LeNet.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/LeNet.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/conv_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/conv_operations.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,6 +132,9 @@
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -238,6 +242,8 @@
       <workItem from="1603867319893" duration="2530000" />
       <workItem from="1603882117338" duration="7069000" />
       <workItem from="1603897675334" duration="786000" />
+      <workItem from="1603945149240" duration="378000" />
+      <workItem from="1603945739050" duration="89000" />
     </task>
     <servers />
   </component>

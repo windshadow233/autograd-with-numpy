@@ -12,7 +12,7 @@ def split_by_strides(x: np.ndarray, kernel_h, kernel_w, stride=(1, 1)):
     :param kernel_h: 卷积核的长度
     :param kernel_w: 卷积核的宽度
     :param stride: 步长
-    :return: output_data: 按卷积步骤展开后的矩阵
+    :return: y: 按卷积步骤展开后的矩阵
 
     Example: [[1, 2, 3, 4],    2, 2, 2       [[[[1, 2],
               [5, 6, 7, 8],             =>      [5, 6]],
@@ -28,8 +28,8 @@ def split_by_strides(x: np.ndarray, kernel_h, kernel_w, stride=(1, 1)):
     shape = (*bc, out_h, out_y, kernel_h, kernel_w)
     strides = (*x.strides[:-2], x.strides[-2] * stride[0],
                x.strides[-1] * stride[1], *x.strides[-2:])
-    output_data = as_strided(x, shape, strides=strides)
-    return output_data
+    y = as_strided(x, shape, strides=strides)
+    return y
 
 
 def padding_zeros(x: np.ndarray, padding):
@@ -73,9 +73,9 @@ def dilate(x: np.ndarray, stride=(1, 1)):
     if stride == (1, 1):
         return x
     *bc, h, w = x.shape
-    result = np.zeros((*bc, (h - 1) * stride[0] + 1, (w - 1) * stride[1] + 1), dtype=np.float32)
-    result[..., ::stride[0], ::stride[1]] = x
-    return result
+    y = np.zeros((*bc, (h - 1) * stride[0] + 1, (w - 1) * stride[1] + 1), dtype=np.float32)
+    y[..., ::stride[0], ::stride[1]] = x
+    return y
 
 
 def reverse_conv2d(x: np.ndarray, kernel: np.ndarray, rotate=False, invert=False):
@@ -92,7 +92,7 @@ def reverse_conv2d(x: np.ndarray, kernel: np.ndarray, rotate=False, invert=False
     if rotate:
         kernel = kernel_rotate180(kernel)
     i = 0 if invert else 1
-    result = np.tensordot(x, kernel, [(i, 4, 5), (0, 2, 3)])
+    y = np.tensordot(x, kernel, [(i, 4, 5), (0, 2, 3)])
     if invert:
-        return result.transpose((3, 0, 1, 2))
-    return result.transpose((0, 3, 1, 2))
+        return y.transpose((3, 0, 1, 2))
+    return y.transpose((0, 3, 1, 2))
