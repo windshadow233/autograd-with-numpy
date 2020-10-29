@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/nptorch/nn/modules/rnn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/backward.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/backward.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/functional.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/conv_operations.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/functional.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/activation.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/activation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/container.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/linear.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/linear.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/loss.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/loss.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-    </list>
+    <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -252,7 +236,7 @@
       <workItem from="1603945739050" duration="126000" />
       <workItem from="1603945885931" duration="46000" />
       <workItem from="1603945991930" duration="203000" />
-      <workItem from="1603956278919" duration="16530000" />
+      <workItem from="1603956278919" duration="16723000" />
     </task>
     <servers />
   </component>
