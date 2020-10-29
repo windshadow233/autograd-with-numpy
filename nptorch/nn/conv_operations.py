@@ -5,10 +5,10 @@ import numpy as np
 from numpy.lib.stride_tricks import as_strided
 
 
-def split_by_strides(input_data: np.ndarray, kernel_h, kernel_w, stride=(1, 1)):
+def split_by_strides(x: np.ndarray, kernel_h, kernel_w, stride=(1, 1)):
     """
     将张量按卷积核尺寸与步长进行分割
-    :param input_data: 被卷积的张量
+    :param x: 被卷积的张量
     :param kernel_h: 卷积核的长度
     :param kernel_w: 卷积核的宽度
     :param stride: 步长
@@ -23,12 +23,12 @@ def split_by_strides(input_data: np.ndarray, kernel_h, kernel_w, stride=(1, 1)):
                                                [[11, 12],
                                                 [15, 16]]]]
     """
-    *bc, h, w = input_data.shape
+    *bc, h, w = x.shape
     out_h, out_y = (h - kernel_h) // stride[0] + 1, (w - kernel_w) // stride[1] + 1
     shape = (*bc, out_h, out_y, kernel_h, kernel_w)
-    strides = (*input_data.strides[:-2], input_data.strides[-2] * stride[0],
-               input_data.strides[-1] * stride[1], *input_data.strides[-2:])
-    output_data = as_strided(input_data, shape, strides=strides)
+    strides = (*x.strides[:-2], x.strides[-2] * stride[0],
+               x.strides[-1] * stride[1], *x.strides[-2:])
+    output_data = as_strided(x, shape, strides=strides)
     return output_data
 
 
