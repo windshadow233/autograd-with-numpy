@@ -12,6 +12,8 @@ def array(data, dtype=None, requires_grad=False):
 
 class Tensor:
     def __init__(self, data, dtype=None, requires_grad=False):
+        if isinstance(data, Tensor):
+            data = data.data
         if dtype is None:
             self.data = np.array(data)
             if self.dtype == float64:

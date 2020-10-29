@@ -3,9 +3,22 @@ from PIL import Image
 from ..tensor import Tensor
 
 
+def _is_pil_img(img):
+    return isinstance(img, Image.Image)
+
+
+def _is_numpy(img):
+    return isinstance(img, np.ndarray)
+
+
+def _is_tensor(img):
+    return isinstance(img, Tensor)
+
+
 def to_tensor(img):
-    assert isinstance(img, (np.ndarray, Image.Image)), f'img should be PIL Image or ndarray. Got {type(img)}'
-    if isinstance(img, np.ndarray):
+    if not (_is_tensor(img) or _is_numpy(img) or _is_pil_img(img)):
+        raise TypeError(f'img should be Tensor, PIL Image or ndarray. Got {type(img)}')
+    if isinstance(img, (np.ndarray, Tensor)):
         assert img.ndim in {2, 3}, f'img should be 2 or 3 dimensional. Got {img.ndim} dimensions.'
         if img.ndim == 2:
             img = img[:, :, None]
@@ -14,7 +27,7 @@ def to_tensor(img):
             return Tensor(img, dtype=np.float32)
         else:
             return Tensor(img / 255., dtype=np.float32)
-    if img.mode == '1':  # 二值图
+    if img.mode == '1':
         img = np.array(img)[:, :, None]
     elif img.mode in {'L', 'I', 'F', 'P'}:
         img = np.array(img)[:, :, None] / 255.
@@ -25,14 +38,16 @@ def to_tensor(img):
 
 
 def resize(img, size):
-    assert isinstance(img, Image.Image), f'img should be PIL Image. Got {type(img)}'
+    if not _is_pil_img(img):
+        raise TypeError(f'img should be PIL Image. Got {type(img)}')
     img = img.resize(size)
     return img
 
 
 def gray_scale(img, out_channels):
+    if not _is_pil_img(img):
+        raise TypeError(f'img should be PIL Image. Got {type(img)}')
     assert out_channels in {1, 3}, f'output_channels should be either 1 or 3. Got {out_channels}'
-    assert isinstance(img, Image.Image), f'img should be PIL Image. Got {type(img)}'
     img = img.convert('L')
     if out_channels == 1:
         return img
@@ -41,7 +56,8 @@ def gray_scale(img, out_channels):
 
 
 def to_pil_image(img: np.ndarray or Tensor, mode=None):
-    assert isinstance(img, (np.ndarray, Tensor)), f'img should be ndarray or Tensor. Got {type(img)}.'
+    if not (_is_numpy(img) or _is_tensor(img)):
+        raise TypeError(f'img should be ndarray or Tensor. Got {type(img)}.')
     assert img.ndim in {2, 3}, f'img should be 2 or 3 dimensional. Got {img.ndim} dimensions.'
     if isinstance(img, Tensor):
         img = img.data
@@ -61,3 +77,12 @@ def to_pil_image(img: np.ndarray or Tensor, mode=None):
         img = img.astype(np.uint32)
     img = Image.fromarray(img, mode)
     return img
+
+
+def normalize(img, mean, std):
+    if not (_is_numpy(img) or _is_tensor(img)):
+        raise TypeError(f'img should be ndarray or Tensor. Got {type(img)}')
+    assert img.ndim == 3, 'img should be 2 or 3 dimensional. Got {img.ndim} dimensions.'
+    mean = Tensor(mean)
+    std = Tensor(std)
+    return (img - mean[:, None, None]) / std[:, None, None]

@@ -120,6 +120,8 @@ cnn = CNN()
 optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
 ## 更新日志
+### 2020/10/29
+* 增加了Normalize变换。
 ### 2020/10/28
 * 实现了一个简单的上下文管理器no_grad,在该环境下的所有运算将不构造计算图。
 * 增加了Softplus激活函数。

@@ -82,3 +82,17 @@ class ToPILImage(Transform):
     def __call__(self, img):
         return F.to_pil_image(img, self.mode)
 
+
+class Normalize(Transform):
+    """
+    将Tensor或np.ndarray类型的三维图片进行标准化
+    """
+    def __init__(self, mean, std):
+        self.mean = mean
+        self.std = std
+
+    def extra_repr(self):
+        return f'mean={self.mean}, std={self.std}'
+
+    def __call__(self, img):
+        return F.normalize(img, self.mean, self.std)
