@@ -10,8 +10,9 @@ from nptorch.utils.data import Dataset, DataLoader
 import pickle
 
 trans = T.Compose([T.ToPILImage(),
-                  T.Resize((32, 32)),
-                  T.ToTensor()])
+                   T.Resize((32, 32)),
+                   T.ToTensor(),
+                   T.Normalize([0.5], [0.5])])
 
 
 def load_mnist(img_path, label_path):

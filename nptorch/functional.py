@@ -1,4 +1,5 @@
 from .tensor import array, Tensor, float32
+from .backward import StackBackward
 import numpy as np
 
 
@@ -202,6 +203,10 @@ def transpose(x: Tensor, *axes):
     return x.transpose(axes)
 
 
+def swapaxes(x: Tensor, axis1, axis2):
+    return x.swapaxes(axis1, axis2)
+
+
 def sum(x: Tensor, axes=None, keepdims=False):
     return x.sum(axes, keepdims)
 
@@ -216,3 +221,21 @@ def outer(x: Tensor, y: Tensor):
 
 def matmul(x: Tensor, y: Tensor):
     return x.matmul(y)
+
+
+def stack(tensors, axis=0):
+    dtype = tensors[0].dtype
+    arrays = []
+    requires_grad = []
+    for i, tensor in enumerate(tensors):
+        if tensor.dtype != dtype:
+            raise RuntimeError('dtype of tensors are not same')
+        arrays.append(tensor.data)
+        if tensor.requires_grad:
+            requires_grad.append((tensor, axis, i))
+    result = np.stack(arrays, axis=axis)
+    result = Tensor(result, requires_grad=bool(requires_grad))
+    if result.requires_grad:
+        result.children = requires_grad
+        result.grad_fn = StackBackward()
+    return result

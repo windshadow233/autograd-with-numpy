@@ -899,6 +899,13 @@ class Tensor:
             result.grad_fn = TransposeBackward()
         return result
 
+    def swapaxes(self, axis1, axis2):
+        result = Tensor(self.data.swapaxes(axis1, axis2), dtype=self.dtype, requires_grad=self.requires_grad)
+        if result.grad_enable:
+            result.children = [(self, axis1, axis2)]
+            result.grad_fn = SwapaxesBackward()
+        return result
+
     def sum(self, axes=None, keepdims=False):
         result = Tensor(np.sum(self.data, axis=axes, keepdims=keepdims), requires_grad=self.requires_grad)
         if result.grad_enable:

@@ -1,5 +1,5 @@
 from nptorch.tensor import *
-from .module import Module
+from . import Module
 from .. import functional as F
 
 
@@ -39,7 +39,7 @@ class Tanh(Module):
         super(Tanh, self).__init__()
 
     def forward(self, x: Tensor):
-        return x.tanh()
+        return F.tan(x)
 
 
 class LeakyReLU(Module):

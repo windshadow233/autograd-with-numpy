@@ -1,4 +1,4 @@
-from .module import Module
+from . import Module
 
 
 class Sequential(Module):

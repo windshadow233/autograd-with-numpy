@@ -1,7 +1,7 @@
 import math
 from itertools import product
 from nptorch.broadcast import get_tile_dims
-from .nn.conv_operations import *
+from .nn.utils.conv_operations import *
 
 
 class BackwardFcn:
@@ -298,6 +298,15 @@ class TransposeBackward(BackwardFcn):
         inverse_axes = np.arange(len(axes))[np.argsort(axes)]
         result = grad.transpose(inverse_axes)
         return result
+
+
+class SwapaxesBackward(BackwardFcn):
+    def __init__(self):
+        super(SwapaxesBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        axis1, axis2 = children[0][1:]
+        return grad.swapaxes(axis1, axis2)
 
 
 class ReshapeBackward(BackwardFcn):
@@ -672,6 +681,18 @@ class ELUBackward(BackwardFcn):
         x, alpha = children[0]
         data = x.data
         return grad * ((data > 0.) + (data <= 0.) * alpha * np.exp(data)).astype(np.float32)
+
+
+class StackBackward(BackwardFcn):
+    def __init__(self):
+        super(StackBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        _, axis, i = children[place]
+        slices = [slice(None)] * grad.ndim
+        slices[axis] = i
+        slices = tuple(slices)
+        return grad[slices]
 
 
 """

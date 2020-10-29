@@ -2,7 +2,7 @@ from ..tensor import Tensor, float32
 from .. import random
 from ..backward import CrossEntropyBackward, Conv2dBackward, MeanPool2dBackward, MaxPool2dBackward,\
     LeakyReLUBackward, ELUBackward, BatchNorm2dBackward, MeanPool1dBackward, MaxPool1dBackward, NLLLossBackward
-from .conv_operations import *
+from .utils.conv_operations import *
 
 
 def relu(x: Tensor):
@@ -20,6 +20,10 @@ def sigmoid(x: Tensor):
 
 def softmax(x: Tensor, dim):
     return x.softmax(dim)
+
+
+def tan(x: Tensor):
+    return x.tan()
 
 
 def leaky_relu(x: Tensor, leaky_rate=0.01):
