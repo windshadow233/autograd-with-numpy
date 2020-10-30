@@ -41,12 +41,14 @@ class RNN(Module):
         self.weight_ih_l0 = Parameter(uniform((hidden_size, input_size), low=-k, high=k))
         self.weight_hh_l0 = Parameter(uniform((hidden_size, input_size), low=-k, high=k))
         if use_bias:
-            self.bias_l0 = Parameter(zeros(hidden_size))
+            self.bias_ih_l0 = Parameter(zeros(hidden_size))
+            self.bias_hh_l0 = Parameter(zeros(hidden_size))
         for i in range(1, num_layers):
             self.__setattr__(f'weight_ih_l{i}', Parameter(uniform((hidden_size, input_size), low=-k, high=k)))
             self.__setattr__(f'weight_hh_l{i}', Parameter(uniform((hidden_size, input_size), low=-k, high=k)))
             if use_bias:
-                self.__setattr__(f'bias_l{i}', Parameter(zeros(hidden_size)))
+                self.__setattr__(f'bias_ih_l{i}', Parameter(zeros(hidden_size)))
+                self.__setattr__(f'bias_hh_l{i}', Parameter(zeros(hidden_size)))
 
     def forward(self, x: Tensor):
         """
@@ -64,10 +66,12 @@ class RNN(Module):
                 weight_ih = self.__getattribute__(f'weight_ih_l{i}')
                 weight_hh = self.__getattribute__(f'weight_hh_l{i}')
                 hidden = hidden.matmul(weight_ih.T)
+                if self.use_bias:
+                    hidden += self.__getattribute__(f'bias_ih_l{i}')
                 if t > 0:
                     hidden += cache[i].matmul(weight_hh.T)
                 if self.use_bias:
-                    hidden += self.__getattribute__(f'bias_l{i}')
+                    hidden += self.__getattribute__(f'bias_hh_l{i}')
                 hidden = self.activation(hidden)
                 cache[i] = hidden
                 if self.dropout > 0. and i < self.num_layers - 1:
