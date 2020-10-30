@@ -61,20 +61,30 @@ def kernel_rotate180(kernel: np.ndarray):
     return kernel[..., ::-1, ::-1]
 
 
-def dilate(x: np.ndarray, stride=(1, 1)):
+def dilate(x: np.ndarray, dilation=(0, 0)):
     """
     膨胀,按一定步长填充0
-    Example: [[1, 2, 3], 2    [[1, 0, 2, 0, 3],
+    Example: [[1, 2, 3], 1    [[1, 0, 2, 0, 3],
               [4, 5, 6],   =>  [0, 0, 0, 0, 0],
               [7, 8, 9]]       [4, 0, 5, 0, 6],
                                [0, 0, 0, 0, 0],
                                [7, 0, 8, 0, 9]]
     """
-    if stride == (1, 1):
+    if dilation == (0, 0):
         return x
     *bc, h, w = x.shape
-    y = np.zeros((*bc, (h - 1) * stride[0] + 1, (w - 1) * stride[1] + 1), dtype=np.float32)
-    y[..., ::stride[0], ::stride[1]] = x
+    y = np.zeros((*bc, (h - 1) * (dilation[0] + 1) + 1, (w - 1) * (dilation[1] + 1) + 1), dtype=np.float32)
+    y[..., ::dilation[0] + 1, ::dilation[1] + 1] = x
+    return y
+
+
+def erode(x: np.ndarray, dilation=(0, 0)):
+    """
+    腐蚀,与膨胀互为逆运算
+    """
+    if dilation == (0, 0):
+        return x
+    y = x[..., ::dilation[0] + 1, ::dilation[1] + 1]
     return y
 
 

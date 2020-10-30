@@ -16,7 +16,7 @@ class RNN(Module):
         self.num_layers = num_layers
         self.use_bias = use_bias
         if activation == 'tanh':
-            self.activation = F.tan
+            self.activation = F.tanh
         elif activation == 'relu':
             self.activation = F.relu
         else:

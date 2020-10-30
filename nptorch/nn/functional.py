@@ -22,8 +22,8 @@ def softmax(x: Tensor, dim):
     return x.softmax(dim)
 
 
-def tan(x: Tensor):
-    return x.tan()
+def tanh(x: Tensor):
+    return x.tanh()
 
 
 def leaky_relu(x: Tensor, leaky_rate=0.01):
@@ -92,7 +92,7 @@ def dropout2d(x: Tensor, p=0.5, training=True):
     return y
 
 
-def conv2d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=(1, 1), padding=(0, 0)):
+def conv2d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=(1, 1), padding=(0, 0), dilation=(0, 0)):
     assert x.ndim == 4, 'x must be 4 dimensional'
     b, c, h, w = x.shape
     oc, ic, kh, kw = kernels.shape
@@ -102,13 +102,14 @@ def conv2d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=(1, 1), paddi
     data = x.data
     padding = ((padding[0], padding[0]), (padding[1], padding[1]))
     data = padding_zeros(data, padding)
-    split = split_by_strides(data, *kernels.shape[-2:], stride=stride)
-    output = Tensor(np.tensordot(split, kernels.data, axes=[(1, 4, 5), (1, 2, 3)]).transpose((0, 3, 1, 2)),
+    dilated_kernels = dilate(kernels.data, dilation)
+    split = split_by_strides(data, *dilated_kernels.shape[-2:], stride=stride)
+    output = Tensor(np.tensordot(split, dilated_kernels, axes=[(1, 4, 5), (1, 2, 3)]).transpose((0, 3, 1, 2)),
                     requires_grad=x.requires_grad)
     if bias is not None:
         output = output + bias.unsqueeze(-1, -2)
     if output.grad_enable:
-        output.children = [(x, padding), (kernels, stride)]
+        output.children = [(x, padding), (kernels, dilated_kernels, stride, dilation)]
         if bias is not None:
             output.children.append((bias, None))
         output.grad_fn = Conv2dBackward()

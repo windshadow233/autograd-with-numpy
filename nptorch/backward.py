@@ -567,20 +567,19 @@ class Conv2dBackward(BackwardFcn):
     def calculate_grad(self, grad, children, place):
         padding = children[0][1]
         if place == 0:
-            kernel, stride = children[1]
-            grad = dilate(grad, stride)
+            dilated_kernels, stride = children[1][1: 3]
+            grad = dilate(grad, (stride[0] - 1, stride[1] - 1))
             delta_x_shape = children[0][0].shape[-2] + sum(padding[0]), children[0][0].shape[-1] + sum(padding[1])
-            add_rows, add_cols = np.array(delta_x_shape) + kernel.shape[-1] - 1 - np.array(grad.shape[-2:])
+            add_rows, add_cols = np.array(delta_x_shape) + dilated_kernels.shape[-1] - 1 - np.array(grad.shape[-2:])
             padding_x = np.floor(add_rows / 2).astype(int), np.ceil(add_rows / 2).astype(int)
             padding_y = np.floor(add_cols / 2).astype(int), np.ceil(add_cols / 2).astype(int)
             grad = padding_zeros(grad, (padding_x, padding_y))
-            kernel = kernel.data
-            return unwrap_padding(reverse_conv2d(grad, kernel, rotate=True, invert=False), padding)
+            return unwrap_padding(reverse_conv2d(grad, dilated_kernels, rotate=True, invert=False), padding)
         elif place == 1:
             x = padding_zeros(children[0][0].data, padding)
-            stride = children[1][1]
-            grad = dilate(grad, stride)
-            return reverse_conv2d(x, grad, rotate=False, invert=True)
+            stride, dilation = children[1][2:]
+            grad = dilate(grad, (stride[0] - 1, stride[1] - 1))
+            return erode(reverse_conv2d(x, grad, rotate=False, invert=True), dilation)
         else:
             return np.sum(grad, (0, -1, -2))
 

@@ -39,7 +39,7 @@ class Tanh(Module):
         super(Tanh, self).__init__()
 
     def forward(self, x: Tensor):
-        return F.tan(x)
+        return F.tanh(x)
 
 
 class LeakyReLU(Module):
