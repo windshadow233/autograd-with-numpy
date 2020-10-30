@@ -156,7 +156,7 @@ optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 * 实现了一个简单的SGD优化器。
 * 首次用线性层跑通mnist数据集。
 ### 2020/10/13~2020/10/17
-* 尝试了N种封装方法,最后借助numpy的ndarray类型封装了一个Tensor类,为计算图的节点,同时重写或补充了适用于Tensor类的上百个方法与函数,基本的运算均实现了backward。
+* 尝试了N种封装方法,最后借助numpy的ndarray类型封装了一个Tensor类,作为计算图的节点类,同时重写或补充了适用于Tensor类的上百个方法与函数,基本的运算均实现了backward。
 * 实现线性层。
 ### 2020/10/12
 产生“写个计算图玩玩”的idea。
