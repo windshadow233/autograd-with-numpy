@@ -18,8 +18,8 @@ class _ConvNd(Module):
         self.use_bias = use_bias
 
     def extra_repr(self):
-        return f'in_channels={self.in_channels}, out_channels={self.out_channels}, kernel_size={self.kernel_size},' \
-               f' stride={self.stride}, padding={self.padding}, dilation={self.dilation}, use_bias={self.use_bias}'
+        return f'{self.in_channels}, {self.out_channels}, kernel_size={self.kernel_size},' \
+               f' stride={self.stride}, \npadding={self.padding}, dilation={self.dilation}, use_bias={self.use_bias}'
 
     def forward(self, *args):
         raise NotImplementedError

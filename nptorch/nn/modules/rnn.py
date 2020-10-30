@@ -25,10 +25,11 @@ class RNN(Module):
         self.hidden_size = hidden_size
         self.num_layers = num_layers
         self.use_bias = use_bias
+        self.activation_name = activation
         if activation == 'tanh':
-            self.activation = F.tanh
+            self.activation_fcn = F.tanh
         elif activation == 'relu':
-            self.activation = F.relu
+            self.activation_fcn = F.relu
         else:
             raise ValueError(f'unsupported activation function {activation} for RNN')
         self.batch_first = batch_first
@@ -49,6 +50,10 @@ class RNN(Module):
             if use_bias:
                 self.__setattr__(f'bias_ih_l{i}', Parameter(zeros(hidden_size)))
                 self.__setattr__(f'bias_hh_l{i}', Parameter(zeros(hidden_size)))
+
+    def extra_repr(self):
+        return f'{self.input_size}, {self.hidden_size}, num_layers={self.num_layers}, use_bias={self.use_bias}, ' \
+               f'\nactivation={self.activation_name}, batch_first={self.batch_first}, dropout={self.dropout}'
 
     def forward(self, x: Tensor):
         """
@@ -71,7 +76,7 @@ class RNN(Module):
                 if self.use_bias:
                     hidden += self.__getattribute__(f'bias_ih_l{i}')
                     hidden += self.__getattribute__(f'bias_hh_l{i}')
-                hidden = self.activation(hidden)
+                hidden = self.activation_fcn(hidden)
                 cache[i] = hidden
                 if self.dropout > 0. and i < self.num_layers - 1:
                     hidden = F.dropout(hidden, self.dropout, self.training)

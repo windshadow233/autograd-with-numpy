@@ -1,5 +1,5 @@
 from nptorch.tensor import *
-from . import Module
+from .module import Module
 from .. import functional as F
 
 

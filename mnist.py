@@ -41,18 +41,18 @@ class LeNet(nn.Module):
     def __init__(self):
         super(LeNet, self).__init__()
         self.layer1 = nn.Sequential(
-            nn.Conv2d(1, 16, 5),
+            nn.Conv2d(1, 16, 3, dilation=(1, 1)),
             nn.MaxPool2d(2),
-            nn.Tanh(),
-            nn.Conv2d(16, 32, 5),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(16, 32, 3, dilation=(1, 1)),
             nn.MaxPool2d(2),
-            nn.Tanh(),
+            nn.ReLU(inplace=True),
         )
         self.layer2 = nn.Sequential(
             nn.Linear(32 * 25, 128),
-            nn.Sigmoid(),
+            nn.ReLU(inplace=True),
             nn.Linear(128, 64),
-            nn.Sigmoid(),
+            nn.ReLU(inplace=True),
             nn.Linear(64, 10)
         )
 
