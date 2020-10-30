@@ -72,7 +72,7 @@ f()
 # <class 'NoneType'>
 ```
 ### 数据集
-1. 项目封装了一个简单的data.py文件用以封装数据,功能比较简单。使用方法也类似pytorch,不过功能少了一些,以后再慢慢完善。
+1. 项目封装了一个简单的data模块用以封装数据,功能比较简单。使用方法也类似pytorch,不过功能少了一些,以后再慢慢完善。
 2. 自定义的数据集类需要继承Dataset类并完善__len__与__getitem__方法。
 3. DataLoader初始化放入Dataset或Subset类型的实例,可选参数有batch_size、shuffle与collate_fn,并通过生成一个迭代器的方式批量获取其中的数据。
 4. random_split函数传入一个Dataset类型实例与一个长度列表,返回按长度随机分割后的数据集。

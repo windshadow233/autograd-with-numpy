@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
-    </list>
+    <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -247,7 +244,7 @@
       <workItem from="1603945991930" duration="203000" />
       <workItem from="1603956278919" duration="16723000" />
       <workItem from="1604029016967" duration="25185000" />
-      <workItem from="1604062133543" duration="1298000" />
+      <workItem from="1604062133543" duration="1661000" />
     </task>
     <servers />
   </component>
