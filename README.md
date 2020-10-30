@@ -122,6 +122,7 @@ optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ## 更新日志
 ### 2020/10/30
 * Conv2d增加了参数dilation,默认为(0, 0),这里的dilation相当于pytorch的dilation - 1。
+* 实现了一个简单的RNN。
 ### 2020/10/29
 * 增加了Normalize变换。
 ### 2020/10/28

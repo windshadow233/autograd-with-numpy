@@ -27,6 +27,16 @@ class _ConvNd(Module):
 
 class Conv2d(_ConvNd):
     def __init__(self, in_channels, out_channels, kernel_size, stride=(1, 1), padding=(0, 0), dilation=(0, 0), use_bias=True):
+        """
+        2维卷积,输入数据形状为(B,C,H,W)
+        @param in_channels: 输入通道数
+        @param out_channels: 输出通道数
+        @param kernel_size: 卷积核尺寸
+        @param stride: H,W方向的步长
+        @param padding: H,W方向的padding
+        @param dilation: 卷积核膨胀尺寸
+        @param use_bias: 使用偏置
+        """
         super(Conv2d, self).__init__(in_channels, out_channels, kernel_size, stride, padding, dilation, use_bias)
         if not isinstance(stride, tuple):
             self.stride = (stride, stride)
