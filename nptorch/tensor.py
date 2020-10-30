@@ -138,7 +138,8 @@ class Tensor:
         assert not (self.is_leaf and self.requires_grad), \
             'a leaf Variable that requires grad has been used in an in-place operation.'
 
-    def _check_type(self, operation, excludes=('int8', 'int16', 'int32', 'int64', 'bool')):
+    def _check_type(self, operation, excludes=('uint8', 'uint16', 'uint32', 'uint64',
+                                               'int8', 'int16', 'int32', 'int64', 'bool')):
         assert self.dtype.name not in excludes, f"'{operation}' not implemented for '{self.dtype.name}'"
 
     def half(self):
@@ -761,7 +762,7 @@ class Tensor:
         self.data = np.array(y)
 
     def softmax(self, dim):
-        self._check_type('softmax', ('int8', 'int16', 'int32', 'int64', 'float16', 'bool'))
+        self._check_type('softmax')
         if dim is None:
             dim = -1
         data = self.data
