@@ -944,12 +944,7 @@ class Tensor:
                 child_tensor.backward(child_grad, False)
 
     add = __add__
-    add_ = __iadd__
     sub = __sub__
-    sub_ = __isub__
     mul = __mul__
-    mul_ = __imul__
     div = __truediv__
-    div_ = __itruediv__
     pow = __pow__
-    pow_ = __ipow__
