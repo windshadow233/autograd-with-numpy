@@ -1,6 +1,6 @@
 from copy import deepcopy
-from .backward import *
-from .grad_mode import grad_enable
+from .autograd.backward import *
+from .autograd.grad_mode import grad_enable
 from numpy import float16, float32, float64, int8, int16, int32, int64, bool_, uint8, uint16, uint32, uint64
 
 # np.set_printoptions(precision=4, suppress=True)
@@ -58,10 +58,9 @@ class Tensor:
 
     def __getitem__(self, item):
         result = Tensor(self.data[item], dtype=self.dtype, requires_grad=self.requires_grad)
-        if not result.grad_enable:
-            return result
-        result.children = [(self, item)]
-        result.grad_fn = SliceBackward()
+        if result.grad_enable:
+            result.children = [(self, item)]
+            result.grad_fn = SliceBackward()
         return result
 
     def __bool__(self):

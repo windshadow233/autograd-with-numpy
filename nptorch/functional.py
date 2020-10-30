@@ -1,5 +1,5 @@
 from .tensor import array, Tensor, float32
-from .backward import StackBackward
+from .autograd.backward import StackBackward
 import numpy as np
 
 

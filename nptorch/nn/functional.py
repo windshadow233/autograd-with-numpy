@@ -1,6 +1,6 @@
 from ..tensor import Tensor, float32
 from .. import random
-from ..backward import CrossEntropyBackward, Conv2dBackward, MeanPool2dBackward, MaxPool2dBackward,\
+from ..autograd.backward import CrossEntropyBackward, Conv2dBackward, MeanPool2dBackward, MaxPool2dBackward,\
     LeakyReLUBackward, ELUBackward, BatchNorm2dBackward, MeanPool1dBackward, MaxPool1dBackward, NLLLossBackward
 from .utils.conv_operations import *
 

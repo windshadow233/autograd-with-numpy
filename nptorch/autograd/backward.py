@@ -1,7 +1,7 @@
 import math
 from itertools import product
-from nptorch.broadcast import get_tile_dims
-from .nn.utils.conv_operations import *
+from .broadcast import get_tile_dims
+from ..nn.utils.conv_operations import *
 
 
 class BackwardFcn:
@@ -690,8 +690,7 @@ class StackBackward(BackwardFcn):
         _, axis, i = children[place]
         slices = [slice(None)] * grad.ndim
         slices[axis] = i
-        slices = tuple(slices)
-        return grad[slices]
+        return grad[tuple(slices)]
 
 
 """

@@ -1,6 +1,7 @@
 import numpy as np
 from PIL import Image
 from ..tensor import Tensor
+from ..autograd import no_grad
 
 
 def _is_pil_img(img):
@@ -15,6 +16,7 @@ def _is_tensor(img):
     return isinstance(img, Tensor)
 
 
+@no_grad()
 def to_tensor(img):
     if not (_is_tensor(img) or _is_numpy(img) or _is_pil_img(img)):
         raise TypeError(f'img should be Tensor, PIL Image or ndarray. Got {type(img)}')
@@ -79,6 +81,7 @@ def to_pil_image(img: np.ndarray or Tensor, mode=None):
     return img
 
 
+@no_grad()
 def normalize(img, mean, std):
     if not (_is_numpy(img) or _is_tensor(img)):
         raise TypeError(f'img should be ndarray or Tensor. Got {type(img)}')
