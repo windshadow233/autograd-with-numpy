@@ -733,21 +733,21 @@ class Tensor:
             self.grad_fn = SigmoidBackward()
         self.data = np.array(y)
 
-    def softmax(self, dim):
+    def softmax(self, axis):
         self._check_type('softmax')
         # data = self.data
         # maximum = np.max(data)
         # data = data - maximum
         # data = np.exp(data)
-        # data = data / data.sum(dim, keepdims=True)
+        # data = data / data.sum(axis, keepdims=True)
         # y = Tensor(data, dtype=self.dtype, requires_grad=self.requires_grad)
         # if y.grad_enable:
-        #     y.children = [(self, dim, y.data)]
+        #     y.children = [(self, axis, y.data)]
         #     y.grad_fn = SoftmaxBackward()
         # return y
         m = self.max().get('values')
         data = (self - m).exp()
-        data /= data.sum(dim, keepdims=True)
+        data /= data.sum(axis, keepdims=True)
         return data
 
     def softplus(self):
@@ -795,7 +795,7 @@ class Tensor:
             self.grad_fn = CeilBackward()
         self.data = np.array(y)
 
-    def uniform_(self, low=0, high=1):
+    def uniform_(self, low=0., high=1.):
         self._check_type('uniform')
         self._check_inplace()
         y = np.random.uniform(low, high, size=self.data.shape)
@@ -805,7 +805,7 @@ class Tensor:
             self.grad_fn = UniformBackward()
         self.data = y
 
-    def normal_(self, mean=0, std=1):
+    def normal_(self, mean=0., std=1.):
         self._check_type('normal')
         self._check_inplace()
         y = np.random.normal(mean, std, size=self.data.shape)
