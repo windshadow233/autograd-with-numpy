@@ -66,11 +66,10 @@ class RNN(Module):
                 weight_ih = self.__getattribute__(f'weight_ih_l{i}')
                 weight_hh = self.__getattribute__(f'weight_hh_l{i}')
                 hidden = hidden.matmul(weight_ih.T)
-                if self.use_bias:
-                    hidden += self.__getattribute__(f'bias_ih_l{i}')
                 if t > 0:
                     hidden += cache[i].matmul(weight_hh.T)
                 if self.use_bias:
+                    hidden += self.__getattribute__(f'bias_ih_l{i}')
                     hidden += self.__getattribute__(f'bias_hh_l{i}')
                 hidden = self.activation(hidden)
                 cache[i] = hidden
