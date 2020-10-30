@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/functional.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/activation.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/activation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -253,7 +247,7 @@
       <workItem from="1603956278919" duration="16723000" />
       <workItem from="1604029016967" duration="25185000" />
       <workItem from="1604062133543" duration="5223000" />
-      <workItem from="1604074033057" duration="3805000" />
+      <workItem from="1604074033057" duration="4053000" />
     </task>
     <servers />
   </component>
