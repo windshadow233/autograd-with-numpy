@@ -115,7 +115,7 @@ class Tensor:
 
     @property
     def is_leaf(self):
-        return not self.grad_fn
+        return not self.grad_fn and self.grad_enable
 
     @property
     def size(self):

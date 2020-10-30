@@ -231,11 +231,11 @@ def stack(tensors, axis=0):
         if tensor.dtype != dtype:
             raise RuntimeError('dtype of tensors are not same')
         arrays.append(tensor.data)
-        if tensor.requires_grad:
+        if tensor.grad_enable:
             requires_grad.append((tensor, axis, i))
     result = np.stack(arrays, axis=axis)
     result = Tensor(result, requires_grad=bool(requires_grad))
-    if result.requires_grad:
+    if result.grad_enable:
         result.children = requires_grad
         result.grad_fn = StackBackward()
     return result
