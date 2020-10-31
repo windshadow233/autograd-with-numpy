@@ -25,7 +25,6 @@ class RNN(Module):
         self.hidden_size = hidden_size
         self.num_layers = num_layers
         self.use_bias = use_bias
-        self.activation_name = activation
         if activation == 'tanh':
             self.activation_fcn = F.tanh
         elif activation == 'relu':
@@ -53,7 +52,7 @@ class RNN(Module):
 
     def extra_repr(self):
         return f'{self.input_size}, {self.hidden_size}, num_layers={self.num_layers}, use_bias={self.use_bias}, ' \
-               f'\nactivation={self.activation_name}, batch_first={self.batch_first}, dropout={self.dropout}'
+               f'\nactivation={self.activation_fcn.__name__}, batch_first={self.batch_first}, dropout={self.dropout}'
 
     def forward(self, x: Tensor):
         """
