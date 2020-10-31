@@ -43,16 +43,16 @@ class LeNet(nn.Module):
         self.layer1 = nn.Sequential(
             nn.Conv2d(1, 16, 3, dilation=(1, 1)),
             nn.MaxPool2d(2),
-            nn.ReLU(inplace=True),
+            nn.ReLU(),
             nn.Conv2d(16, 32, 3, dilation=(1, 1)),
             nn.MaxPool2d(2),
-            nn.ReLU(inplace=True),
+            nn.ReLU(),
         )
         self.layer2 = nn.Sequential(
             nn.Linear(32 * 25, 128),
-            nn.ReLU(inplace=True),
+            nn.ReLU(),
             nn.Linear(128, 64),
-            nn.ReLU(inplace=True),
+            nn.ReLU(),
             nn.Linear(64, 10)
         )
 

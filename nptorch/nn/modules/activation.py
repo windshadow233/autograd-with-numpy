@@ -72,11 +72,3 @@ class Softplus(Module):
 
     def forward(self, x: Tensor):
         return F.softplus(x)
-
-
-class Mish(Module):
-    def __init__(self):
-        super(Mish, self).__init__()
-
-    def forward(self, x: Tensor):
-        return F.mish(x)

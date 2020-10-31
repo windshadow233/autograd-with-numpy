@@ -53,13 +53,6 @@ def softplus(x: Tensor):
     return x.softplus()
 
 
-def mish(x: Tensor):
-    """
-    y = x * tanh(log(1 + e^x))
-    """
-    return x * x.softplus().tanh()
-
-
 def one_hot(n, x: Tensor):
     """
     编码one_hot向量

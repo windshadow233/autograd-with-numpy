@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/nn/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/functional.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/activation.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/activation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +58,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="deletionFromPopupRequiresConfirmation" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../LFW" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -60,28 +68,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.test">
-    <configuration name="functional" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="autograd_with_numpy" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/nptorch/nn" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/nptorch/nn/functional.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="grad_mode" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -130,9 +116,6 @@
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -148,13 +131,32 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="string_tool" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
+      <option name="SDK_HOME" value="E:\anaconda\anaconda\envs\numpy\python.exe" />
+      <option name="WORKING_DIRECTORY" value="E:/download/chrome" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="E:/download/chrome/string_tool.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="autograd_with_numpy" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -173,17 +175,17 @@
     <list>
       <item itemvalue="Python.mnist" />
       <item itemvalue="Python.test" />
-      <item itemvalue="Python.functional" />
       <item itemvalue="Python.loss" />
       <item itemvalue="Python.grad_mode" />
+      <item itemvalue="Python.string_tool" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.test" />
         <item itemvalue="Python.mnist" />
+        <item itemvalue="Python.string_tool" />
         <item itemvalue="Python.grad_mode" />
         <item itemvalue="Python.loss" />
-        <item itemvalue="Python.functional" />
       </list>
     </recent_temporary>
   </component>
@@ -247,7 +249,9 @@
       <workItem from="1603956278919" duration="16723000" />
       <workItem from="1604029016967" duration="25185000" />
       <workItem from="1604062133543" duration="5223000" />
-      <workItem from="1604074033057" duration="4053000" />
+      <workItem from="1604074033057" duration="4067000" />
+      <workItem from="1604118093862" duration="1858000" />
+      <workItem from="1604129646849" duration="2331000" />
     </task>
     <servers />
   </component>
@@ -266,10 +270,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="477" y="57" key="#backward/0.0.1536.864@0.0.1536.864" timestamp="1602861527397" />
-    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603447352986">
+    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604118102685">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1603447352986" />
+    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1604118102685" />
     <state x="513" y="235" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603811118087">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -298,42 +302,42 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="372" y="24" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1603087606159" />
-    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1604079287776">
+    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1604120183031">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1604079287776" />
-    <state width="1493" height="274" key="GridCell.Tab.0.bottom" timestamp="1604059795579">
+    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1604120183031" />
+    <state width="1493" height="274" key="GridCell.Tab.0.bottom" timestamp="1604131177423">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="274" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1604059795579" />
-    <state width="1493" height="274" key="GridCell.Tab.0.center" timestamp="1604059795579">
+    <state width="1493" height="274" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1604131177423" />
+    <state width="1493" height="274" key="GridCell.Tab.0.center" timestamp="1604131177421">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="274" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1604059795579" />
-    <state width="1493" height="274" key="GridCell.Tab.0.left" timestamp="1604059795579">
+    <state width="1493" height="274" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1604131177421" />
+    <state width="1493" height="274" key="GridCell.Tab.0.left" timestamp="1604131177421">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="274" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1604059795579" />
-    <state width="1493" height="274" key="GridCell.Tab.0.right" timestamp="1604059795579">
+    <state width="1493" height="274" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1604131177421" />
+    <state width="1493" height="274" key="GridCell.Tab.0.right" timestamp="1604131177423">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="274" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1604059795579" />
-    <state width="1493" height="274" key="GridCell.Tab.1.bottom" timestamp="1604059795579">
+    <state width="1493" height="274" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1604131177423" />
+    <state width="1493" height="274" key="GridCell.Tab.1.bottom" timestamp="1604131177424">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="274" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1604059795579" />
-    <state width="1493" height="274" key="GridCell.Tab.1.center" timestamp="1604059795579">
+    <state width="1493" height="274" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1604131177424" />
+    <state width="1493" height="274" key="GridCell.Tab.1.center" timestamp="1604131177423">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="274" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1604059795579" />
-    <state width="1493" height="274" key="GridCell.Tab.1.left" timestamp="1604059795579">
+    <state width="1493" height="274" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1604131177423" />
+    <state width="1493" height="274" key="GridCell.Tab.1.left" timestamp="1604131177423">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="274" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1604059795579" />
-    <state width="1493" height="274" key="GridCell.Tab.1.right" timestamp="1604059795579">
+    <state width="1493" height="274" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1604131177423" />
+    <state width="1493" height="274" key="GridCell.Tab.1.right" timestamp="1604131177423">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="274" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1604059795579" />
+    <state width="1493" height="274" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1604131177423" />
     <state x="270" y="74" key="SettingsEditor" timestamp="1603717595850">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -377,7 +381,7 @@
     <SUITE FILE_PATH="coverage/autograd_with_numpy$tensor.coverage" NAME="tensor Coverage Results" MODIFIED="1603254451124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$functional__1_.coverage" NAME="functional (1) Coverage Results" MODIFIED="1603002232345" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="E:/anaconda/anaconda/envs/pytorch/Lib/site-packages/torch/nn" />
     <SUITE FILE_PATH="coverage/autograd_with_numpy$conv_operate.coverage" NAME="conv_operate Coverage Results" MODIFIED="1603177034754" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch/nn" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$test.coverage" NAME="test Coverage Results" MODIFIED="1603609988245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/autograd_with_numpy$test.coverage" NAME="test Coverage Results" MODIFIED="1604131175248" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/autograd_with_numpy$functional.coverage" NAME="functional Coverage Results" MODIFIED="1603276881147" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch/nn" />
     <SUITE FILE_PATH="coverage/autograd_with_numpy$grad_mode.coverage" NAME="grad_mode Coverage Results" MODIFIED="1603867920522" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$linear.coverage" NAME="linear Coverage Results" MODIFIED="1602940767632" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork/nn" />
@@ -395,6 +399,7 @@
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$main.coverage" NAME="main Coverage Results" MODIFIED="1603004862852" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/autograd_with_numpy$test_conv.coverage" NAME="test_conv Coverage Results" MODIFIED="1603177038378" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/my_deeplearn_frame$tensor.coverage" NAME="tensor Coverage Results" MODIFIED="1602495070839" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork" />
+    <SUITE FILE_PATH="coverage/autograd_with_numpy$string_tool.coverage" NAME="string_tool Coverage Results" MODIFIED="1604118098549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="E:/download/chrome" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$functions.coverage" NAME="functions Coverage Results" MODIFIED="1602929238244" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../deep learning/neuralNetwork" />
     <SUITE FILE_PATH="coverage/autograd_with_numpy$linear.coverage" NAME="linear Coverage Results" MODIFIED="1603261280991" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch/nn/modules" />
     <SUITE FILE_PATH="coverage/autograd_with_numpy$mnist.coverage" NAME="mnist Coverage Results" MODIFIED="1603554396538" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
