@@ -1,7 +1,7 @@
 from ..tensor import Tensor, float32
 from .. import random
 from ..autograd.backward import CrossEntropyBackward, Conv2dBackward, MeanPool2dBackward, MaxPool2dBackward,\
-    LeakyReLUBackward, ELUBackward, BatchNorm2dBackward, MeanPool1dBackward, MaxPool1dBackward, NLLLossBackward
+    LeakyReLUBackward, ELUBackward, BatchNormBackward, MeanPool1dBackward, MaxPool1dBackward, NLLLossBackward
 from .utils.conv_operations import *
 
 
@@ -148,19 +148,15 @@ def max_pool2d(x: Tensor, kernel_size, stride=None):
     return output
 
 
-def batch_norm2d(x: Tensor, mean: Tensor, var: Tensor, gamma: Tensor, beta: Tensor, eps=1e-5):
-    assert x.ndim == 4, 'x must be 4 dimensional'
+def batch_norm(x: Tensor, mean: Tensor, var: Tensor, gamma: Tensor, beta: Tensor, eps=1e-5):
+    axis = (0, -1, -2)[:x.ndim - 1]
     x_hat = (x.data - mean.data) / np.sqrt(var.data + eps)
-    output = Tensor(gamma.unsqueeze(0, -1, -2).data * x_hat + beta.unsqueeze(0, -1, -2).data,
+    output = Tensor(gamma.unsqueeze(*axis).data * x_hat + beta.unsqueeze(*axis).data,
                     requires_grad=x.requires_grad or gamma.requires_grad or beta.requires_grad)
     if output.grad_enable:
-        output.grad_fn = BatchNorm2dBackward()
+        output.grad_fn = BatchNormBackward()
         output.children = [(x, x_hat, mean.data, var.data, eps), (gamma, None), (beta, None)]
     return output
-
-
-def batch_norm(x: Tensor, mean: Tensor, var: Tensor, gamma: Tensor, beta: Tensor, eps=1e-5):
-    pass
 
 
 def mean_pool1d(x: Tensor, kernel_size, stride=None):

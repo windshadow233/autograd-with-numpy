@@ -642,24 +642,25 @@ class MaxPool1dBackward(BackwardFcn):
         return new_grad
 
 
-class BatchNorm2dBackward(BackwardFcn):
+class BatchNormBackward(BackwardFcn):
     def __init__(self):
-        super(BatchNorm2dBackward, self).__init__()
+        super(BatchNormBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
         x, x_hat, mean, var, eps = children[0]
+        axis = (0, -1, -2)[:x.ndim - 1]
         gamma = children[1][0]
-        grad_x_hat = grad * np.expand_dims(gamma.data, (0, -1, -2))
+        grad_x_hat = grad * np.expand_dims(gamma.data, axis)
         if place == 0:
-            n = grad.shape[0] * grad.shape[-1] * grad.shape[-2]
-            dx = n * grad_x_hat - np.sum(grad_x_hat, axis=(0, -1, -2), keepdims=True) - \
-                x_hat * np.sum(x_hat * grad_x_hat, axis=(0, -1, -2), keepdims=True)
+            n = grad.size / grad.shape[1]
+            dx = n * grad_x_hat - np.sum(grad_x_hat, axis=axis, keepdims=True) - \
+                x_hat * np.sum(x_hat * grad_x_hat, axis=axis, keepdims=True)
             dx = dx / (n * np.sqrt(var + eps))
             return dx
         elif place == 1:
-            return np.sum(x_hat, axis=(0, -1, -2))
+            return np.sum(x_hat, axis=axis)
         else:
-            return np.sum(grad, axis=(0, -1, -2))
+            return np.sum(grad, axis=axis)
 
 
 class LeakyReLUBackward(BackwardFcn):
