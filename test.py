@@ -1,7 +1,7 @@
 import nptorch
 from nptorch import nn
 
-rnn = nn.RNN(3, 4, 2, use_bias=True, batch_first=True)
+rnn = nn.RNN(3, 4, 2, use_bias=True, batch_first=True, bidirectional=True)
 x = nptorch.array([[[0.4963, 0.7682, 0.0885],
                     [0.1320, 0.3074, 0.6341]],
                    [[0.4901, 0.8964, 0.4556],

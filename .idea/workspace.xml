@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/rnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/rnn.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +50,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="deletionFromPopupRequiresConfirmation" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../杂乱无章" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -227,7 +226,13 @@
       <workItem from="1604074033057" duration="4067000" />
       <workItem from="1604118093862" duration="1858000" />
       <workItem from="1604129646849" duration="14201000" />
-      <workItem from="1604158072895" duration="1195000" />
+      <workItem from="1604158072895" duration="1833000" />
+      <workItem from="1604195814439" duration="1747000" />
+      <workItem from="1604201519113" duration="616000" />
+      <workItem from="1604206313371" duration="4922000" />
+      <workItem from="1604298905939" duration="96000" />
+      <workItem from="1604312450344" duration="238000" />
+      <workItem from="1604314645194" duration="3790000" />
     </task>
     <servers />
   </component>
@@ -278,10 +283,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="372" y="24" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1603087606159" />
-    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1604147602076">
+    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1604223976201">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1604147602076" />
+    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1604223976201" />
     <state width="1493" height="274" key="GridCell.Tab.0.bottom" timestamp="1604131177423">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

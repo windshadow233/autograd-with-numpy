@@ -159,6 +159,10 @@ def batch_norm2d(x: Tensor, mean: Tensor, var: Tensor, gamma: Tensor, beta: Tens
     return output
 
 
+def batch_norm(x: Tensor, mean: Tensor, var: Tensor, gamma: Tensor, beta: Tensor, eps=1e-5):
+    pass
+
+
 def mean_pool1d(x: Tensor, kernel_size, stride=None):
     assert x.ndim == 3, 'x must be 3 dimensional'
     stride = stride or kernel_size

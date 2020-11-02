@@ -8,8 +8,8 @@ from .module import Module
 
 
 class RNN(Module):
-    def __init__(self, input_size, hidden_size, num_layers=1,
-                 use_bias=True, activation='tanh', batch_first=False, dropout=0.):
+    def __init__(self, input_size, hidden_size, num_layers=1, use_bias=True, activation='tanh',
+                 batch_first=False, dropout=0.):
         """
         Simple RNN,输入数据形状默认为(L,B,D)
         @param input_size: 输入节点数量,即 'D'
@@ -39,13 +39,13 @@ class RNN(Module):
 
         k = 1. / np.sqrt(hidden_size)
         self.weight_ih_l0 = Parameter(uniform((hidden_size, input_size), low=-k, high=k))
-        self.weight_hh_l0 = Parameter(uniform((hidden_size, input_size), low=-k, high=k))
+        self.weight_hh_l0 = Parameter(uniform((hidden_size, hidden_size), low=-k, high=k))
         if use_bias:
             self.bias_ih_l0 = Parameter(zeros(hidden_size))
             self.bias_hh_l0 = Parameter(zeros(hidden_size))
         for i in range(1, num_layers):
-            self.__setattr__(f'weight_ih_l{i}', Parameter(uniform((hidden_size, input_size), low=-k, high=k)))
-            self.__setattr__(f'weight_hh_l{i}', Parameter(uniform((hidden_size, input_size), low=-k, high=k)))
+            self.__setattr__(f'weight_ih_l{i}', Parameter(uniform((hidden_size, hidden_size), low=-k, high=k)))
+            self.__setattr__(f'weight_hh_l{i}', Parameter(uniform((hidden_size, hidden_size), low=-k, high=k)))
             if use_bias:
                 self.__setattr__(f'bias_ih_l{i}', Parameter(zeros(hidden_size)))
                 self.__setattr__(f'bias_hh_l{i}', Parameter(zeros(hidden_size)))
