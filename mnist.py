@@ -53,10 +53,10 @@ class LeNet(nn.Module):
         self.layer2 = nn.Sequential(
             nn.Linear(32 * 25, 128),
             nn.BatchNorm1d(128),
-            nn.ReLU(),
+            nn.ReLU(inplace=True),
             nn.Linear(128, 64),
             nn.BatchNorm1d(64),
-            nn.ReLU(),
+            nn.ReLU(inplace=True),
             nn.Linear(64, 10)
         )
 

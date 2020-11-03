@@ -120,6 +120,8 @@ cnn = CNN()
 optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
 ## 更新日志
+### 2020/11/4
+* RandomHorizontalFlip,RandomVerticalFlip,CenterCrop三个图像变换。
 ### 2020/11/3
 * 增加了BatchNorm1d,统一了BatchNorm的forward与backward。
 ### 2020/10/30

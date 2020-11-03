@@ -1,35 +1,15 @@
-import nptorch
-from nptorch import nn
+import struct
+import numpy as np
+from nptorch.transforms import ToPILImage, CenterCrop
 
-rnn = nn.RNN(3, 4, 2, use_bias=True, batch_first=True, bidirectional=True)
-x = nptorch.array([[[0.4963, 0.7682, 0.0885],
-                    [0.1320, 0.3074, 0.6341]],
-                   [[0.4901, 0.8964, 0.4556],
-                    [0.6323, 0.3489, 0.4017]],
-                   [[0.0223, 0.1689, 0.2939],
-                    [0.5185, 0.6977, 0.8000]],
-                   [[0.1610, 0.2823, 0.6816],
-                    [0.9152, 0.3971, 0.8742]],
-                   [[0.4194, 0.5529, 0.9527],
-                    [0.0362, 0.1852, 0.3734]]], requires_grad=True)
-rnn.weight_ih_l0 = nn.Parameter(nptorch.array([[-0.1949, 0.4320, -0.3241],
-                                               [-0.2302, -0.3493, -0.4683],
-                                               [-0.2919, 0.4298, 0.2231],
-                                               [0.2423, 0.0263, -0.2563]]))
-rnn.weight_hh_l0 = nn.Parameter(nptorch.array([[0.0846, -0.4668, -0.3613, -0.2578],
-                                               [0.3155, 0.2932, -0.2217, -0.0180],
-                                               [0.3198, 0.4971, 0.1984, 0.0675],
-                                               [0.3352, -0.2944, 0.0932, -0.3877]]))
-rnn.bias_ih_l0 = nn.Parameter(nptorch.array([-0.3465, -0.2583, 0.2262, 0.2011]))
-rnn.bias_hh_l0 = nn.Parameter(nptorch.array([-0.2962, 0.1511, 0.2745, -0.0631]))
-rnn.weight_ih_l1 = nn.Parameter(nptorch.array([[0.0191, 0.1159, 0.3102, 0.4801],
-                                               [-0.3853, -0.1832, 0.1965, 0.4143],
-                                               [0.4351, 0.4412, 0.0995, -0.4348],
-                                               [0.0460, -0.3128, -0.4660, 0.4442]]))
-rnn.weight_hh_l1 = nn.Parameter(nptorch.array([[0.3802, -0.4988, 0.0936, -0.0842],
-                                               [-0.0823, -0.2289, 0.1923, -0.2962],
-                                               [0.1833, 0.2529, 0.3579, 0.1870],
-                                               [-0.4949, -0.3243, 0.2497, 0.1047]]))
-rnn.bias_ih_l1 = nn.Parameter(nptorch.array([-0.3900, -0.2879, 0.4704, 0.3369]))
-rnn.bias_hh_l1 = nn.Parameter(nptorch.array([-0.2180, -0.1258, -0.4763, -0.0090]))
-y = rnn(x)
+
+def load_mnist(img_path):
+    with open(img_path, 'rb') as img:
+        _, num, rows, cols = struct.unpack('>IIII', img.read(16))
+        images = np.fromfile(img, dtype=np.uint8).reshape(num, rows, cols)
+    return images
+
+
+imgs = load_mnist('mnist/MNIST/raw/train-images-idx3-ubyte')
+img = ToPILImage()(imgs[0])
+img1 = CenterCrop(100)(img)

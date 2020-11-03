@@ -6,7 +6,7 @@ from .. import functional as F
 
 
 class _BatchNormNd(Module):
-    def __init__(self, num_features, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True):
+    def __init__(self, num_features, eps, momentum, affine, track_running_stats):
         """
 
         @param num_features: 通道数
@@ -54,17 +54,6 @@ class _BatchNormNd(Module):
         return F.batch_norm(x, batch_mean, batch_var, self.gamma, self.beta, self.eps)
 
 
-class BatchNorm2d(_BatchNormNd):
-    """
-    2d批归一化层
-    """
-    def __init__(self, num_features, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True):
-        super(BatchNorm2d, self).__init__(num_features, eps, momentum, affine, track_running_stats)
-
-    def _check_dim(self, x: Tensor):
-        assert x.ndim == 4, 'x must be 4 dimensional'
-
-
 class BatchNorm1d(_BatchNormNd):
     """
     1d批归一化层
@@ -74,5 +63,16 @@ class BatchNorm1d(_BatchNormNd):
 
     def _check_dim(self, x: Tensor):
         assert x.ndim in {2, 3}, 'x must be 2 or 3 dimensional'
+
+
+class BatchNorm2d(_BatchNormNd):
+    """
+    2d批归一化层
+    """
+    def __init__(self, num_features, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True):
+        super(BatchNorm2d, self).__init__(num_features, eps, momentum, affine, track_running_stats)
+
+    def _check_dim(self, x: Tensor):
+        assert x.ndim == 4, 'x must be 4 dimensional'
 
 

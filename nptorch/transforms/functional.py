@@ -89,3 +89,44 @@ def normalize(img, mean, std):
     mean = Tensor(mean)
     std = Tensor(std)
     return (img - mean[:, None, None]) / std[:, None, None]
+
+
+def random_horizontal_flip(img: Image.Image, p=0.5):
+    if not _is_pil_img(img):
+        raise TypeError(f'img should be PIL Image. Got {type(img)}')
+    if np.random.rand() < p:
+        img = img.transpose(Image.FLIP_LEFT_RIGHT)
+    return img
+
+
+def random_vertical_flip(img: Image.Image, p=0.5):
+    if not _is_pil_img(img):
+        raise TypeError(f'img should be PIL Image. Got {type(img)}')
+    if np.random.rand() < p:
+        img = img.transpose(Image.FLIP_TOP_BOTTOM)
+    return img
+
+
+def crop(img: Image.Image, x, y, h, w):
+    """
+    截取图片
+    @param img: PIL Image
+    @param x: 截取区域左上角的横坐标
+    @param y: 截取区域左上角的纵坐标
+    @param h: 区域高度
+    @param w: 区域宽度
+    @return: 截取得到的区域
+    """
+    if not _is_pil_img(img):
+        raise TypeError(f'img should be PIL Image. Got {type(img)}')
+    return img.crop((x, y, x + w, y + h))
+
+
+def center_crop(img: Image.Image, size):
+    w, h = img.size
+    th, tw = size
+    y = int(round((h - th) / 2.))
+    x = int(round((w - tw) / 2.))
+    return crop(img, x, y, th, tw)
+
+

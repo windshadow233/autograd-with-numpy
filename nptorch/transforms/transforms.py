@@ -96,3 +96,47 @@ class Normalize(Transform):
 
     def __call__(self, img):
         return F.normalize(img, self.mean, self.std)
+
+
+class RandomHorizontalFlip(Transform):
+    """
+    以概率p左右翻转
+    """
+    def __init__(self, p=0.5):
+        self.p = p
+
+    def extra_repr(self):
+        return f'p={self.p}'
+
+    def __call__(self, img):
+        return F.random_horizontal_flip(img, self.p)
+
+
+class RandomVerticalFlip(Transform):
+    """
+    以概率p上下翻转
+    """
+    def __init__(self, p=0.5):
+        self.p = p
+
+    def extra_repr(self):
+        return f'p={self.p}'
+
+    def __call__(self, img):
+        return F.random_vertical_flip(img, self.p)
+
+
+class CenterCrop(Transform):
+    """
+    在图片中央截取给定大小的区域
+    """
+    def __init__(self, size):
+        if not isinstance(size, tuple):
+            size = (size, size)
+        self.size = size
+
+    def extra_repr(self):
+        return f'size={self.size}'
+
+    def __call__(self, img):
+        return F.center_crop(img, self.size)
