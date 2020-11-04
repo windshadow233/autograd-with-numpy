@@ -8,6 +8,10 @@ def _is_pil_img(img):
     return isinstance(img, Image.Image)
 
 
+def _is_tensor_img(img):
+    return isinstance(img, Tensor) and img.ndim == 3
+
+
 def _is_numpy(img):
     return isinstance(img, np.ndarray)
 
@@ -83,9 +87,8 @@ def to_pil_image(img: np.ndarray or Tensor, mode=None):
 
 @no_grad()
 def normalize(img, mean, std):
-    if not (_is_numpy(img) or _is_tensor(img)):
-        raise TypeError(f'img should be ndarray or Tensor. Got {type(img)}')
-    assert img.ndim == 3, 'img should be 2 or 3 dimensional. Got {img.ndim} dimensions.'
+    if not _is_tensor_img:
+        raise TypeError(f'img should be Tensor Image. (3 dimensional Tensor)')
     mean = Tensor(mean)
     std = Tensor(std)
     return (img - mean[:, None, None]) / std[:, None, None]
@@ -130,3 +133,10 @@ def center_crop(img: Image.Image, size):
     return crop(img, x, y, th, tw)
 
 
+@no_grad()
+def mask(img: Tensor, x, y, h, w, value):
+    if not _is_tensor_img(img):
+        raise TypeError(f'img should be Tensor Image. (3 dimensional Tensor)')
+    value = Tensor(value)[:, None, None]
+    img[:, x: x + h, y: y + w] = value
+    return img

@@ -1,4 +1,5 @@
 from copy import copy
+from numbers import Number
 from .autograd.backward import *
 from .autograd.grad_mode import grad_enable
 from numpy import float16, float32, float64, int8, int16, int32, int64, bool_, uint8, uint16, uint32, uint64
@@ -209,7 +210,7 @@ class Tensor:
         return self.__add__(other)
 
     def __add__(self, other):
-        if isinstance(other, (int, float)):
+        if isinstance(other, Number):
             result = Tensor(self.data + other, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
             result = Tensor(self.data + other.data, dtype=self.dtype,
@@ -221,7 +222,7 @@ class Tensor:
 
     def __iadd__(self, other):
         self._check_inplace()
-        if isinstance(other, (int, float)):
+        if isinstance(other, Number):
             result = Tensor(self.data + other, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
             result = Tensor(self.data + other.data, dtype=self.dtype, requires_grad=self.requires_grad or other.requires_grad)
@@ -241,7 +242,7 @@ class Tensor:
         return - self.__sub__(other)
 
     def __sub__(self, other):
-        if isinstance(other, (int, float)):
+        if isinstance(other, Number):
             result = Tensor(self.data - other, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
             result = Tensor(self.data - other.data, dtype=self.dtype,
@@ -253,7 +254,7 @@ class Tensor:
 
     def __isub__(self, other):
         self._check_inplace()
-        if isinstance(other, (int, float)):
+        if isinstance(other, Number):
             result = Tensor(self.data - other, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
             result = Tensor(self.data - other.data, dtype=self.dtype, requires_grad=self.requires_grad or other.requires_grad)
@@ -266,7 +267,7 @@ class Tensor:
         return self.__mul__(other)
 
     def __mul__(self, other):
-        if isinstance(other, (int, float)):
+        if isinstance(other, Number):
             result = Tensor(self.data * other, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
             result = Tensor(self.data * other.data, dtype=self.dtype,
@@ -278,7 +279,7 @@ class Tensor:
 
     def __imul__(self, other):
         self._check_inplace()
-        if isinstance(other, (int, float)):
+        if isinstance(other, Number):
             result = Tensor(self.data * other, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
             result = Tensor(self.data * other.data, dtype=self.dtype,
@@ -289,7 +290,7 @@ class Tensor:
         return result
 
     def __rtruediv__(self, other):
-        if isinstance(other, (int, float)):
+        if isinstance(other, Number):
             result = Tensor(other / self.data, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
             result = Tensor(other.data / self.data, dtype=self.dtype,
@@ -300,7 +301,7 @@ class Tensor:
         return result
 
     def __truediv__(self, other):
-        if isinstance(other, (int, float)):
+        if isinstance(other, Number):
             result = Tensor(self.data / other, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
             result = Tensor(self.data / other.data, dtype=self.dtype,
@@ -312,7 +313,7 @@ class Tensor:
 
     def __itruediv__(self, other):
         self._check_inplace()
-        if isinstance(other, (int, float)):
+        if isinstance(other, Number):
             result = Tensor(self.data / other, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
             result = Tensor(self.data / other.data, dtype=self.dtype,
@@ -323,7 +324,7 @@ class Tensor:
         return result
 
     def __rfloordiv__(self, other):
-        if isinstance(other, (int, float)):
+        if isinstance(other, Number):
             result = Tensor(other // self.data, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
             result = Tensor(other.data // self.data, dtype=self.dtype,
@@ -334,7 +335,7 @@ class Tensor:
         return result
 
     def __floordiv__(self, other):
-        if isinstance(other, (int, float)):
+        if isinstance(other, Number):
             result = Tensor(self.data // other, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
             result = Tensor(self.data // other.data, dtype=self.dtype,
@@ -346,7 +347,7 @@ class Tensor:
 
     def __ifloordiv__(self, other):
         self._check_inplace()
-        if isinstance(other, (int, float)):
+        if isinstance(other, Number):
             result = Tensor(self.data // other, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
             result = Tensor(self.data // other.data, dtype=self.dtype,
@@ -381,7 +382,7 @@ class Tensor:
         return result
 
     def __rpow__(self, power):
-        if isinstance(power, (int, float)):
+        if isinstance(power, Number):
             y = np.power(power, self.data)
             result = Tensor(y, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
@@ -393,7 +394,7 @@ class Tensor:
         return result
 
     def __pow__(self, power):
-        if isinstance(power, (int, float)):
+        if isinstance(power, Number):
             y = np.power(self.data, power)
             result = Tensor(y, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
@@ -406,7 +407,7 @@ class Tensor:
 
     def __ipow__(self, power):
         self._check_inplace()
-        if isinstance(power, (int, float)):
+        if isinstance(power, Number):
             result = Tensor(self.data ** power, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
             result = Tensor(self.data ** power.data, dtype=self.dtype,
@@ -649,7 +650,7 @@ class Tensor:
     def log(self, base=None):
         self._check_type('log')
         if base is not None:
-            if not isinstance(base, (int, float)) or base <= 0 or base == 1:
+            if not isinstance(base, Number) or base <= 0. or base == 1.:
                 raise TypeError("param 'base' must be a non-1 positive number")
             y = Tensor(np.log(self.data) / math.log(base), dtype=self.dtype, requires_grad=self.requires_grad)
         else:
@@ -664,7 +665,7 @@ class Tensor:
         self._check_type('log')
         self._check_inplace()
         if base is not None:
-            if not isinstance(base, (int, float)) or base <= 0 or base == 1:
+            if not isinstance(base, Number) or base <= 0. or base == 1.:
                 raise TypeError("param 'base' must be a non-1 positive number")
             y = np.log(self.data) / math.log(base)
         else:
@@ -696,7 +697,7 @@ class Tensor:
 
     def relu(self):
         self._check_type('relu', ('bool',))
-        y = Tensor(np.maximum(self.data, 0), dtype=self.dtype, requires_grad=self.requires_grad)
+        y = Tensor(np.maximum(self.data, 0.), dtype=self.dtype, requires_grad=self.requires_grad)
         if y.grad_enable:
             y.children = [(self, None)]
             y.grad_fn = ReluBackward()
@@ -705,7 +706,7 @@ class Tensor:
     def relu_(self):
         self._check_type('relu', ('bool',))
         self._check_inplace()
-        y = np.maximum(self.data, 0)
+        y = np.maximum(self.data, 0.)
         if self.grad_enable:
             child = copy(self)
             self.children = [(child, None)]
