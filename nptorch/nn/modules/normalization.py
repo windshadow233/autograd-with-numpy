@@ -74,5 +74,3 @@ class BatchNorm2d(_BatchNormNd):
 
     def _check_dim(self, x: Tensor):
         assert x.ndim == 4, 'x must be 4 dimensional'
-
-

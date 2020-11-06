@@ -1,5 +1,5 @@
-from .tensor import array, Tensor, float32
-from .autograd.backward import StackBackward
+from .tensor import Tensor, float32
+from .autograd.backward import StackBackward, CatBackward
 import numpy as np
 
 
@@ -160,11 +160,6 @@ def pow(x: Tensor, exponent):
     return x.pow(exponent)
 
 
-def pow_(x: Tensor, exponent):
-    x.pow_(exponent)
-    return x
-
-
 def floor(x: Tensor):
     return x.floor()
 
@@ -238,4 +233,22 @@ def stack(tensors, axis=0):
     if result.grad_enable:
         result.children = requires_grad
         result.grad_fn = StackBackward()
+    return result
+
+
+def cat(tensors, axis=0):
+    dtype = tensors[0].dtype
+    arrays = []
+    requires_grad = []
+    for i, tensor in enumerate(tensors):
+        if tensor.dtype != dtype:
+            raise RuntimeError('dtype of tensors are not same')
+        arrays.append(tensor.data)
+        if tensor.grad_enable:
+            requires_grad.append((tensor, axis, i))
+    result = np.concatenate(arrays, axis=axis)
+    result = Tensor(result, requires_grad=bool(requires_grad))
+    if result.grad_enable:
+        result.children = requires_grad
+        result.grad_fn = CatBackward()
     return result

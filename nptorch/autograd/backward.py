@@ -694,6 +694,17 @@ class StackBackward(BackwardFcn):
         return grad[tuple(slices)]
 
 
+class CatBackward(BackwardFcn):
+    def __init__(self):
+        super(CatBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        _, axis, i = children[place]
+        slices = [slice(None)] * grad.ndim
+        slices[axis] = i
+        return grad[tuple(slices)]
+
+
 """
 Todo:
 Softmax

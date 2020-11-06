@@ -56,7 +56,6 @@ class RNN(Module):
 
     def forward(self, x: Tensor):
         """
-
         @param x: (L, B, D)
         @return:
         """
