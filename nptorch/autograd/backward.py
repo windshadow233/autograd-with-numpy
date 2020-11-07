@@ -705,6 +705,18 @@ class CatBackward(BackwardFcn):
         return grad[tuple(slices)]
 
 
+class PadSequenceBackward(BackwardFcn):
+    def __init__(self):
+        super(PadSequenceBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        x, i, batch_first = children[place]
+        l = x.shape[0]
+        if batch_first:
+            return grad[i, :l]
+        else:
+            return grad[:l, i]
+
 """
 Todo:
 Softmax

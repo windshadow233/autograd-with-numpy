@@ -2,3 +2,4 @@ from .modules import Module, Sequential, Linear, Softmax, Dropout, Dropout2d, Co
     BatchNorm2d, BatchNorm1d, MeanPool1d, MaxPool1d, RNN, Sigmoid, Softplus, ReLU, Tanh, LeakyReLU, ELU, \
     CrossEntropyLoss, MSELoss, NLLLoss
 from .parameter import Parameter
+from . import utils

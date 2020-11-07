@@ -38,13 +38,9 @@ class RNN(Module):
         self.dropout = dropout
 
         k = 1. / np.sqrt(hidden_size)
-        self.weight_ih_l0 = Parameter(uniform((hidden_size, input_size), low=-k, high=k))
-        self.weight_hh_l0 = Parameter(uniform((hidden_size, hidden_size), low=-k, high=k))
-        if use_bias:
-            self.bias_ih_l0 = Parameter(zeros(hidden_size))
-            self.bias_hh_l0 = Parameter(zeros(hidden_size))
-        for i in range(1, num_layers):
-            self.__setattr__(f'weight_ih_l{i}', Parameter(uniform((hidden_size, hidden_size), low=-k, high=k)))
+        for i in range(num_layers):
+            ih_out_size = input_size if i == 0 else hidden_size
+            self.__setattr__(f'weight_ih_l{i}', Parameter(uniform((hidden_size, ih_out_size), low=-k, high=k)))
             self.__setattr__(f'weight_hh_l{i}', Parameter(uniform((hidden_size, hidden_size), low=-k, high=k)))
             if use_bias:
                 self.__setattr__(f'bias_ih_l{i}', Parameter(zeros(hidden_size)))

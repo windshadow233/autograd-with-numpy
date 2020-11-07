@@ -1,0 +1,30 @@
+import nptorch
+from nptorch.autograd import backward
+
+
+def pad_sequence(tensors, batch_first=False, padding_value=0):
+    max_length = max([tensor.shape[0] for tensor in tensors])
+    B = len(tensors)
+    embed_dims = list(tensors[0].shape[1:])
+    result_shape = (B, max_length, *embed_dims) if batch_first else (max_length, B, *embed_dims)
+    result_tensor = nptorch.zeros(result_shape)
+    result_tensor.fill_(padding_value)
+    dtype = tensors[0].dtype
+    requires_grad = []
+    for i, tensor in enumerate(tensors):
+        if tensor.dtype != dtype:
+            raise RuntimeError('dtype of tensors are not same')
+        l, *d = tensor.shape
+        if d != embed_dims:
+            raise RuntimeError('embed_dims of data are not same')
+        if batch_first:
+            result_tensor[i, :l] = tensor
+        else:
+            result_tensor[:l, i] = tensor
+        if tensor.grad_enable:
+            requires_grad.append((tensor, i, batch_first))
+    result_tensor.requires_grad = bool(requires_grad)
+    if result_tensor.grad_enable:
+        result_tensor.children = requires_grad
+        result_tensor.grad_fn = backward.PadSequenceBackward()
+    return result_tensor
