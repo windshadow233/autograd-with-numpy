@@ -1,5 +1,6 @@
 from .tensor import Tensor, float32
-from .autograd.backward import StackBackward, CatBackward
+from .autograd.backward import StackBackward, CatBackward, SortBackward
+from .return_types import *
 import numpy as np
 
 
@@ -252,3 +253,11 @@ def cat(tensors, axis=0):
         result.children = requires_grad
         result.grad_fn = CatBackward()
     return result
+
+
+def argsort(x: Tensor, axis=-1):
+    return x.argsort(axis)
+
+
+def sort(x: Tensor, axis=-1):
+    return x.sort(axis)

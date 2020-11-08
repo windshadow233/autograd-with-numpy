@@ -120,6 +120,8 @@ cnn = CNN()
 optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
 ## 更新日志
+### 2020/11/8
+* 增加了pad_sequence、sort与argsort函数。
 ### 2020/11/5
 * 增加了RandomCrop、RandomMask图像变换。
 ### 2020/11/4

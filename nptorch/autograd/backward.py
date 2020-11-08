@@ -717,6 +717,27 @@ class PadSequenceBackward(BackwardFcn):
         else:
             return grad[:l, i]
 
+
+class SortBackward(BackwardFcn):
+    def __init__(self):
+        super(SortBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        _, sorted_indices, axis = children[0]
+        unsorted_indices = np.argsort(sorted_indices, axis)
+        shape = list(grad.shape)
+        shape.pop(axis)
+        iteration = [range(i) for i in shape]
+        for index in product(*iteration):
+            slices = list(index)
+            if axis == -1:
+                slices.append(slice(None))
+            else:
+                slices.insert(axis, slice(None))
+            slices = tuple(slices)
+            grad[slices] = grad[slices][unsorted_indices[slices]]
+        return grad
+
 """
 Todo:
 Softmax

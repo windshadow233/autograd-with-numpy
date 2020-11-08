@@ -2,6 +2,7 @@ from copy import copy
 from numbers import Number
 from .autograd.backward import *
 from .autograd.grad_mode import grad_enable
+from .return_types import *
 from numpy import float16, float32, float64, int8, int16, int32, int64, bool_, uint8, uint16, uint32, uint64
 
 # np.set_printoptions(precision=4, suppress=True)
@@ -418,22 +419,22 @@ class Tensor:
         return result
 
     def max(self, axis=None, keepdims=False):
-        result = Tensor(np.max(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype,
+        values = Tensor(np.max(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype,
                         requires_grad=self.requires_grad)
         indices = Tensor(np.argmax(self.data, axis=axis), dtype=int64)
-        if result.grad_enable:
-            result.children = [(self, result.data, axis, keepdims)]
-            result.grad_fn = MaxBackward()
-        return {'values': result, 'indices': indices}
+        if values.grad_enable:
+            values.children = [(self, values.data, axis, keepdims)]
+            values.grad_fn = MaxBackward()
+        return Max(values, indices)
 
     def min(self, axis=None, keepdims=False):
-        result = Tensor(np.min(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype,
+        values = Tensor(np.min(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype,
                         requires_grad=self.requires_grad)
         indices = Tensor(np.argmin(self.data, axis=axis), dtype=int64)
-        if result.grad_enable:
-            result.children = [(self, result.data, axis, keepdims)]
-            result.grad_fn = MinBackward()
-        return {'values': result, 'indices': indices}
+        if values.grad_enable:
+            values.children = [(self, values.data, axis, keepdims)]
+            values.grad_fn = MinBackward()
+        return Min(values, indices)
 
     def mean(self, axis=None, keepdims=False):
         result = Tensor(np.mean(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype,
@@ -457,6 +458,17 @@ class Tensor:
             y.children = [(self, None)]
             y.grad_fn = AbsBackward()
         return y
+
+    def argsort(self, axis=-1):
+        return Tensor(np.argsort(self.data, axis=axis))
+
+    def sort(self, axis=-1):
+        sorted_values = Tensor(np.sort(self.data, axis=axis), requires_grad=self.requires_grad)
+        sorted_indices = self.argsort(axis)
+        if sorted_values.grad_enable:
+            sorted_values.children = [(self, sorted_indices.data, axis)]
+            sorted_values.grad_fn = SortBackward()
+        return Sort(sorted_values, sorted_indices)
 
     def abs_(self):
         self._check_inplace()
@@ -746,7 +758,7 @@ class Tensor:
         #     y.children = [(self, axis, y.data)]
         #     y.grad_fn = SoftmaxBackward()
         # return y
-        m = self.max().get('values')
+        m = self.max().values
         data = (self - m).exp()
         data /= data.sum(axis, keepdims=True)
         return data
