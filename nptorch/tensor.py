@@ -475,6 +475,11 @@ class Tensor:
             sorted_values.grad_fn = SortBackward()
         return Sort(sorted_values, sorted_indices)
 
+    def index_select(self, axis, index: list):
+        slices = [slice(None)] * self.ndim
+        slices[axis] = index
+        return self[tuple(slices)]
+
     def abs_(self):
         self._check_inplace()
         y = np.abs(self.data)

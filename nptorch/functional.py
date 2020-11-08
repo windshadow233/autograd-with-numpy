@@ -261,3 +261,7 @@ def argsort(x: Tensor, axis=-1, descending=False):
 
 def sort(x: Tensor, axis=-1, descending=False):
     return x.sort(axis, descending)
+
+
+def index_select(x: Tensor, axis, index):
+    return

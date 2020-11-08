@@ -31,8 +31,9 @@ class SliceBackward(BackwardFcn):
         super(SliceBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
-        result = np.zeros_like(children[0][0].data)
-        result[children[0][1]] = grad
+        x, slices = children[0]
+        result = np.zeros_like(x.data)
+        result[slices] = grad
         return result
 
 
@@ -740,5 +741,5 @@ class SortBackward(BackwardFcn):
 
 """
 Todo:
-Softmax
+SliceBackward
 """
