@@ -255,9 +255,9 @@ def cat(tensors, axis=0):
     return result
 
 
-def argsort(x: Tensor, axis=-1):
-    return x.argsort(axis)
+def argsort(x: Tensor, axis=-1, descending=False):
+    return x.argsort(axis, descending)
 
 
-def sort(x: Tensor, axis=-1):
-    return x.sort(axis)
+def sort(x: Tensor, axis=-1, descending=False):
+    return x.sort(axis, descending)

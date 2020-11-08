@@ -507,7 +507,6 @@ class CrossEntropyBackward(BackwardFcn):
 
     def calculate_grad(self, grad, children, place):
         x_softmax, target = children[0][1:]
-        target = target.data
         return grad * (x_softmax - target) / target.shape[0]
 
 
@@ -711,11 +710,11 @@ class PadSequenceBackward(BackwardFcn):
 
     def calculate_grad(self, grad, children, place):
         x, i, batch_first = children[place]
-        l = x.shape[0]
+        length = x.shape[0]
         if batch_first:
-            return grad[i, :l]
+            return grad[i, :length]
         else:
-            return grad[:l, i]
+            return grad[:length, i]
 
 
 class SortBackward(BackwardFcn):
@@ -737,6 +736,7 @@ class SortBackward(BackwardFcn):
             slices = tuple(slices)
             grad[slices] = grad[slices][unsorted_indices[slices]]
         return grad
+
 
 """
 Todo:

@@ -6,6 +6,9 @@ from .utils.conv_operations import *
 
 
 def relu(x: Tensor):
+    """
+    max(0, x)
+    """
     return x.relu()
 
 
@@ -15,10 +18,16 @@ def relu_(x: Tensor):
 
 
 def sigmoid(x: Tensor):
+    """
+    1 / (1 + e^{-x})
+    """
     return x.sigmoid()
 
 
 def softmax(x: Tensor, dim):
+    """
+    y_i = \frac{e^{x_i}}{\sum_{j=1}^n e^{x_j}}
+    """
     return x.softmax(dim)
 
 
@@ -64,6 +73,12 @@ def one_hot(n, x: Tensor):
 
 
 def linear(x: Tensor, w: Tensor, b: Tensor = None):
+    """
+    线性层
+    @param x: 输入的张量
+    @param w: 权重矩阵
+    @param b: 偏置项
+    """
     output = x.matmul(w.T)
     if b is not None:
         output = output + b
@@ -106,7 +121,7 @@ def conv2d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=(1, 1), paddi
     padding = ((padding[0], padding[0]), (padding[1], padding[1]))
     data = padding_zeros(data, padding)
     dilated_kernels = dilate(kernels.data, dilation)
-    split = split_by_strides(data, *dilated_kernels.shape[-2:], stride=stride)
+    split = split_by_strides(data, dilated_kernels.shape[-2:], stride=stride)
     output = Tensor(np.tensordot(split, dilated_kernels, axes=[(1, 4, 5), (1, 2, 3)]).transpose((0, 3, 1, 2)),
                     requires_grad=x.requires_grad)
     if bias is not None:
@@ -124,7 +139,7 @@ def mean_pool2d(x: Tensor, kernel_size, stride):
     stride = stride or (kernel_size, kernel_size)
     if not isinstance(stride, tuple):
         stride = (stride, stride)
-    split = split_by_strides(x.data, kernel_size, kernel_size, stride)
+    split = split_by_strides(x.data, (kernel_size, kernel_size), stride)
     mean_data = np.mean(split, axis=(-1, -2))
     output = Tensor(mean_data, requires_grad=x.requires_grad)
     if output.grad_enable:
@@ -138,7 +153,7 @@ def max_pool2d(x: Tensor, kernel_size, stride=None):
     stride = stride or (kernel_size, kernel_size)
     if not isinstance(stride, tuple):
         stride = (stride, stride)
-    split = split_by_strides(x.data, kernel_size, kernel_size, stride)
+    split = split_by_strides(x.data, (kernel_size, kernel_size), stride)
     max_data = np.max(split, axis=(-1, -2))
     argmax = np.argmax(split.reshape(-1, kernel_size * kernel_size), axis=-1).flatten()
     output = Tensor(max_data, requires_grad=x.requires_grad)
@@ -163,7 +178,7 @@ def mean_pool1d(x: Tensor, kernel_size, stride=None):
     assert x.ndim == 3, 'x must be 3 dimensional'
     stride = stride or kernel_size
     assert isinstance(stride, int), f'stride must be int. Got{type(stride)}'
-    split = split_by_strides(x.data, 1, kernel_size, (1, stride))
+    split = split_by_strides(x.data, (1, kernel_size), (1, stride))
     output = Tensor(split.mean(-1).squeeze(-1), requires_grad=x.requires_grad)
     if output.grad_enable:
         output.children = [(x, kernel_size, stride)]
@@ -175,7 +190,7 @@ def max_pool1d(x: Tensor, kernel_size, stride=None):
     assert x.ndim == 3, 'x must be 3 dimensional'
     stride = stride or kernel_size
     assert isinstance(stride, int), f'stride must be int. Got {type(stride)}'
-    split = split_by_strides(x.data, 1, kernel_size, (1, stride))
+    split = split_by_strides(x.data, (1, kernel_size), (1, stride))
     max_data = np.max(split, axis=-1).squeeze(-1)
     argmax = np.argmax(split.reshape(-1, kernel_size), axis=-1).flatten()
     output = Tensor(max_data, requires_grad=x.requires_grad)
@@ -200,7 +215,7 @@ def cross_entropy(x: Tensor, target):
     one_hot_target = one_hot(x.shape[-1], target)
     loss = - (one_hot_target * log_softmax).sum() / n
     if x.grad_enable:
-        loss.children = [(x, x_softmax.data, one_hot_target)]
+        loss.children = [(x, x_softmax.data, one_hot_target.data)]
         loss.grad_fn = CrossEntropyBackward()
     return loss
 

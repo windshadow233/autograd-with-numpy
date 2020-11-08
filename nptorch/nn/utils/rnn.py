@@ -1,3 +1,5 @@
+from copy import deepcopy
+import numpy as np
 import nptorch
 from nptorch.autograd import backward
 
@@ -21,13 +23,13 @@ def pad_sequence(tensors, batch_first=False, padding_value=0):
     for i, tensor in enumerate(tensors):
         if tensor.dtype != dtype:
             raise RuntimeError('dtype of tensors are not same')
-        l, *d = tensor.shape
+        length, *d = tensor.shape
         if d != embed_dims:
             raise RuntimeError('embed_dims of data are not same')
         if batch_first:
-            result_tensor[i, :l] = tensor
+            result_tensor[i, :length] = tensor
         else:
-            result_tensor[:l, i] = tensor
+            result_tensor[:length, i] = tensor
         if tensor.grad_enable:
             requires_grad.append((tensor, i, batch_first))
     result_tensor.requires_grad = bool(requires_grad)

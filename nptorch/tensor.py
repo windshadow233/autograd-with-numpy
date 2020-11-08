@@ -459,12 +459,17 @@ class Tensor:
             y.grad_fn = AbsBackward()
         return y
 
-    def argsort(self, axis=-1):
+    def argsort(self, axis=-1, descending=False):
+        if descending:
+            return Tensor(np.argsort(- self.data, axis=axis))
         return Tensor(np.argsort(self.data, axis=axis))
 
-    def sort(self, axis=-1):
-        sorted_values = Tensor(np.sort(self.data, axis=axis), requires_grad=self.requires_grad)
-        sorted_indices = self.argsort(axis)
+    def sort(self, axis=-1, descending=False):
+        if descending:
+            sorted_values = Tensor(- np.sort(- self.data, axis=axis), dtype=self.dtype, requires_grad=self.requires_grad)
+        else:
+            sorted_values = Tensor(np.sort(self.data, axis=axis), dtype=self.dtype, requires_grad=self.requires_grad)
+        sorted_indices = self.argsort(axis, descending)
         if sorted_values.grad_enable:
             sorted_values.children = [(self, sorted_indices.data, axis)]
             sorted_values.grad_fn = SortBackward()

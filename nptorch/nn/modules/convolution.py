@@ -48,12 +48,7 @@ class Conv2d(_ConvNd):
         n = out_channels * self.kernel_size ** 2
         self.kernels = Parameter(
             normal((out_channels, in_channels, self.kernel_size, self.kernel_size), mean=0., std=np.sqrt(2. / n)))
-        if self.use_bias:
-            self.bias = Parameter(nptorch.zeros(out_channels))
+        self.bias = Parameter(nptorch.zeros(out_channels)) if use_bias else None
 
     def forward(self, x: Tensor):
-        if self.use_bias:
-            result = F.conv2d(x, self.kernels, self.bias, stride=self.stride, padding=self.padding, dilation=self.dilation)
-        else:
-            return F.conv2d(x, self.kernels, stride=self.stride, padding=self.padding, dilation=self.dilation)
-        return result
+        return F.conv2d(x, self.kernels, self.bias, stride=self.stride, padding=self.padding, dilation=self.dilation)

@@ -5,12 +5,11 @@ import numpy as np
 from numpy.lib.stride_tricks import as_strided
 
 
-def split_by_strides(x: np.ndarray, kernel_h, kernel_w, stride=(1, 1)):
+def split_by_strides(x: np.ndarray, kernel_size, stride=(1, 1)):
     """
     将张量按卷积核尺寸与步长进行分割
     :param x: 被卷积的张量
-    :param kernel_h: 卷积核的长度
-    :param kernel_w: 卷积核的宽度
+    :param kernel_size: 卷积核的长宽
     :param stride: 步长
     :return: y: 按卷积步骤展开后的矩阵
 
@@ -24,8 +23,8 @@ def split_by_strides(x: np.ndarray, kernel_h, kernel_w, stride=(1, 1)):
                                                 [15, 16]]]]
     """
     *bc, h, w = x.shape
-    out_h, out_y = (h - kernel_h) // stride[0] + 1, (w - kernel_w) // stride[1] + 1
-    shape = (*bc, out_h, out_y, kernel_h, kernel_w)
+    out_h, out_y = (h - kernel_size[0]) // stride[0] + 1, (w - kernel_size[1]) // stride[1] + 1
+    shape = (*bc, out_h, out_y, kernel_size[0], kernel_size[1])
     strides = (*x.strides[:-2], x.strides[-2] * stride[0],
                x.strides[-1] * stride[1], *x.strides[-2:])
     y = as_strided(x, shape, strides=strides)
@@ -47,6 +46,12 @@ def padding_zeros(x: np.ndarray, padding):
 
 
 def unwrap_padding(x: np.ndarray, padding):
+    """
+    padding的逆操作
+    @param x:
+    @param padding:
+    @return:
+    """
     if padding == ((0, 0), (0, 0)):
         return x
     p, q = padding
@@ -98,7 +103,7 @@ def reverse_conv2d(x: np.ndarray, kernel: np.ndarray, rotate=False, invert=False
     @return: 反向卷积结果
     """
     ksize = kernel.shape
-    x = split_by_strides(x, *ksize[-2:])
+    x = split_by_strides(x, ksize[-2:])
     if rotate:
         kernel = kernel_rotate180(kernel)
     i = 0 if invert else 1
