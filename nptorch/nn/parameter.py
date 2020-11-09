@@ -1,5 +1,5 @@
 import numpy as np
-from nptorch.tensor import Tensor
+from ..tensor import Tensor
 
 
 class Parameter(Tensor):

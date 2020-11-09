@@ -1,8 +1,9 @@
+import numpy as np
 from ..tensor import Tensor, float32
 from .. import random
 from ..autograd.backward import CrossEntropyBackward, Conv2dBackward, MeanPool2dBackward, MaxPool2dBackward,\
     LeakyReLUBackward, ELUBackward, BatchNormBackward, MeanPool1dBackward, MaxPool1dBackward, NLLLossBackward
-from .utils.conv_operations import *
+from .utils.conv_operations import split_by_strides, padding_zeros, dilate
 
 
 def relu(x: Tensor):
@@ -248,3 +249,7 @@ def nll_loss(x: Tensor, target: Tensor):
         loss.children = [(x, one_hot_target / n)]
         loss.grad_fn = NLLLossBackward()
     return loss
+
+
+def pairwise_distance(x1: Tensor, x2: Tensor):
+    pass

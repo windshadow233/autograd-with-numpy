@@ -1,4 +1,4 @@
-from nptorch.tensor import *
+from nptorch.tensor import Tensor
 from .. import functional as F
 from .module import Module
 

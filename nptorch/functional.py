@@ -1,6 +1,5 @@
 from .tensor import Tensor, float32
-from .autograd.backward import StackBackward, CatBackward, SortBackward
-from .return_types import *
+from .autograd.backward import StackBackward, CatBackward
 import numpy as np
 
 

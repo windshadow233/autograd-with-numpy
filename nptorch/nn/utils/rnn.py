@@ -4,7 +4,7 @@ import nptorch
 from nptorch.autograd import backward
 
 
-def pad_sequence(tensors, batch_first=False, padding_value=0):
+def pad_sequence(tensors: list, batch_first=False, padding_value=0):
     """
     输入一个batch的张量,输出将这些张量补齐至长度相等后的张量
     @param tensors: 一个张量列表
