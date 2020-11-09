@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/autograd/backward.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/autograd/backward.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/functional.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +52,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="deletionFromPopupRequiresConfirmation" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../FYP-FaceVerification" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Machine Learning/number_recognize" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -63,7 +61,7 @@
       <recent name="F:\pycharmProjects\my_deeplearning_frame\mnist" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunManager" selected="Python.mnist">
     <configuration name="grad_mode" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -130,28 +128,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="rnn" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="autograd_with_numpy" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/nptorch/nn/utils" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/nptorch/nn/utils/rnn.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -176,13 +152,11 @@
       <item itemvalue="Python.test" />
       <item itemvalue="Python.loss" />
       <item itemvalue="Python.grad_mode" />
-      <item itemvalue="Python.rnn" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.test" />
         <item itemvalue="Python.mnist" />
-        <item itemvalue="Python.rnn" />
         <item itemvalue="Python.grad_mode" />
         <item itemvalue="Python.loss" />
       </list>
@@ -273,7 +247,7 @@
       <workItem from="1604750874667" duration="9619000" />
       <workItem from="1604813893320" duration="26000" />
       <workItem from="1604814264320" duration="23609000" />
-      <workItem from="1604886470009" duration="5265000" />
+      <workItem from="1604886470009" duration="11708000" />
     </task>
     <servers />
   </component>
@@ -292,10 +266,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="477" y="57" key="#backward/0.0.1536.864@0.0.1536.864" timestamp="1602861527397" />
-    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604756157425">
+    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604909990916">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1604756157425" />
+    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1604909990916" />
     <state x="513" y="235" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603811118087">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -324,10 +298,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="372" y="24" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1603087606159" />
-    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1604886594089">
+    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1604906437644">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1604886594089" />
+    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1604906437644" />
     <state width="1493" height="369" key="GridCell.Tab.0.bottom" timestamp="1604890315023">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
