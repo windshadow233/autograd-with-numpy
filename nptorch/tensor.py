@@ -61,7 +61,6 @@ class Tensor:
     def __getitem__(self, item):
         if isinstance(item, int):
             item = (item,)
-        print(item)
         result = Tensor(self.data[item], dtype=self.dtype, requires_grad=self.requires_grad)
         if result.grad_enable:
             result.children = [(self, item)]

@@ -264,4 +264,4 @@ def sort(x: Tensor, axis=-1, descending=False):
 
 
 def index_select(x: Tensor, axis, index):
-    return
+    return x.index_select(axis, index)

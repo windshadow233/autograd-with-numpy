@@ -4,6 +4,7 @@
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/autograd/backward.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/autograd/backward.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/functional.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
@@ -272,7 +273,7 @@
       <workItem from="1604750874667" duration="9619000" />
       <workItem from="1604813893320" duration="26000" />
       <workItem from="1604814264320" duration="23609000" />
-      <workItem from="1604886470009" duration="4305000" />
+      <workItem from="1604886470009" duration="5265000" />
     </task>
     <servers />
   </component>

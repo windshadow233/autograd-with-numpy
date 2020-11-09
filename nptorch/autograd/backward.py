@@ -48,9 +48,9 @@ class IndexBackward(BackwardFcn):
             item = (item,)
         item = list(item)
         try:
-            first_index = [not isinstance(index, slice) for index in item].index(True)
+            first_index = (slice(None),) * [not isinstance(index, slice) for index in item].index(True)
         except ValueError:
-            first_index = 0
+            first_index = ()
         for i, index in enumerate(item):
             if not isinstance(index, (tuple, list)):
                 item[i] = (index,)
@@ -59,7 +59,7 @@ class IndexBackward(BackwardFcn):
             if len(index) == 1:
                 item[i] = index * max_length
         for i, index in enumerate(zip(*item)):
-            slices = (slice(None),) * first_index + (i,)
+            slices = first_index + (i,)
             result_grad[index] += grad[slices]
         return result_grad
 
