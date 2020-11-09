@@ -59,10 +59,16 @@ class Tensor:
         self.data[key] = value
 
     def __getitem__(self, item):
+        if isinstance(item, int):
+            item = (item,)
+        print(item)
         result = Tensor(self.data[item], dtype=self.dtype, requires_grad=self.requires_grad)
         if result.grad_enable:
             result.children = [(self, item)]
-            result.grad_fn = SliceBackward()
+            if isinstance(item, list) or any([isinstance(index, (tuple, list)) and len(index) > 1 for index in item]):
+                result.grad_fn = IndexBackward()
+            else:
+                result.grad_fn = SliceBackward()
         return result
 
     def __bool__(self):

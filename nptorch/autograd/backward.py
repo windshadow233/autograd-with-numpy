@@ -37,6 +37,33 @@ class SliceBackward(BackwardFcn):
         return result
 
 
+class IndexBackward(BackwardFcn):
+    def __init__(self):
+        super(IndexBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        x, item = children[0]
+        result_grad = np.zeros_like(x.data)
+        if isinstance(item, list):
+            item = (item,)
+        item = list(item)
+        try:
+            first_index = [not isinstance(index, slice) for index in item].index(True)
+        except ValueError:
+            first_index = 0
+        for i, index in enumerate(item):
+            if not isinstance(index, (tuple, list)):
+                item[i] = (index,)
+        max_length = max([len(index) for index in item])
+        for i, index in enumerate(item):
+            if len(index) == 1:
+                item[i] = index * max_length
+        for i, index in enumerate(zip(*item)):
+            slices = (slice(None),) * first_index + (i,)
+            result_grad[index] += grad[slices]
+        return result_grad
+
+
 class AddBackward(BackwardFcn):
     def __init__(self):
         super(AddBackward, self).__init__()
