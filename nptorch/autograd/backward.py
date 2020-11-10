@@ -351,19 +351,32 @@ class RepeatBackward(BackwardFcn):
         super(RepeatBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
-        x, tile_shape = children[0]
+        # x, tile_shape = children[0]
+        # x_shape = x.shape
+        # if isinstance(tile_shape, int):
+        #     tile_shape = tile_shape,
+        # if len(x_shape) > len(tile_shape):
+        #     tile_shape = (1,) * (len(x_shape) - len(tile_shape)) + tile_shape
+        # grad_strides = grad.strides
+        # split_shape = tile_shape + x_shape
+        # mid_strides = [grad_strides[-i] * x_shape[-i] for i in range(x.ndim, 0, -1)]
+        # split_strides = (*grad_strides[:-2], *mid_strides, *grad_strides[-2:])
+        # result = as_strided(grad, split_shape, split_strides)
+        # sum_axes = tuple(range(result.ndim))[:result.ndim - x.ndim]
+        # return result.sum(axis=sum_axes)
+        x, shape = children[0]
+        if isinstance(shape, int):
+            shape = shape,
+        result = np.zeros_like(x)
         x_shape = x.shape
-        if isinstance(tile_shape, int):
-            tile_shape = tile_shape,
-        if len(x_shape) > len(tile_shape):
-            tile_shape = (1,) * (len(x_shape) - len(tile_shape)) + tile_shape
-        grad_strides = grad.strides
-        split_shape = tile_shape + x_shape
-        mid_strides = [grad_strides[-i] * x_shape[-i] for i in range(x.ndim, 0, -1)]
-        split_strides = (*grad_strides[:-2], *mid_strides, *grad_strides[-2:])
-        result = as_strided(grad, split_shape, split_strides)
-        sum_axes = tuple(range(result.ndim))[:result.ndim - x.ndim]
-        return result.sum(axis=sum_axes)
+        if len(x_shape) > len(shape):
+            shape = (1,) * (len(x_shape) - len(shape)) + shape
+        elif len(x_shape) < len(shape):
+            x_shape = (1,) * (len(shape) - len(x_shape)) + x_shape
+        for index in product(*[range(s) for s in shape]):
+            slices = [slice(idx * stride, idx * stride + stride) for idx, stride in zip(index, x_shape)]
+            result += grad[tuple(slices)].reshape(x.shape)
+        return result
 
 
 class SqrtBackward(BackwardFcn):
