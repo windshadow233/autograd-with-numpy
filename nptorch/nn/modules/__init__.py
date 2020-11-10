@@ -8,3 +8,4 @@ from .module import Module
 from .activation import Softmax, Sigmoid, ReLU, Tanh, LeakyReLU, ELU, Softplus
 from .loss import CrossEntropyLoss, MSELoss, NLLLoss
 from .container import Sequential
+from .distance import PairwiseDistance, CosSimilarity

@@ -251,5 +251,11 @@ def nll_loss(x: Tensor, target: Tensor):
     return loss
 
 
-def pairwise_distance(x1: Tensor, x2: Tensor):
-    pass
+def pairwise_distance(x1: Tensor, x2: Tensor, p=2., keepdims=False, eps=1e-12):
+    return (x1 - x2).norm(axis=1, p=p, keepdims=keepdims, eps=eps)
+
+
+def cos_similarity(x1: Tensor, x2: Tensor, axis=1, eps=1e-12):
+    if not isinstance(axis, int):
+        raise TypeError(f"argument 'axis' must be int. Got {type(axis)}")
+    return (x1 * x2).sum(axes=axis) / (x1.norm(axis=axis, eps=eps) * x2.norm(axis=axis, eps=eps))

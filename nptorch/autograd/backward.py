@@ -584,8 +584,11 @@ class NormBackward(BackwardFcn):
         super(NormBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
-        child, p, y = children[0]
-        return grad * y * child.data ** (p - 1.)
+        x, p, y, axis, keepdims = children[0]
+        if not keepdims and axis is not None:
+            grad = np.expand_dims(grad, axis)
+            y = np.expand_dims(y, axis)
+        return grad * y * x.data ** (p - 1.)
 
 
 class Conv2dBackward(BackwardFcn):

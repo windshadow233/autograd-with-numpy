@@ -913,14 +913,14 @@ class Tensor:
             self.grad_fn = FillBackward()
         self.data = y
 
-    def norm(self, p=2.):
+    def norm(self, axis=None, p=2., keepdims=False, eps=1e-12):
         self._check_type('norm')
         data = self.data
-        s = (np.abs(data) ** p).sum()
+        s = (np.abs(data) ** p).sum(axis, keepdims=keepdims) + eps
         y = s ** (1. / p - 1.)
         result = Tensor(y * s, dtype=self.dtype, requires_grad=self.requires_grad)
         if result.grad_enable:
-            result.children = [(self, p, y)]
+            result.children = [(self, p, y, axis, keepdims)]
             result.grad_fn = NormBackward()
         return result
 
@@ -960,7 +960,7 @@ class Tensor:
         if self.is_leaf or not self.grad_enable:
             return
         if not isinstance(grad, Tensor):
-            grad = Tensor(grad)
+            grad = Tensor(np.array(grad).reshape(self.shape))
         for i, child in enumerate(self.children):
             child_tensor = child[0]
             if isinstance(child_tensor, Tensor) and child_tensor.grad_enable:
