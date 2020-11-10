@@ -30,5 +30,3 @@ class CosSimilarity(Module):
 
     def forward(self, x1: Tensor, x2: Tensor):
         return F.cos_similarity(x1, x2, axis=self.axis, eps=self.eps)
-
-

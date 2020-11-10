@@ -264,3 +264,7 @@ def sort(x: Tensor, axis=-1, descending=False):
 
 def index_select(x: Tensor, axis, index):
     return x.index_select(axis, index)
+
+
+def repeat(x: Tensor, *shape):
+    return x.repeat(*shape)

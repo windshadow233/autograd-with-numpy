@@ -850,6 +850,13 @@ class Tensor:
             result.grad_fn = ReshapeBackward()
         return result
 
+    def repeat(self, *shape):
+        result = Tensor(np.tile(self.data, shape), requires_grad=self.requires_grad)
+        if result.grad_enable:
+            result.children = [(self, shape)]
+            result.grad_fn = RepeatBackward()
+        return result
+
     def flatten(self):
         result = Tensor(self.data.flatten(), requires_grad=self.requires_grad)
         if result.grad_enable:

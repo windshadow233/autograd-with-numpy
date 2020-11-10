@@ -346,6 +346,26 @@ class ReshapeBackward(BackwardFcn):
         return grad.reshape(children[0][0].shape)
 
 
+class RepeatBackward(BackwardFcn):
+    def __init__(self):
+        super(RepeatBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        x, shape = children[0]
+        if isinstance(shape, int):
+            shape = shape,
+        result = np.zeros_like(x)
+        x_shape = x.shape
+        if len(x_shape) > len(shape):
+            shape = (1,) * (len(x_shape) - len(shape)) + shape
+        elif len(x_shape) < len(shape):
+            x_shape = (1,) * (len(shape) - len(x_shape)) + x_shape
+        for index in product(*[range(s) for s in shape]):
+            slices = [slice(idx * stride, idx * stride + stride) for idx, stride in zip(index, x_shape)]
+            result += grad[tuple(slices)].reshape(x.shape)
+        return result
+
+
 class SqrtBackward(BackwardFcn):
     def __init__(self):
         super(SqrtBackward, self).__init__()
