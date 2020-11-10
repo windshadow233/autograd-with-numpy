@@ -532,14 +532,6 @@ class SigmoidBackward(BackwardFcn):
         return grad * y * (1. - y)
 
 
-class SoftmaxBackward(BackwardFcn):
-    def __init__(self):
-        super(SoftmaxBackward, self).__init__()
-
-    def calculate_grad(self, grad, children, place):
-        _, dim, y = children[0]
-
-
 class SoftplusBackward(BackwardFcn):
     def __init__(self):
         super(SoftplusBackward, self).__init__()
@@ -788,9 +780,3 @@ class SortBackward(BackwardFcn):
             slices = tuple(slices)
             grad[slices] = grad[slices][unsorted_indices[slices]]
         return grad
-
-
-"""
-Todo:
-SliceBackward
-"""

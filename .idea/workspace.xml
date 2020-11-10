@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Untitled-checkpoint.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Untitled.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/autograd/backward.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/autograd/backward.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/utils/conv_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/utils/conv_operations.py" afterDir="false" />
-    </list>
+    <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -254,6 +248,7 @@
       <workItem from="1604814264320" duration="23609000" />
       <workItem from="1604886470009" duration="21125000" />
       <workItem from="1604980552209" duration="25028000" />
+      <workItem from="1605030161889" duration="245000" />
     </task>
     <servers />
   </component>
