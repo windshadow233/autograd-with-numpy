@@ -3,6 +3,26 @@ from .autograd.backward import StackBackward, CatBackward
 import numpy as np
 
 
+def add(x: Tensor, y: Tensor):
+    return x + y
+
+
+def sub(x: Tensor, y: Tensor):
+    return x - y
+
+
+def rsub(x: Tensor, y: Tensor):
+    return y - x
+
+
+def mul(x: Tensor, y: Tensor):
+    return x * y
+
+
+def div(x: Tensor, y: Tensor):
+    return x / y
+
+
 def eye(n, m, dtype=float32, requires_grad=False):
     return Tensor(np.eye(n, m), dtype=dtype, requires_grad=requires_grad)
 
@@ -157,7 +177,7 @@ def exp_(x: Tensor):
 
 
 def pow(x: Tensor, exponent):
-    return x.pow(exponent)
+    return x ** exponent
 
 
 def floor(x: Tensor):
@@ -215,7 +235,7 @@ def outer(x: Tensor, y: Tensor):
 
 
 def matmul(x: Tensor, y: Tensor):
-    return x.matmul(y)
+    return x @ y
 
 
 def stack(tensors, axis=0):

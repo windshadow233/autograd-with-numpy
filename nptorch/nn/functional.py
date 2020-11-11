@@ -80,7 +80,7 @@ def linear(x: Tensor, w: Tensor, b: Tensor = None):
     @param w: 权重矩阵
     @param b: 偏置项
     """
-    output = x.matmul(w.T)
+    output = x @ w.T
     if b is not None:
         output = output + b
     return output

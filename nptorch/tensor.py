@@ -946,12 +946,12 @@ class Tensor:
             result.grad_fn = OuterBackward()
         return result
 
-    def matmul(self, other):
+    def __matmul__(self, other):
         """
         矩阵乘法,支持broadcast
         """
         assert isinstance(other, Tensor), f"argument 'other' (position 1) must be Tensor, not {type(other)}"
-        result = Tensor(np.matmul(self.data, other.data), requires_grad=self.requires_grad or other.requires_grad)
+        result = Tensor(self.data @ other.data, requires_grad=self.requires_grad or other.requires_grad)
         if not result.grad_enable:
             return result
         result.children = [(self, None), (other, None)]
@@ -987,3 +987,4 @@ class Tensor:
     mul = __mul__
     div = __truediv__
     pow = __pow__
+    matmul = __matmul__

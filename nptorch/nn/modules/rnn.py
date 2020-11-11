@@ -50,23 +50,22 @@ class RNN(Module):
         return f'{self.input_size}, {self.hidden_size}, num_layers={self.num_layers}, use_bias={self.use_bias}, ' \
                f'\nactivation={self.activation_fcn.__name__}, batch_first={self.batch_first}, dropout={self.dropout}'
 
-    def forward(self, x: Tensor):
+    def forward(self, x: Tensor, hidden: Tensor = None):
         """
         @param x: (L, B, D)
-        @return:
+        @param hidden: (num_layers, B, hidden_size) initial hidden value, default None
         """
-        cache = [None] * self.num_layers
-        output = []
         if self.batch_first:
             x = x.swapaxes(0, 1)  # (B, L, D) => (L, B, D)
+        cache = [zeros(shape=(x.shape[1], self.hidden_size))] * self.num_layers if hidden is None else list(hidden)
+        output = []
         for t, xt in enumerate(x):
             hidden = xt
             for i in range(self.num_layers):
                 weight_ih = self.__getattribute__(f'weight_ih_l{i}')
                 weight_hh = self.__getattribute__(f'weight_hh_l{i}')
                 hidden = hidden.matmul(weight_ih.T)
-                if t > 0:
-                    hidden += cache[i].matmul(weight_hh.T)
+                hidden += cache[i].matmul(weight_hh.T)
                 if self.use_bias:
                     hidden += self.__getattribute__(f'bias_ih_l{i}')
                     hidden += self.__getattribute__(f'bias_hh_l{i}')
