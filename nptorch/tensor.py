@@ -2,7 +2,7 @@ from copy import copy
 from numbers import Number
 from .autograd.backward import *
 from .autograd.grad_mode import grad_enable
-from .return_types import *
+from .return_types import Max, Min, Sort
 from numpy import float16, float32, float64, int8, int16, int32, int64, bool_, uint8, uint16, uint32, uint64
 
 # np.set_printoptions(precision=4, suppress=True)
@@ -121,7 +121,7 @@ class Tensor:
 
     @property
     def is_leaf(self):
-        return not self.grad_fn and self.grad_enable
+        return not self.grad_fn and self.requires_grad
 
     @property
     def size(self):
@@ -481,6 +481,10 @@ class Tensor:
         return Sort(sorted_values, sorted_indices)
 
     def index_select(self, axis, index: list):
+        if isinstance(index, Tensor):
+            assert index.dtype == int64, f'index is supposed to have type int64, got {index.dtype}'
+            assert index.ndim == 1, f'index is supposed to be 1-dimensional, got {index.ndim}'
+            index = index.tolist()
         slices = [slice(None)] * self.ndim
         slices[axis] = index
         return self[tuple(slices)]

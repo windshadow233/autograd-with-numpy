@@ -1,4 +1,4 @@
-import copy
+from copy import copy
 
 
 class ReturnType(object):
@@ -9,7 +9,7 @@ class ReturnType(object):
         return ''
 
     def __iter__(self):
-        self._value_dict = copy.copy(self.__dict__)
+        self._value_dict = copy(self.__dict__)
         return self
 
     def __next__(self):

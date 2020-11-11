@@ -77,7 +77,7 @@ def test_model(model, test_loader: DataLoader):
     return count.item() / len(test_loader.dataset)
 
 
-random.seed(2)
+random.seed(0)
 train_set = MNISTDataset('mnist/MNIST/raw/train-images-idx3-ubyte', 'mnist/MNIST/raw/train-labels-idx1-ubyte')
 test_set = MNISTDataset('mnist/MNIST/raw/t10k-images-idx3-ubyte', 'mnist/MNIST/raw/t10k-labels-idx1-ubyte')
 train_loader = DataLoader(train_set, batch_size=64)

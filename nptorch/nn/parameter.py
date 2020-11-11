@@ -14,17 +14,16 @@ class Parameters:
     def __init__(self, params):
         self.params = params
         self.number = len(params)
-        self.counter = 0
 
     def __iter__(self):
-        self.counter = 0
+        self._counter = 0
         return self
 
     def __next__(self):
-        self.counter += 1
-        if self.counter > self.number:
+        self._counter += 1
+        if self._counter > self.number:
             raise StopIteration
-        return self.params[self.counter - 1]
+        return self.params[self._counter - 1]
 
     def __len__(self):
         return self.number
