@@ -122,6 +122,8 @@ cnn = CNN()
 optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
 ## 更新日志
+### 2020/11/12
+* 增加了ModuleList类。
 ### 2020/11/10
 * 对norm函数及其backward进行了修改,主要增加了axis参数。
 * 增加了pairwise_distance函数、PairwiseDistance类、cosine_similarity函数、CosineSimilarity类。

@@ -10,7 +10,7 @@ class Parameter(Tensor):
         return f'Parameter:\n{super(Parameter, self).__repr__()}'
 
 
-class Parameters:
+class Parameters(object):
     def __init__(self, params):
         self.params = params
         self.number = len(params)
