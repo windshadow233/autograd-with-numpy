@@ -89,9 +89,8 @@ loss_fcn = nn.CrossEntropyLoss()
 
 for i in tqdm(range(5)):
     count = 0
-    for n, data in enumerate(train_loader, 1):
+    for n, (d, lb) in enumerate(train_loader, 1):
         model.train()
-        d, lb = data
         count += len(d)
         print(n)
         print(count)

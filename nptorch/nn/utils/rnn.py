@@ -1,7 +1,8 @@
 from copy import deepcopy
 import numpy as np
 import nptorch
-from nptorch.autograd import backward
+from nptorch.autograd.backward import PadSequenceBackward
+from nptorch.tensor import Tensor
 
 
 def pad_sequence(tensors: list, batch_first=False, padding_value=0):
@@ -35,5 +36,5 @@ def pad_sequence(tensors: list, batch_first=False, padding_value=0):
     result_tensor.requires_grad = bool(requires_grad)
     if result_tensor.grad_enable:
         result_tensor.children = requires_grad
-        result_tensor.grad_fn = backward.PadSequenceBackward()
+        result_tensor.grad_fn = PadSequenceBackward()
     return result_tensor

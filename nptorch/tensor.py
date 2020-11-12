@@ -978,7 +978,7 @@ class Tensor:
                 child_grad = self.grad_fn.calculate_grad(grad.data, self.children, i)
                 if child_tensor._retain_grad:
                     if child_tensor.grad is None:
-                        child_tensor.grad = Tensor(np.zeros_like(child_tensor.data))
+                        child_tensor.grad = Tensor(np.zeros_like(child_tensor.data), dtype=child_tensor.dtype)
                     child_tensor.grad = child_tensor.grad + Tensor(child_grad, dtype=float32)
                 child_tensor.backward(child_grad, False)
 

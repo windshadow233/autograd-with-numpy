@@ -3,12 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/container.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/parameter.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/parameter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/utils/rnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/utils/rnn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,7 +201,7 @@
       <workItem from="1604980552209" duration="25028000" />
       <workItem from="1605030161889" duration="814000" />
       <workItem from="1605031656543" duration="606000" />
-      <workItem from="1605066049663" duration="32198000" />
+      <workItem from="1605066049663" duration="34024000" />
     </task>
     <servers />
   </component>

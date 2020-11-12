@@ -3,7 +3,7 @@ from ..tensor import Tensor, float32
 from .. import random
 from ..autograd.backward import CrossEntropyBackward, Conv2dBackward, MeanPool2dBackward, MaxPool2dBackward,\
     LeakyReLUBackward, ELUBackward, BatchNormBackward, MeanPool1dBackward, MaxPool1dBackward, NLLLossBackward
-from .utils.conv_operations import split_by_strides, padding_zeros, dilate
+from .conv_operations import split_by_strides, padding_zeros, dilate
 
 
 def relu(x: Tensor):

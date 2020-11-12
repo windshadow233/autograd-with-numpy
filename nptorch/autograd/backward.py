@@ -2,7 +2,7 @@ import math
 import numpy as np
 from itertools import product
 from .broadcast import get_tile_dims
-from ..nn.utils.conv_operations import padding_zeros, unwrap_padding, dilate, erode, reverse_conv2d, as_strided
+from ..nn.conv_operations import padding_zeros, unwrap_padding, dilate, erode, reverse_conv2d, as_strided
 
 
 class BackwardFcn:
