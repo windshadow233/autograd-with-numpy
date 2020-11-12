@@ -964,21 +964,21 @@ class Tensor:
         return result
 
     def backward(self, grad=1.0, is_last=True):
+        if self.is_leaf or not self.grad_enable:
+            return
         if is_last:
             assert self.size == 1, 'grad can be implicitly created only for scalar outputs'
             if self._retain_grad:
                 self.grad = Tensor(np.ones_like(self.data))
-        if self.is_leaf or not self.grad_enable:
-            return
         if not isinstance(grad, Tensor):
             grad = Tensor(np.array(grad).reshape(self.shape))
         for i, child in enumerate(self.children):
             child_tensor = child[0]
-            if isinstance(child_tensor, Tensor) and child_tensor.grad_enable:
-                if child_tensor._retain_grad and child_tensor.grad_enable and child_tensor.grad is None:
-                    child_tensor.grad = Tensor(np.zeros_like(child_tensor.data))
+            if isinstance(child_tensor, Tensor) and child_tensor.requires_grad:
                 child_grad = self.grad_fn.calculate_grad(grad.data, self.children, i)
                 if child_tensor._retain_grad:
+                    if child_tensor.grad is None:
+                        child_tensor.grad = Tensor(np.zeros_like(child_tensor.data))
                     child_tensor.grad = child_tensor.grad + Tensor(child_grad, dtype=float32)
                 child_tensor.backward(child_grad, False)
 

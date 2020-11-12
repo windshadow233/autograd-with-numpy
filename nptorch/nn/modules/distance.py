@@ -17,9 +17,9 @@ class PairwiseDistance(Module):
         return F.pairwise_distance(x1, x2, p=self.p, keepdims=self.keepdims, eps=self.eps)
 
 
-class CosSimilarity(Module):
+class CosineSimilarity(Module):
     def __init__(self, axis=1, eps=1e-12):
-        super(CosSimilarity, self).__init__()
+        super(CosineSimilarity, self).__init__()
         if not isinstance(axis, int):
             raise TypeError(f"argument 'axis' must be int. Got {type(axis)}")
         self.axis = axis
@@ -29,4 +29,4 @@ class CosSimilarity(Module):
         return f'axis={self.axis}'
 
     def forward(self, x1: Tensor, x2: Tensor):
-        return F.cos_similarity(x1, x2, axis=self.axis, eps=self.eps)
+        return F.cosine_similarity(x1, x2, axis=self.axis, eps=self.eps)

@@ -71,7 +71,7 @@ class LeNet(nn.Module):
 def test_model(model, test_loader: DataLoader):
     model.eval()
     count = 0
-    for d, lb in test_loader:
+    for d, lb in tqdm(test_loader):
         p = model(d).argmax(-1)
         count += (p == lb).float().sum()
     return count.item() / len(test_loader.dataset)

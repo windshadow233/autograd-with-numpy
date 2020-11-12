@@ -1,6 +1,8 @@
 # autograd with numpy
 本项目用于自己学习,旨在用numpy实现计算图,进行梯度的自动计算,从而能完成一些深度学习任务。
 
+本项目所有运算都通过调用numpy接口实现,其本身仅仅就是套了个壳。
+
 项目依赖的第三方库：numpy==1.19.1,pillow==8.0.1
 ## 使用文档
 本项目使用风格与numpy和pytorch类似,如果你会用pytorch,那么下面的基本不用看了。
@@ -20,8 +22,8 @@ print(type(x))
 x = x.int()
 x = x.long()
 
-# 四则运算与矩阵运算,为了方便只定义了两矩阵乘法函数,
-# matmul涵盖所有可能的矩阵乘,支持broadcast,当前例子中是点积
+# 四则运算与矩阵运算,为了方便只定义了两个矩阵乘法函数
+# matmul是矩阵乘法运算,相当于`@`,支持broadcast,当前例子中是点积
 # outer可以进行向量外积,matmul也可以做到不过需要扩展维度
 a = x + y
 b = x.matmul(y)
@@ -31,13 +33,13 @@ b = x.outer(y)
 # 0-1上的均匀分布
 x = nt.random.rand(size=(3, 4), dtype=nt.float32, requires_grad=True)
 # 正态分布
-x = nt.random.normal(size=(3, 4), mean=0., std=1.)
+y = nt.random.normal(size=(3, 4), mean=0., std=1.)
 ```
 ### 自动求导
 1. 定义float类型的张量时,可指定参数requires_grad=True来声明需要对此张量求梯度。
-2. 当得到标量结果时,可对该标量调用backward()方法,得到与该标量相关的计算图中所有叶子节点的梯度。
+2. 当得到标量结果时,可对该标量调用backward方法,得到与该标量相关的计算图中所有叶子节点的梯度。
 3. 为节约空间,非叶子节点默认不会存储梯度,若需要其存储梯度,可调用其retain_grad()方法。
-4. 上下文管理器no_grad可实现内部计算不进行计算图的搭建与求导,也可作为函数装饰器,强烈建议在验证模型准确性时使用。
+4. 上下文管理器no_grad可实现内部计算不进行计算图的构建与求导,也可作为函数装饰器,强烈建议在验证模型准确性时使用。
 ```python
 import nptorch as nt
 x = nt.array([1., 2., 3.], dtype=nt.float32, requires_grad=True)
@@ -49,20 +51,20 @@ print(x.grad)
 # array([1., 1., 1.], dtype=float32)
 # array([2., 2., 2.], dtype=float32)
 with nt.no_grad():
-# 下面的所有运算将不构造计算图
+# 下面的所有运算将不构建计算图
     y = x * 2
     print(y.children)
     print(type(y.grad_fn))
 # []
 # <class 'NoneType'>
-# 离开no.grad上下文,下面的运算将正常构造计算图
+# 离开no.grad上下文,下面的运算将正常构建计算图
 y = x * 2
 print(y.children)
 print(type(y.grad_fn))
 # [(array([1., 2., 3.], dtype=float32, requires_grad=True), None), (2, None)]
 # <class 'nptorch.backward.MulBackward'>
 
-# 作为函数装饰器使用,函数内的运算将屏蔽计算图的构造。
+# 作为函数装饰器使用,函数内的运算将不构建计算图
 @nt.no_grad()
 def f():
     x = nt.array([1., 2, 3], requires_grad=True)
@@ -122,13 +124,13 @@ optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ## 更新日志
 ### 2020/11/10
 * 对norm函数及其backward进行了修改,主要增加了axis参数。
-* 增加了pairwise_distance函数、PairwiseDistance类、cos_similarity函数、CosSimilarity类。
+* 增加了pairwise_distance函数、PairwiseDistance类、cosine_similarity函数、CosineSimilarity类。
 ### 2020/11/8
 * 增加了pad_sequence、sort与argsort函数。
 ### 2020/11/5
 * 增加了RandomCrop、RandomMask图像变换。
 ### 2020/11/4
-* 增加了RandomHorizontalFlip,RandomVerticalFlip,CenterCrop三个图像变换。
+* 增加了RandomHorizontalFlip,RandomVerticalFlip与CenterCrop三个图像变换。
 ### 2020/11/3
 * 增加了BatchNorm1d,统一了BatchNorm的forward与backward。
 ### 2020/10/30
@@ -137,7 +139,7 @@ optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ### 2020/10/29
 * 增加了Normalize变换。
 ### 2020/10/28
-* 实现了一个简单的上下文管理器no_grad,在该环境下的所有运算将不构造计算图。
+* 实现了一个简单的上下文管理器no_grad,在该上下文中的所有运算将不构造计算图。
 * 增加了Softplus激活函数。
 ### 2020/10/27
 * 增加了ToPILImage变换。

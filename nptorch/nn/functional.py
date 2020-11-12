@@ -126,7 +126,7 @@ def conv2d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=(1, 1), paddi
     output = Tensor(np.tensordot(split, dilated_kernels, axes=[(1, 4, 5), (1, 2, 3)]).transpose((0, 3, 1, 2)),
                     requires_grad=x.requires_grad)
     if bias is not None:
-        output = output + bias.unsqueeze(-1, -2)
+        output = output + bias[:, None, None]
     if output.grad_enable:
         output.children = [(x, padding), (kernels, dilated_kernels, stride, dilation)]
         if bias is not None:
@@ -255,7 +255,7 @@ def pairwise_distance(x1: Tensor, x2: Tensor, p=2., keepdims=False, eps=1e-12):
     return (x1 - x2).norm(axis=1, p=p, keepdims=keepdims, eps=eps)
 
 
-def cos_similarity(x1: Tensor, x2: Tensor, axis=1, eps=1e-12):
+def cosine_similarity(x1: Tensor, x2: Tensor, axis=1, eps=1e-12):
     if not isinstance(axis, int):
         raise TypeError(f"argument 'axis' must be int. Got {type(axis)}")
     return (x1 * x2).sum(axes=axis) / (x1.norm(axis=axis, eps=eps) * x2.norm(axis=axis, eps=eps))
