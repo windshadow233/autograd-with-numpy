@@ -122,6 +122,8 @@ cnn = CNN()
 optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
 ## 更新日志
+### 2020/11/13
+* 增加了LSTM类。
 ### 2020/11/12
 * 增加了ModuleList类。
 ### 2020/11/10
