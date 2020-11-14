@@ -806,3 +806,15 @@ class TraceBackward(BackwardFcn):
 
     def calculate_grad(self, grad, children, place):
         return np.eye(*children[0][0].shape)
+
+
+class ClampBackward(BackwardFcn):
+    def __init__(self):
+        super(ClampBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        x, min, max = children[0]
+        data = x.data
+        indices = np.where((data < min) | (data > max))
+        grad[indices] = 0.
+        return grad

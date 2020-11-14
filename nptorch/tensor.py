@@ -894,6 +894,7 @@ class Tensor:
         return result
 
     def trace(self):
+        self._check_type('trace', excludes=('bool',))
         assert self.ndim == 2, f"ndim must be 2, got {self.ndim}"
         result = Tensor(np.trace(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
         if result.grad_enable:
@@ -932,6 +933,26 @@ class Tensor:
     def __imatmul__(self, other):
         self._check_inplace()
         return self.__matmul__(other)
+
+    def clamp(self, min=math.inf, max=math.inf):
+        self._check_type('clamp', excludes=('bool',))
+        if min == max == math.inf:
+            raise ValueError("At least one of 'min' or 'max' must not be infinity")
+        result = Tensor(np.clip(self.data, a_min=min, a_max=max), dtype=self.dtype, requires_grad=self.requires_grad)
+        if result.grad_enable:
+            result.children = [(self, min, max)]
+            result.grad_fn = ClampBackward()
+        return result
+
+    def clamp_(self, min=math.inf, max=math.inf):
+        self._check_type('clamp', excludes=('bool',))
+        self._check_inplace()
+        y = np.clip(self.data, a_min=min, a_max=max)
+        if self.grad_enable:
+            child = copy(self)
+            self.children = [(child, min, max)]
+            self.grad_fn = ClampBackward()
+        self.data = y
 
     def backward(self, grad=1.0, is_last=True):
         if self.is_leaf or not self.grad_enable:

@@ -1,6 +1,7 @@
 from .tensor import Tensor, float32, int64
 from .autograd.backward import StackBackward, CatBackward
 import numpy as np
+import math
 from numbers import Number
 
 
@@ -34,12 +35,6 @@ def equal(x: Tensor, y):
 
 def eye(n, m, dtype=float32, requires_grad=False):
     return Tensor(np.eye(n, m), dtype=dtype, requires_grad=requires_grad)
-
-
-def diag(x, k=0):
-    if isinstance(x, Tensor):
-        return x.diagonal(k=k)
-    return Tensor(np.diag(x, k=k))
 
 
 def t(x: Tensor):
@@ -320,5 +315,20 @@ def threshold(x: Tensor, threshold, value):
     return x * (x > threshold) + (x <= threshold) * value
 
 
+def diag(x, k=0):
+    if isinstance(x, Tensor):
+        return x.diagonal(k=k)
+    return Tensor(np.diag(x, k=k))
+
+
 def trace(x: Tensor):
     return x.trace()
+
+
+def clamp(x: Tensor, min=math.inf, max=math.inf):
+    return x.clamp(min=min, max=max)
+
+
+def clamp_(x: Tensor, min=math.inf, max=math.inf):
+    x.clamp_(min=min, max=max)
+    return x
