@@ -780,3 +780,29 @@ class SortBackward(BackwardFcn):
             slices = tuple(slices)
             grad[slices] = grad[slices][unsorted_indices[slices]]
         return grad
+
+
+class DiagBackward(BackwardFcn):
+    def __init__(self):
+        super(DiagBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        if grad.ndim == 2:
+            k = children[0][1]
+            return np.diag(grad, k=k)
+        x, k = children[0]
+        result = np.zeros_like(x.data)
+        indices = np.arange(len(grad))
+        if k >= 0:
+            result[indices, indices + k] = grad
+        else:
+            result[indices - k, indices] = grad
+        return result
+
+
+class TraceBackward(BackwardFcn):
+    def __init__(self):
+        super(TraceBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        return np.eye(*children[0][0].shape)

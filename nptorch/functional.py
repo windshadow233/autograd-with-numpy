@@ -1,6 +1,7 @@
-from .tensor import Tensor, float32
+from .tensor import Tensor, float32, int64
 from .autograd.backward import StackBackward, CatBackward
 import numpy as np
+from numbers import Number
 
 
 def add(x: Tensor, y: Tensor):
@@ -23,8 +24,30 @@ def div(x: Tensor, y: Tensor):
     return x / y
 
 
+def neg(x: Tensor):
+    return - x
+
+
+def equal(x: Tensor, y):
+    return x.equal(y)
+
+
 def eye(n, m, dtype=float32, requires_grad=False):
     return Tensor(np.eye(n, m), dtype=dtype, requires_grad=requires_grad)
+
+
+def diag(x, k=0):
+    if isinstance(x, Tensor):
+        return x.diagonal(k=k)
+    return Tensor(np.diag(x, k=k))
+
+
+def t(x: Tensor):
+    return x.t()
+
+
+def arange(start, stop, step=1, dtype=int64, requires_grad=False):
+    return Tensor(np.arange(start=start, stop=stop, step=step), dtype=dtype, requires_grad=requires_grad)
 
 
 def zeros(shape, dtype=float32, requires_grad=False):
@@ -288,3 +311,14 @@ def index_select(x: Tensor, axis, index):
 
 def repeat(x: Tensor, *shape):
     return x.repeat(*shape)
+
+
+def threshold(x: Tensor, threshold, value):
+    assert x.dtype.name != 'bool', "function 'threshold' not implemented for dtype 'bool'"
+    assert isinstance(threshold, Number) and isinstance(value, Number), \
+        f"argument 'threshold' and 'value' must be Number, got {type(threshold)}, {type(value)}"
+    return x * (x > threshold) + (x <= threshold) * value
+
+
+def trace(x: Tensor):
+    return x.trace()

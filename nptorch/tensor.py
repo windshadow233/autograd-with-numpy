@@ -103,6 +103,12 @@ class Tensor:
             other = other.data
         return Tensor(self.data < other, dtype=np.bool_)
 
+    def equal(self, other):
+        return (self == other).all().item()
+
+    def t(self):
+        return self.T
+
     @property
     def dtype(self):
         return self.data.dtype
@@ -228,14 +234,7 @@ class Tensor:
 
     def __iadd__(self, other):
         self._check_inplace()
-        if isinstance(other, Number):
-            result = Tensor(self.data + other, dtype=self.dtype, requires_grad=self.requires_grad)
-        else:
-            result = Tensor(self.data + other.data, dtype=self.dtype, requires_grad=self.requires_grad or other.requires_grad)
-        if self.grad_enable:
-            result.children = [(self, None), (other, None)]
-            result.grad_fn = AddBackward()
-        return result
+        return self.__add__(other)
 
     def __neg__(self):
         result = Tensor(- self.data, dtype=self.dtype, requires_grad=self.requires_grad)
@@ -260,14 +259,7 @@ class Tensor:
 
     def __isub__(self, other):
         self._check_inplace()
-        if isinstance(other, Number):
-            result = Tensor(self.data - other, dtype=self.dtype, requires_grad=self.requires_grad)
-        else:
-            result = Tensor(self.data - other.data, dtype=self.dtype, requires_grad=self.requires_grad or other.requires_grad)
-        if self.grad_enable:
-            result.children = [(self, None), (other, None)]
-            result.grad_fn = SubBackward()
-        return result
+        return self.__sub__(other)
 
     def __rmul__(self, other):
         return self.__mul__(other)
@@ -285,15 +277,7 @@ class Tensor:
 
     def __imul__(self, other):
         self._check_inplace()
-        if isinstance(other, Number):
-            result = Tensor(self.data * other, dtype=self.dtype, requires_grad=self.requires_grad)
-        else:
-            result = Tensor(self.data * other.data, dtype=self.dtype,
-                            requires_grad=self.requires_grad or other.requires_grad)
-        if self.grad_enable:
-            result.children = [(self, None), (other, None)]
-            result.grad_fn = MulBackward()
-        return result
+        return self.__mul__(other)
 
     def __rtruediv__(self, other):
         if isinstance(other, Number):
@@ -319,15 +303,7 @@ class Tensor:
 
     def __itruediv__(self, other):
         self._check_inplace()
-        if isinstance(other, Number):
-            result = Tensor(self.data / other, dtype=self.dtype, requires_grad=self.requires_grad)
-        else:
-            result = Tensor(self.data / other.data, dtype=self.dtype,
-                            requires_grad=self.requires_grad or other.requires_grad)
-        if self.grad_enable:
-            result.children = [(self, None), (other, None)]
-            result.grad_fn = DivBackward()
-        return result
+        return self.__truediv__(other)
 
     def __rfloordiv__(self, other):
         if isinstance(other, Number):
@@ -353,15 +329,7 @@ class Tensor:
 
     def __ifloordiv__(self, other):
         self._check_inplace()
-        if isinstance(other, Number):
-            result = Tensor(self.data // other, dtype=self.dtype, requires_grad=self.requires_grad)
-        else:
-            result = Tensor(self.data // other.data, dtype=self.dtype,
-                            requires_grad=self.requires_grad or other.requires_grad)
-        if self.grad_enable:
-            result.children = [(self, None), (other, None)]
-            result.grad_fn = FloordivBackward()
-        return result
+        return self.__ifloordiv__(other)
 
     def __mod__(self, other):
         if isinstance(other, Tensor):
@@ -376,16 +344,7 @@ class Tensor:
 
     def __imod__(self, other):
         self._check_inplace()
-        if isinstance(other, Tensor):
-            if other.requires_grad:
-                raise RuntimeError("the derivative for 'other' is not implemented")
-            other = other.data
-        result = Tensor(self.data % other, dtype=self.dtype,
-                        requires_grad=self.requires_grad or other.requires_grad)
-        if self.grad_enable:
-            result.children = [(self, None), (other, None)]
-            result.grad_fn = RemainderBackward()
-        return result
+        return self.__mod__(other)
 
     def __rpow__(self, power):
         if isinstance(power, Number):
@@ -402,7 +361,7 @@ class Tensor:
     def __pow__(self, power):
         if isinstance(power, Number):
             y = np.power(self.data, power)
-            result = Tensor(y, dtype=self.dtype, requires_grad=self.requires_grad)
+            result = Tensor(self.data ** power, dtype=self.dtype, requires_grad=self.requires_grad)
         else:
             y = np.power(self.data, power.data)
             result = Tensor(y, dtype=self.dtype, requires_grad=self.requires_grad or power.requires_grad)
@@ -413,15 +372,7 @@ class Tensor:
 
     def __ipow__(self, power):
         self._check_inplace()
-        if isinstance(power, Number):
-            result = Tensor(self.data ** power, dtype=self.dtype, requires_grad=self.requires_grad)
-        else:
-            result = Tensor(self.data ** power.data, dtype=self.dtype,
-                            requires_grad=self.requires_grad or power.requires_grad)
-        if self.grad_enable:
-            result.children = [(self, None), (power, None)]
-            result.grad_fn = PowerBackward()
-        return result
+        return self.__pow__(power)
 
     def max(self, axis=None, keepdims=False):
         values = Tensor(np.max(self.data, axis=axis, keepdims=keepdims), dtype=self.dtype,
@@ -488,6 +439,13 @@ class Tensor:
         slices = [slice(None)] * self.ndim
         slices[axis] = index
         return self[tuple(slices)]
+
+    def diagonal(self, k=0):
+        result = Tensor(np.diag(self.data, k=k), dtype=self.dtype, requires_grad=self.requires_grad)
+        if result.grad_enable:
+            result.children = [(self, k)]
+            result.grad_fn = DiagBackward()
+        return result
 
     def abs_(self):
         self._check_inplace()
@@ -935,6 +893,14 @@ class Tensor:
             result.grad_fn = NormBackward()
         return result
 
+    def trace(self):
+        assert self.ndim == 2, f"ndim must be 2, got {self.ndim}"
+        result = Tensor(np.trace(self.data), dtype=self.dtype, requires_grad=self.requires_grad)
+        if result.grad_enable:
+            result.children = [(self, None)]
+            result.grad_fn = TraceBackward()
+        return result
+
     def outer(self, other):
         """
         向量外积
@@ -963,6 +929,10 @@ class Tensor:
             result.grad_fn = MmBackward()
         return result
 
+    def __imatmul__(self, other):
+        self._check_inplace()
+        return self.__matmul__(other)
+
     def backward(self, grad=1.0, is_last=True):
         if self.is_leaf or not self.grad_enable:
             return
@@ -986,5 +956,6 @@ class Tensor:
     sub = __sub__
     mul = __mul__
     div = __truediv__
+    neg = __neg__
     pow = __pow__
     matmul = __matmul__

@@ -75,15 +75,12 @@ def one_hot(n, x: Tensor):
 
 def linear(x: Tensor, w: Tensor, b: Tensor = None):
     """
-    线性层
-    @param x: 输入的张量
-    @param w: 权重矩阵
-    @param b: 偏置项
+    线性变换
     """
-    output = x @ w.T
+    x @= w.T
     if b is not None:
-        output = output + b
-    return output
+        x += b
+    return x
 
 
 def dropout(x: Tensor, p=0.5, training=True):
@@ -94,7 +91,9 @@ def dropout(x: Tensor, p=0.5, training=True):
     @param training: 是否处于训练模式
     """
     assert 0. <= p <= 1., f'dropout probability has to be between 0 and 1, but got {p}'
-    y = x / (1 - p) * (random.rand_like(x) > p).float() if training else x
+    if not training:
+        return x
+    y = x / (1 - p) * (random.rand_like(x) > p).float()
     return y
 
 
@@ -107,7 +106,9 @@ def dropout2d(x: Tensor, p=0.5, training=True):
     """
     assert x.ndim == 4, 'x must be 4 dimensional'
     assert 0. <= p <= 1., f'dropout probability has to be between 0 and 1, but got {p}'
-    y = x / (1 - p) * (random.rand((1, x.shape[1], 1, 1)) > p).float() if training else x
+    if not training:
+        return x
+    y = x / (1. - p) * (random.rand((1, x.shape[1], 1, 1)) > p).float()
     return y
 
 
@@ -230,7 +231,7 @@ def mse_loss(x: Tensor, target: Tensor):
     """
     if x.shape != target.shape:
         raise RuntimeError(f"shape of x '{x.shape}' not equals to shape of target {target.size}")
-    return ((x - target) ** 2).mean()
+    return ((x - target) ** 2.).mean()
 
 
 def nll_loss(x: Tensor, target: Tensor):

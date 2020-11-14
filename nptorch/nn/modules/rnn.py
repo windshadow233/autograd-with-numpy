@@ -10,6 +10,16 @@ from .module import Module
 class RNNBase(Module):
     def __init__(self, input_size, hidden_size, num_layers=1, use_bias=True, activation='tanh',
                  batch_first=False, dropout=0.):
+        """
+        RNN,输入数据形状默认为(L,B,D)
+        @param input_size: 输入节点数量,即 'D'
+        @param hidden_size: 隐藏层的节点数量
+        @param num_layers: RNN层数,默认是1
+        @param use_bias: 使用偏置
+        @param activation: 激活函数,支持 'tanh' 与 'relu'
+        @param batch_first: 若输入形状为(B,L,D),则将此项置为True
+        @param dropout: 隐藏层节点的dropout率,默认为0
+        """
         super(RNNBase, self).__init__()
         self.input_size = input_size
         self.hidden_size = hidden_size
@@ -34,34 +44,27 @@ class RNNBase(Module):
 
     def _init_params(self):
         k = 1. / np.sqrt(self.hidden_size)
-        num_params = {'RNN': 1, 'LSTM': 4}.get(self.__class__.__name__)
+        gate_size = {'RNN': 1, 'LSTM': 4}.get(self.__class__.__name__) * self.hidden_size
         for i in range(self.num_layers):
-            ih_out_size = self.input_size if i == 0 else self.hidden_size
+            ih_input_size = self.input_size if i == 0 else self.hidden_size
             self.__setattr__(f'weight_ih_l{i}',
-                             Parameter(uniform((num_params * self.hidden_size, ih_out_size), low=-k, high=k)))
+                             Parameter(uniform((gate_size, ih_input_size), low=-k, high=k)))
             self.__setattr__(f'weight_hh_l{i}',
-                             Parameter(uniform((num_params * self.hidden_size, self.hidden_size), low=-k, high=k)))
+                             Parameter(uniform((gate_size, self.hidden_size), low=-k, high=k)))
             if self.use_bias:
-                self.__setattr__(f'bias_ih_l{i}', Parameter(zeros(num_params * self.hidden_size)))
-                self.__setattr__(f'bias_hh_l{i}', Parameter(zeros(num_params * self.hidden_size)))
+                self.__setattr__(f'bias_ih_l{i}', Parameter(zeros(gate_size)))
+                self.__setattr__(f'bias_hh_l{i}', Parameter(zeros(gate_size)))
 
     def forward(self, *args):
         raise NotImplementedError
 
 
 class RNN(RNNBase):
+    """
+    Simple RNN
+    """
     def __init__(self, input_size, hidden_size, num_layers=1, use_bias=True, activation='tanh',
                  batch_first=False, dropout=0.):
-        """
-        Simple RNN,输入数据形状默认为(L,B,D)
-        @param input_size: 输入节点数量,即 'D'
-        @param hidden_size: 隐藏层的节点数量
-        @param num_layers: RNN层数,默认是1
-        @param use_bias: 使用偏置
-        @param activation: 激活函数,支持 'tanh' 与 'relu'
-        @param batch_first: 若输入形状为(B,L,D),则将此项置为True
-        @param dropout: 隐藏层节点的dropout率,默认为0
-        """
         super(RNN, self).__init__(input_size, hidden_size, num_layers, use_bias, activation, batch_first, dropout)
 
     def forward(self, x: Tensor, hidden: Tensor = None):
@@ -78,7 +81,7 @@ class RNN(RNNBase):
             for i in range(self.num_layers):
                 weight_ih = self.__getattribute__(f'weight_ih_l{i}')
                 weight_hh = self.__getattribute__(f'weight_hh_l{i}')
-                hidden = hidden.matmul(weight_ih.T)
+                hidden @= weight_ih.T
                 hidden += hiddens[i].matmul(weight_hh.T)
                 if self.use_bias:
                     hidden += self.__getattribute__(f'bias_ih_l{i}')
@@ -96,6 +99,9 @@ class RNN(RNNBase):
 
 
 class LSTM(RNNBase):
+    """
+    Long Short-Term Memory
+    """
     def __init__(self, input_size, hidden_size, num_layers=1, use_bias=True, activation='tanh',
                  batch_first=False, dropout=0.):
         super(LSTM, self).__init__(input_size, hidden_size, num_layers, use_bias, activation, batch_first, dropout)
@@ -117,7 +123,7 @@ class LSTM(RNNBase):
             for i in range(self.num_layers):
                 weight_ih = self.__getattribute__(f'weight_ih_l{i}')
                 weight_hh = self.__getattribute__(f'weight_hh_l{i}')
-                hidden = hidden.matmul(weight_ih.T)
+                hidden @= weight_ih.T
                 hidden += hiddens[i].matmul(weight_hh.T)
                 if self.use_bias:
                     hidden += self.__getattribute__(f'bias_ih_l{i}')

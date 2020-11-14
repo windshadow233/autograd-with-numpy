@@ -17,15 +17,13 @@ def get_tile_dims(a: np.ndarray, b: np.ndarray):
     if a.shape == b.shape:
         return (), ()
     try:
-        a + b
+        a1, b1 = np.broadcast_arrays(a, b)
     except ValueError as e:
         raise e
     shape_a = np.array(a.shape)
     shape_b = np.array(b.shape)
-    tile_a = shape_b // shape_a
-    tile_b = shape_a // shape_b
-    tile_a += (tile_a == 0)
-    tile_b += (tile_b == 0)
-    tile_a = np.where(tile_a != 1)[0]
-    tile_b = np.where(tile_b != 1)[0]
+    shape_a1 = np.array(a1.shape)
+    shape_b1 = np.array(b1.shape)
+    tile_a = np.where(shape_a != shape_a1)[0]
+    tile_b = np.where(shape_b != shape_b1)[0]
     return tuple(tile_a), tuple(tile_b)
