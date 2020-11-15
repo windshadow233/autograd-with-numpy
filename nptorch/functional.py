@@ -334,5 +334,10 @@ def clamp_(x: Tensor, min=math.inf, max=math.inf):
     return x
 
 
-def where(condition):
-    return Tensor(np.where(condition))
+def where(condition, x: Tensor = None, y: Tensor = None):
+    if x is None and y is None:
+        return Tensor(np.where(condition))
+    if x is not None and y is not None:
+        return x.where(condition, y)
+    raise ValueError("arguments 'x' and 'y' must be both set or both not set.")
+

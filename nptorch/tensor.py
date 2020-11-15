@@ -954,6 +954,20 @@ class Tensor:
             self.grad_fn = ClampBackward()
         self.data = y
 
+    def where(self, condition, y):
+        assert isinstance(y, Tensor), f"arguments 'y' must be Tensor, got {type(y)}"
+        assert self.dtype == y.dtype, f"expected scalar type {self.dtype}, got {y.dtype}"
+        if isinstance(condition, Tensor):
+            condition = condition.data
+        if not isinstance(condition, np.ndarray):
+            condition = np.array(condition)
+        result = Tensor(np.where(condition, self.data, y.data), dtype=self.dtype,
+                        requires_grad=self.requires_grad or y.requires_grad)
+        if result.grad_enable:
+            result.children = [(self, condition.astype(float32)), (y, 1. - condition.astype(float32))]
+            result.grad_fn = WhereBackward()
+        return result
+
     def backward(self, grad=1.0, is_last=True):
         if self.is_leaf or not self.grad_enable:
             return

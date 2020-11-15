@@ -1,5 +1,6 @@
 import math
 import numpy as np
+from numbers import Number
 from itertools import product
 from .broadcast import get_tile_dims
 from ..nn.conv_operations import padding_zeros, unwrap_padding, dilate, erode, reverse_conv2d, as_strided
@@ -73,7 +74,7 @@ class AddBackward(BackwardFcn):
         x = children[place][0].data
         a = children[1 - place][0]
         grad = np.ones_like(x) * grad
-        if isinstance(a, (int, float)) or x.shape == a.shape:
+        if isinstance(a, Number) or x.shape == a.shape:
             return grad
         a = a.data
         x_tiles, _ = get_tile_dims(x, a)
@@ -98,7 +99,7 @@ class SubBackward(BackwardFcn):
         x = children[place][0].data
         a = children[1 - place][0]
         grad = (-2. * place + 1.) * np.ones_like(x) * grad
-        if isinstance(a, (int, float)) or x.shape == a.shape:
+        if isinstance(a, Number) or x.shape == a.shape:
             return grad
         a = a.data
         x_tiles, _ = get_tile_dims(x, a)
@@ -114,7 +115,7 @@ class MulBackward(BackwardFcn):
     def calculate_grad(self, grad, children, place):
         x = children[place][0].data
         a = children[1 - place][0]
-        if isinstance(a, (int, float)):
+        if isinstance(a, Number):
             return a * np.ones_like(x) * grad
         a = a.data
         grad = a * grad
@@ -134,7 +135,7 @@ class DivBackward(BackwardFcn):
         x = children[place][0].data
         a = children[1 - place][0]
         if place == 0:
-            if isinstance(a, (int, float)):
+            if isinstance(a, Number):
                 return np.ones_like(x) * grad / a
             a = a.data
             grad = grad / a
@@ -144,7 +145,7 @@ class DivBackward(BackwardFcn):
             if x_tiles:
                 grad = np.array(grad.sum(x_tiles))
             return grad.reshape(x.shape)
-        if isinstance(a, (int, float)):
+        if isinstance(a, Number):
             return -a / x ** 2. * grad
         a = a.data
         grad = -a / x ** 2. * grad
@@ -172,7 +173,7 @@ class RemainderBackward(BackwardFcn):
         x = children[0][0].data
         a = children[1][0]
         grad = np.ones_like(x) * grad
-        if isinstance(a, (int, float)) or x.shape == a.shape:
+        if isinstance(a, Number) or x.shape == a.shape:
             return grad
         a = a.data
         x_tiles, _ = get_tile_dims(x, a)
@@ -189,18 +190,18 @@ class PowerBackward(BackwardFcn):
         x = children[place][0].data.astype(float)
         a = children[1 - place][0]
         if place == 0:
-            if isinstance(a, (int, float)):
-                grad = a * np.power(x, a - 1) * grad
+            if isinstance(a, Number):
+                grad = a * np.power(x, a - 1.) * grad
                 return grad
             a = a.data.astype(float)
-            grad = a * np.power(x, a - 1) * grad
+            grad = a * np.power(x, a - 1.) * grad
             if x.shape == a.shape:
                 return grad
             x_tile, _ = get_tile_dims(x, a)
             if x_tile:
                 grad = grad.sum(x_tile)
             return grad.reshape(x.shape)
-        if isinstance(a, (int, float)):
+        if isinstance(a, Number):
             grad = children[1][1] * math.log(a) * grad
             return grad
         a = a.data.astype(float)
@@ -818,3 +819,15 @@ class ClampBackward(BackwardFcn):
         indices = np.where((data < min) | (data > max))
         grad[indices] = 0.
         return grad
+
+
+class WhereBackward(BackwardFcn):
+    def __init__(self):
+        super(WhereBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        x, condition = children[place]
+        x_tiles, _ = get_tile_dims(x.data, grad)
+        grad, condition = np.broadcast_arrays(grad, condition)
+        grad = (grad * condition.astype(np.float32)).sum(x_tiles)
+        return grad.reshape(x.shape)
