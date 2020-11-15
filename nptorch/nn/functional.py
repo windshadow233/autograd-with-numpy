@@ -93,7 +93,7 @@ def dropout(x: Tensor, p=0.5, training=True):
     assert 0. <= p <= 1., f'dropout probability has to be between 0 and 1, but got {p}'
     if not training:
         return x
-    y = x / (1 - p) * (random.rand_like(x) > p).float()
+    y = x / (1. - p) * (random.rand_like(x) > p).float()
     return y
 
 
@@ -108,7 +108,7 @@ def dropout2d(x: Tensor, p=0.5, training=True):
     assert 0. <= p <= 1., f'dropout probability has to be between 0 and 1, but got {p}'
     if not training:
         return x
-    y = x / (1. - p) * (random.rand((1, x.shape[1], 1, 1)) > p).float()
+    y = x / (1. - p) * (random.rand(1, x.shape[1], 1, 1) > p).float()
     return y
 
 
@@ -257,6 +257,4 @@ def pairwise_distance(x1: Tensor, x2: Tensor, p=2., keepdims=False, eps=1e-12):
 
 
 def cosine_similarity(x1: Tensor, x2: Tensor, axis=1, eps=1e-12):
-    if not isinstance(axis, int):
-        raise TypeError(f"argument 'axis' must be int. Got {type(axis)}")
     return (x1 * x2).sum(axes=axis) / (x1.norm(axis=axis, eps=eps) * x2.norm(axis=axis, eps=eps))

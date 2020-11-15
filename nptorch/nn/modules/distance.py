@@ -20,8 +20,6 @@ class PairwiseDistance(Module):
 class CosineSimilarity(Module):
     def __init__(self, axis=1, eps=1e-12):
         super(CosineSimilarity, self).__init__()
-        if not isinstance(axis, int):
-            raise TypeError(f"argument 'axis' must be int. Got {type(axis)}")
         self.axis = axis
         self.eps = eps
 

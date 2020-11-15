@@ -45,11 +45,11 @@ def arange(start, stop, step=1, dtype=int64, requires_grad=False):
     return Tensor(np.arange(start=start, stop=stop, step=step), dtype=dtype, requires_grad=requires_grad)
 
 
-def zeros(shape, dtype=float32, requires_grad=False):
+def zeros(*shape, dtype=float32, requires_grad=False):
     return Tensor(np.zeros(shape=shape), dtype=dtype, requires_grad=requires_grad)
 
 
-def ones(shape, dtype=float32, requires_grad=False):
+def ones(*shape, dtype=float32, requires_grad=False):
     return Tensor(np.ones(shape), dtype=dtype, requires_grad=requires_grad)
 
 
@@ -332,3 +332,7 @@ def clamp(x: Tensor, min=math.inf, max=math.inf):
 def clamp_(x: Tensor, min=math.inf, max=math.inf):
     x.clamp_(min=min, max=max)
     return x
+
+
+def where(condition):
+    return Tensor(np.where(condition))

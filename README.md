@@ -31,9 +31,9 @@ b = x.outer(y)
 
 # 随机函数调用,同样可以指定数据类型以及是否需要梯度
 # 0-1上的均匀分布
-x = nt.random.rand(size=(3, 4), dtype=nt.float32, requires_grad=True)
+x = nt.random.rand(3, 4, dtype=nt.float32, requires_grad=True)
 # 正态分布
-y = nt.random.normal(size=(3, 4), mean=0., std=1.)
+y = nt.random.normal(mean=0., std=1., size=(3, 4))
 ```
 ### 自动求导
 1. 定义float类型的张量时,可指定参数requires_grad=True来声明需要对此张量求梯度。

@@ -48,9 +48,9 @@ class RNNBase(Module):
         for i in range(self.num_layers):
             ih_input_size = self.input_size if i == 0 else self.hidden_size
             self.__setattr__(f'weight_ih_l{i}',
-                             Parameter(uniform((gate_size, ih_input_size), low=-k, high=k)))
+                             Parameter(uniform(low=-k, high=k, size=(gate_size, ih_input_size))))
             self.__setattr__(f'weight_hh_l{i}',
-                             Parameter(uniform((gate_size, self.hidden_size), low=-k, high=k)))
+                             Parameter(uniform(low=-k, high=k, size=(gate_size, self.hidden_size))))
             if self.use_bias:
                 self.__setattr__(f'bias_ih_l{i}', Parameter(zeros(gate_size)))
                 self.__setattr__(f'bias_hh_l{i}', Parameter(zeros(gate_size)))
@@ -74,7 +74,7 @@ class RNN(RNNBase):
         """
         if self.batch_first:
             x = x.swapaxes(0, 1)  # (B, L, D) => (L, B, D)
-        hiddens = [zeros(shape=(x.shape[1], self.hidden_size))] * self.num_layers if hidden is None else list(hidden)
+        hiddens = [zeros(x.shape[1], self.hidden_size)] * self.num_layers if hidden is None else list(hidden)
         output = []
         for t, xt in enumerate(x):
             hidden = xt
@@ -115,8 +115,8 @@ class LSTM(RNNBase):
         if self.batch_first:
             x = x.swapaxes(0, 1)  # (B, L, D) => (L, B, D)
         hidden, cache = initial
-        hiddens = [zeros(shape=(x.shape[1], self.hidden_size))] * self.num_layers if hidden is None else list(hidden)
-        caches = [zeros(shape=(x.shape[1], self.hidden_size))] * self.num_layers if cache is None else list(cache)
+        hiddens = [zeros(x.shape[1], self.hidden_size)] * self.num_layers if hidden is None else list(hidden)
+        caches = [zeros(x.shape[1], self.hidden_size)] * self.num_layers if cache is None else list(cache)
         output = []
         for t, xt in enumerate(x):
             hidden = xt

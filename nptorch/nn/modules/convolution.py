@@ -48,7 +48,7 @@ class Conv2d(_ConvNd):
         assert len(padding) == 2 and padding[0] >= 0 and padding[1] >= 0, f"Invalid padding value: {padding}"
         n = out_channels * self.kernel_size ** 2
         self.kernels = Parameter(
-            normal((out_channels, in_channels, self.kernel_size, self.kernel_size), mean=0., std=np.sqrt(2. / n)))
+            normal(mean=0., std=np.sqrt(2. / n), size=(out_channels, in_channels, self.kernel_size, self.kernel_size)))
         self.bias = Parameter(nptorch.zeros(out_channels)) if use_bias else None
 
     def forward(self, x: Tensor):

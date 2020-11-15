@@ -18,7 +18,7 @@ def pad_sequence(tensors: list, batch_first=False, padding_value=0):
     embed_dims = list(tensors[0].shape[1:])
     dtype = tensors[0].dtype
     result_shape = (B, max_length, *embed_dims) if batch_first else (max_length, B, *embed_dims)
-    result_tensor = nptorch.zeros(result_shape, dtype=dtype)
+    result_tensor = nptorch.zeros(*result_shape, dtype=dtype)
     result_tensor.fill_(padding_value)
     requires_grad = []
     for i, tensor in enumerate(tensors):

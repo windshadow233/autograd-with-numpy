@@ -917,7 +917,7 @@ class Tensor:
         """
         矩阵乘法,支持broadcast
         """
-        assert isinstance(other, Tensor), f"argument 'other' (position 1) must be Tensor, not {type(other)}"
+        assert isinstance(other, Tensor), f"argument 'other' must be Tensor, not {type(other)}"
         result = Tensor(self.data @ other.data, requires_grad=self.requires_grad or other.requires_grad)
         if not result.grad_enable:
             return result

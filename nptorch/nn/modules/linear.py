@@ -13,7 +13,7 @@ class Linear(Module):
         self.in_features = in_features
         self.out_features = out_features
         self.use_bias = use_bias
-        self.weight = Parameter(normal((out_features, in_features), mean=0., std=np.sqrt(2. / in_features)))
+        self.weight = Parameter(normal(mean=0., std=np.sqrt(2. / in_features), size=(out_features, in_features)))
         self.bias = Parameter(zeros(out_features)) if use_bias else None
 
     def extra_repr(self):
