@@ -13,13 +13,13 @@ def set_ndim_eq(a: np.ndarray, b: np.ndarray):
 
 
 def get_tile_dims(a: np.ndarray, b: np.ndarray):
-    a, b = set_ndim_eq(a, b)
-    if a.shape == b.shape:
-        return (), ()
     try:
         a + b
     except ValueError as e:
         raise e
+    a, b = set_ndim_eq(a, b)
+    if a.shape == b.shape:
+        return (), ()
     shape_a = np.array(a.shape)
     shape_b = np.array(b.shape)
     tile_a = shape_b // shape_a

@@ -828,6 +828,5 @@ class WhereBackward(BackwardFcn):
     def calculate_grad(self, grad, children, place):
         x, condition = children[place]
         x_tiles, _ = get_tile_dims(x.data, grad)
-        grad, condition = np.broadcast_arrays(grad, condition)
         grad = (grad * condition.astype(np.float32)).sum(x_tiles)
         return grad.reshape(x.shape)

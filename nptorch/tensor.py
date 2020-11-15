@@ -964,7 +964,7 @@ class Tensor:
         result = Tensor(np.where(condition, self.data, y.data), dtype=self.dtype,
                         requires_grad=self.requires_grad or y.requires_grad)
         if result.grad_enable:
-            result.children = [(self, condition.astype(float32)), (y, 1. - condition.astype(float32))]
+            result.children = [(self, condition.astype(float)), (y, 1. - condition.astype(float))]
             result.grad_fn = WhereBackward()
         return result
 
