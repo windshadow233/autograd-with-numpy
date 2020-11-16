@@ -326,8 +326,7 @@ class TransposeBackward(BackwardFcn):
     def calculate_grad(self, grad, children, place):
         axes = children[0][1]
         inverse_axes = np.arange(len(axes))[np.argsort(axes)]
-        result = grad.transpose(inverse_axes)
-        return result
+        return grad.transpose(inverse_axes)
 
 
 class SwapaxesBackward(BackwardFcn):
@@ -557,7 +556,7 @@ class NLLLossBackward(BackwardFcn):
         super(NLLLossBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
-        return - grad * children[0][1].data
+        return - grad * children[0][1]
 
 
 class FloorBackward(BackwardFcn):
@@ -806,7 +805,7 @@ class TraceBackward(BackwardFcn):
         super(TraceBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
-        return np.eye(*children[0][0].shape)
+        return np.eye(*children[0][0].shape) * grad
 
 
 class ClampBackward(BackwardFcn):

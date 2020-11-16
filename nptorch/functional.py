@@ -13,16 +13,16 @@ def sub(x: Tensor, y: Tensor):
     return x - y
 
 
-def rsub(x: Tensor, y: Tensor):
-    return y - x
-
-
 def mul(x: Tensor, y: Tensor):
     return x * y
 
 
 def div(x: Tensor, y: Tensor):
     return x / y
+
+
+def mod(x: Tensor, y: Tensor):
+    return x % y
 
 
 def neg(x: Tensor):

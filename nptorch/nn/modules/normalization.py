@@ -38,7 +38,7 @@ class _BatchNormNd(Module):
     def _check_dim(self, x: Tensor):
         raise NotImplementedError
 
-    def forward(self, x: Tensor):
+    def forward(self, x: Tensor) -> Tensor:
         self._check_dim(x)
         axis = (0, -1, -2)[:x.ndim - 1]
         if self.training:

@@ -2,7 +2,8 @@ import numpy as np
 from ..tensor import Tensor, float32
 from .. import random
 from ..autograd.backward import CrossEntropyBackward, Conv2dBackward, MeanPool2dBackward, MaxPool2dBackward,\
-    LeakyReLUBackward, ELUBackward, BatchNormBackward, MeanPool1dBackward, MaxPool1dBackward, NLLLossBackward
+    LeakyReLUBackward, ELUBackward, BatchNormBackward, MeanPool1dBackward, MaxPool1dBackward, NLLLossBackward,\
+    BCEBackward
 from .conv_operations import split_by_strides, padding_zeros, dilate
 
 
@@ -75,7 +76,7 @@ def one_hot(n, x: Tensor):
 
 def linear(x: Tensor, w: Tensor, b: Tensor = None):
     """
-    线性变换
+    线性变换, y = x w^T + b
     """
     x @= w.T
     if b is not None:
@@ -247,7 +248,7 @@ def nll_loss(x: Tensor, target: Tensor):
     one_hot_target = one_hot(x.shape[-1], target)
     loss = - (one_hot_target * x).sum() / n
     if x.grad_enable:
-        loss.children = [(x, one_hot_target / n)]
+        loss.children = [(x, one_hot_target.data / n)]
         loss.grad_fn = NLLLossBackward()
     return loss
 

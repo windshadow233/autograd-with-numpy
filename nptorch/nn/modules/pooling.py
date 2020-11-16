@@ -12,7 +12,7 @@ class _PoolNd(Module):
     def extra_repr(self):
         return f'kernel_size={self.kernel_size}, stride={self.stride}'
 
-    def forward(self, *args):
+    def forward(self, *args) -> Tensor:
         raise NotImplementedError
 
 
@@ -22,7 +22,7 @@ class MeanPool2d(_PoolNd):
         if not isinstance(self.stride, tuple):
             self.stride = (self.stride, self.stride)
 
-    def forward(self, x: Tensor):
+    def forward(self, x: Tensor) -> Tensor:
         return F.mean_pool2d(x, self.kernel_size, self.stride)
 
 
@@ -32,7 +32,7 @@ class MaxPool2d(_PoolNd):
         if not isinstance(self.stride, tuple):
             self.stride = (self.stride, self.stride)
 
-    def forward(self, x: Tensor):
+    def forward(self, x: Tensor) -> Tensor:
         return F.max_pool2d(x, self.kernel_size, self.stride)
 
 
@@ -40,7 +40,7 @@ class MeanPool1d(_PoolNd):
     def __init__(self, kernel_size, stride=None):
         super(MeanPool1d, self).__init__(kernel_size, stride)
 
-    def forward(self, x: Tensor):
+    def forward(self, x: Tensor) -> Tensor:
         return F.mean_pool1d(x, self.kernel_size, self.stride)
 
 
@@ -48,5 +48,5 @@ class MaxPool1d(_PoolNd):
     def __init__(self, kernel_size, stride=None):
         super(MaxPool1d, self).__init__(kernel_size, stride)
 
-    def forward(self, x: Tensor):
+    def forward(self, x: Tensor) -> Tensor:
         return F.max_pool1d(x, self.kernel_size, self.stride)

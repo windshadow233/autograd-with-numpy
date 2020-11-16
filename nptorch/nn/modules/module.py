@@ -1,4 +1,5 @@
 import pickle
+from nptorch.tensor import Tensor
 from ..parameter import Parameter, Parameters
 
 
@@ -32,7 +33,7 @@ class Module(object):
         s += ')'
         return s
 
-    def __call__(self, *args):
+    def __call__(self, *args) -> Tensor:
         return self.forward(*args)
 
     def extra_repr(self):
@@ -68,6 +69,6 @@ class Module(object):
         with open(file_name, 'wb') as f:
             pickle.dump(self, f)
 
-    def forward(self, *args):
+    def forward(self, *args) -> Tensor:
         raise NotImplementedError
 

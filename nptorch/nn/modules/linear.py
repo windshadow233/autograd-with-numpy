@@ -7,6 +7,14 @@ from nptorch.functional import zeros
 from .. import functional as F
 
 
+class Identity(Module):
+    def __init__(self):
+        super(Identity, self).__init__()
+
+    def forward(self, x: Tensor) -> Tensor:
+        return x
+
+
 class Linear(Module):
     def __init__(self, in_features, out_features, use_bias=True):
         super(Linear, self).__init__()
@@ -19,5 +27,5 @@ class Linear(Module):
     def extra_repr(self):
         return f'in_features={self.in_features}, out_features={self.out_features}, use_bias={self.use_bias}'
 
-    def forward(self, x: Tensor):
+    def forward(self, x: Tensor) -> Tensor:
         return F.linear(x, self.weight, self.bias)

@@ -12,7 +12,7 @@ class _DropoutNd(Module):
     def extra_repr(self):
         return f'p={self.p}'
 
-    def forward(self, *args):
+    def forward(self, *args) -> Tensor:
         raise NotImplementedError
 
 
@@ -20,7 +20,7 @@ class Dropout(_DropoutNd):
     def __init__(self, p=0.5):
         super(Dropout, self).__init__(p=p)
 
-    def forward(self, x: Tensor):
+    def forward(self, x: Tensor) -> Tensor:
         return F.dropout(x, self.p, self.training)
 
 
@@ -28,6 +28,6 @@ class Dropout2d(_DropoutNd):
     def __init__(self, p=0.5):
         super(Dropout2d, self).__init__(p=p)
 
-    def forward(self, x: Tensor):
+    def forward(self, x: Tensor) -> Tensor:
         return F.dropout2d(x, self.p, self.training)
 

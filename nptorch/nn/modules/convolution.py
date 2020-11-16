@@ -22,7 +22,7 @@ class _ConvNd(Module):
         return f'{self.in_channels}, {self.out_channels}, kernel_size={self.kernel_size},' \
                f' stride={self.stride}, \npadding={self.padding}, dilation={self.dilation}, use_bias={self.use_bias}'
 
-    def forward(self, *args):
+    def forward(self, *args) -> Tensor:
         raise NotImplementedError
 
 
@@ -51,5 +51,5 @@ class Conv2d(_ConvNd):
             normal(mean=0., std=np.sqrt(2. / n), size=(out_channels, in_channels, self.kernel_size, self.kernel_size)))
         self.bias = Parameter(nptorch.zeros(out_channels)) if use_bias else None
 
-    def forward(self, x: Tensor):
+    def forward(self, x: Tensor) -> Tensor:
         return F.conv2d(x, self.kernels, self.bias, stride=self.stride, padding=self.padding, dilation=self.dilation)

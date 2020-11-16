@@ -13,7 +13,7 @@ class PairwiseDistance(Module):
     def extra_repr(self):
         return f'p={self.p}'
 
-    def forward(self, x1: Tensor, x2: Tensor):
+    def forward(self, x1: Tensor, x2: Tensor) -> Tensor:
         return F.pairwise_distance(x1, x2, p=self.p, keepdims=self.keepdims, eps=self.eps)
 
 
@@ -26,5 +26,5 @@ class CosineSimilarity(Module):
     def extra_repr(self):
         return f'axis={self.axis}'
 
-    def forward(self, x1: Tensor, x2: Tensor):
+    def forward(self, x1: Tensor, x2: Tensor) -> Tensor:
         return F.cosine_similarity(x1, x2, axis=self.axis, eps=self.eps)

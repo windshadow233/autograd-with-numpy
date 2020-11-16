@@ -6,3 +6,9 @@ from .autograd import no_grad
 from .tensor import Tensor, array, float16, float32, float64, int8, int16, int32, int64, \
     bool_, uint8, uint16, uint32, uint64
 from . import nn, utils, optim, random, transforms
+half = float16
+float = float32
+double = float64
+short = int16
+int = int32
+long = int64

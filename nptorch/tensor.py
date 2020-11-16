@@ -991,6 +991,7 @@ class Tensor:
     sub = __sub__
     mul = __mul__
     div = __truediv__
+    mod = __mod__
     neg = __neg__
     pow = __pow__
     matmul = __matmul__

@@ -67,7 +67,7 @@ class RNN(RNNBase):
                  batch_first=False, dropout=0.):
         super(RNN, self).__init__(input_size, hidden_size, num_layers, use_bias, activation, batch_first, dropout)
 
-    def forward(self, x: Tensor, hidden: Tensor = None):
+    def forward(self, x: Tensor, hidden: Tensor = None) -> (Tensor, Tensor):
         """
         @param x: (L, B, D)
         @param hidden: (num_layers, B, hidden_size) initial hidden value, default None
@@ -106,7 +106,7 @@ class LSTM(RNNBase):
                  batch_first=False, dropout=0.):
         super(LSTM, self).__init__(input_size, hidden_size, num_layers, use_bias, activation, batch_first, dropout)
 
-    def forward(self, x: Tensor, initial=(None, None)):
+    def forward(self, x: Tensor, initial=(None, None)) -> (Tensor, (Tensor, Tensor)):
         """
         @param x: (L, B, D)
         @param initial: Tuple (hidden, cache) initial hidden and cache value, default (None, None)
