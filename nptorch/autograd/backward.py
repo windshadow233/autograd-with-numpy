@@ -266,7 +266,7 @@ class MeanBackward(BackwardFcn):
         x, axis, keepdims = children[0]
         x = x.data
         if axis is None:
-            return grad / x.size
+            return grad * np.ones_like(x) / x.size
         if not keepdims:
             grad = np.expand_dims(grad, axis)
         tiles = np.ones_like(np.array(x.shape))
