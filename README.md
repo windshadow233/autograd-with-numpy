@@ -122,6 +122,8 @@ cnn = CNN()
 optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
 ## 更新日志
+### 2020/11/18
+* 训练了一个孪生神经网络模型,在LFW测试集上达到了100%准确率。
 ### 2020/11/17
 * 增加了DatasetFolder与ImageFolder类,用以读取数据文件。
 ### 2020/11/13
