@@ -148,7 +148,7 @@ class Tensor:
         return self._retain
 
     def _check_inplace(self):
-        assert not (self.is_leaf and self.requires_grad), \
+        assert not (self.grad_enable and self.is_leaf), \
             'a leaf Variable that requires grad has been used in an in-place operation.'
 
     def _check_type(self, operation, excludes=('uint8', 'uint16', 'uint32', 'uint64',

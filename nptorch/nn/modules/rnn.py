@@ -128,10 +128,10 @@ class LSTM(RNNBase):
                 if self.use_bias:
                     hidden += self.__getattribute__(f'bias_ih_l{i}')
                     hidden += self.__getattribute__(f'bias_hh_l{i}')
-                it = hidden[:, : 4].sigmoid()
-                ft = hidden[:, 4: 8].sigmoid()
-                gt = self.activation_fcn(hidden[:, 8: 12])
-                ot = hidden[:, 12: 16].sigmoid()
+                it = hidden[:, : self.hidden_size].sigmoid()
+                ft = hidden[:, self.hidden_size: self.hidden_size * 2].sigmoid()
+                gt = self.activation_fcn(hidden[:, self.hidden_size * 2: self.hidden_size * 3])
+                ot = hidden[:, self.hidden_size * 3: self.hidden_size * 4].sigmoid()
                 ct = ft * caches[i] + it * gt
                 hidden = ot * self.activation_fcn(ct)
                 caches[i] = ct

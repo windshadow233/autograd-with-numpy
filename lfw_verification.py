@@ -87,10 +87,10 @@ class ContrastiveLoss(nn.Module):
 def test_model(model, test_loader: DataLoader):
     model.eval()
     count = 0
-    for img1, img2, lb in tqdm(test_loader):
+    for img1, img2, lb in test_loader:
         out1, out2 = model(img1, img2)
         dist = F.pairwise_distance(out1, out2)
-        p = (F.pairwise_distance(out1, out2) < 1).int()
+        p = (dist < 1).int()
         count += (p == lb).float().sum()
     return count.item() / len(test_loader.dataset)
 
@@ -101,21 +101,22 @@ loss_fcn = ContrastiveLoss()
 optimizer = SGD(siamese_net.parameters(), lr=1e-2)
 for i in tqdm(range(5)):
     count = 0
-    for train_set in range(1, 11):
+    for train_set in tqdm(range(1, 11)):
         train_path = train_root + f'\\0{train_set}'
         dataset = LFWDataset(train_path, trans)
         dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
         for img1, img2, lb in dataloader:
             count += len(lb)
             print(count)
-            print(lb)
             siamese_net.train()
             out1, out2 = siamese_net(img1, img2)
             loss = loss_fcn(out1, out2, lb)
+            print('loss:', loss)
             loss.backward()
             optimizer.step()
             siamese_net.eval()
-            out1, out2 = siamese_net(img1, img2)
-            pred = (F.pairwise_distance(out1, out2) < 1).int()
-            print('优化后准确率:', (pred == lb).float().mean().item())
+            with nptorch.no_grad():
+                out1, out2 = siamese_net(img1, img2)
+                pred = (F.pairwise_distance(out1, out2) < 1).int()
+                print('优化后准确率:', (pred == lb).float().mean().item())
             optimizer.zero_grad()
