@@ -64,7 +64,7 @@ class Tensor:
         result = Tensor(self.data[item], dtype=self.dtype, requires_grad=self.requires_grad)
         if result.grad_enable:
             result.children = [(self, item)]
-            if isinstance(item, list) or any([isinstance(index, (tuple, list)) and len(index) > 1 for index in item]):
+            if isinstance(item, list) or (isinstance(item, tuple) and any([isinstance(index, (tuple, list)) and len(index) > 1 for index in item])):
                 result.grad_fn = IndexBackward()
             else:
                 result.grad_fn = SliceBackward()

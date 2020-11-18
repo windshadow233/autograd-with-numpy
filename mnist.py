@@ -89,10 +89,9 @@ loss_fcn = nn.CrossEntropyLoss()
 
 for i in tqdm(range(5)):
     count = 0
-    for n, (d, lb) in enumerate(train_loader, 1):
+    for d, lb in train_loader:
         model.train()
         count += len(d)
-        print(n)
         print(count)
         print('标签:', lb)
         y_hat = model(d)
@@ -100,10 +99,11 @@ for i in tqdm(range(5)):
         loss.backward()
         optimizer.step()
         model.eval()
-        p = model(d).argmax(-1)
-        print('优化后预测:', p)
+        with nptorch.no_grad():
+            p = model(d).argmax(-1)
+            print('优化后预测:', p)
+            print(f'优化后的准确比率:{(p == lb).float().sum().item() / len(d)}')
         optimizer.zero_grad()
-        print(f'优化后的准确比率:{(p == lb).float().sum().item() / len(d)}')
 
 
 # with open('LeNet.pkl', 'rb') as f:

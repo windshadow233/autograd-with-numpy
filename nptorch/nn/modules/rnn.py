@@ -44,7 +44,7 @@ class RNNBase(Module):
 
     def _init_params(self):
         k = 1. / np.sqrt(self.hidden_size)
-        gate_size = {'RNN': 1, 'LSTM': 4}.get(self.__class__.__name__) * self.hidden_size
+        gate_size = {'RNN': 1, 'LSTM': 4, 'GRU': 3}.get(self.__class__.__name__) * self.hidden_size
         for i in range(self.num_layers):
             ih_input_size = self.input_size if i == 0 else self.hidden_size
             self.__setattr__(f'weight_ih_l{i}',
@@ -146,3 +146,46 @@ class LSTM(RNNBase):
             output = output.swapaxes(0, 1)
         return output, (hidden, cache)
 
+
+class GRU(RNNBase):
+    def __init__(self, input_size, hidden_size, num_layers=1, use_bias=True, activation='tanh',
+                 batch_first=False, dropout=0.):
+        super(GRU, self).__init__(input_size, hidden_size, num_layers, use_bias, activation, batch_first, dropout)
+
+    def forward(self, x: Tensor, hidden: Tensor = None) -> (Tensor, Tensor):
+        """
+        @param x: (L, B, D)
+        @param hidden: (num_layers, B, hidden_size) initial hidden value, default None
+        """
+        if self.batch_first:
+            x = x.swapaxes(0, 1)  # (B, L, D) => (L, B, D)
+        hiddens = [zeros(x.shape[1], self.hidden_size)] * self.num_layers if hidden is None else list(hidden)
+        output = []
+        for t, xt in enumerate(x):
+            hidden = xt
+            for i in range(self.num_layers):
+                weight_ih = self.__getattribute__(f'weight_ih_l{i}')
+                weight_hh = self.__getattribute__(f'weight_hh_l{i}')
+                rzt = hidden @ weight_ih[: 2 * self.hidden_size].T
+                rzt += hiddens[i] @ weight_hh[: 2 * self.hidden_size].T
+                if self.use_bias:
+                    rzt += self.__getattribute__(f'bias_ih_l{i}')[: 2 * self.hidden_size]
+                    rzt += self.__getattribute__(f'bias_hh_l{i}')[: 2 * self.hidden_size]
+                rzt = rzt.sigmoid()
+                rt, zt = rzt[:, : self.hidden_size], rzt[:, self.hidden_size: 2 * self.hidden_size]
+                nt = hidden @ weight_ih[2 * self.hidden_size:].T
+                reset_hidden = hiddens[i] @ weight_hh[2 * self.hidden_size:].T
+                if self.use_bias:
+                    nt += self.__getattribute__(f'bias_ih_l{i}')[2 * self.hidden_size:]
+                    reset_hidden += self.__getattribute__(f'bias_hh_l{i}')[2 * self.hidden_size:]
+                nt = self.activation_fcn(nt + rt * reset_hidden)
+                hidden = (1. - zt) * nt + zt * hiddens[i]
+                hiddens[i] = hidden
+                if self.dropout > 0. and i < self.num_layers - 1:
+                    hidden = F.dropout(hidden, self.dropout, self.training)
+            output.append(hidden)
+        output = stack(output)
+        hidden = stack(hiddens)
+        if self.batch_first:
+            output = output.swapaxes(0, 1)
+        return output, hidden
