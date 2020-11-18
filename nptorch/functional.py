@@ -344,3 +344,7 @@ def where(condition, x: Tensor = None, y: Tensor = None):
 
 def argwhere(condition):
     return Tensor(np.argwhere(condition))
+
+
+def split(x: Tensor, split_size, axis=0):
+    return x.split(split_size, axis)

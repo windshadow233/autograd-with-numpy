@@ -31,13 +31,48 @@ class Tensor:
         self._retain = False
 
     @property
+    def _retain_grad(self):
+        if self.is_leaf:
+            return True
+        return self._retain
+
+    @property
     def grad_enable(self):
         return self.requires_grad and grad_enable()
 
-    def __repr__(self):
-        return self.__str__()
+    @property
+    def is_leaf(self):
+        return not self.grad_fn and self.requires_grad
 
-    def __str__(self):
+    @property
+    def dtype(self):
+        return self.data.dtype
+
+    @property
+    def T(self):
+        result = Tensor(self.data.T, dtype=self.dtype, requires_grad=self.requires_grad)
+        if result.grad_enable:
+            result.grad_fn = TBackward()
+            result.children = [(self, None)]
+        return result
+
+    @property
+    def shape(self):
+        return self.data.shape
+
+    @property
+    def size(self):
+        return self.data.size
+
+    @property
+    def ndim(self):
+        return self.data.ndim
+
+    @property
+    def strides(self):
+        return self.data.strides
+
+    def __repr__(self):
         s = repr(self.data)[:-1]
         if 'dtype' not in s:
             s += f', dtype={self.data.dtype}'
@@ -108,44 +143,6 @@ class Tensor:
 
     def t(self):
         return self.T
-
-    @property
-    def dtype(self):
-        return self.data.dtype
-
-    @property
-    def T(self):
-        result = Tensor(self.data.T, dtype=self.dtype, requires_grad=self.requires_grad)
-        if result.grad_enable:
-            result.grad_fn = TBackward()
-            result.children = [(self, None)]
-        return result
-
-    @property
-    def shape(self):
-        return self.data.shape
-
-    @property
-    def is_leaf(self):
-        return not self.grad_fn and self.requires_grad
-
-    @property
-    def size(self):
-        return self.data.size
-
-    @property
-    def ndim(self):
-        return self.data.ndim
-
-    @property
-    def strides(self):
-        return self.data.strides
-
-    @property
-    def _retain_grad(self):
-        if self.is_leaf:
-            return True
-        return self._retain
 
     def _check_inplace(self):
         assert not (self.grad_enable and self.is_leaf), \
@@ -968,13 +965,29 @@ class Tensor:
             result.grad_fn = WhereBackward()
         return result
 
-    def backward(self, grad=1.0, is_last=True):
+    def split(self, split_size, axis=0):
+        tensors = [Tensor(x, dtype=self.dtype, requires_grad=self.requires_grad) for x in np.split(self.data, split_size, axis)]
+        if self.grad_enable:
+            for i, tensor in enumerate(tensors):
+                tensor.children = [(self, i, self.shape[axis] // split_size, axis)]
+                tensor.grad_fn = SplitBackward()
+        return tuple(tensors)
+
+    @property
+    def depth(self):
+        if self.is_leaf:
+            return 1
+        return 1 + max([child[0].depth for child in self.children
+                        if isinstance(child[0], Tensor) and child[0].requires_grad])
+
+    def backward(self, grad=None):
         if self.is_leaf or not self.grad_enable:
             return
-        if is_last:
+        if grad is None:
             assert self.size == 1, 'grad can be implicitly created only for scalar outputs'
+            grad = Tensor(np.ones_like(self.data))
             if self._retain_grad:
-                self.grad = Tensor(np.ones_like(self.data))
+                self.grad = grad
         if not isinstance(grad, Tensor):
             grad = Tensor(np.array(grad).reshape(self.shape))
         for i, child in enumerate(self.children):
@@ -985,7 +998,7 @@ class Tensor:
                     if child_tensor.grad is None:
                         child_tensor.grad = Tensor(np.zeros_like(child_tensor.data), dtype=child_tensor.dtype)
                     child_tensor.grad = child_tensor.grad + Tensor(child_grad, dtype=float32)
-                child_tensor.backward(child_grad, False)
+                child_tensor.backward(child_grad)
 
     add = __add__
     sub = __sub__

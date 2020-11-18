@@ -35,7 +35,8 @@ class _BatchNormNd(Module):
         return f'num_feature={self.num_features}, momentum={self.momentum}, affine={self.affine},' \
                f' track_running_stats={self.track_running_stats}'
 
-    def _check_dim(self, x: Tensor):
+    @staticmethod
+    def _check_dim(x: Tensor):
         raise NotImplementedError
 
     def forward(self, x: Tensor) -> Tensor:
@@ -62,7 +63,8 @@ class BatchNorm1d(_BatchNormNd):
     def __init__(self, num_features, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True):
         super(BatchNorm1d, self).__init__(num_features, eps, momentum, affine, track_running_stats)
 
-    def _check_dim(self, x: Tensor):
+    @staticmethod
+    def _check_dim(x: Tensor):
         assert x.ndim in {2, 3}, 'x must be 2 or 3 dimensional'
 
 
@@ -73,5 +75,6 @@ class BatchNorm2d(_BatchNormNd):
     def __init__(self, num_features, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True):
         super(BatchNorm2d, self).__init__(num_features, eps, momentum, affine, track_running_stats)
 
-    def _check_dim(self, x: Tensor):
+    @staticmethod
+    def _check_dim(x: Tensor):
         assert x.ndim == 4, 'x must be 4 dimensional'

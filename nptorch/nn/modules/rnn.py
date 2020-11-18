@@ -55,6 +55,10 @@ class RNNBase(Module):
                 self.__setattr__(f'bias_ih_l{i}', Parameter(zeros(gate_size)))
                 self.__setattr__(f'bias_hh_l{i}', Parameter(zeros(gate_size)))
 
+    @staticmethod
+    def _check_dim(x: Tensor):
+        assert x.ndim == 3, 'x must be 3 dimensional'
+
     def forward(self, *args):
         raise NotImplementedError
 
@@ -72,6 +76,7 @@ class RNN(RNNBase):
         @param x: (L, B, D)
         @param hidden: (num_layers, B, hidden_size) initial hidden value, default None
         """
+        self._check_dim(x)
         if self.batch_first:
             x = x.swapaxes(0, 1)  # (B, L, D) => (L, B, D)
         hiddens = [zeros(x.shape[1], self.hidden_size)] * self.num_layers if hidden is None else list(hidden)
@@ -82,7 +87,7 @@ class RNN(RNNBase):
                 weight_ih = self.__getattribute__(f'weight_ih_l{i}')
                 weight_hh = self.__getattribute__(f'weight_hh_l{i}')
                 hidden @= weight_ih.T
-                hidden += hiddens[i].matmul(weight_hh.T)
+                hidden += hiddens[i] @ weight_hh.T
                 if self.use_bias:
                     hidden += self.__getattribute__(f'bias_ih_l{i}')
                     hidden += self.__getattribute__(f'bias_hh_l{i}')
@@ -112,6 +117,7 @@ class LSTM(RNNBase):
         @param initial: Tuple (hidden, cache) initial hidden and cache value, default (None, None)
                 if given, shape of each one is like: (num_layers, B, hidden_size)
         """
+        self._check_dim(x)
         if self.batch_first:
             x = x.swapaxes(0, 1)  # (B, L, D) => (L, B, D)
         hidden, cache = initial
@@ -124,14 +130,15 @@ class LSTM(RNNBase):
                 weight_ih = self.__getattribute__(f'weight_ih_l{i}')
                 weight_hh = self.__getattribute__(f'weight_hh_l{i}')
                 hidden @= weight_ih.T
-                hidden += hiddens[i].matmul(weight_hh.T)
+                hidden += hiddens[i] @ weight_hh.T
                 if self.use_bias:
                     hidden += self.__getattribute__(f'bias_ih_l{i}')
                     hidden += self.__getattribute__(f'bias_hh_l{i}')
-                it = hidden[:, : self.hidden_size].sigmoid()
-                ft = hidden[:, self.hidden_size: self.hidden_size * 2].sigmoid()
+                ifot = hidden[:, list(range(2 * self.hidden_size)) + list(range(3 * self.hidden_size, 4 * self.hidden_size))].sigmoid()
+                it = ifot[:, : self.hidden_size]
+                ft = ifot[:, self.hidden_size: 2 * self.hidden_size]
                 gt = self.activation_fcn(hidden[:, self.hidden_size * 2: self.hidden_size * 3])
-                ot = hidden[:, self.hidden_size * 3: self.hidden_size * 4].sigmoid()
+                ot = ifot[:, 2 * self.hidden_size:]
                 ct = ft * caches[i] + it * gt
                 hidden = ot * self.activation_fcn(ct)
                 caches[i] = ct
@@ -157,6 +164,7 @@ class GRU(RNNBase):
         @param x: (L, B, D)
         @param hidden: (num_layers, B, hidden_size) initial hidden value, default None
         """
+        self._check_dim(x)
         if self.batch_first:
             x = x.swapaxes(0, 1)  # (B, L, D) => (L, B, D)
         hiddens = [zeros(x.shape[1], self.hidden_size)] * self.num_layers if hidden is None else list(hidden)

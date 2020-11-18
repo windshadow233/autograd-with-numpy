@@ -829,3 +829,16 @@ class WhereBackward(BackwardFcn):
         x_tiles, _ = get_tile_dims(x.data, grad)
         grad = (grad * condition.astype(np.float32)).sum(x_tiles)
         return grad.reshape(x.shape)
+
+
+class SplitBackward(BackwardFcn):
+    def __init__(self):
+        super(SplitBackward, self).__init__()
+
+    def calculate_grad(self, grad, children, place):
+        x, i, step, axis = children[0]
+        result = np.zeros_like(x)
+        slices = [slice(None)] * x.ndim
+        slices[axis] = slice(i * step, (i + 1) * step, 1)
+        result[tuple(slices)] = grad
+        return result
