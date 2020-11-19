@@ -1,4 +1,5 @@
 import pickle
+from collections import defaultdict, OrderedDict
 from nptorch.tensor import Tensor
 from ..parameter import Parameter, Parameters
 
@@ -68,6 +69,42 @@ class Module(object):
     def save_model(self, file_name):
         with open(file_name, 'wb') as f:
             pickle.dump(self, f)
+
+    def state_dict(self):
+        state_dict = OrderedDict({k: v for k, v in self.__dict__.items() if isinstance(v, Tensor)})
+        for name, module in self.named_children():
+            child_state_dict = module.state_dict()
+            state_dict.update(OrderedDict({f'{name}.{k}': v for k, v in child_state_dict.items()}))
+        return state_dict
+
+    def save_state_dict(self, state_dict_file_name):
+        state_dict = self.state_dict()
+        with open(state_dict_file_name, 'wb') as f:
+            pickle.dump(state_dict, f)
+
+    def load_state_dict(self, state_dict: OrderedDict or str):
+        """
+        载入参数
+        @param state_dict: 参数字典或字典文件路径
+        """
+        if isinstance(state_dict, str):
+            with open(state_dict, 'rb') as f:
+                state_dict = pickle.load(f)
+        if not state_dict:
+            return
+        child_state_dict = defaultdict(OrderedDict)
+        for key, value in state_dict.items():
+            if key.count('.') == 0:
+                if not hasattr(self, key):
+                    raise AttributeError(f'{self.__class__.__name__} object has no attribute `{key}`')
+                self.__setattr__(key, value)
+            else:
+                child_name, key = key.split('.', 1)
+                if not hasattr(self, child_name):
+                    raise AttributeError(f'{self.__class__.__name__} object has no attribute `{child_name}`')
+                child_state_dict[child_name][key] = value
+        for name, module in self.named_children():
+            module.load_state_dict(child_state_dict.get(name))
 
     def forward(self, *args) -> Tensor:
         raise NotImplementedError

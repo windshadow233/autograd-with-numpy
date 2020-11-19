@@ -51,10 +51,8 @@ class SiameseNet(nn.Module):
         )
         self.layer2 = nn.Sequential(
             nn.Linear(32 * 6 ** 2, 512),
-            # nn.BatchNorm1d(512),
             nn.ReLU(inplace=True),
             nn.Linear(512, 128),
-            # nn.BatchNorm1d(128),
             nn.ReLU(inplace=True),
             nn.Linear(128, 10)
         )
@@ -87,7 +85,7 @@ class ContrastiveLoss(nn.Module):
 def test_model(model, test_loader: DataLoader):
     model.eval()
     count = 0
-    for img1, img2, lb in test_loader:
+    for img1, img2, lb in tqdm(test_loader):
         out1, out2 = model(img1, img2)
         dist = F.pairwise_distance(out1, out2)
         p = (dist < 1).int()

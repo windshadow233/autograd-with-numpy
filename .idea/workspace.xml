@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="" />
+    <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeNet.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/LeNet.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lfw_verification.py" beforeDir="false" afterPath="$PROJECT_DIR$/lfw_verification.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/module.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/module.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/siamese_net.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/siamese_net.pkl" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -60,14 +67,11 @@
       <recent name="F:\pycharmProjects\my_deeplearning_frame\mnist" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunManager" selected="Python.lfw_verification">
     <configuration name="lfw_verification" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -87,9 +91,6 @@
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -109,6 +110,9 @@
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -131,9 +135,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test" />
-        <item itemvalue="Python.mnist" />
         <item itemvalue="Python.lfw_verification" />
+        <item itemvalue="Python.mnist" />
+        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
@@ -236,7 +240,8 @@
       <workItem from="1605510799442" duration="19777000" />
       <workItem from="1605582894762" duration="10704000" />
       <workItem from="1605664898374" duration="40768000" />
-      <workItem from="1605758133563" duration="10837000" />
+      <workItem from="1605758133563" duration="12211000" />
+      <workItem from="1605775606573" duration="6247000" />
     </task>
     <servers />
   </component>
@@ -291,38 +296,38 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1605710355058" />
-    <state width="1493" height="369" key="GridCell.Tab.0.bottom" timestamp="1605767942735">
+    <state width="1493" height="369" key="GridCell.Tab.0.bottom" timestamp="1605778904423">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="369" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1605767942735" />
-    <state width="1493" height="369" key="GridCell.Tab.0.center" timestamp="1605767942735">
+    <state width="1493" height="369" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1605778904423" />
+    <state width="1493" height="369" key="GridCell.Tab.0.center" timestamp="1605778904423">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="369" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1605767942735" />
-    <state width="1493" height="369" key="GridCell.Tab.0.left" timestamp="1605767942735">
+    <state width="1493" height="369" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1605778904423" />
+    <state width="1493" height="369" key="GridCell.Tab.0.left" timestamp="1605778904422">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="369" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1605767942735" />
-    <state width="1493" height="369" key="GridCell.Tab.0.right" timestamp="1605767942735">
+    <state width="1493" height="369" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1605778904422" />
+    <state width="1493" height="369" key="GridCell.Tab.0.right" timestamp="1605778904423">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="369" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1605767942735" />
-    <state width="1493" height="369" key="GridCell.Tab.1.bottom" timestamp="1605767942735">
+    <state width="1493" height="369" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1605778904423" />
+    <state width="1493" height="369" key="GridCell.Tab.1.bottom" timestamp="1605778904423">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="369" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1605767942735" />
-    <state width="1493" height="369" key="GridCell.Tab.1.center" timestamp="1605767942735">
+    <state width="1493" height="369" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1605778904423" />
+    <state width="1493" height="369" key="GridCell.Tab.1.center" timestamp="1605778904423">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="369" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1605767942735" />
-    <state width="1493" height="369" key="GridCell.Tab.1.left" timestamp="1605767942735">
+    <state width="1493" height="369" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1605778904423" />
+    <state width="1493" height="369" key="GridCell.Tab.1.left" timestamp="1605778904423">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="369" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1605767942735" />
-    <state width="1493" height="369" key="GridCell.Tab.1.right" timestamp="1605767942735">
+    <state width="1493" height="369" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1605778904423" />
+    <state width="1493" height="369" key="GridCell.Tab.1.right" timestamp="1605778904423">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="369" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1605767942735" />
+    <state width="1493" height="369" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1605778904423" />
     <state x="270" y="74" key="SettingsEditor" timestamp="1603717595850">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -343,10 +348,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="762" y="0" width="781" height="870" key="dock-window-1/0.0.1536.864@0.0.1536.864" timestamp="1603270427926" />
-    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1605670264496">
+    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1605777828301">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1605670264496" />
+    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1605777828301" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
