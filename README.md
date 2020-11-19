@@ -11,7 +11,7 @@
 ```python
 import nptorch as nt
 # 定义张量,可指定数据类型,返回Tensor类型
-x = nt.tensor([1., 2., 3.], dtype=nt.float32)
+x = nt.tensor([1., 2., 3.], dtype=nt.float32, requires_grad=True)
 y = nt.tensor([2., 3., 4.], dtype=nt.float32)
 print(x)
 print(type(x))
