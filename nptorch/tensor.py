@@ -978,7 +978,6 @@ class Tensor:
 
     def backward(self, grad=None):
         if self.is_leaf or not self.grad_enable:
-            print(1)
             return
         if grad is None:
             assert self.size == 1, 'grad can be implicitly created only for scalar outputs'
