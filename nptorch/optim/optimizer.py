@@ -1,3 +1,4 @@
+import numpy as np
 from ..nn.modules import Module
 
 
@@ -10,6 +11,14 @@ class Optimizer(object):
         self.lr = lr
         self.alpha = alpha
         self.weight_decay = weight_decay
+
+    def _regularization(self):
+        if self.alpha > 0.:
+            for p in self.params:
+                p.grad += self.alpha * (2. * (p.data > 0.).astype(np.float32) - 1.)
+        if self.weight_decay > 0.:
+            for p in self.params:
+                p.grad += self.weight_decay * p.data
 
     def zero_grad(self):
         for p in self.params:

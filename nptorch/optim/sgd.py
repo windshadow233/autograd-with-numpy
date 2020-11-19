@@ -1,4 +1,3 @@
-import numpy as np
 from ..nn.modules import Module
 from .optimizer import Optimizer
 
@@ -21,16 +20,11 @@ class SGD(Optimizer):
             self.v = [0.] * len(self.params)
 
     def step(self):
-        if self.alpha > 0.:
-            for p in self.params:
-                p.grad += self.alpha * (2. * (p.data > 0.).astype(np.float32) - 1.)
-        if self.weight_decay > 0.:
-            for p in self.params:
-                p.grad += self.weight_decay * p.data
+        self._regularization()
         if self.momentum > 0.:
             for i, p in enumerate(self.params):
                 self.v[i] = self.momentum * self.v[i] - self.lr * p.grad.data
-                p.data = p.data + self.v[i]
+                p.data += self.v[i]
         else:
             for p in self.params:
                 p.data -= self.lr * p.grad.data

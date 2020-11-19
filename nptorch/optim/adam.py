@@ -26,12 +26,7 @@ class Adam(Optimizer):
 
     def step(self):
         self.t += 1
-        if self.alpha > 0.:
-            for p in self.params:
-                p.grad += self.alpha * (2. * (p.data > 0.).astype(np.float32) - 1.)
-        if self.weight_decay > 0.:
-            for p in self.params:
-                p.grad += self.weight_decay * p.data
+        self._regularization()
         for i, p in enumerate(self.params):
             self.s[i] = self.betas[0] * self.s[i] + (1 - self.betas[0]) * p.grad.data
             self.r[i] = self.betas[1] * self.r[i] + (1 - self.betas[1]) * np.sum(p.grad.data ** 2)
