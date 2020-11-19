@@ -118,7 +118,7 @@ cnn = CNN()
 # 调用模型的parameters方法获得模型所有待训练参数,它将返回一个生成器。
 # 内置模型有默认待训练参数,若需要手动添加需训练参数,可使用nn.Parameter类
 # nn.Parameter类初始化需要一个Tensor类型,返回Parameter类,它继承Tensor的所有运算并将自动计算梯度
-# 优化器必须参数是Parameters类型,为全部待优化的参数,学习率等超参数有默认值,可自行修改
+# 优化器必须参数是可迭代对象,迭代结果为全部待优化的参数,学习率等超参数有默认值,可自行修改
 optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
 ## 更新日志
