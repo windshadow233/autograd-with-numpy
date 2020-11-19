@@ -1,10 +1,10 @@
 import numpy as np
-from ..nn.parameter import Parameters
+from ..nn.modules import Module
 from .optimizer import Optimizer
 
 
 class SGD(Optimizer):
-    def __init__(self, params: Parameters, lr=1e-3, momentum=0., alpha=0., weight_decay=0.):
+    def __init__(self, params: Module.parameters, lr=1e-3, momentum=0., alpha=0., weight_decay=0.):
         """
         SGD优化器
         @param params: 需要优化的模型参数

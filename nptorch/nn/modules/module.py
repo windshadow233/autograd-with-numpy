@@ -1,7 +1,7 @@
 import pickle
 from collections import defaultdict, OrderedDict
 from nptorch.tensor import Tensor
-from ..parameter import Parameter, Parameters
+from ..parameter import Parameter
 
 
 def make_indent(s: str):
@@ -40,14 +40,14 @@ class Module(object):
     def extra_repr(self):
         return ''
 
-    def children(self):
-        for name, module in self.named_children():
-            yield module
-
     def named_children(self):
         for name, value in self.__dict__.items():
             if isinstance(value, Module):
                 yield name, value
+
+    def children(self):
+        for name, module in self.named_children():
+            yield module
 
     def train(self, mode=True):
         self.training = mode
@@ -57,14 +57,18 @@ class Module(object):
     def eval(self):
         self.train(False)
 
-    def parameters(self, is_first_call=True):
-        params = [v for v in self.__dict__.values() if isinstance(v, Parameter)]
-        for module in self.children():
-            params.extend(module.parameters(False))
-        if is_first_call:
-            return Parameters(params)
-        else:
-            return params
+    def named_parameters(self, recurse=True):
+        for name, value in self.__dict__.items():
+            if isinstance(value, Parameter):
+                yield name, value
+        if recurse:
+            for child in self.children():
+                for name, value in child.named_parameters():
+                    yield name, value
+
+    def parameters(self, recurse=True):
+        for _, param in self.named_parameters(recurse):
+            yield param
 
     def save_model(self, file_name):
         with open(file_name, 'wb') as f:

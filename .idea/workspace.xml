@@ -3,11 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LeNet.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/LeNet.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lfw_verification.py" beforeDir="false" afterPath="$PROJECT_DIR$/lfw_verification.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/module.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/siamese_net.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/siamese_net.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/parameter.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/parameter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/optim/adam.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/optim/adam.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/optim/optimizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/optim/optimizer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/optim/sgd.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/optim/sgd.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +67,7 @@
       <recent name="F:\pycharmProjects\my_deeplearning_frame\mnist" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.lfw_verification">
+  <component name="RunManager" selected="Python.mnist">
     <configuration name="lfw_verification" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -135,8 +135,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.lfw_verification" />
         <item itemvalue="Python.mnist" />
+        <item itemvalue="Python.lfw_verification" />
         <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
@@ -241,7 +241,7 @@
       <workItem from="1605582894762" duration="10704000" />
       <workItem from="1605664898374" duration="40768000" />
       <workItem from="1605758133563" duration="12211000" />
-      <workItem from="1605775606573" duration="6247000" />
+      <workItem from="1605775606573" duration="10595000" />
     </task>
     <servers />
   </component>
