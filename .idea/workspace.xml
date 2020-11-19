@@ -5,7 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/autograd/backward.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/autograd/backward.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/functional.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/normalization.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/normalization.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/rnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/rnn.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
@@ -56,7 +55,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="deletionFromPopupRequiresConfirmation" value="false" />
-    <property name="last_opened_file_path" value="F:/深度学习实验/lab3" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -73,6 +72,9 @@
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -92,6 +94,9 @@
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -237,7 +242,8 @@
       <workItem from="1605493654695" duration="9854000" />
       <workItem from="1605510799442" duration="19777000" />
       <workItem from="1605582894762" duration="10704000" />
-      <workItem from="1605664898374" duration="30429000" />
+      <workItem from="1605664898374" duration="40768000" />
+      <workItem from="1605758133563" duration="10541000" />
     </task>
     <servers />
   </component>
@@ -256,10 +262,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="477" y="57" key="#backward/0.0.1536.864@0.0.1536.864" timestamp="1602861527397" />
-    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605515167299">
+    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605767911470">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1605515167299" />
+    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1605767911470" />
     <state x="513" y="235" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603811118087">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -280,10 +286,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="477" y="57" key="#mnist/0.0.1536.864@0.0.1536.864" timestamp="1603126188553" />
-    <state x="974" y="269" key="#xdebugger.evaluate" timestamp="1604890227867">
+    <state x="974" y="269" key="#xdebugger.evaluate" timestamp="1605767631173">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="974" y="269" key="#xdebugger.evaluate/0.0.1536.864@0.0.1536.864" timestamp="1604890227867" />
+    <state x="974" y="269" key="#xdebugger.evaluate/0.0.1536.864@0.0.1536.864" timestamp="1605767631173" />
     <state x="372" y="24" key="CommitChangelistDialog2" timestamp="1603087606159">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -292,38 +298,38 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1605710355058" />
-    <state width="1493" height="323" key="GridCell.Tab.0.bottom" timestamp="1605545947771">
+    <state width="1493" height="369" key="GridCell.Tab.0.bottom" timestamp="1605767942735">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="323" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1605545947771" />
-    <state width="1493" height="323" key="GridCell.Tab.0.center" timestamp="1605545947771">
+    <state width="1493" height="369" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1605767942735" />
+    <state width="1493" height="369" key="GridCell.Tab.0.center" timestamp="1605767942735">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="323" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1605545947771" />
-    <state width="1493" height="323" key="GridCell.Tab.0.left" timestamp="1605545947771">
+    <state width="1493" height="369" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1605767942735" />
+    <state width="1493" height="369" key="GridCell.Tab.0.left" timestamp="1605767942735">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="323" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1605545947771" />
-    <state width="1493" height="323" key="GridCell.Tab.0.right" timestamp="1605545947771">
+    <state width="1493" height="369" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1605767942735" />
+    <state width="1493" height="369" key="GridCell.Tab.0.right" timestamp="1605767942735">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="323" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1605545947771" />
-    <state width="1493" height="369" key="GridCell.Tab.1.bottom" timestamp="1605517052995">
+    <state width="1493" height="369" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1605767942735" />
+    <state width="1493" height="369" key="GridCell.Tab.1.bottom" timestamp="1605767942735">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="369" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1605517052995" />
-    <state width="1493" height="369" key="GridCell.Tab.1.center" timestamp="1605517052995">
+    <state width="1493" height="369" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1605767942735" />
+    <state width="1493" height="369" key="GridCell.Tab.1.center" timestamp="1605767942735">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="369" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1605517052995" />
-    <state width="1493" height="369" key="GridCell.Tab.1.left" timestamp="1605517052995">
+    <state width="1493" height="369" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1605767942735" />
+    <state width="1493" height="369" key="GridCell.Tab.1.left" timestamp="1605767942735">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="369" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1605517052995" />
-    <state width="1493" height="369" key="GridCell.Tab.1.right" timestamp="1605517052995">
+    <state width="1493" height="369" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1605767942735" />
+    <state width="1493" height="369" key="GridCell.Tab.1.right" timestamp="1605767942735">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="369" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1605517052995" />
+    <state width="1493" height="369" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1605767942735" />
     <state x="270" y="74" key="SettingsEditor" timestamp="1603717595850">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -367,7 +373,7 @@
     <SUITE FILE_PATH="coverage/autograd_with_numpy$tensor.coverage" NAME="tensor Coverage Results" MODIFIED="1603254451124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$functional__1_.coverage" NAME="functional (1) Coverage Results" MODIFIED="1603002232345" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="E:/anaconda/anaconda/envs/pytorch/Lib/site-packages/torch/nn" />
     <SUITE FILE_PATH="coverage/autograd_with_numpy$conv_operate.coverage" NAME="conv_operate Coverage Results" MODIFIED="1603177034754" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch/nn" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$test.coverage" NAME="test Coverage Results" MODIFIED="1604890310954" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/autograd_with_numpy$test.coverage" NAME="test Coverage Results" MODIFIED="1605767933590" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/autograd_with_numpy$functional.coverage" NAME="functional Coverage Results" MODIFIED="1603276881147" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch/nn" />
     <SUITE FILE_PATH="coverage/autograd_with_numpy$grad_mode.coverage" NAME="grad_mode Coverage Results" MODIFIED="1603867920522" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$linear.coverage" NAME="linear Coverage Results" MODIFIED="1602940767632" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork/nn" />
@@ -377,7 +383,7 @@
     <SUITE FILE_PATH="coverage/autograd_with_numpy$dnn.coverage" NAME="dnn Coverage Results" MODIFIED="1603110638892" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$random.coverage" NAME="random Coverage Results" MODIFIED="1602922263259" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1602957651211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../深度学习课程" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$backward.coverage" NAME="backward Coverage Results" MODIFIED="1603186781608" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch" />
+    <SUITE FILE_PATH="coverage/autograd_with_numpy$backward.coverage" NAME="backward Coverage Results" MODIFIED="1605767900844" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch/autograd" />
     <SUITE FILE_PATH="coverage/autograd_with_numpy$idm_download_request.coverage" NAME="idm-download-request Coverage Results" MODIFIED="1603447344083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="E:/download/chrome" />
     <SUITE FILE_PATH="coverage/my_deeplearning_frame$test.coverage" NAME="test Coverage Results" MODIFIED="1602954812479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/autograd_with_numpy$zuoye.coverage" NAME="zuoye Coverage Results" MODIFIED="1605018033644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/.." />

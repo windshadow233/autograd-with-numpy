@@ -162,7 +162,7 @@ class FloordivBackward(BackwardFcn):
         super(FloordivBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
-        return np.zeros_like(children[place][0]) * grad
+        return np.zeros_like(children[place][0].data) * grad
 
 
 class RemainderBackward(BackwardFcn):
@@ -316,7 +316,7 @@ class FillBackward(BackwardFcn):
         super(FillBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
-        return np.zeros_like(children[0][0])
+        return np.zeros_like(children[0][0].data)
 
 
 class TransposeBackward(BackwardFcn):
@@ -564,7 +564,7 @@ class FloorBackward(BackwardFcn):
         super(FloorBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
-        return np.zeros_like(children[0][0])
+        return np.zeros_like(children[0][0].data)
 
 
 class CeilBackward(BackwardFcn):
@@ -572,7 +572,7 @@ class CeilBackward(BackwardFcn):
         super(CeilBackward, self).__init__()
 
     def calculate_grad(self, grad, children, place):
-        return np.zeros_like(children[0][0])
+        return np.zeros_like(children[0][0].data)
 
 
 class UniformBackward(BackwardFcn):
@@ -837,7 +837,7 @@ class SplitBackward(BackwardFcn):
 
     def calculate_grad(self, grad, children, place):
         x, i, step, axis = children[0]
-        result = np.zeros_like(x)
+        result = np.zeros_like(x.data)
         slices = [slice(None)] * x.ndim
         slices[axis] = slice(i * step, (i + 1) * step, 1)
         result[tuple(slices)] = grad

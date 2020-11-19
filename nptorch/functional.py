@@ -348,3 +348,7 @@ def argwhere(condition):
 
 def split(x: Tensor, split_size, axis=0):
     return x.split(split_size, axis)
+
+
+def unbind(x: Tensor, axis=0):
+    return x.unbind(axis)

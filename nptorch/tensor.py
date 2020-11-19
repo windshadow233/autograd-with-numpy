@@ -86,7 +86,7 @@ class Tensor:
         return s
 
     def __len__(self):
-        return self.data.shape[0]
+        return self.shape[0]
 
     def __setitem__(self, key, value):
         if isinstance(value, Tensor):
@@ -785,7 +785,7 @@ class Tensor:
     def uniform_(self, low=0., high=1.):
         self._check_type('uniform')
         self._check_inplace()
-        y = np.random.uniform(low, high, size=self.data.shape)
+        y = np.random.uniform(low, high, size=self.shape)
         if self.grad_enable:
             child = copy(self)
             self.children = [(child, None)]
@@ -795,7 +795,7 @@ class Tensor:
     def normal_(self, mean=0., std=1.):
         self._check_type('normal')
         self._check_inplace()
-        y = np.random.normal(mean, std, size=self.data.shape)
+        y = np.random.normal(mean, std, size=self.shape)
         if self.grad_enable:
             child = copy(self)
             self.children = [(child, None)]
@@ -903,7 +903,7 @@ class Tensor:
         """
         向量外积
         """
-        assert self.data.ndim == 1 and other.data.ndim == 1, 'only vectors allow outer product operations'
+        assert self.ndim == 1 and other.ndim == 1, 'only vectors allow outer product operations'
         result = Tensor(np.outer(self.data, other.data), requires_grad=self.requires_grad or other.requires_grad)
         if result.grad_enable:
             result.children = [(self, None), (other, None)]
@@ -919,9 +919,9 @@ class Tensor:
         if not result.grad_enable:
             return result
         result.children = [(self, None), (other, None)]
-        if self.data.ndim == 1 and other.data.ndim == 1:
+        if self.ndim == 1 and other.ndim == 1:
             result.grad_fn = DotBackward()
-        elif self.data.ndim == 1 or other.data.ndim == 1:
+        elif self.ndim == 1 or other.ndim == 1:
             result.grad_fn = MvBackward()
         else:
             result.grad_fn = MmBackward()
@@ -973,15 +973,12 @@ class Tensor:
                 tensor.grad_fn = SplitBackward()
         return tuple(tensors)
 
-    @property
-    def depth(self):
-        if self.is_leaf:
-            return 1
-        return 1 + max([child[0].depth for child in self.children
-                        if isinstance(child[0], Tensor) and child[0].requires_grad])
+    def unbind(self, axis=0):
+        return tuple(tensor.squeeze(axis) for tensor in self.split(self.shape[axis], axis=axis))
 
     def backward(self, grad=None):
         if self.is_leaf or not self.grad_enable:
+            print(1)
             return
         if grad is None:
             assert self.size == 1, 'grad can be implicitly created only for scalar outputs'

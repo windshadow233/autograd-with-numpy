@@ -134,11 +134,11 @@ class LSTM(RNNBase):
                 if self.use_bias:
                     hidden += self.__getattribute__(f'bias_ih_l{i}')
                     hidden += self.__getattribute__(f'bias_hh_l{i}')
-                ifot = hidden[:, list(range(2 * self.hidden_size)) + list(range(3 * self.hidden_size, 4 * self.hidden_size))].sigmoid()
-                it = ifot[:, : self.hidden_size]
-                ft = ifot[:, self.hidden_size: 2 * self.hidden_size]
-                gt = self.activation_fcn(hidden[:, self.hidden_size * 2: self.hidden_size * 3])
-                ot = ifot[:, 2 * self.hidden_size:]
+                it, ft, gt, ot = hidden.split(4, 1)
+                it = it.sigmoid()
+                ft = ft.sigmoid()
+                gt = self.activation_fcn(gt)
+                ot = ot.sigmoid()
                 ct = ft * caches[i] + it * gt
                 hidden = ot * self.activation_fcn(ct)
                 caches[i] = ct
@@ -174,19 +174,17 @@ class GRU(RNNBase):
             for i in range(self.num_layers):
                 weight_ih = self.__getattribute__(f'weight_ih_l{i}')
                 weight_hh = self.__getattribute__(f'weight_hh_l{i}')
-                rzt = hidden @ weight_ih[: 2 * self.hidden_size].T
-                rzt += hiddens[i] @ weight_hh[: 2 * self.hidden_size].T
+                hidden @= weight_ih.T
+                hiddens_i = hiddens[i]
+                hiddens_i @= weight_hh.T
                 if self.use_bias:
-                    rzt += self.__getattribute__(f'bias_ih_l{i}')[: 2 * self.hidden_size]
-                    rzt += self.__getattribute__(f'bias_hh_l{i}')[: 2 * self.hidden_size]
-                rzt = rzt.sigmoid()
-                rt, zt = rzt[:, : self.hidden_size], rzt[:, self.hidden_size: 2 * self.hidden_size]
-                nt = hidden @ weight_ih[2 * self.hidden_size:].T
-                reset_hidden = hiddens[i] @ weight_hh[2 * self.hidden_size:].T
-                if self.use_bias:
-                    nt += self.__getattribute__(f'bias_ih_l{i}')[2 * self.hidden_size:]
-                    reset_hidden += self.__getattribute__(f'bias_hh_l{i}')[2 * self.hidden_size:]
-                nt = self.activation_fcn(nt + rt * reset_hidden)
+                    hidden += self.__getattribute__(f'bias_ih_l{i}')
+                    hiddens_i += self.__getattribute__(f'bias_hh_l{i}')
+                rt, zt, nt = hidden.split(3, 1)
+                rh, zh, nh = hiddens_i.split(3, 1)
+                rt = (rt + rh).sigmoid()
+                zt = (zt + zh).sigmoid()
+                nt = self.activation_fcn(nt + rt * nh)
                 hidden = (1. - zt) * nt + zt * hiddens[i]
                 hiddens[i] = hidden
                 if self.dropout > 0. and i < self.num_layers - 1:
