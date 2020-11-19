@@ -34,8 +34,8 @@ class Module(object):
         s += ')'
         return s
 
-    def __call__(self, *args) -> Tensor:
-        return self.forward(*args)
+    def __call__(self, *args, **kwargs) -> Tensor:
+        return self.forward(*args, **kwargs)
 
     def extra_repr(self):
         return ''
@@ -110,6 +110,6 @@ class Module(object):
         for name, module in self.named_children():
             module.load_state_dict(child_state_dict.get(name))
 
-    def forward(self, *args) -> Tensor:
+    def forward(self, *args, **kwargs) -> Tensor:
         raise NotImplementedError
 
