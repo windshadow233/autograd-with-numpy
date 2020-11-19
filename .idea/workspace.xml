@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/autograd/backward.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/autograd/backward.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/functional.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/rnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/rnn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-    </list>
+    <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -243,7 +236,7 @@
       <workItem from="1605510799442" duration="19777000" />
       <workItem from="1605582894762" duration="10704000" />
       <workItem from="1605664898374" duration="40768000" />
-      <workItem from="1605758133563" duration="10541000" />
+      <workItem from="1605758133563" duration="10837000" />
     </task>
     <servers />
   </component>

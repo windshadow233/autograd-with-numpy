@@ -8,7 +8,7 @@ from numpy import float16, float32, float64, int8, int16, int32, int64, bool_, u
 # np.set_printoptions(precision=4, suppress=True)
 
 
-def array(data, dtype=None, requires_grad=False):
+def tensor(data, dtype=None, requires_grad=False):
     return Tensor(data, dtype, requires_grad)
 
 

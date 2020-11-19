@@ -34,7 +34,7 @@ class MNISTDataset(Dataset):
         return len(self.label)
 
     def __getitem__(self, item):
-        return trans(self.data[item]), nptorch.array(self.label[item])
+        return trans(self.data[item]), nptorch.tensor(self.label[item])
 
 
 class LeNet(nn.Module):

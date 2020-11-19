@@ -11,8 +11,8 @@
 ```python
 import nptorch as nt
 # 定义张量,可指定数据类型,返回Tensor类型
-x = nt.array([1., 2., 3.], dtype=nt.float32)
-y = nt.array([2., 3., 4.], dtype=nt.float32)
+x = nt.tensor([1., 2., 3.], dtype=nt.float32)
+y = nt.tensor([2., 3., 4.], dtype=nt.float32)
 print(x)
 print(type(x))
 # array([1., 2., 3.], dtype=float32, requires_grad=True)
@@ -42,7 +42,7 @@ y = nt.random.normal(mean=0., std=1., size=(3, 4))
 4. 上下文管理器no_grad可实现内部计算不进行计算图的构建与求导,也可作为函数装饰器,强烈建议在验证模型准确性时使用。
 ```python
 import nptorch as nt
-x = nt.array([1., 2., 3.], dtype=nt.float32, requires_grad=True)
+x = nt.tensor([1., 2., 3.], dtype=nt.float32, requires_grad=True)
 y = x * 2
 y.retain_grad()
 y.sum().backward()
@@ -67,7 +67,7 @@ print(type(y.grad_fn))
 # 作为函数装饰器使用,函数内的运算将不构建计算图
 @nt.no_grad()
 def f():
-    x = nt.array([1., 2, 3], requires_grad=True)
+    x = nt.tensor([1., 2, 3], requires_grad=True)
     y = x * 2
     print(type(y.grad_fn))
 f()

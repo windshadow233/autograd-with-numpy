@@ -30,7 +30,7 @@ class LFWDataset(Dataset):
         img2 = self.data[2 * index + 1][0]
         if self.transform:
             img1, img2 = self.transform(img1), self.transform(img2)
-        return img1, img2, nptorch.array(label, dtype=nptorch.float32)
+        return img1, img2, nptorch.tensor(label, dtype=nptorch.float32)
 
     def __len__(self):
         return len(self.data) // 2
