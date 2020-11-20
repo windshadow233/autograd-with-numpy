@@ -57,6 +57,9 @@ class Module(object):
     def eval(self):
         self.train(False)
 
+    def register_parameter(self, name, param):
+        self.__setattr__(name, Parameter(param))
+
     def named_parameters(self, recurse=True):
         for name, value in self.__dict__.items():
             if isinstance(value, Parameter):

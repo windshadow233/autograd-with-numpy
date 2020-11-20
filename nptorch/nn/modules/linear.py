@@ -16,16 +16,15 @@ class Identity(Module):
 
 
 class Linear(Module):
-    def __init__(self, in_features, out_features, use_bias=True):
+    def __init__(self, in_features, out_features, bias=True):
         super(Linear, self).__init__()
         self.in_features = in_features
         self.out_features = out_features
-        self.use_bias = use_bias
         self.weight = Parameter(normal(mean=0., std=np.sqrt(2. / in_features), size=(out_features, in_features)))
-        self.bias = Parameter(zeros(out_features)) if use_bias else None
+        self.bias = Parameter(zeros(out_features)) if bias else None
 
     def extra_repr(self):
-        return f'in_features={self.in_features}, out_features={self.out_features}, use_bias={self.use_bias}'
+        return f'in_features={self.in_features}, out_features={self.out_features}, bias={self.bias is not None}'
 
     def forward(self, x: Tensor) -> Tensor:
         return F.linear(x, self.weight, self.bias)

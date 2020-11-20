@@ -8,7 +8,7 @@ from .module import Module
 
 
 class _ConvNd(Module):
-    def __init__(self, in_channels, out_channels, kernel_size, stride, padding, dilation, use_bias):
+    def __init__(self, in_channels, out_channels, kernel_size, stride, padding, dilation, bias):
         super(_ConvNd, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -16,18 +16,18 @@ class _ConvNd(Module):
         self.stride = stride
         self.padding = padding
         self.dilation = dilation
-        self.use_bias = use_bias
+        self.bias = bias
 
     def extra_repr(self):
-        return f'{self.in_channels}, {self.out_channels}, kernel_size={self.kernel_size},' \
-               f' stride={self.stride}, \npadding={self.padding}, dilation={self.dilation}, use_bias={self.use_bias}'
+        return f'{self.in_channels}, {self.out_channels}, kernel_size={self.kernel_size}, stride={self.stride},' \
+               f'\npadding={self.padding}, dilation={self.dilation}, bias={self.bias is not None}'
 
     def forward(self, *args) -> Tensor:
         raise NotImplementedError
 
 
 class Conv2d(_ConvNd):
-    def __init__(self, in_channels, out_channels, kernel_size, stride=(1, 1), padding=(0, 0), dilation=(0, 0), use_bias=True):
+    def __init__(self, in_channels, out_channels, kernel_size, stride=(1, 1), padding=(0, 0), dilation=(0, 0), bias=True):
         """
         2维卷积,输入数据形状为(B,C,H,W)
         @param in_channels: 输入通道数
@@ -36,9 +36,9 @@ class Conv2d(_ConvNd):
         @param stride: H,W方向的步长
         @param padding: H,W方向的padding
         @param dilation: 卷积核膨胀尺寸
-        @param use_bias: 使用偏置
+        @param bias: 使用偏置
         """
-        super(Conv2d, self).__init__(in_channels, out_channels, kernel_size, stride, padding, dilation, use_bias)
+        super(Conv2d, self).__init__(in_channels, out_channels, kernel_size, stride, padding, dilation, bias)
         if not isinstance(stride, tuple):
             self.stride = (stride, stride)
         if not isinstance(padding, tuple):
@@ -49,7 +49,7 @@ class Conv2d(_ConvNd):
         n = out_channels * self.kernel_size ** 2
         self.kernels = Parameter(
             normal(mean=0., std=np.sqrt(2. / n), size=(out_channels, in_channels, self.kernel_size, self.kernel_size)))
-        self.bias = Parameter(nptorch.zeros(out_channels)) if use_bias else None
+        self.bias = Parameter(nptorch.zeros(out_channels)) if bias else None
 
     def forward(self, x: Tensor) -> Tensor:
         return F.conv2d(x, self.kernels, self.bias, stride=self.stride, padding=self.padding, dilation=self.dilation)
