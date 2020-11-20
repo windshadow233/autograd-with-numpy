@@ -1,3 +1,4 @@
+import nptorch
 from nptorch.tensor import *
 from .dataset import Dataset, Subset
 import math
@@ -14,7 +15,7 @@ def default_collate_fn(all_data: list):
         all_data = [(data, ) for data in all_data]
     data_length = len(all_data[0])
     for i in range(data_length):
-        data_list.append(tensor(np.r_[[data[i].data for data in all_data]]))
+        data_list.append(nptorch.stack([data[i] for data in all_data]))
     return data_list
 
 
