@@ -106,7 +106,6 @@ for i in tqdm(range(5)):
         optimizer.zero_grad()
 
 
-# with open('LeNet.pkl', 'rb') as f:
-#     state_dict = pickle.load(f)
+model.load_state_dict('LeNet.pkl')
 print(f'测试集准确率{test_model(model, test_loader)}')
 print(f'训练集准确率{test_model(model, train_loader)}')

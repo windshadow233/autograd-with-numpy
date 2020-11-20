@@ -1,22 +1,20 @@
 import nptorch
 from nptorch.tensor import *
-from .dataset import Dataset, Subset
+from .dataset import Dataset
 import math
 
 
 def default_collate_fn(all_data: list):
     """
-    默认的数据打包函数,为数据生成一个新的维度(第0维),在该维度将数据矩阵进行堆叠
-    @param all_data: 一个列表,元素类型为tuple,tuple中的元素为
-    @return: 按以上规则生成的数据列表
+    默认的数据打包函数,将一批中的每个数据进行stack
+    @param all_data: 一个列表,元素类型为tuple
+    @return: 按以上规则生成的数据元组
     """
-    data_list = []
     if not isinstance(all_data[0], tuple):
         all_data = [(data, ) for data in all_data]
     data_length = len(all_data[0])
-    for i in range(data_length):
-        data_list.append(nptorch.stack([data[i] for data in all_data]))
-    return data_list
+    data = tuple(nptorch.stack([data[i] for data in all_data]) for i in range(data_length))
+    return data
 
 
 class DataLoader(object):
@@ -27,7 +25,6 @@ class DataLoader(object):
         self.collate_fn = collate_fn
 
         self.n_batches = math.ceil(len(dataset) / batch_size)
-        self.indices = []
 
     def __len__(self):
         return self.n_batches
@@ -51,6 +48,3 @@ class DataLoader(object):
     def get_batch(self, indices):
         all_data = [self.dataset[index] for index in indices]
         return self.collate_fn(all_data)
-
-
-
