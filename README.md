@@ -122,6 +122,8 @@ cnn = CNN()
 optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
 ## 更新日志
+### 2020/11/20
+* 增加了ConcatDataset类,用以Dataset类之间的加法。
 ### 2020/11/19
 * 为Module类增加了state_dict、save_state_dict与load_state_dict方法。
 ### 2020/11/18
