@@ -7,9 +7,6 @@ from ..nn.conv_operations import padding_zeros, unwrap_padding, dilate, erode, r
 
 
 class BackwardFcn:
-    def __init__(self):
-        pass
-
     def __repr__(self):
         return self.__str__()
 
@@ -21,17 +18,11 @@ class BackwardFcn:
 
 
 class CopyBackward(BackwardFcn):
-    def __init__(self):
-        super(CopyBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         return grad
 
 
 class SliceBackward(BackwardFcn):
-    def __init__(self):
-        super(SliceBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x, slices = children[0]
         result = np.zeros_like(x.data)
@@ -40,9 +31,6 @@ class SliceBackward(BackwardFcn):
 
 
 class IndexBackward(BackwardFcn):
-    def __init__(self):
-        super(IndexBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x, item = children[0]
         result_grad = np.zeros_like(x.data)
@@ -67,9 +55,6 @@ class IndexBackward(BackwardFcn):
 
 
 class AddBackward(BackwardFcn):
-    def __init__(self):
-        super(AddBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x = children[place][0].data
         a = children[1 - place][0]
@@ -84,17 +69,11 @@ class AddBackward(BackwardFcn):
 
 
 class NegBackward(BackwardFcn):
-    def __init__(self):
-        super(NegBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         return - np.ones_like(children[place][0].data) * grad
 
 
 class SubBackward(BackwardFcn):
-    def __init__(self):
-        super(SubBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x = children[place][0].data
         a = children[1 - place][0]
@@ -109,9 +88,6 @@ class SubBackward(BackwardFcn):
 
 
 class MulBackward(BackwardFcn):
-    def __init__(self):
-        super(MulBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x = children[place][0].data
         a = children[1 - place][0]
@@ -128,9 +104,6 @@ class MulBackward(BackwardFcn):
 
 
 class DivBackward(BackwardFcn):
-    def __init__(self):
-        super(DivBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x = children[place][0].data
         a = children[1 - place][0]
@@ -158,17 +131,11 @@ class DivBackward(BackwardFcn):
 
 
 class FloordivBackward(BackwardFcn):
-    def __init__(self):
-        super(FloordivBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         return np.zeros_like(children[place][0].data) * grad
 
 
 class RemainderBackward(BackwardFcn):
-    def __init__(self):
-        super(RemainderBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x = children[0][0].data
         a = children[1][0]
@@ -183,9 +150,6 @@ class RemainderBackward(BackwardFcn):
 
 
 class PowerBackward(BackwardFcn):
-    def __init__(self):
-        super(PowerBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x = children[place][0].data.astype(float)
         a = children[1 - place][0]
@@ -215,17 +179,11 @@ class PowerBackward(BackwardFcn):
 
 
 class SumBackward(BackwardFcn):
-    def __init__(self):
-        super(SumBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         return np.ones_like(children[0][0].data) * grad
 
 
 class MaxBackward(BackwardFcn):
-    def __init__(self):
-        super(MaxBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         values, max_values, axis, keepdims = children[0]
         if max_values.size == 1:
@@ -241,9 +199,6 @@ class MaxBackward(BackwardFcn):
 
 
 class MinBackward(BackwardFcn):
-    def __init__(self):
-        super(MinBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         values, min_values, axis, keepdims = children[0]
         if min_values.size == 1:
@@ -259,9 +214,6 @@ class MinBackward(BackwardFcn):
 
 
 class MeanBackward(BackwardFcn):
-    def __init__(self):
-        super(MeanBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x, axis, keepdims = children[0]
         x = x.data
@@ -277,9 +229,6 @@ class MeanBackward(BackwardFcn):
 
 
 class VarBackward(BackwardFcn):
-    def __init__(self):
-        super(VarBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x, axis, keepdims = children[0]
         x = x.data
@@ -295,18 +244,12 @@ class VarBackward(BackwardFcn):
 
 
 class AbsBackward(BackwardFcn):
-    def __init__(self):
-        super(AbsBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x = children[0][0].data
         return (2. * (x >= 0.).astype(float) - 1.) * grad
 
 
 class TBackward(BackwardFcn):
-    def __init__(self):
-        super(TBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         return grad.T
 
@@ -568,33 +511,21 @@ class FloorBackward(BackwardFcn):
 
 
 class CeilBackward(BackwardFcn):
-    def __init__(self):
-        super(CeilBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         return np.zeros_like(children[0][0].data)
 
 
 class UniformBackward(BackwardFcn):
-    def __init__(self):
-        super(UniformBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         return grad * np.ones_like(children[0][0].data)
 
 
 class NormalBackward(BackwardFcn):
-    def __init__(self):
-        super(NormalBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         return grad * np.ones_like(children[0][0].data)
 
 
 class NormBackward(BackwardFcn):
-    def __init__(self):
-        super(NormBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x, p, y, axis, keepdims = children[0]
         if not keepdims and axis is not None:
@@ -604,9 +535,6 @@ class NormBackward(BackwardFcn):
 
 
 class Conv2dBackward(BackwardFcn):
-    def __init__(self):
-        super(Conv2dBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         padding = children[0][1]
         if place == 0:
@@ -628,9 +556,6 @@ class Conv2dBackward(BackwardFcn):
 
 
 class MeanPool2dBackward(BackwardFcn):
-    def __init__(self):
-        super(MeanPool2dBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x, kernel_size, stride = children[0]
         new_grad = np.zeros_like(x.data)
@@ -643,9 +568,6 @@ class MeanPool2dBackward(BackwardFcn):
 
 
 class MeanPool1dBackward(BackwardFcn):
-    def __init__(self):
-        super(MeanPool1dBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x, kernel_size, stride = children[0]
         new_grad = np.zeros_like(x.data)
@@ -657,9 +579,6 @@ class MeanPool1dBackward(BackwardFcn):
 
 
 class MaxPool2dBackward(BackwardFcn):
-    def __init__(self):
-        super(MaxPool2dBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x, argmax, kernel_size, stride = children[0]
         new_grad = np.zeros_like(x.data)
@@ -672,9 +591,6 @@ class MaxPool2dBackward(BackwardFcn):
 
 
 class MaxPool1dBackward(BackwardFcn):
-    def __init__(self):
-        super(MaxPool1dBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x, argmax, kernel_size, stride = children[0]
         new_grad = np.zeros_like(x.data)
@@ -686,9 +602,6 @@ class MaxPool1dBackward(BackwardFcn):
 
 
 class BatchNormBackward(BackwardFcn):
-    def __init__(self):
-        super(BatchNormBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x, x_hat, mean, var, eps = children[0]
         axis = (0, -1, -2)[:x.ndim - 1]
@@ -707,9 +620,6 @@ class BatchNormBackward(BackwardFcn):
 
 
 class LeakyReLUBackward(BackwardFcn):
-    def __init__(self):
-        super(LeakyReLUBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x, leaky_rate = children[0]
         data = x.data
@@ -717,9 +627,6 @@ class LeakyReLUBackward(BackwardFcn):
 
 
 class ELUBackward(BackwardFcn):
-    def __init__(self):
-        super(ELUBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x, alpha = children[0]
         data = x.data
@@ -727,9 +634,6 @@ class ELUBackward(BackwardFcn):
 
 
 class StackBackward(BackwardFcn):
-    def __init__(self):
-        super(StackBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         _, axis, i = children[place]
         slices = [slice(None)] * grad.ndim
@@ -738,9 +642,6 @@ class StackBackward(BackwardFcn):
 
 
 class CatBackward(BackwardFcn):
-    def __init__(self):
-        super(CatBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         _, axis, i = children[place]
         slices = [slice(None)] * grad.ndim
@@ -749,9 +650,6 @@ class CatBackward(BackwardFcn):
 
 
 class PadSequenceBackward(BackwardFcn):
-    def __init__(self):
-        super(PadSequenceBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x, i, batch_first = children[place]
         length = x.shape[0]
@@ -762,9 +660,6 @@ class PadSequenceBackward(BackwardFcn):
 
 
 class SortBackward(BackwardFcn):
-    def __init__(self):
-        super(SortBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         _, sorted_indices, axis = children[0]
         unsorted_indices = np.argsort(sorted_indices, axis)
@@ -783,9 +678,6 @@ class SortBackward(BackwardFcn):
 
 
 class DiagBackward(BackwardFcn):
-    def __init__(self):
-        super(DiagBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         if grad.ndim == 2:
             k = children[0][1]
@@ -801,17 +693,11 @@ class DiagBackward(BackwardFcn):
 
 
 class TraceBackward(BackwardFcn):
-    def __init__(self):
-        super(TraceBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         return np.eye(*children[0][0].shape) * grad
 
 
 class ClampBackward(BackwardFcn):
-    def __init__(self):
-        super(ClampBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x, min, max = children[0]
         data = x.data
@@ -821,9 +707,6 @@ class ClampBackward(BackwardFcn):
 
 
 class WhereBackward(BackwardFcn):
-    def __init__(self):
-        super(WhereBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x, condition = children[place]
         x_tiles, _ = get_tile_dims(x.data, grad)
@@ -832,9 +715,6 @@ class WhereBackward(BackwardFcn):
 
 
 class SplitBackward(BackwardFcn):
-    def __init__(self):
-        super(SplitBackward, self).__init__()
-
     def calculate_grad(self, grad, children, place):
         x, i, step, axis = children[0]
         result = np.zeros_like(x.data)
@@ -842,3 +722,14 @@ class SplitBackward(BackwardFcn):
         slices[axis] = slice(i * step, (i + 1) * step, 1)
         result[tuple(slices)] = grad
         return result
+
+
+class EmbeddingBackward(BackwardFcn):
+    def calculate_grad(self, grad, children, place):
+        x, index, padding_idx = children[0]
+        result_grad = np.zeros_like(x.data)
+        for i, idx in enumerate(index):
+            result_grad[idx] += grad[i]
+        if padding_idx is not None:
+            result_grad[padding_idx] = 0.
+        return result_grad

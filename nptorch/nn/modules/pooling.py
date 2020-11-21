@@ -10,7 +10,7 @@ class _PoolNd(Module):
         self.kernel_size = kernel_size
 
     def extra_repr(self):
-        return f'kernel_size={self.kernel_size}, stride={self.stride}'
+        return 'kernel_size={kernel_size}, stride={stride}'.format(**self.__dict__)
 
     def forward(self, *args) -> Tensor:
         raise NotImplementedError

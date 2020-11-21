@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/utils/data/dataloader.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/utils/data/dataloader.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +50,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="deletionFromPopupRequiresConfirmation" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../FYP-FaceVerification" />
+    <property name="last_opened_file_path" value="F:/深度学习实验/lab3" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -69,6 +67,9 @@
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -88,6 +89,9 @@
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -239,7 +243,8 @@
       <workItem from="1605664898374" duration="40768000" />
       <workItem from="1605758133563" duration="12211000" />
       <workItem from="1605775606573" duration="14194000" />
-      <workItem from="1605846639482" duration="14047000" />
+      <workItem from="1605846639482" duration="14074000" />
+      <workItem from="1605932767793" duration="607000" />
     </task>
     <servers />
   </component>
@@ -290,10 +295,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="372" y="24" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1603087606159" />
-    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1605849124492">
+    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1605932778163">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1605849124492" />
+    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1605932778163" />
     <state width="1493" height="369" key="GridCell.Tab.0.bottom" timestamp="1605778904423">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

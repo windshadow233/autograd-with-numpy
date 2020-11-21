@@ -7,4 +7,4 @@ class Parameter(Tensor):
         super(Parameter, self).__init__(tensor.data, dtype=np.float32, requires_grad=True)
 
     def __repr__(self):
-        return f'Parameter Contains:\n{super(Parameter, self).__repr__()}'
+        return f'Parameter Containing:\n{super(Parameter, self).__repr__()}'

@@ -32,8 +32,8 @@ class _BatchNormNd(Module):
             self.running_var = Tensor(1.)
 
     def extra_repr(self):
-        return f'num_feature={self.num_features}, momentum={self.momentum}, affine={self.affine},' \
-               f' track_running_stats={self.track_running_stats}'
+        return '{num_features}, momentum={momentum}, ' \
+               'affine={affine}, track_running_stats={track_running_stats}'.format(**self.__dict__)
 
     @staticmethod
     def _check_dim(x: Tensor):

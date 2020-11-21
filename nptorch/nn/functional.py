@@ -2,7 +2,8 @@ import numpy as np
 from ..tensor import Tensor, float32
 from .. import random
 from ..autograd.backward import CrossEntropyBackward, Conv2dBackward, MeanPool2dBackward, MaxPool2dBackward,\
-    LeakyReLUBackward, ELUBackward, BatchNormBackward, MeanPool1dBackward, MaxPool1dBackward, NLLLossBackward
+    LeakyReLUBackward, ELUBackward, BatchNormBackward, MeanPool1dBackward, MaxPool1dBackward, NLLLossBackward,\
+    EmbeddingBackward
 from .conv_operations import split_by_strides, padding_zeros, dilate
 
 
@@ -200,6 +201,16 @@ def max_pool1d(x: Tensor, kernel_size, stride=None):
         output.children = [(x, argmax, kernel_size, stride)]
         output.grad_fn = MaxPool1dBackward()
     return output
+
+
+def embedding(x: Tensor, weight: Tensor, padding_idx=None):
+    assert 'int' in x.dtype.name
+    index = x.flatten().tolist()
+    result = weight.index_select(0, index).reshape(*x.shape, weight.shape[1])
+    if weight.grad_enable:
+        result.children = [(weight, index, padding_idx)]
+        result.grad_fn = EmbeddingBackward()
+    return result
 
 
 def cross_entropy(x: Tensor, target):

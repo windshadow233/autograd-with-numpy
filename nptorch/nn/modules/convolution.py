@@ -19,8 +19,8 @@ class _ConvNd(Module):
         self.bias = bias
 
     def extra_repr(self):
-        return f'{self.in_channels}, {self.out_channels}, kernel_size={self.kernel_size}, stride={self.stride},' \
-               f'\npadding={self.padding}, dilation={self.dilation}, bias={self.bias is not None}'
+        return ('{in_channels}, {out_channels}, kernel_size={kernel_size}, stride={stride},'
+                '\npadding={padding}, dilation={dilation}, bias=' + f'{self.bias is None}').format(**self.__dict__)
 
     def forward(self, *args) -> Tensor:
         raise NotImplementedError
