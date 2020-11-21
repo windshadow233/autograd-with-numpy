@@ -123,7 +123,7 @@ optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
 ## 更新日志
 ### 2020/11/21
-* 增加了Embedding类。
+* 增加了Embedding类,梯度截断函数clip_grad_value_
 ### 2020/11/20
 * 增加了ConcatDataset类,用以Dataset类之间的加法。
 ### 2020/11/19

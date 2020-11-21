@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/nptorch/nn/utils/clip_grad.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/utils/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +53,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="deletionFromPopupRequiresConfirmation" value="false" />
-    <property name="last_opened_file_path" value="F:/深度学习实验/lab3" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -244,7 +247,8 @@
       <workItem from="1605758133563" duration="12211000" />
       <workItem from="1605775606573" duration="14194000" />
       <workItem from="1605846639482" duration="14074000" />
-      <workItem from="1605932767793" duration="607000" />
+      <workItem from="1605932767793" duration="6397000" />
+      <workItem from="1605962549556" duration="501000" />
     </task>
     <servers />
   </component>
@@ -351,10 +355,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="762" y="0" width="781" height="870" key="dock-window-1/0.0.1536.864@0.0.1536.864" timestamp="1603270427926" />
-    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1605777828301">
+    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1605951793089">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1605777828301" />
+    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1605951793089" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
