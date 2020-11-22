@@ -6,12 +6,12 @@ import math
 
 def default_collate_fn(all_data: list):
     """
-    默认的数据打包函数,将一批中的每个数据进行stack
+    默认的数据整理函数,将一批中的每个数据进行stack
     @param all_data: 一个列表,元素类型为tuple
     @return: 按以上规则生成的数据元组
     """
     if not isinstance(all_data[0], tuple):
-        all_data = [(data, ) for data in all_data]
+        return nptorch.stack(all_data)
     data_length = len(all_data[0])
     data = tuple(nptorch.stack([data[i] for data in all_data]) for i in range(data_length))
     return data

@@ -3,7 +3,8 @@ from numbers import Number
 from .autograd.backward import *
 from .autograd.grad_mode import grad_enable
 from .return_types import Max, Min, Sort
-from numpy import float16, float32, float64, int8, int16, int32, int64, bool_, uint8, uint16, uint32, uint64
+from numpy import float16, float32, float64, int8, int16, int32, int64, bool_,\
+    uint8, uint16, uint32, uint64, inf
 
 # np.set_printoptions(precision=4, suppress=True)
 
@@ -882,6 +883,8 @@ class Tensor:
     def norm(self, axis=None, p=2., keepdims=False, eps=1e-12):
         self._check_type('norm')
         data = self.data
+        if p == inf:
+            return self.abs().max(axis=axis, keepdims=keepdims).values
         s = (np.abs(data) ** p).sum(axis, keepdims=keepdims) + eps
         y = s ** (1. / p - 1.)
         result = Tensor(y * s, dtype=self.dtype, requires_grad=self.requires_grad)
