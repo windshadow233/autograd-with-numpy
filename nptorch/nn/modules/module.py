@@ -117,7 +117,7 @@ class Module(object):
         missing_keys = model_state_dict_keys - state_dict_keys
         unexpected_keys = state_dict_keys - model_state_dict_keys
         incompatible_keys = _IncompatibleKeys(missing_keys, unexpected_keys)
-        if model_state_dict_keys != state_dict_keys and strict:
+        if strict and model_state_dict_keys != state_dict_keys:
             error_msg = f'Error(s) in loading state_dict for {self.__class__.__name__}:\n'
             if missing_keys:
                 missing_keys = '"' + '", "'.join(missing_keys) + '"'
