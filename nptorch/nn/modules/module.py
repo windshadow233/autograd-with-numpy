@@ -113,8 +113,6 @@ class Module(object):
                 error_msg += f'Unexpected keys in state_dict: {unexpected_keys}'
             raise RuntimeError(error_msg)
         for key, value in state_dict.items():
-            if key.count('.') == 0:
-                self.__setattr__(key, value)
             keys = key.split('.')
             module = self
             for k in keys[:-1]:
