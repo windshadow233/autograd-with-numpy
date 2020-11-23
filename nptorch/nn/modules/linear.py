@@ -24,7 +24,7 @@ class Linear(Module):
         self.bias = Parameter(zeros(out_features)) if bias else None
 
     def extra_repr(self):
-        return ('{in_features}, {out_features},' + f'bias={self.bias is not None}').format(**self.__dict__)
+        return ('{in_features}, {out_features}, ' + f'bias={self.bias is not None}').format(**self.__dict__)
 
     def forward(self, x: Tensor) -> Tensor:
         return F.linear(x, self.weight, self.bias)
