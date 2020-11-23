@@ -57,7 +57,7 @@ class LeNet(nn.Module):
             nn.Linear(128, 64),
             nn.BatchNorm1d(64),
             nn.ReLU(inplace=True),
-            nn.Linear(64, 10)
+            nn.Linear(64, 10),
         )
 
     def forward(self, x: nptorch.Tensor):
@@ -106,6 +106,6 @@ for i in tqdm(range(5)):
         optimizer.zero_grad()
 
 
-model.load_state_dict('LeNet.pkl')
+# model.load_state_dict('LeNet.pkl')
 print(f'测试集准确率{test_model(model, test_loader)}')
 print(f'训练集准确率{test_model(model, train_loader)}')

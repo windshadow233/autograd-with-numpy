@@ -82,13 +82,13 @@ class RNN(RNNBase):
         for t, xt in enumerate(x):
             hidden = xt
             for i in range(self.num_layers):
-                weight_ih = self.__getattribute__(f'weight_ih_l{i}')
-                weight_hh = self.__getattribute__(f'weight_hh_l{i}')
+                weight_ih = getattr(self, f'weight_ih_l{i}')
+                weight_hh = getattr(self, f'weight_hh_l{i}')
                 hidden @= weight_ih.T
                 hidden += hiddens[i] @ weight_hh.T
                 if self.bias:
-                    hidden += self.__getattribute__(f'bias_ih_l{i}')
-                    hidden += self.__getattribute__(f'bias_hh_l{i}')
+                    hidden += getattr(self, f'bias_ih_l{i}')
+                    hidden += getattr(self, f'bias_hh_l{i}')
                 hidden = self.activation_fcn(hidden)
                 hiddens[i] = hidden
                 if self.dropout > 0. and i < self.num_layers - 1:
@@ -125,13 +125,13 @@ class LSTM(RNNBase):
         for t, xt in enumerate(x):
             hidden = xt
             for i in range(self.num_layers):
-                weight_ih = self.__getattribute__(f'weight_ih_l{i}')
-                weight_hh = self.__getattribute__(f'weight_hh_l{i}')
+                weight_ih = getattr(self, f'weight_ih_l{i}')
+                weight_hh = getattr(self, f'weight_hh_l{i}')
                 hidden @= weight_ih.T
                 hidden += hiddens[i] @ weight_hh.T
                 if self.bias:
-                    hidden += self.__getattribute__(f'bias_ih_l{i}')
-                    hidden += self.__getattribute__(f'bias_hh_l{i}')
+                    hidden += getattr(self, f'bias_ih_l{i}')
+                    hidden += getattr(self, f'bias_hh_l{i}')
                 it, ft, gt, ot = hidden.split(4, 1)
                 it = it.sigmoid()
                 ft = ft.sigmoid()
@@ -170,14 +170,14 @@ class GRU(RNNBase):
         for t, xt in enumerate(x):
             hidden = xt
             for i in range(self.num_layers):
-                weight_ih = self.__getattribute__(f'weight_ih_l{i}')
-                weight_hh = self.__getattribute__(f'weight_hh_l{i}')
+                weight_ih = getattr(self, f'weight_ih_l{i}')
+                weight_hh = getattr(self, f'weight_hh_l{i}')
                 hidden @= weight_ih.T
                 hiddens_i = hiddens[i]
                 hiddens_i @= weight_hh.T
                 if self.bias:
-                    hidden += self.__getattribute__(f'bias_ih_l{i}')
-                    hiddens_i += self.__getattribute__(f'bias_hh_l{i}')
+                    hidden += getattr(self, f'bias_ih_l{i}')
+                    hiddens_i += getattr(self, f'bias_hh_l{i}')
                 rt, zt, nt = hidden.split(3, 1)
                 rh, zh, nh = hiddens_i.split(3, 1)
                 rt = (rt + rh).sigmoid()

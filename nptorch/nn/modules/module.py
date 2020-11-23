@@ -97,21 +97,30 @@ class Module(object):
         if isinstance(state_dict, str):
             with open(state_dict, 'rb') as f:
                 state_dict = pickle.load(f)
-        if not state_dict:
-            return
-        child_state_dict = defaultdict(OrderedDict)
+        if not isinstance(state_dict, OrderedDict):
+            raise TypeError(f'state_dict must be type: `OrderedDict`, Got {type(state_dict)}')
+        model_state_dict_keys = self.state_dict().keys()
+        state_dict_keys = state_dict.keys()
+        if model_state_dict_keys != state_dict_keys:
+            error_msg = f'Error(s) in loading state_dict for {self.__class__.__name__}:\n'
+            missing_keys = model_state_dict_keys - state_dict_keys
+            unexpected_keys = state_dict_keys - model_state_dict_keys
+            if missing_keys:
+                missing_keys = '"' + '", "'.join(missing_keys) + '"'
+                error_msg += f'Missing keys in state_dict: {missing_keys}'
+            if unexpected_keys:
+                unexpected_keys = '"' + '", "'.join(unexpected_keys) + '"'
+                error_msg += f'Unexpected keys in state_dict: {unexpected_keys}'
+            raise RuntimeError(error_msg)
         for key, value in state_dict.items():
             if key.count('.') == 0:
-                if not hasattr(self, key):
-                    raise AttributeError(f'{self.__class__.__name__} object has no attribute `{key}`')
                 self.__setattr__(key, value)
-            else:
-                child_name, key = key.split('.', 1)
-                if not hasattr(self, child_name):
-                    raise AttributeError(f'{self.__class__.__name__} object has no attribute `{child_name}`')
-                child_state_dict[child_name][key] = value
-        for name, module in self.named_children():
-            module.load_state_dict(child_state_dict.get(name))
+            keys = key.split('.')
+            module = self
+            for k in keys[:-1]:
+                module = getattr(module, k)
+            module.__setattr__(keys[-1], value)
+        print('All keys matched successfully')
 
     def forward(self, *args, **kwargs) -> Tensor:
         raise NotImplementedError
