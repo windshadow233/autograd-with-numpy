@@ -1,5 +1,5 @@
 import pickle
-from collections import defaultdict, OrderedDict
+from collections import namedtuple, OrderedDict
 from nptorch.tensor import Tensor
 from ..parameter import Parameter
 
@@ -11,6 +11,13 @@ def make_indent(s: str):
     s = ['  ' + line for line in s1[1:]]
     s.insert(0, s1[0])
     return '\n'.join(s)
+
+
+class _IncompatibleKeys(namedtuple('IncompatibleKeys', ['missing_keys', 'unexpected_keys'])):
+    def __repr__(self):
+        if not self.missing_keys and not self.unexpected_keys:
+            return '<All keys matched successfully>'
+        return super(_IncompatibleKeys, self).__repr__()
 
 
 class Module(object):
@@ -36,6 +43,11 @@ class Module(object):
 
     def __call__(self, *args, **kwargs) -> Tensor:
         return self.forward(*args, **kwargs)
+
+    def __setattr__(self, key, value):
+        if '.' in key:
+            raise RuntimeError('Attribute name of Module cannot contain "."')
+        super(Module, self).__setattr__(key, value)
 
     def extra_repr(self):
         return ''
@@ -89,10 +101,11 @@ class Module(object):
         with open(state_dict_file_name, 'wb') as f:
             pickle.dump(state_dict, f)
 
-    def load_state_dict(self, state_dict: OrderedDict or str):
+    def load_state_dict(self, state_dict: OrderedDict or str, strict=True):
         """
         载入参数
         @param state_dict: 参数字典或字典文件路径
+        @param strict: 字典的键是否需要完全匹配
         """
         if isinstance(state_dict, str):
             with open(state_dict, 'rb') as f:
@@ -101,25 +114,30 @@ class Module(object):
             raise TypeError(f'state_dict must be type: `OrderedDict`, Got {type(state_dict)}')
         model_state_dict_keys = self.state_dict().keys()
         state_dict_keys = state_dict.keys()
+        missing_keys = model_state_dict_keys - state_dict_keys
+        unexpected_keys = state_dict_keys - model_state_dict_keys
+        incompatible_keys = _IncompatibleKeys(missing_keys, unexpected_keys)
         if model_state_dict_keys != state_dict_keys:
-            error_msg = f'Error(s) in loading state_dict for {self.__class__.__name__}:\n'
-            missing_keys = model_state_dict_keys - state_dict_keys
-            unexpected_keys = state_dict_keys - model_state_dict_keys
-            if missing_keys:
-                missing_keys = '"' + '", "'.join(missing_keys) + '"'
-                error_msg += f'Missing keys in state_dict: {missing_keys}'
-            if unexpected_keys:
-                unexpected_keys = '"' + '", "'.join(unexpected_keys) + '"'
-                error_msg += f'Unexpected keys in state_dict: {unexpected_keys}'
-            raise RuntimeError(error_msg)
+            if strict:
+                error_msg = f'Error(s) in loading state_dict for {self.__class__.__name__}:\n'
+                if missing_keys:
+                    missing_keys = '"' + '", "'.join(missing_keys) + '"'
+                    error_msg += f'Missing keys in state_dict: {missing_keys}'
+                if unexpected_keys:
+                    unexpected_keys = '"' + '", "'.join(unexpected_keys) + '"'
+                    error_msg += f'Unexpected keys in state_dict: {unexpected_keys}'
+                raise RuntimeError(error_msg)
         for key, value in state_dict.items():
             keys = key.split('.')
             module = self
             for k in keys[:-1]:
+                if not hasattr(module, k):
+                    break
                 module = getattr(module, k)
-            module.__setattr__(keys[-1], value)
-        print('All keys matched successfully')
+            else:
+                if hasattr(module, keys[-1]):
+                    module.__setattr__(keys[-1], value)
+        return incompatible_keys
 
     def forward(self, *args, **kwargs) -> Tensor:
         raise NotImplementedError
-
