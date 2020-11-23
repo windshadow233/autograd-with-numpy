@@ -20,7 +20,7 @@ class _IncompatibleKeys(namedtuple('IncompatibleKeys', ['missing_keys', 'unexpec
         return super(_IncompatibleKeys, self).__repr__()
 
     def __bool__(self):
-        return bool(self.missing_keys) or bool(self.unexpected_keys)
+        return bool(self.missing_keys or self.unexpected_keys)
 
 
 class Module(object):
