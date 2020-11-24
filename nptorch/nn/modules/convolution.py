@@ -10,6 +10,16 @@ from .utils import _pair
 
 class _ConvNd(Module):
     def __init__(self, in_channels, out_channels, kernel_size, stride, padding, dilation, bias):
+        """
+        卷积层基类
+        @param in_channels: 输入通道数
+        @param out_channels: 输出通道数
+        @param kernel_size: 卷积核尺寸
+        @param stride: 步长
+        @param padding: padding
+        @param dilation: 卷积核膨胀尺寸
+        @param bias: 是否使用偏置
+        """
         super(_ConvNd, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -31,13 +41,6 @@ class Conv1d(_ConvNd):
     def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=0, bias=True):
         """
         1维卷积,输入数据形状为(B,C,W)
-        @param in_channels: 输入通道数
-        @param out_channels: 输出通道数
-        @param kernel_size: 卷积核尺寸
-        @param stride: 步长
-        @param padding: padding
-        @param dilation: 卷积核膨胀尺寸
-        @param bias: 是否使用偏置
         """
         super(Conv1d, self).__init__(in_channels, out_channels, kernel_size, stride, padding, dilation, bias)
         assert isinstance(self.stride, int) and self.stride >= 1, f"Invalid stride value: {self.stride}"
@@ -56,13 +59,6 @@ class Conv2d(_ConvNd):
     def __init__(self, in_channels, out_channels, kernel_size, stride=(1, 1), padding=(0, 0), dilation=(0, 0), bias=True):
         """
         2维卷积,输入数据形状为(B,C,H,W)
-        @param in_channels: 输入通道数
-        @param out_channels: 输出通道数
-        @param kernel_size: 卷积核尺寸
-        @param stride: H,W方向的步长
-        @param padding: H,W方向的padding
-        @param dilation: 卷积核膨胀尺寸
-        @param bias: 是否使用偏置
         """
         super(Conv2d, self).__init__(in_channels, out_channels, kernel_size, stride, padding, dilation, bias)
         self.stride = _pair(self.stride)
