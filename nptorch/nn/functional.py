@@ -140,9 +140,6 @@ def conv2d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=(1, 1), paddi
 
 def conv1d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=1, padding=0, dilation=0):
     assert x.ndim == 3, 'x must be 3 dimensional'
-    assert isinstance(stride, int) and stride >= 1, f"Invalid stride value: {stride}"
-    assert isinstance(padding, int) and padding >= 0, f"Invalid stride value: {padding}"
-    assert isinstance(dilation, int) and dilation >= 0, f"Invalid stride value: {dilation}"
     return conv2d(x.unsqueeze(-2), kernels.unsqueeze(-2), bias, (1, stride), (0, padding), (0, dilation)).squeeze(-2)
 
 
@@ -189,16 +186,12 @@ def batch_norm(x: Tensor, mean: Tensor, var: Tensor, gamma: Tensor, beta: Tensor
 def mean_pool1d(x: Tensor, kernel_size, stride=None):
     assert x.ndim == 3, 'x must be 3 dimensional'
     stride = stride or kernel_size
-    assert isinstance(kernel_size, int) and kernel_size >= 1, f"Invalid stride value: {stride}"
-    assert isinstance(stride, int) and stride >= 1, f"Invalid stride value: {stride}"
     return mean_pool2d(x.unsqueeze(-2), kernel_size=(1, kernel_size), stride=(1, stride)).squeeze(-2)
 
 
 def max_pool1d(x: Tensor, kernel_size, stride=None):
     assert x.ndim == 3, 'x must be 3 dimensional'
     stride = stride or kernel_size
-    assert isinstance(kernel_size, int) and kernel_size >= 1, f"Invalid stride value: {stride}"
-    assert isinstance(stride, int) and stride >= 1, f"Invalid stride value: {stride}"
     return max_pool2d(x.unsqueeze(-2), kernel_size=(1, kernel_size), stride=(1, stride)).squeeze(-2)
 
 
