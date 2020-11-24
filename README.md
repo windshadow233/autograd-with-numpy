@@ -122,6 +122,8 @@ cnn = CNN()
 optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
 ## 更新日志
+### 2020/11/24
+* 增加了Conv1d类。
 ### 2020/11/22
 * 增加了梯度截断函数clip_grad_norm_。
 ### 2020/11/21

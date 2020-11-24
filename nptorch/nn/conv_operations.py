@@ -62,8 +62,8 @@ def unwrap_padding(x: np.ndarray, padding):
     return x[..., p[0]:-p[1], q[0]:-q[1]]
 
 
-def kernel_rotate180(kernel: np.ndarray):
-    return kernel[..., ::-1, ::-1]
+def kernel_rotate180(kernel: np.ndarray, axis=(-1, -2)):
+    return np.flip(kernel, axis)
 
 
 def dilate(x: np.ndarray, dilation=(0, 0)):
@@ -95,7 +95,7 @@ def erode(x: np.ndarray, dilation=(0, 0)):
 
 def reverse_conv2d(x: np.ndarray, kernel: np.ndarray, rotate=False, invert=False):
     """
-    反向卷积,求梯度时用的
+    conv2d的反向卷积,求梯度时用的
     @param x: 被卷积的张量
     @param kernel: 卷积核
     @param rotate: 卷积核旋转180度
@@ -111,3 +111,18 @@ def reverse_conv2d(x: np.ndarray, kernel: np.ndarray, rotate=False, invert=False
     if invert:
         return y.transpose((3, 0, 1, 2))
     return y.transpose((0, 3, 1, 2))
+
+
+def reverse_conv1d(x: np.ndarray, kernel: np.ndarray, rotate=False, invert=False):
+    """
+    conv1d的反向卷积
+    """
+    ksize = kernel.shape
+    x = np.squeeze(split_by_strides(x, (1, ksize[-1])), -2)
+    if rotate:
+        kernel = kernel_rotate180(kernel, axis=-1)
+    i = 0 if invert else 1
+    y = np.tensordot(x, kernel, [(i, 3), (0, 2)])
+    if invert:
+        return y.transpose((2, 0, 1))
+    return y.transpose((0, 2, 1))

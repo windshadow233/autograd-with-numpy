@@ -3,7 +3,7 @@ from ..tensor import Tensor, float32
 from .. import random
 from ..autograd.backward import CrossEntropyBackward, Conv2dBackward, MeanPool2dBackward, MaxPool2dBackward,\
     LeakyReLUBackward, ELUBackward, BatchNormBackward, MeanPool1dBackward, MaxPool1dBackward, NLLLossBackward,\
-    EmbeddingBackward
+    EmbeddingBackward, Conv1dBackward
 from .conv_operations import split_by_strides, padding_zeros, dilate
 
 
@@ -118,8 +118,12 @@ def conv2d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=(1, 1), paddi
     b, c, h, w = x.shape
     oc, ic, kh, kw = kernels.shape
     assert c == ic, 'Conv2d channels not equal'
-    if not isinstance(stride, tuple):
+    if isinstance(stride, int):
         stride = (stride, stride)
+    if isinstance(padding, int):
+        padding = (padding, padding)
+    if isinstance(dilation, int):
+        dilation = (dilation, dilation)
     data = x.data
     padding = ((padding[0], padding[0]), (padding[1], padding[1]))
     data = padding_zeros(data, padding)
@@ -137,10 +141,40 @@ def conv2d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=(1, 1), paddi
     return output
 
 
+def conv1d(x: Tensor, kernels: Tensor, bias: Tensor = None, stride=1, padding=0, dilation=0):
+    assert x.ndim == 3, 'x must be 3 dimensional'
+    b, c, w = x.shape
+    oc, ic, kw = kernels.shape
+    assert c == ic, 'Conv1d channels not equal'
+    if isinstance(stride, (tuple, list)):
+        stride = stride[0]
+    if isinstance(padding, (tuple, list)):
+        padding = padding[0]
+    if isinstance(dilation, (tuple, list)):
+        dilation = dilation[0]
+    dilation = (0, dilation)
+    data = x.data
+    padding = ((0, 0), (padding, padding))
+    data = padding_zeros(data, padding)
+    dilated_kernels = dilate(kernels.data, dilation)
+    split = split_by_strides(data, (1, dilated_kernels.shape[-1]), stride=(1, stride))
+    split = np.squeeze(split, -2)
+    output = Tensor(np.tensordot(split, dilated_kernels, axes=[(1, 3), (1, 2)]).transpose((0, 2, 1)),
+                    requires_grad=x.requires_grad)
+    if bias is not None:
+        output = output + bias[:, None]
+    if output.grad_enable:
+        output.children = [(x, padding), (kernels, dilated_kernels, stride, dilation)]
+        if bias is not None:
+            output.children.append((bias, None))
+        output.grad_fn = Conv1dBackward()
+    return output
+
+
 def mean_pool2d(x: Tensor, kernel_size, stride):
     assert x.ndim == 4, 'x must be 4 dimensional'
     stride = stride or (kernel_size, kernel_size)
-    if not isinstance(stride, tuple):
+    if not isinstance(stride, (tuple, list)):
         stride = (stride, stride)
     split = split_by_strides(x.data, (kernel_size, kernel_size), stride)
     mean_data = np.mean(split, axis=(-1, -2))
@@ -154,7 +188,7 @@ def mean_pool2d(x: Tensor, kernel_size, stride):
 def max_pool2d(x: Tensor, kernel_size, stride=None):
     assert x.ndim == 4, 'x must be 4 dimensional'
     stride = stride or (kernel_size, kernel_size)
-    if not isinstance(stride, tuple):
+    if not isinstance(stride, (tuple, list)):
         stride = (stride, stride)
     split = split_by_strides(x.data, (kernel_size, kernel_size), stride)
     max_data = np.max(split, axis=(-1, -2))

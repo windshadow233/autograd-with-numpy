@@ -4,10 +4,9 @@ import numpy as np
 import nptorch
 from nptorch import random
 from nptorch import nn
-from nptorch.optim import SGD, Adam
+from nptorch.optim import SGD
 from nptorch import transforms as T
 from nptorch.utils.data import Dataset, DataLoader
-import pickle
 
 trans = T.Compose([T.ToPILImage(),
                    T.Resize((32, 32)),
@@ -87,23 +86,23 @@ model = LeNet()
 optimizer = SGD(model.parameters(), lr=1e-1, momentum=0.7)
 loss_fcn = nn.CrossEntropyLoss()
 
-# for i in tqdm(range(5)):
-#     count = 0
-#     for d, lb in train_loader:
-#         model.train()
-#         count += len(d)
-#         print(count)
-#         print('标签:', lb)
-#         y_hat = model(d)
-#         loss = loss_fcn(y_hat, lb)
-#         loss.backward()
-#         optimizer.step()
-#         model.eval()
-#         with nptorch.no_grad():
-#             p = model(d).argmax(-1)
-#             print('优化后预测:', p)
-#             print(f'优化后的准确比率:{(p == lb).float().sum().item() / len(d)}')
-#         optimizer.zero_grad()
+for i in tqdm(range(5)):
+    count = 0
+    for d, lb in train_loader:
+        model.train()
+        count += len(d)
+        print(count)
+        print('标签:', lb)
+        y_hat = model(d)
+        loss = loss_fcn(y_hat, lb)
+        loss.backward()
+        optimizer.step()
+        model.eval()
+        with nptorch.no_grad():
+            p = model(d).argmax(-1)
+            print('优化后预测:', p)
+            print(f'优化后的准确比率:{(p == lb).float().sum().item() / len(d)}')
+        optimizer.zero_grad()
 
 
 model.load_state_dict('LeNet.pkl')

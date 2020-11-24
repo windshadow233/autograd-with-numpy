@@ -95,13 +95,12 @@ class Module(object):
     def state_dict(self):
         state_dict = OrderedDict({k: v for k, v in self.__dict__.items() if isinstance(v, Tensor)})
         for name, module in self.named_children():
-            child_state_dict = module.state_dict()
-            state_dict.update(OrderedDict({f'{name}.{k}': v for k, v in child_state_dict.items()}))
+            state_dict.update(OrderedDict({f'{name}.{k}': v for k, v in module.state_dict().items()}))
         return state_dict
 
-    def save_state_dict(self, state_dict_file_name):
+    def save_state_dict(self, state_dict_file):
         state_dict = self.state_dict()
-        with open(state_dict_file_name, 'wb') as f:
+        with open(state_dict_file, 'wb') as f:
             pickle.dump(state_dict, f)
 
     def load_state_dict(self, state_dict: OrderedDict or str, strict=True):
@@ -121,13 +120,13 @@ class Module(object):
         unexpected_keys = state_dict_keys - model_state_dict_keys
         incompatible_keys = _IncompatibleKeys(missing_keys, unexpected_keys)
         if strict and incompatible_keys:
-            error_msg = f'Error(s) in loading state_dict for {self.__class__.__name__}:\n'
+            error_msg = f'Error(s) in loading state_dict for {self.__class__.__name__}:'
             if missing_keys:
                 missing_keys = '"' + '", "'.join(missing_keys) + '"'
-                error_msg += f'Missing keys in state_dict: {missing_keys}'
+                error_msg += f'\nMissing keys in state_dict: {missing_keys}'
             if unexpected_keys:
                 unexpected_keys = '"' + '", "'.join(unexpected_keys) + '"'
-                error_msg += f'Unexpected keys in state_dict: {unexpected_keys}'
+                error_msg += f'\nUnexpected keys in state_dict: {unexpected_keys}'
             raise RuntimeError(error_msg)
         for key, value in state_dict.items():
             keys = key.split('.')

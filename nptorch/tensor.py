@@ -979,6 +979,19 @@ class Tensor:
     def unbind(self, axis=0):
         return tuple(tensor.squeeze(axis) for tensor in self.split(self.shape[axis], axis=axis))
 
+    def flip(self, axis=None):
+        result = Tensor(np.flip(self.data, axis=axis), dtype=self.dtype, requires_grad=self.requires_grad)
+        if result.grad_enable:
+            result.children = [(self, axis)]
+            result.grad_fn = FlipBackward()
+        return result
+
+    def __reversed__(self):
+        if self.ndim == 0:
+            return self
+        else:
+            return self.flip(0)
+
     def backward(self, grad=None):
         if self.is_leaf or not self.grad_enable:
             return

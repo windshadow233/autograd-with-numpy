@@ -1,6 +1,6 @@
 from numpy import e, pi
-from .nn.functional import sigmoid, softmax, relu, relu_, leaky_relu, linear, elu, softplus, \
-    dropout, dropout2d, conv2d, max_pool2d, mean_pool2d, batch_norm, pairwise_distance, cosine_similarity, \
+from .nn.functional import sigmoid, softmax, relu, relu_, leaky_relu, linear, elu, softplus, dropout, \
+    dropout2d, conv2d, conv1d, max_pool2d, mean_pool2d, batch_norm, pairwise_distance, cosine_similarity, \
     embedding
 from .functional import *
 from .autograd import no_grad
