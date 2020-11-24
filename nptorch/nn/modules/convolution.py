@@ -5,6 +5,7 @@ from ..parameter import Parameter
 from nptorch.random import normal
 from .. import functional as F
 from .module import Module
+from .utils import _pair
 
 
 class _ConvNd(Module):
@@ -39,12 +40,9 @@ class Conv1d(_ConvNd):
         @param bias: 是否使用偏置
         """
         super(Conv1d, self).__init__(in_channels, out_channels, kernel_size, stride, padding, dilation, bias)
-        assert isinstance(self.stride, int) and self.stride >= 1 or len(self.stride) == 1 and self.stride[0] >= 1, \
-            f"Invalid stride value: {self.stride}"
-        assert isinstance(self.padding, int) and self.stride >= 1 or len(self.padding) == 1 and self.padding[0] >= 0, \
-            f"Invalid padding value: {self.padding}"
-        assert isinstance(self.dilation, int) and self.dilation >= 0 or len(self.dilation) == 1 and self.dilation[0] >= 0, \
-            f"Invalid dilation value: {self.dilation}"
+        assert isinstance(self.stride, int) and self.stride >= 1, f"Invalid stride value: {self.stride}"
+        assert isinstance(self.padding, int) and self.padding >= 1, f"Invalid padding value: {self.padding}"
+        assert isinstance(self.dilation, int) and self.dilation >= 0, f"Invalid dilation value: {self.dilation}"
         n = out_channels * self.kernel_size
         self.kernels = Parameter(
             normal(mean=0., std=np.sqrt(2. / n), size=(out_channels, in_channels, self.kernel_size)))
@@ -67,21 +65,19 @@ class Conv2d(_ConvNd):
         @param bias: 是否使用偏置
         """
         super(Conv2d, self).__init__(in_channels, out_channels, kernel_size, stride, padding, dilation, bias)
-        if isinstance(stride, int):
-            self.stride = (stride, stride)
-        if isinstance(padding, int):
-            self.padding = (padding, padding)
-        if isinstance(dilation, int):
-            self.dilation = (dilation, dilation)
+        self.stride = _pair(self.stride)
+        self.padding = _pair(self.padding)
+        self.dilation = _pair(self.dilation)
+        self.kernel_size = _pair(self.kernel_size)
         assert len(self.stride) == 2 and self.stride[0] >= 1 and self.stride[1] >= 1, \
             f"Invalid stride value: {self.stride}"
         assert len(self.padding) == 2 and self.padding[0] >= 0 and self.padding[1] >= 0, \
             f"Invalid padding value: {self.padding}"
         assert len(self.dilation) == 2 and self.dilation[0] >= 0 and self.dilation[1] >= 0, \
             f"Invalid padding value: {padding}"
-        n = out_channels * self.kernel_size ** 2
+        n = out_channels * self.kernel_size[0] * self.kernel_size[1]
         self.kernels = Parameter(
-            normal(mean=0., std=np.sqrt(2. / n), size=(out_channels, in_channels, self.kernel_size, self.kernel_size)))
+            normal(mean=0., std=np.sqrt(2. / n), size=(out_channels, in_channels, *self.kernel_size)))
         self.bias = Parameter(nptorch.zeros(out_channels)) if bias else None
 
     def forward(self, x: Tensor) -> Tensor:

@@ -542,7 +542,7 @@ class Conv2dBackward(BackwardFcn):
             dilated_kernels, stride = children[1][1: 3]
             grad = dilate(grad, (stride[0] - 1, stride[1] - 1))
             delta_x_shape = x.shape[-2] + sum(padding[0]), x.shape[-1] + sum(padding[1])
-            add_rows, add_cols = np.array(delta_x_shape) + dilated_kernels.shape[-1] - 1 - np.array(grad.shape[-2:])
+            add_rows, add_cols = np.array(delta_x_shape) + dilated_kernels.shape[-2:] - 1 - np.array(grad.shape[-2:])
             padding_x = np.floor(add_rows / 2).astype(int), np.ceil(add_rows / 2).astype(int)
             padding_y = np.floor(add_cols / 2).astype(int), np.ceil(add_cols / 2).astype(int)
             grad = padding_zeros(grad, (padding_x, padding_y))
@@ -556,46 +556,15 @@ class Conv2dBackward(BackwardFcn):
             return np.sum(grad, (0, -1, -2))
 
 
-class Conv1dBackward(BackwardFcn):
-    def calculate_grad(self, grad, children, place):
-        x, padding = children[0]
-        if place == 0:
-            dilated_kernels, stride = children[1][1: 3]
-            grad = dilate(grad, (0, stride - 1))
-            delta_x_shape = x.shape[-1] + sum(padding[1])
-            add_cols = delta_x_shape + dilated_kernels.shape[-1] - 1 - grad.shape[-1]
-            padding_y = np.floor(add_cols / 2).astype(int), np.ceil(add_cols / 2).astype(int)
-            grad = padding_zeros(grad, ((0, 0), padding_y))
-            return unwrap_padding(reverse_conv1d(grad, dilated_kernels, rotate=True, invert=False), padding)
-        elif place == 1:
-            x = padding_zeros(x.data, padding)
-            stride, dilation = children[1][2:]
-            grad = dilate(grad, (0, stride - 1))
-            return erode(reverse_conv1d(x, grad, rotate=False, invert=True), dilation)
-        else:
-            return np.sum(grad, (0, -1))
-
-
 class MeanPool2dBackward(BackwardFcn):
     def calculate_grad(self, grad, children, place):
         x, kernel_size, stride = children[0]
         new_grad = np.zeros_like(x.data)
-        grad = grad / kernel_size ** 2
+        grad = grad / (kernel_size[0] * kernel_size[1])
         B, C, H, W = grad.shape
         for b, c, h, w in product(range(B), range(C), range(H), range(W)):
-            new_grad[b, c, h * stride[0]: h * stride[0] + kernel_size, w * stride[1]: w * stride[1] + kernel_size]\
+            new_grad[b, c, h * stride[0]: h * stride[0] + kernel_size[0], w * stride[1]: w * stride[1] + kernel_size[1]]\
                 += grad[b, c, h, w]
-        return new_grad
-
-
-class MeanPool1dBackward(BackwardFcn):
-    def calculate_grad(self, grad, children, place):
-        x, kernel_size, stride = children[0]
-        new_grad = np.zeros_like(x.data)
-        grad = grad / kernel_size
-        B, L, D = grad.shape
-        for b, l, d in product(range(B), range(L), range(D)):
-            new_grad[b, l, d * stride: d * stride + kernel_size] += grad[b, l, d]
         return new_grad
 
 
@@ -606,19 +575,8 @@ class MaxPool2dBackward(BackwardFcn):
         B, C, H, W = grad.shape
         for index, m in zip(product(range(B), range(C), range(H), range(W)), argmax):
             b, c, h, w = index
-            mh, mw = m // kernel_size, m % kernel_size
+            mh, mw = m // kernel_size[1], m % kernel_size[1]
             new_grad[b, c, h * stride[0] + mh, w * stride[1] + mw] += grad[b, c, h, w]
-        return new_grad
-
-
-class MaxPool1dBackward(BackwardFcn):
-    def calculate_grad(self, grad, children, place):
-        x, argmax, kernel_size, stride = children[0]
-        new_grad = np.zeros_like(x.data)
-        B, L, D = grad.shape
-        for index, m in zip(product(range(B), range(L), range(D)), argmax):
-            b, l, d = index
-            new_grad[b, l, d * stride + m] += grad[b, l, d]
         return new_grad
 
 
