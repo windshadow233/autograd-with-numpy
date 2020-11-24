@@ -3,7 +3,6 @@ from nptorch.tensor import Tensor
 from nptorch.random import uniform
 from .. import functional as F
 from nptorch.functional import zeros, stack
-from ..parameter import Parameter
 from .module import Module
 
 
