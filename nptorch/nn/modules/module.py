@@ -195,10 +195,6 @@ class Module(object):
         fcn(self)
         return self
 
-    def save_model(self, file_name):
-        with open(file_name, 'wb') as f:
-            pickle.dump(self, f)
-
     def state_dict(self):
         state_dict = OrderedDict()
         state_dict.update({k: v for k, v in self._parameters.items() if v is not None})
