@@ -139,46 +139,59 @@ class Module(object):
             return
         raise TypeError(f'module must be type of `Module`, got {type(module)}')
 
-    def named_parameters(self, recurse=True):
-        params = set()
-        for name, value in self._parameters.items():
-            if isinstance(value, Parameter) and id(value) not in params:
-                params.add(id(value))
-                yield name, value
+    def named_modules(self, recurse=True):
+        modules = set()
+        modules.add(id(self))
+        yield '', self
+        for name, module in self._modules.items():
+            if module is None or id(module) in modules:
+                continue
+            modules.add(id(module))
+            yield name, module
         if recurse:
-            for child in self.children():
-                for name, value in child.named_parameters():
-                    if id(value) not in params:
-                        params.add(id(value))
-                        yield name, value
+            for name, module in self._modules.items():
+                for module_name, value in module.named_modules():
+                    if id(value) in modules:
+                        continue
+                    modules.add(id(value))
+                    yield f'{name}.{module_name}', value
+
+    def modules(self, recurse=True):
+        for _, modules in self.named_modules(recurse):
+            yield modules
+
+    def _named_members(self, member_gen_fcn, recurse=True):
+        members = set()
+        modules = self.named_modules() if recurse else [('', self)]
+        for name, module in modules:
+            for member_name, member in member_gen_fcn(module):
+                if member is None or id(member) in members:
+                    continue
+                members.add(id(member))
+                if name != '':
+                    yield f'{name}.{member_name}', member
+                else:
+                    yield member_name, member
+
+    def named_parameters(self, recurse=True):
+        for name, parameter in self._named_members(lambda module: module._parameters.items(), recurse):
+            yield name, parameter
 
     def parameters(self, recurse=True):
         for _, param in self.named_parameters(recurse):
             yield param
 
     def named_buffers(self, recurse=True):
-        buffers = set()
-        for name, value in self._buffers.items():
-            if isinstance(value, Tensor) and id(value) not in buffers:
-                buffers.add(id(value))
-                yield name, value
-        if recurse:
-            for child in self.children():
-                for name, value in child.named_buffers():
-                    if id(value) not in buffers:
-                        buffers.add(id(value))
-                        yield name, value
+        for name, buffer in self._named_members(lambda module: module._buffers.items(), recurse):
+            yield name, buffer
 
     def buffers(self, recurse=True):
         for _, buffer in self.named_buffers(recurse):
             yield buffer
 
     def named_children(self):
-        children = set()
-        for name, value in self._modules.items():
-            if isinstance(value, Module) and id(value) not in children:
-                children.add(id(value))
-                yield name, value
+        for name, child in self._named_members(lambda module: module._modules.items(), False):
+            yield name, child
 
     def children(self):
         for _, module in self.named_children():
