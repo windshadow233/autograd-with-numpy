@@ -21,7 +21,10 @@ class Linear(Module):
         self.in_features = in_features
         self.out_features = out_features
         self.weight = Parameter(normal(mean=0., std=np.sqrt(2. / in_features), size=(out_features, in_features)))
-        self.bias = Parameter(zeros(out_features)) if bias else None
+        if bias:
+            self.bias = Parameter(zeros(out_features))
+        else:
+            self.register_parameter('bias', None)
 
     def extra_repr(self):
         return ('{in_features}, {out_features}, ' + f'bias={self.bias is not None}').format(**self.__dict__)
