@@ -242,7 +242,7 @@ class Module(object):
                 module = getattr(module, k)
             else:
                 k = keys[-1]
-                if hasattr(module, k) and getattr(module, k) is not None:
+                if getattr(module, k, None) is not None:
                     module.__setattr__(keys[-1], value)
         return incompatible_keys
 
