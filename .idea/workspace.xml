@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/nptorch/nn/init.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/container.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/container.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/convolution.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/convolution.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/module.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/tensor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/normalization.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/normalization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/rnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/rnn.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +67,7 @@
       <recent name="F:\pycharmProjects\my_deeplearning_frame\mnist" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.mnist">
+  <component name="RunManager" selected="Python.test">
     <configuration name="lfw_verification" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -112,9 +113,6 @@
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -137,8 +135,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.mnist" />
         <item itemvalue="Python.test" />
+        <item itemvalue="Python.mnist" />
         <item itemvalue="Python.lfw_verification" />
       </list>
     </recent_temporary>
@@ -250,7 +248,7 @@
       <workItem from="1606015879101" duration="5613000" />
       <workItem from="1606196868755" duration="18032000" />
       <workItem from="1606236306016" duration="106000" />
-      <workItem from="1606282239536" duration="4976000" />
+      <workItem from="1606282239536" duration="8386000" />
     </task>
     <servers />
   </component>
@@ -357,10 +355,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="762" y="0" width="781" height="870" key="dock-window-1/0.0.1536.864@0.0.1536.864" timestamp="1603270427926" />
-    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1606130313757">
+    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1606288500795">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1606130313757" />
+    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1606288500795" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

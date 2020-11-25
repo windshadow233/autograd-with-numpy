@@ -22,11 +22,12 @@ class _BatchNormNd(Module):
         self.momentum = momentum
         self.affine = affine
         self.track_running_stats = track_running_stats
-        self.gamma = ones(num_features)
-        self.beta = zeros(num_features)
         if affine:
-            self.gamma = Parameter(self.gamma)
-            self.beta = Parameter(self.beta)
+            self.gamma = Parameter(ones(num_features))
+            self.beta = Parameter(zeros(num_features))
+        else:
+            self.gamma = ones(num_features)
+            self.beta = zeros(num_features)
         if track_running_stats:
             self.running_mean = Tensor(0.)
             self.running_var = Tensor(1.)

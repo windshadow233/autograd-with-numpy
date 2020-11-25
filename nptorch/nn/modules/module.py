@@ -28,6 +28,7 @@ class Module(object):
         self.training = True
         self._parameters = OrderedDict()
         self._buffers = OrderedDict()
+        self._modules = OrderedDict()
 
     def __repr__(self):
         extra_repr = self.extra_repr()
@@ -49,17 +50,37 @@ class Module(object):
     def __call__(self, *args, **kwargs) -> Tensor:
         return self.forward(*args, **kwargs)
 
+    def __getattr__(self, item):
+        if '_parameters' in self.__dict__:
+            parameters = self.__dict__.get('_parameters')
+            if item in parameters:
+                return parameters[item]
+        if '_buffers' in self.__dict__:
+            buffers = self.__dict__.get('_buffers')
+            if item in buffers:
+                return buffers[item]
+        if '_modules' in self.__dict__:
+            modules = self.__dict__.get('_modules')
+            if item in modules:
+                return modules[item]
+        return super(Module, self).__getattribute__(item)
+
     def __setattr__(self, key, value):
-        if '.' in key:
-            raise RuntimeError('Attribute name of Module cannot contain "."')
-        super(Module, self).__setattr__(key, value)
+        if isinstance(value, Parameter):
+            self.register_parameter(key, value)
+        elif isinstance(value, Tensor):
+            self.register_buffer(key, value)
+        elif isinstance(value, Module):
+            self.add_module(key, value)
+        else:
+            super(Module, self).__setattr__(key, value)
 
     def extra_repr(self):
         return ''
 
     def named_children(self):
         children = set()
-        for name, value in self.__dict__.items():
+        for name, value in self._modules.items():
             if isinstance(value, Module) and id(value) not in children:
                 children.add(id(value))
                 yield name, value
@@ -78,11 +99,44 @@ class Module(object):
         return self.train(False)
 
     def register_parameter(self, name, param):
-        self.__setattr__(name, Parameter(param))
+        if '.' in name:
+            raise RuntimeError('name of parameter cannot contain "."')
+        if name == '':
+            raise RuntimeError('name of parameter cannot be empty')
+        elif hasattr(self, name) and name not in self._parameters:
+            raise KeyError(f'name `{name}` already exists')
+        if isinstance(param, (type(None), Parameter)):
+            self._parameters[name] = param
+            return
+        raise TypeError(f'parameter must be type of `Parameter`, got {type(param)}')
+
+    def register_buffer(self, name, buffer):
+        if '.' in name:
+            raise RuntimeError('name of buffer cannot contain "."')
+        if name == '':
+            raise RuntimeError('name of buffer cannot be empty')
+        elif hasattr(self, name) and name not in self._buffers:
+            raise KeyError(f'name `{name}` already exists')
+        if isinstance(buffer, (type(None), Tensor)):
+            self._buffers[name] = buffer
+            return
+        raise TypeError(f'buffer must be type of `Tensor`, got {type(buffer)}')
+
+    def add_module(self, name, module):
+        if '.' in name:
+            raise RuntimeError('name of module cannot contain "."')
+        if name == '':
+            raise RuntimeError('name of module cannot be empty')
+        elif hasattr(self, name) and name not in self._modules:
+            raise KeyError(f'name `{name}` already exists')
+        if isinstance(module, (type(None), Module)):
+            self._modules[name] = module
+            return
+        raise TypeError(f'module must be type of `Module`, got {type(module)}')
 
     def named_parameters(self, recurse=True):
         params = set()
-        for name, value in self.__dict__.items():
+        for name, value in self._parameters.items():
             if isinstance(value, Parameter) and id(value) not in params:
                 params.add(id(value))
                 yield name, value
@@ -96,6 +150,19 @@ class Module(object):
     def parameters(self, recurse=True):
         for _, param in self.named_parameters(recurse):
             yield param
+
+    def named_buffers(self, recurse=True):
+        buffers = set()
+        for name, value in self._buffers.items():
+            if isinstance(value, Tensor) and id(value) not in buffers:
+                buffers.add(id(value))
+                yield name, value
+        if recurse:
+            for child in self.children():
+                for name, value in child.named_buffers():
+                    if id(value) not in buffers:
+                        buffers.add(id(value))
+                        yield name, value
 
     def requires_grad_(self, mode=True):
         for p in self.parameters():
@@ -113,7 +180,9 @@ class Module(object):
             pickle.dump(self, f)
 
     def state_dict(self):
-        state_dict = OrderedDict({k: v for k, v in self.__dict__.items() if isinstance(v, Tensor)})
+        state_dict = OrderedDict()
+        state_dict.update(self._parameters)
+        state_dict.update(self._buffers)
         for name, module in self.named_children():
             state_dict.update(OrderedDict({f'{name}.{k}': v for k, v in module.state_dict().items()}))
         return state_dict

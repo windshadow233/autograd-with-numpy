@@ -3,7 +3,7 @@ from nptorch.tensor import Tensor
 from nptorch.random import uniform
 from .. import functional as F
 from nptorch.functional import zeros, stack
-from .module import Module
+from .module import Module, Parameter
 
 
 class RNNBase(Module):
@@ -46,11 +46,13 @@ class RNNBase(Module):
         gate_size = {'RNN': 1, 'LSTM': 4, 'GRU': 3}.get(self.__class__.__name__) * self.hidden_size
         for i in range(self.num_layers):
             ih_input_size = self.input_size if i == 0 else self.hidden_size
-            self.register_parameter(f'weight_ih_l{i}', uniform(low=-k, high=k, size=(gate_size, ih_input_size)))
-            self.register_parameter(f'weight_hh_l{i}', uniform(low=-k, high=k, size=(gate_size, self.hidden_size)))
+            self.register_parameter(f'weight_ih_l{i}',
+                                    Parameter(uniform(low=-k, high=k, size=(gate_size, ih_input_size))))
+            self.register_parameter(f'weight_hh_l{i}',
+                                    Parameter(uniform(low=-k, high=k, size=(gate_size, self.hidden_size))))
             if self.bias:
-                self.register_parameter(f'bias_ih_l{i}', zeros(gate_size))
-                self.register_parameter(f'bias_hh_l{i}', zeros(gate_size))
+                self.register_parameter(f'bias_ih_l{i}', Parameter(zeros(gate_size)))
+                self.register_parameter(f'bias_hh_l{i}', Parameter(zeros(gate_size)))
 
     @staticmethod
     def _check_dim(x: Tensor):

@@ -27,7 +27,7 @@ class _ConvNd(Module):
         self.stride = stride
         self.padding = padding
         self.dilation = dilation
-        self.bias = bias
+        self.register_parameter('bias', None)
 
     def extra_repr(self):
         return ('{in_channels}, {out_channels}, kernel_size={kernel_size}, stride={stride},'
