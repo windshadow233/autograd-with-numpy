@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/module.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/module.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,7 +245,7 @@
       <workItem from="1606015879101" duration="5613000" />
       <workItem from="1606196868755" duration="18032000" />
       <workItem from="1606236306016" duration="106000" />
-      <workItem from="1606282239536" duration="13049000" />
+      <workItem from="1606282239536" duration="14585000" />
     </task>
     <servers />
   </component>
