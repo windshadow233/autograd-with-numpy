@@ -50,7 +50,7 @@ class LeNet(nn.Module):
             nn.ReLU(inplace=True),
         )
         self.layer2 = nn.Sequential(
-            nn.Linear(32 * 25, 128, bias=False),
+            nn.Linear(32 * 25, 128),
             nn.BatchNorm1d(128),
             nn.ReLU(inplace=True),
             nn.Linear(128, 64),
@@ -105,6 +105,6 @@ loss_fcn = nn.CrossEntropyLoss()
 #         optimizer.zero_grad()
 
 
-# model.load_state_dict('LeNet.pkl')
-# print(f'测试集准确率{test_model(model, test_loader)}')
-# print(f'训练集准确率{test_model(model, train_loader)}')
+model.load_state_dict('LeNet.pkl')
+print(f'测试集准确率{test_model(model, test_loader)}')
+print(f'训练集准确率{test_model(model, train_loader)}')
