@@ -201,8 +201,8 @@ class Module(object):
 
     def state_dict(self):
         state_dict = OrderedDict()
-        state_dict.update(self._parameters)
-        state_dict.update(self._buffers)
+        state_dict.update({k: v for k, v in self._parameters.items() if v is not None})
+        state_dict.update({k: v for k, v in self._buffers.items() if v is not None})
         for name, module in self.named_children():
             state_dict.update(OrderedDict({f'{name}.{k}': v for k, v in module.state_dict().items()}))
         return state_dict
@@ -245,7 +245,8 @@ class Module(object):
                     break
                 module = getattr(module, k)
             else:
-                if hasattr(module, keys[-1]):
+                k = keys[-1]
+                if hasattr(module, k) and getattr(module, k) is not None:
                     module.__setattr__(keys[-1], value)
         return incompatible_keys
 
