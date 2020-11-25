@@ -49,7 +49,8 @@ class Conv1d(_ConvNd):
         n = out_channels * self.kernel_size
         self.kernels = Parameter(
             normal(mean=0., std=np.sqrt(2. / n), size=(out_channels, in_channels, self.kernel_size)))
-        self.bias = Parameter(nptorch.zeros(out_channels)) if bias else None
+        if bias:
+            self.bias = Parameter(nptorch.zeros(out_channels))
 
     def forward(self, x: Tensor) -> Tensor:
         return F.conv1d(x, self.kernels, self.bias, stride=self.stride, padding=self.padding, dilation=self.dilation)
