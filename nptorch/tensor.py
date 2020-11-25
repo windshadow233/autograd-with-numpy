@@ -13,7 +13,7 @@ def tensor(data, dtype=None, requires_grad=False):
     return Tensor(data, dtype, requires_grad)
 
 
-class Tensor:
+class Tensor(object):
     def __init__(self, data, dtype=None, requires_grad=False):
         if isinstance(data, Tensor):
             data = data.data
@@ -31,6 +31,9 @@ class Tensor:
         self.grad = None
         self._retain = False
 
+    def __hash__(self):
+        return id(self)
+
     @property
     def _retain_grad(self):
         if self.is_leaf:
@@ -43,7 +46,7 @@ class Tensor:
 
     @property
     def is_leaf(self):
-        return not self.grad_fn and self.requires_grad
+        return not self.grad_fn
 
     @property
     def dtype(self):
@@ -212,6 +215,12 @@ class Tensor:
 
     def retain_grad(self, mode=True):
         self._retain = mode
+
+    def requires_grad_(self, mode=True):
+        assert self.is_leaf, 'you can only change requires_grad flags of leaf variables'
+        assert 'float' in self.dtype.name, 'only Tensors of floating point dtype can require gradients'
+        self.requires_grad = mode
+        return self
 
     def numpy(self):
         return self.data

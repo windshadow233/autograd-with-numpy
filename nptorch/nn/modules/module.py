@@ -26,6 +26,8 @@ class _IncompatibleKeys(namedtuple('IncompatibleKeys', ['missing_keys', 'unexpec
 class Module(object):
     def __init__(self):
         self.training = True
+        self._parameters = OrderedDict()
+        self._buffers = OrderedDict()
 
     def __repr__(self):
         extra_repr = self.extra_repr()
@@ -56,8 +58,10 @@ class Module(object):
         return ''
 
     def named_children(self):
+        children = set()
         for name, value in self.__dict__.items():
-            if isinstance(value, Module):
+            if isinstance(value, Module) and id(value) not in children:
+                children.add(id(value))
                 yield name, value
 
     def children(self):
@@ -68,25 +72,41 @@ class Module(object):
         self.training = mode
         for module in self.children():
             module.train(mode)
+        return self
 
     def eval(self):
-        self.train(False)
+        return self.train(False)
 
     def register_parameter(self, name, param):
         self.__setattr__(name, Parameter(param))
 
     def named_parameters(self, recurse=True):
+        params = set()
         for name, value in self.__dict__.items():
-            if isinstance(value, Parameter):
+            if isinstance(value, Parameter) and id(value) not in params:
+                params.add(id(value))
                 yield name, value
         if recurse:
             for child in self.children():
                 for name, value in child.named_parameters():
-                    yield name, value
+                    if id(value) not in params:
+                        params.add(id(value))
+                        yield name, value
 
     def parameters(self, recurse=True):
         for _, param in self.named_parameters(recurse):
             yield param
+
+    def requires_grad_(self, mode=True):
+        for p in self.parameters():
+            p.requires_grad_(mode)
+        return self
+
+    def apply(self, fcn):
+        for module in self.children():
+            module.apply(fcn)
+        fcn(self)
+        return self
 
     def save_model(self, file_name):
         with open(file_name, 'wb') as f:
