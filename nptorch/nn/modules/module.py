@@ -101,9 +101,9 @@ class Module(object):
         if not isinstance(name, str):
             raise TypeError(f'name must be a string, got {type(name)}')
         if '.' in name:
-            raise RuntimeError('name of parameter cannot contain "."')
+            raise KeyError('name of parameter cannot contain "."')
         if name == '':
-            raise RuntimeError('name of parameter cannot be empty')
+            raise KeyError('name of parameter cannot be empty')
         elif hasattr(self, name) and name not in self._parameters:
             raise KeyError(f'attribute `{name}` already exists')
         if isinstance(param, (type(None), Parameter)):
