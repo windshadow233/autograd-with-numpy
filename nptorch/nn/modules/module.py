@@ -34,7 +34,7 @@ class Module(object):
         extra_repr = self.extra_repr()
         extra_lines = extra_repr.split('\n') if extra_repr else []
         child_lines = []
-        for name, child in self.named_children():
+        for name, child in self._modules.items():
             mod_str = make_indent(repr(child))
             child_lines.append('(' + name + '): ' + mod_str)
         lines = extra_lines + child_lines
