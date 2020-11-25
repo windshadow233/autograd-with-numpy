@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mnist.py" beforeDir="false" afterPath="$PROJECT_DIR$/mnist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/container.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/container.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/convolution.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/convolution.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/module.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/module.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/normalization.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/normalization.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/nn/modules/rnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/modules/rnn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/nn/parameter.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/nn/parameter.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +66,7 @@
       <recent name="F:\pycharmProjects\my_deeplearning_frame\mnist" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunManager" selected="Python.mnist">
     <configuration name="lfw_verification" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -135,8 +134,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test" />
         <item itemvalue="Python.mnist" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.lfw_verification" />
       </list>
     </recent_temporary>
@@ -248,7 +247,7 @@
       <workItem from="1606015879101" duration="5613000" />
       <workItem from="1606196868755" duration="18032000" />
       <workItem from="1606236306016" duration="106000" />
-      <workItem from="1606282239536" duration="8386000" />
+      <workItem from="1606282239536" duration="11271000" />
     </task>
     <servers />
   </component>

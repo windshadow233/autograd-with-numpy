@@ -75,6 +75,16 @@ class Module(object):
         else:
             super(Module, self).__setattr__(key, value)
 
+    def __delattr__(self, item):
+        if item in self._parameters:
+            del self._parameters[item]
+        elif item in self._buffers:
+            del self._buffers[item]
+        elif item in self._modules:
+            del self._modules[item]
+        else:
+            super(Module, self).__delattr__(item)
+
     def extra_repr(self):
         return ''
 
@@ -88,36 +98,42 @@ class Module(object):
         return self.train(False)
 
     def register_parameter(self, name, param):
+        if not isinstance(name, str):
+            raise TypeError(f'name must be a string, got {type(name)}')
         if '.' in name:
             raise RuntimeError('name of parameter cannot contain "."')
         if name == '':
             raise RuntimeError('name of parameter cannot be empty')
         elif hasattr(self, name) and name not in self._parameters:
-            raise KeyError(f'name `{name}` already exists')
+            raise KeyError(f'attribute `{name}` already exists')
         if isinstance(param, (type(None), Parameter)):
             self._parameters[name] = param
             return
         raise TypeError(f'parameter must be type of `Parameter`, got {type(param)}')
 
     def register_buffer(self, name, buffer):
+        if not isinstance(name, str):
+            raise TypeError(f'name must be a string, got {type(name)}')
         if '.' in name:
-            raise RuntimeError('name of buffer cannot contain "."')
+            raise KeyError('name of buffer cannot contain "."')
         if name == '':
-            raise RuntimeError('name of buffer cannot be empty')
+            raise KeyError('name of buffer cannot be empty')
         elif hasattr(self, name) and name not in self._buffers:
-            raise KeyError(f'name `{name}` already exists')
+            raise KeyError(f'attribute `{name}` already exists')
         if isinstance(buffer, (type(None), Tensor)):
             self._buffers[name] = buffer
             return
         raise TypeError(f'buffer must be type of `Tensor`, got {type(buffer)}')
 
     def add_module(self, name, module):
+        if not isinstance(name, str):
+            raise TypeError(f'name must be a string, got {type(name)}')
         if '.' in name:
-            raise RuntimeError('name of module cannot contain "."')
+            raise KeyError('name of module cannot contain "."')
         if name == '':
-            raise RuntimeError('name of module cannot be empty')
+            raise KeyError('name of module cannot be empty')
         elif hasattr(self, name) and name not in self._modules:
-            raise KeyError(f'name `{name}` already exists')
+            raise KeyError(f'attribute `{name}` already exists')
         if isinstance(module, (type(None), Module)):
             self._modules[name] = module
             return

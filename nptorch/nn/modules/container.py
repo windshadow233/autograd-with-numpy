@@ -18,6 +18,10 @@ class Sequential(Container):
         for i, module in enumerate(args):
             self.add_module(str(i), module)
 
+    def __getitem__(self, item):
+        keys = list(self.__dict__.get('_modules'))
+        return self._modules[keys[item]]
+
     def forward(self, x):
         for module in self.children():
             x = module(x)
@@ -29,6 +33,10 @@ class ModuleList(Container):
         super(ModuleList, self).__init__()
         for i, module in enumerate(modules):
             self.add_module(str(i), module)
+
+    def __getitem__(self, item):
+        keys = list(self.__dict__.get('_modules'))
+        return self._modules[keys[item]]
 
     def append(self, module):
         self.add_module(str(self.__len__()), module)

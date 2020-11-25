@@ -50,7 +50,7 @@ class LeNet(nn.Module):
             nn.ReLU(inplace=True),
         )
         self.layer2 = nn.Sequential(
-            nn.Linear(32 * 25, 128),
+            nn.Linear(32 * 25, 128, bias=False),
             nn.BatchNorm1d(128),
             nn.ReLU(inplace=True),
             nn.Linear(128, 64),
@@ -86,25 +86,25 @@ model = LeNet()
 optimizer = SGD(model.parameters(), lr=1e-1, momentum=0.7)
 loss_fcn = nn.CrossEntropyLoss()
 
-for i in tqdm(range(5)):
-    count = 0
-    for d, lb in train_loader:
-        model.train()
-        count += len(d)
-        print(count)
-        print('标签:', lb)
-        y_hat = model(d)
-        loss = loss_fcn(y_hat, lb)
-        loss.backward()
-        optimizer.step()
-        model.eval()
-        with nptorch.no_grad():
-            p = model(d).argmax(-1)
-            print('优化后预测:', p)
-            print(f'优化后的准确比率:{(p == lb).float().sum().item() / len(d)}')
-        optimizer.zero_grad()
+# for i in tqdm(range(5)):
+#     count = 0
+#     for d, lb in train_loader:
+#         model.train()
+#         count += len(d)
+#         print(count)
+#         print('标签:', lb)
+#         y_hat = model(d)
+#         loss = loss_fcn(y_hat, lb)
+#         loss.backward()
+#         optimizer.step()
+#         model.eval()
+#         with nptorch.no_grad():
+#             p = model(d).argmax(-1)
+#             print('优化后预测:', p)
+#             print(f'优化后的准确比率:{(p == lb).float().sum().item() / len(d)}')
+#         optimizer.zero_grad()
 
 
-model.load_state_dict('LeNet.pkl')
-print(f'测试集准确率{test_model(model, test_loader)}')
-print(f'训练集准确率{test_model(model, train_loader)}')
+# model.load_state_dict('LeNet.pkl')
+# print(f'测试集准确率{test_model(model, test_loader)}')
+# print(f'训练集准确率{test_model(model, train_loader)}')
