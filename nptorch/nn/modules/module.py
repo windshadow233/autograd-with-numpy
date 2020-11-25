@@ -78,17 +78,6 @@ class Module(object):
     def extra_repr(self):
         return ''
 
-    def named_children(self):
-        children = set()
-        for name, value in self._modules.items():
-            if isinstance(value, Module) and id(value) not in children:
-                children.add(id(value))
-                yield name, value
-
-    def children(self):
-        for name, module in self.named_children():
-            yield module
-
     def train(self, mode=True):
         self.training = mode
         for module in self.children():
@@ -163,6 +152,21 @@ class Module(object):
                     if id(value) not in buffers:
                         buffers.add(id(value))
                         yield name, value
+
+    def buffers(self, recurse=True):
+        for _, buffer in self.named_buffers(recurse):
+            yield buffer
+
+    def named_children(self):
+        children = set()
+        for name, value in self._modules.items():
+            if isinstance(value, Module) and id(value) not in children:
+                children.add(id(value))
+                yield name, value
+
+    def children(self):
+        for _, module in self.named_children():
+            yield module
 
     def requires_grad_(self, mode=True):
         for p in self.parameters():
