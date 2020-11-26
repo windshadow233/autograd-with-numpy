@@ -492,7 +492,7 @@ class CrossEntropyBackward(BackwardFcn):
 
     def calculate_grad(self, grad, children, place):
         x_softmax, target = children[0][1:]
-        return grad * (x_softmax - target) / target.shape[0]
+        return grad * (x_softmax - target) / len(target)
 
 
 class NLLLossBackward(BackwardFcn):
@@ -718,3 +718,10 @@ class FlipBackward(BackwardFcn):
     def calculate_grad(self, grad, children, place):
         axis = children[0][1]
         return np.flip(grad, axis)
+
+
+class BinaryCrossEntropyBackward(BackwardFcn):
+    def calculate_grad(self, grad, children, place):
+        x, target = children[0]
+        x = x.data
+        return (x - target) / x / (1. - x) / target.size

@@ -25,3 +25,11 @@ class NLLLoss(Module):
 
     def forward(self, x: Tensor, target: Tensor) -> Tensor:
         return F.nll_loss(x, target)
+
+
+class BCELoss(Module):
+    def __init__(self):
+        super(BCELoss, self).__init__()
+
+    def forward(self, x: Tensor, y: Tensor) -> Tensor:
+        return F.binary_cross_entropy(x, y)

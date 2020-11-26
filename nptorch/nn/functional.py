@@ -2,7 +2,7 @@ import numpy as np
 from ..tensor import Tensor, float32
 from .. import random
 from ..autograd.backward import CrossEntropyBackward, Conv2dBackward, MeanPool2dBackward, MaxPool2dBackward,\
-    LeakyReLUBackward, ELUBackward, BatchNormBackward, NLLLossBackward, EmbeddingBackward
+    LeakyReLUBackward, ELUBackward, BatchNormBackward, NLLLossBackward, EmbeddingBackward, BinaryCrossEntropyBackward
 from .conv_operations import split_by_strides, padding_zeros, dilate
 from .modules.utils import _pair
 
@@ -223,6 +223,18 @@ def cross_entropy(x: Tensor, target):
         loss.children = [(x, x_softmax.data, one_hot_target.data)]
         loss.grad_fn = CrossEntropyBackward()
     return loss
+
+
+def binary_cross_entropy(x: Tensor, target: Tensor):
+    assert not target.requires_grad, 'the derivative for `target` is not implemented'
+    data = x.data
+    target = target.data
+    result = - np.log(data + 1e-12) * target - np.log(1 - data + 1e-12) * (1. - target)
+    result = Tensor(np.mean(result), requires_grad=x.requires_grad)
+    if x.grad_enable:
+        result.children = [(x, target)]
+        result.grad_fn = BinaryCrossEntropyBackward()
+    return result
 
 
 def mse_loss(x: Tensor, target: Tensor):

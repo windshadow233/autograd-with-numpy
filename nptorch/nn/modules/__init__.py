@@ -6,7 +6,7 @@ from .rnn import RNN, LSTM, GRU
 from .normalization import BatchNorm2d, BatchNorm1d
 from .module import Module
 from .activation import Softmax, Sigmoid, ReLU, Tanh, LeakyReLU, ELU, Softplus
-from .loss import CrossEntropyLoss, MSELoss, NLLLoss
+from .loss import CrossEntropyLoss, MSELoss, NLLLoss, BCELoss
 from .container import Sequential, ModuleList
 from .distance import PairwiseDistance, CosineSimilarity
 from .sparse import Embedding

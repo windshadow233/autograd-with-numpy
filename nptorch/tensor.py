@@ -46,7 +46,7 @@ class Tensor(object):
 
     @property
     def is_leaf(self):
-        return not self.grad_fn
+        return self.grad_fn is None
 
     @property
     def dtype(self):
