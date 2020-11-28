@@ -32,13 +32,12 @@ def to_tensor(img):
         img = img.transpose((2, 0, 1))
         return Tensor(img, dtype=np.float32)
     array = np.array(img)
-    max_value = 2 ** int(re.search('\d+', array.dtype.name).group())
     if img.mode == '1':
         array = array[:, :, None]
     elif img.mode in {'L', 'I', 'F', 'P'}:
-        array = array[:, :, None] / (max_value - 1)
+        array = array[:, :, None] / 255
     elif img.mode in {'RGB', 'RGBA', 'CMYK', 'YCbCr'}:
-        array = array / (max_value - 1)
+        array = array / 255
     array = array.transpose((2, 0, 1))
     return Tensor(array, dtype=np.float32)
 
