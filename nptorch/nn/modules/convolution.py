@@ -47,13 +47,13 @@ class Conv1d(_ConvNd):
         assert isinstance(self.padding, int) and self.padding >= 1, f"Invalid padding value: {self.padding}"
         assert isinstance(self.dilation, int) and self.dilation >= 0, f"Invalid dilation value: {self.dilation}"
         n = out_channels * self.kernel_size
-        self.kernels = Parameter(
+        self.weight = Parameter(
             normal(mean=0., std=np.sqrt(2. / n), size=(out_channels, in_channels, self.kernel_size)))
         if bias:
             self.bias = Parameter(nptorch.zeros(out_channels))
 
     def forward(self, x: Tensor) -> Tensor:
-        return F.conv1d(x, self.kernels, self.bias, stride=self.stride, padding=self.padding, dilation=self.dilation)
+        return F.conv1d(x, self.weight, self.bias, stride=self.stride, padding=self.padding, dilation=self.dilation)
 
 
 class Conv2d(_ConvNd):
@@ -73,9 +73,9 @@ class Conv2d(_ConvNd):
         assert len(self.dilation) == 2 and self.dilation[0] >= 0 and self.dilation[1] >= 0, \
             f"Invalid padding value: {padding}"
         n = out_channels * self.kernel_size[0] * self.kernel_size[1]
-        self.kernels = Parameter(
+        self.weight = Parameter(
             normal(mean=0., std=np.sqrt(2. / n), size=(out_channels, in_channels, *self.kernel_size)))
         self.bias = Parameter(nptorch.zeros(out_channels)) if bias else None
 
     def forward(self, x: Tensor) -> Tensor:
-        return F.conv2d(x, self.kernels, self.bias, stride=self.stride, padding=self.padding, dilation=self.dilation)
+        return F.conv2d(x, self.weight, self.bias, stride=self.stride, padding=self.padding, dilation=self.dilation)

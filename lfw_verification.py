@@ -108,20 +108,20 @@ optimizer = SGD(siamese_net.parameters(), lr=1e-2)
 datasets = [LFWDataset(train_root + f'\\0{train_set_idx}', transform=trans) for train_set_idx in tqdm(range(1, 11), desc='loading...')]
 datasets = sum(datasets)
 dataloader = DataLoader(datasets, batch_size=32, shuffle=True)
-for i in tqdm(range(5)):
-    count = 0
-    for j, (img1, img2, lb) in enumerate(dataloader):
-        count += len(lb)
-        print(count)
-        siamese_net.train()
-        out1, out2 = siamese_net(img1, img2)
-        loss = loss_fcn(out1, out2, lb)
-        print('loss:', loss)
-        loss.backward()
-        optimizer.step()
-        siamese_net.eval()
-        with nptorch.no_grad():
-            out1, out2 = siamese_net(img1, img2)
-            pred = (F.pairwise_distance(out1, out2) < 1).int()
-            print('优化后准确率:', (pred == lb).float().mean().item())
-        optimizer.zero_grad()
+# for i in tqdm(range(5)):
+#     count = 0
+#     for j, (img1, img2, lb) in enumerate(dataloader):
+#         count += len(lb)
+#         print(count)
+#         siamese_net.train()
+#         out1, out2 = siamese_net(img1, img2)
+#         loss = loss_fcn(out1, out2, lb)
+#         print('loss:', loss)
+#         loss.backward()
+#         optimizer.step()
+#         siamese_net.eval()
+#         with nptorch.no_grad():
+#             out1, out2 = siamese_net(img1, img2)
+#             pred = (F.pairwise_distance(out1, out2) < 1).int()
+#             print('优化后准确率:', (pred == lb).float().mean().item())
+#         optimizer.zero_grad()

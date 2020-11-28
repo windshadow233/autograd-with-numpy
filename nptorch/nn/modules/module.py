@@ -220,6 +220,7 @@ class Module(object):
         state_dict = self.state_dict()
         with open(state_dict_file, 'wb') as f:
             pickle.dump(state_dict, f)
+        print(f'State_dict saved successfully to file `{state_dict_file}`!')
 
     def load_state_dict(self, state_dict: OrderedDict or str, strict=True):
         """

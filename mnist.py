@@ -70,17 +70,19 @@ class LeNet(nn.Module):
 def test_model(model, test_loader: DataLoader):
     model.eval()
     count = 0
+    length = 0
     for d, lb in tqdm(test_loader):
         p = model(d).argmax(-1)
         count += (p == lb).float().sum()
-    return count.item() / len(test_loader.dataset)
+        length += len(lb)
+    return count.item() / length
 
 
 random.seed(0)
 train_set = MNISTDataset('mnist/MNIST/raw/train-images-idx3-ubyte', 'mnist/MNIST/raw/train-labels-idx1-ubyte')
 test_set = MNISTDataset('mnist/MNIST/raw/t10k-images-idx3-ubyte', 'mnist/MNIST/raw/t10k-labels-idx1-ubyte')
 train_loader = DataLoader(train_set, batch_size=64)
-test_loader = DataLoader(test_set, batch_size=128)
+test_loader = DataLoader(test_set, batch_size=128, drop_last=True)
 
 model = LeNet()
 optimizer = SGD(model.parameters(), lr=1e-1, momentum=0.7)
@@ -103,7 +105,6 @@ loss_fcn = nn.CrossEntropyLoss()
 #             print('优化后预测:', p)
 #             print(f'优化后的准确比率:{(p == lb).float().sum().item() / len(d)}')
 #         optimizer.zero_grad()
-
 
 print(model.load_state_dict('LeNet.pkl'))
 print(f'测试集准确率{test_model(model, test_loader)}')
