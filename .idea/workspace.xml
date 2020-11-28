@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="" />
+    <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nptorch/transforms/functional.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/transforms/functional.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -60,11 +63,14 @@
       <recent name="F:\pycharmProjects\my_deeplearning_frame\mnist" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.lfw_verification">
+  <component name="RunManager" selected="Python.mnist">
     <configuration name="lfw_verification" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -128,8 +134,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.lfw_verification" />
         <item itemvalue="Python.mnist" />
+        <item itemvalue="Python.lfw_verification" />
         <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
@@ -246,6 +252,7 @@
       <workItem from="1606409984004" duration="299000" />
       <workItem from="1606495797843" duration="8000" />
       <workItem from="1606547646354" duration="472000" />
+      <workItem from="1606578528912" duration="537000" />
     </task>
     <servers />
   </component>
