@@ -1,4 +1,5 @@
 import numpy as np
+import nptorch
 from ..nn.modules import Module
 
 
@@ -12,6 +13,7 @@ class Optimizer(object):
         self.alpha = alpha
         self.weight_decay = weight_decay
 
+    @nptorch.no_grad()
     def _regularization(self):
         if self.alpha > 0.:
             for p in self.params:
