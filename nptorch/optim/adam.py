@@ -1,4 +1,5 @@
 import numpy as np
+import nptorch
 from ..nn.modules import Module
 from .optimizer import Optimizer
 
@@ -24,6 +25,7 @@ class Adam(Optimizer):
         self.r = [0.] * len(self.params)
         self.t = 0
 
+    @nptorch.no_grad()
     def step(self):
         self.t += 1
         self._regularization()
