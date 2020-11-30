@@ -1,3 +1,4 @@
+import nptorch
 from ..nn.modules import Module
 from .optimizer import Optimizer
 
@@ -19,6 +20,7 @@ class SGD(Optimizer):
         if momentum != 0.:
             self.v = [0.] * len(self.params)
 
+    @nptorch.no_grad()
     def step(self):
         self._regularization()
         if self.momentum > 0.:
