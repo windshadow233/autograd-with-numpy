@@ -47,7 +47,7 @@ class Module(object):
         s += ')'
         return s
 
-    def __call__(self, *args, **kwargs) -> Tensor:
+    def __call__(self, *args, **kwargs):
         return self.forward(*args, **kwargs)
 
     def __getattr__(self, item):
@@ -260,5 +260,5 @@ class Module(object):
                     module.__setattr__(keys[-1], value)
         return incompatible_keys
 
-    def forward(self, *args, **kwargs) -> Tensor:
+    def forward(self, *args, **kwargs):
         raise NotImplementedError
