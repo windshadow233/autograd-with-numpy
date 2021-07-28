@@ -4,7 +4,7 @@ from numbers import Number
 from itertools import product
 from .broadcast import get_tile_dims
 from ..nn.conv_operations import padding_zeros, unwrap_padding, dilate, erode, \
-    reverse_conv2d, reverse_conv1d, as_strided
+    reverse_conv2d, as_strided
 
 
 class BackwardFcn:

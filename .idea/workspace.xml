@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a0966ab-b455-498e-9d0b-312a05085658" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/autograd_with_numpy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/autograd_with_numpy.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/optim/adam.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/optim/adam.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/optim/optimizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/optim/optimizer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nptorch/optim/sgd.py" beforeDir="false" afterPath="$PROJECT_DIR$/nptorch/optim/sgd.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,15 +45,15 @@
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="deletionFromPopupRequiresConfirmation" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -66,28 +65,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.mnist">
-    <configuration name="lfw_verification" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="autograd_with_numpy" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lfw_verification.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="mnist" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -100,51 +77,43 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mnist.py" />
       <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="pytest in mnist.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="autograd_with_numpy" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/mnist.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Python.mnist" />
-      <item itemvalue="Python.test" />
-      <item itemvalue="Python.lfw_verification" />
+      <item itemvalue="Python tests.pytest in mnist.py" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.mnist" />
-        <item itemvalue="Python.lfw_verification" />
-        <item itemvalue="Python.test" />
+        <item itemvalue="Python tests.pytest in mnist.py" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -269,108 +238,6 @@
   <component name="VcsManagerConfiguration">
     <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="361" y="87" width="814" height="777" key="#Intentions" timestamp="1604516429970">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="361" y="87" width="814" height="777" key="#Intentions/0.0.1536.864@0.0.1536.864" timestamp="1604516429970" />
-    <state x="477" y="57" key="#backward" timestamp="1602861527397">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="477" y="57" key="#backward/0.0.1536.864@0.0.1536.864" timestamp="1602861527397" />
-    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606210284739">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="223" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.864@0.0.1536.864" timestamp="1606210284739" />
-    <state x="513" y="235" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606126392632">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="513" y="235" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.864@0.0.1536.864" timestamp="1606126392632" />
-    <state x="350" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1605846859153">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="350" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.864@0.0.1536.864" timestamp="1605846859153" />
-    <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1603477158007">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="499" y="179" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.864@0.0.1536.864" timestamp="1603477158007" />
-    <state x="477" y="57" key="#iris" timestamp="1603188191023">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="477" y="57" key="#iris/0.0.1536.864@0.0.1536.864" timestamp="1603188191023" />
-    <state x="477" y="57" key="#mnist" timestamp="1603126188553">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="477" y="57" key="#mnist/0.0.1536.864@0.0.1536.864" timestamp="1603126188553" />
-    <state x="974" y="269" key="#xdebugger.evaluate" timestamp="1605767631173">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="974" y="269" key="#xdebugger.evaluate/0.0.1536.864@0.0.1536.864" timestamp="1605767631173" />
-    <state x="372" y="24" key="CommitChangelistDialog2" timestamp="1603087606159">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="372" y="24" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1603087606159" />
-    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1606495803177">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1606495803177" />
-    <state width="1493" height="369" key="GridCell.Tab.0.bottom" timestamp="1606231551377">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1493" height="369" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1606231551377" />
-    <state width="1493" height="369" key="GridCell.Tab.0.center" timestamp="1606231551377">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1493" height="369" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1606231551377" />
-    <state width="1493" height="369" key="GridCell.Tab.0.left" timestamp="1606231551377">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1493" height="369" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1606231551377" />
-    <state width="1493" height="369" key="GridCell.Tab.0.right" timestamp="1606231551377">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1493" height="369" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1606231551377" />
-    <state width="1493" height="369" key="GridCell.Tab.1.bottom" timestamp="1606231551378">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1493" height="369" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1606231551378" />
-    <state width="1493" height="369" key="GridCell.Tab.1.center" timestamp="1606231551377">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1493" height="369" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1606231551377" />
-    <state width="1493" height="369" key="GridCell.Tab.1.left" timestamp="1606231551377">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1493" height="369" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1606231551377" />
-    <state width="1493" height="369" key="GridCell.Tab.1.right" timestamp="1606231551378">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="1493" height="369" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1606231551378" />
-    <state x="270" y="74" key="SettingsEditor" timestamp="1603717595850">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="270" y="74" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1603717595850" />
-    <state width="775" height="439" key="XDebugger.FullValuePopup" timestamp="1604843787287">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state width="775" height="439" key="XDebugger.FullValuePopup/0.0.1536.864@0.0.1536.864" timestamp="1604843787287" />
-    <state x="332" y="35" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1602524644898">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="332" y="35" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.864@0.0.1536.864" timestamp="1602524644898" />
-    <state x="562" y="349" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603795014109">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="562" y="349" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.864@0.0.1536.864" timestamp="1603795014109" />
-    <state x="762" y="0" width="781" height="870" key="dock-window-1" timestamp="1603270427926">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="762" y="0" width="781" height="870" key="dock-window-1/0.0.1536.864@0.0.1536.864" timestamp="1603270427926" />
-    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1606288500795">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="430" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1606288500795" />
-  </component>
   <component name="XDebuggerManager">
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -381,44 +248,5 @@
         <watch expression="values" />
       </configuration>
     </watches-manager>
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$activation.coverage" NAME="activation Coverage Results" MODIFIED="1602935467236" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork/nn" />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$tensor.coverage" NAME="tensor Coverage Results" MODIFIED="1602992967456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$loss.coverage" NAME="loss Coverage Results" MODIFIED="1603540854064" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch/nn/modules" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$tensor.coverage" NAME="tensor Coverage Results" MODIFIED="1603254451124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch" />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$functional__1_.coverage" NAME="functional (1) Coverage Results" MODIFIED="1603002232345" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="E:/anaconda/anaconda/envs/pytorch/Lib/site-packages/torch/nn" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$conv_operate.coverage" NAME="conv_operate Coverage Results" MODIFIED="1603177034754" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch/nn" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$test.coverage" NAME="test Coverage Results" MODIFIED="1606231509724" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$functional.coverage" NAME="functional Coverage Results" MODIFIED="1603276881147" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch/nn" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$grad_mode.coverage" NAME="grad_mode Coverage Results" MODIFIED="1603867920522" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch" />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$linear.coverage" NAME="linear Coverage Results" MODIFIED="1602940767632" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork/nn" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$lfw_verification.coverage" NAME="lfw_verification Coverage Results" MODIFIED="1605515163214" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$array.coverage" NAME="array Coverage Results" MODIFIED="1602860668412" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork" />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$module.coverage" NAME="module Coverage Results" MODIFIED="1602941962278" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork/nn" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$dnn.coverage" NAME="dnn Coverage Results" MODIFIED="1603110638892" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$random.coverage" NAME="random Coverage Results" MODIFIED="1602922263259" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork" />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1602957651211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../深度学习课程" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$backward.coverage" NAME="backward Coverage Results" MODIFIED="1605767900844" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch/autograd" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$idm_download_request.coverage" NAME="idm-download-request Coverage Results" MODIFIED="1603447344083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="E:/download/chrome" />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$test.coverage" NAME="test Coverage Results" MODIFIED="1602954812479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$zuoye.coverage" NAME="zuoye Coverage Results" MODIFIED="1605018033644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/.." />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$calculate_graph.coverage" NAME="calculate_graph Coverage Results" MODIFIED="1602564048204" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork" />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$boardcast.coverage" NAME="boardcast Coverage Results" MODIFIED="1602591121189" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork" />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$train.coverage" NAME="train Coverage Results" MODIFIED="1602954304621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$main.coverage" NAME="main Coverage Results" MODIFIED="1603004862852" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$test_conv.coverage" NAME="test_conv Coverage Results" MODIFIED="1603177038378" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/my_deeplearn_frame$tensor.coverage" NAME="tensor Coverage Results" MODIFIED="1602495070839" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$string_tool.coverage" NAME="string_tool Coverage Results" MODIFIED="1604118098549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="E:/download/chrome" />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$functions.coverage" NAME="functions Coverage Results" MODIFIED="1602929238244" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../deep learning/neuralNetwork" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$rnn.coverage" NAME="rnn Coverage Results" MODIFIED="1604756153623" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch/nn/utils" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$linear.coverage" NAME="linear Coverage Results" MODIFIED="1603261280991" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/nptorch/nn/modules" />
-    <SUITE FILE_PATH="coverage/autograd_with_numpy$mnist.coverage" NAME="mnist Coverage Results" MODIFIED="1604830250026" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$randomize.coverage" NAME="randomize Coverage Results" MODIFIED="1602922348669" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork" />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$backward.coverage" NAME="backward Coverage Results" MODIFIED="1602946740742" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork" />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$broadcast.coverage" NAME="broadcast Coverage Results" MODIFIED="1602952458170" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork" />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$iris.coverage" NAME="iris Coverage Results" MODIFIED="1602958464581" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$functional.coverage" NAME="functional Coverage Results" MODIFIED="1602999200945" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/neuralNetwork/nn" />
-    <SUITE FILE_PATH="coverage/my_deeplearning_frame$pytest_in_mnist_py.coverage" NAME="pytest in mnist.py Coverage Results" MODIFIED="1603040350102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

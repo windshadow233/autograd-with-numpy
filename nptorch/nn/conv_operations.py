@@ -111,18 +111,3 @@ def reverse_conv2d(x: np.ndarray, kernel: np.ndarray, rotate=False, invert=False
     if invert:
         return y.transpose((3, 0, 1, 2))
     return y.transpose((0, 3, 1, 2))
-
-
-def reverse_conv1d(x: np.ndarray, kernel: np.ndarray, rotate=False, invert=False):
-    """
-    conv1d的反向卷积
-    """
-    ksize = kernel.shape
-    x = np.squeeze(split_by_strides(x, (1, ksize[-1])), -2)
-    if rotate:
-        kernel = kernel_rotate180(kernel, axis=-1)
-    i = 0 if invert else 1
-    y = np.tensordot(x, kernel, [(i, 3), (0, 2)])
-    if invert:
-        return y.transpose((2, 0, 1))
-    return y.transpose((0, 2, 1))
