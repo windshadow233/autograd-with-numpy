@@ -247,7 +247,7 @@ class VarBackward(BackwardFcn):
 class AbsBackward(BackwardFcn):
     def calculate_grad(self, grad, children, place):
         x = children[0][0].data
-        return (2. * (x >= 0.).astype(float) - 1.) * grad
+        return (2. * (x >= 0.).astype(float) - 1.) * (x != 0).astype(float) * grad
 
 
 class TBackward(BackwardFcn):
