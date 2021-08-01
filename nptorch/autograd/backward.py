@@ -349,7 +349,7 @@ class MvBackward(BackwardFcn):
                 grad = np.matmul(np.expand_dims(grad, -2), a)
             else:
                 grad = np.matmul(a, np.expand_dims(grad, -1))
-            grad = np.sum(grad, tuple(np.arange(a.ndim - 2))).reshape(x.shape)
+            grad = np.sum(grad, tuple(range(a.ndim - 2))).reshape(x.shape)
             return grad
         if place == 0:
             grad = np.matmul(grad[..., None], a[None])
