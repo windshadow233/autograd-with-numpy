@@ -344,12 +344,17 @@ class MvBackward(BackwardFcn):
     def calculate_grad(self, grad, children, place):
         x = children[place][0].data
         a = children[1 - place][0].data
-        grad = np.expand_dims(grad, -1)
         if x.ndim == 1:
-            grad = np.matmul(a.swapaxes(-1, -2), grad)
+            if place == 1:
+                grad = np.matmul(np.expand_dims(grad, -2), a)
+            else:
+                grad = np.matmul(a, np.expand_dims(grad, -1))
             grad = np.sum(grad, tuple(np.arange(a.ndim - 2))).reshape(x.shape)
             return grad
-        grad = np.matmul(grad, np.expand_dims(a, 0))
+        if place == 0:
+            grad = np.matmul(grad[..., None], a[None])
+        else:
+            grad = np.matmul(a[..., None], np.expand_dims(grad, -2))
         return grad
 
 
