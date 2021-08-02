@@ -188,7 +188,8 @@ class MaxBackward(BackwardFcn):
     def calculate_grad(self, grad, children, place):
         values, max_values, axis, keepdims = children[0]
         if max_values.size == 1:
-            return grad * (values.data == max_values).astype(int)
+            grad = grad * (values.data == max_values).astype(int)
+            return grad / np.sum(grad)
         shape = np.array(values.shape)
         tiles = np.ones_like(shape)
         tiles[axis] = shape[axis]
@@ -196,14 +197,16 @@ class MaxBackward(BackwardFcn):
             max_values = np.expand_dims(max_values, axis)
             grad = np.expand_dims(grad, axis)
         max_values = np.tile(max_values, tiles)
-        return grad * (values.data == max_values).astype(int)
+        grad = grad * (values.data == max_values).astype(int)
+        return grad / np.sum(grad, axis, keepdims=True)
 
 
 class MinBackward(BackwardFcn):
     def calculate_grad(self, grad, children, place):
         values, min_values, axis, keepdims = children[0]
         if min_values.size == 1:
-            return grad * (values.data == min_values).astype(int)
+            grad = grad * (values.data == min_values).astype(int)
+            return grad / np.sum(grad)
         shape = np.array(values.shape)
         tiles = np.ones_like(shape)
         tiles[axis] = shape[axis]
@@ -211,7 +214,8 @@ class MinBackward(BackwardFcn):
             min_values = np.expand_dims(min_values, axis)
             grad = np.expand_dims(grad, axis)
         min_values = np.tile(min_values, tiles)
-        return grad * (values.data == min_values).astype(int)
+        grad = grad * (values.data == min_values).astype(int)
+        return grad / np.sum(grad, axis, keepdims=True)
 
 
 class MeanBackward(BackwardFcn):
