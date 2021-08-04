@@ -23,8 +23,8 @@ def split_by_strides(x: np.ndarray, kernel_size, stride=(1, 1)):
                                                        [15, 16]]]]
     """
     *bc, h, w = x.shape
-    out_h, out_y = (h - kernel_size[0]) // stride[0] + 1, (w - kernel_size[1]) // stride[1] + 1
-    shape = (*bc, out_h, out_y, kernel_size[0], kernel_size[1])
+    out_H, out_W = (h - kernel_size[0]) // stride[0] + 1, (w - kernel_size[1]) // stride[1] + 1
+    shape = (*bc, out_H, out_W, kernel_size[0], kernel_size[1])
     strides = (*x.strides[:-2], x.strides[-2] * stride[0],
                x.strides[-1] * stride[1], *x.strides[-2:])
     y = as_strided(x, shape, strides=strides)
