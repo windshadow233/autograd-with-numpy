@@ -17,14 +17,14 @@ class _PoolNd(Module):
         raise NotImplementedError
 
 
-class MeanPool2d(_PoolNd):
+class AvgPool2d(_PoolNd):
     def __init__(self, kernel_size, stride=None):
-        super(MeanPool2d, self).__init__(kernel_size, stride)
+        super(AvgPool2d, self).__init__(kernel_size, stride)
         self.kernel_size = _pair(self.kernel_size)
         self.stride = _pair(self.stride)
 
     def forward(self, x: Tensor) -> Tensor:
-        return F.mean_pool2d(x, self.kernel_size, self.stride)
+        return F.avg_pool2d(x, self.kernel_size, self.stride)
 
 
 class MaxPool2d(_PoolNd):
@@ -37,14 +37,14 @@ class MaxPool2d(_PoolNd):
         return F.max_pool2d(x, self.kernel_size, self.stride)
 
 
-class MeanPool1d(_PoolNd):
+class AvgPool1d(_PoolNd):
     def __init__(self, kernel_size, stride=None):
-        super(MeanPool1d, self).__init__(kernel_size, stride)
+        super(AvgPool1d, self).__init__(kernel_size, stride)
         assert isinstance(self.kernel_size, int) and self.kernel_size >= 1, f"Invalid stride value: {self.stride}"
         assert isinstance(self.stride, int) and self.stride >= 1, f"Invalid stride value: {self.stride}"
 
     def forward(self, x: Tensor) -> Tensor:
-        return F.mean_pool1d(x, self.kernel_size, self.stride)
+        return F.avg_pool1d(x, self.kernel_size, self.stride)
 
 
 class MaxPool1d(_PoolNd):
