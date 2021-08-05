@@ -62,7 +62,7 @@ def unwrap_padding(x: np.ndarray, padding):
     return x[..., p[0]:-p[1], q[0]:-q[1]]
 
 
-def kernel_rotate180(kernel: np.ndarray, axis=(-1, -2)):
+def rotate180(kernel: np.ndarray, axis=(-1, -2)):
     return np.flip(kernel, axis)
 
 
@@ -105,7 +105,7 @@ def reverse_conv2d(x: np.ndarray, kernel: np.ndarray, rotate=False, invert=False
     ksize = kernel.shape
     x = split_by_strides(x, ksize[-2:])
     if rotate:
-        kernel = kernel_rotate180(kernel)
+        kernel = rotate180(kernel)
     i = 0 if invert else 1
     y = np.tensordot(x, kernel, [(i, 4, 5), (0, 2, 3)])
     if invert:
