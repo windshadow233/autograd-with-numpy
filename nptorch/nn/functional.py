@@ -1,7 +1,7 @@
 import numpy as np
 from ..tensor import Tensor, float32
 from .. import random
-from ..autograd.backward import CrossEntropyBackward, Conv2dBackward, MeanPool2dBackward, MaxPool2dBackward,\
+from ..autograd.backward import CrossEntropyBackward, Conv2dBackward, MeanPool2dBackward, AvgPool2dBackward,\
     LeakyReLUBackward, ELUBackward, BatchNormBackward, NLLLossBackward, EmbeddingBackward, BinaryCrossEntropyBackward
 from .conv_operations import split_by_strides, padding_zeros, dilate
 from .modules.utils import _pair
@@ -142,7 +142,7 @@ def conv1d(x: Tensor, weight: Tensor, bias: Tensor = None, stride=1, padding=0, 
     return conv2d(x.unsqueeze(-2), weight.unsqueeze(-2), bias, (1, stride), (0, padding), (0, dilation)).squeeze(-2)
 
 
-def mean_pool2d(x: Tensor, kernel_size, stride):
+def avg_pool2d(x: Tensor, kernel_size, stride):
     assert x.ndim == 4, 'x must be 4 dimensional'
     kernel_size = _pair(kernel_size)
     stride = stride or kernel_size
@@ -167,7 +167,7 @@ def max_pool2d(x: Tensor, kernel_size, stride=None):
     output = Tensor(max_data, requires_grad=x.requires_grad)
     if output.grad_enable:
         output.children = [(x, argmax, kernel_size, stride)]
-        output.grad_fn = MaxPool2dBackward()
+        output.grad_fn = AvgPool2dBackward()
     return output
 
 
@@ -182,10 +182,10 @@ def batch_norm(x: Tensor, mean: Tensor, var: Tensor, gamma: Tensor, beta: Tensor
     return output
 
 
-def mean_pool1d(x: Tensor, kernel_size, stride=None):
+def avg_pool1d(x: Tensor, kernel_size, stride=None):
     assert x.ndim == 3, 'x must be 3 dimensional'
     stride = stride or kernel_size
-    return mean_pool2d(x.unsqueeze(-2), kernel_size=(1, kernel_size), stride=(1, stride)).squeeze(-2)
+    return avg_pool2d(x.unsqueeze(-2), kernel_size=(1, kernel_size), stride=(1, stride)).squeeze(-2)
 
 
 def max_pool1d(x: Tensor, kernel_size, stride=None):
