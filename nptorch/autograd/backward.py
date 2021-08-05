@@ -601,7 +601,7 @@ class BatchNormBackward(BackwardFcn):
             dx = dx / (n * np.sqrt(var + eps))
             return dx
         elif place == 1:
-            return np.sum(x_hat, axis=axis)
+            return np.sum(x_hat * grad, axis=axis)
         else:
             return np.sum(grad, axis=axis)
 
