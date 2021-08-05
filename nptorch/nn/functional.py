@@ -174,7 +174,7 @@ def max_pool2d(x: Tensor, kernel_size, stride=None):
 def batch_norm(x: Tensor, mean: Tensor, var: Tensor, gamma: Tensor, beta: Tensor, eps=1e-5):
     axis = (0, -1, -2)[:x.ndim - 1]
     x_hat = (x.data - mean.data) / np.sqrt(var.data + eps)
-    output = Tensor(gamma.unsqueeze(*axis).data * x_hat + beta.unsqueeze(*axis).data,
+    output = Tensor(np.expand_dims(gamma.data, axis) * x_hat + np.expand_dims(beta.data, axis),
                     requires_grad=x.requires_grad or gamma.requires_grad or beta.requires_grad)
     if output.grad_enable:
         output.grad_fn = BatchNormBackward()
