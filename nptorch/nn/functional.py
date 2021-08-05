@@ -124,14 +124,14 @@ def conv2d(x: Tensor, weight: Tensor, bias: Tensor = None, stride=(1, 1), paddin
     data = x.data
     padding = ((padding[0], padding[0]), (padding[1], padding[1]))
     data = padding_zeros(data, padding)
-    dilated_kernels = dilate(weight.data, dilation)
-    split = split_by_strides(data, dilated_kernels.shape[-2:], stride=stride)
-    output = Tensor(np.tensordot(split, dilated_kernels, axes=[(1, 4, 5), (1, 2, 3)]).transpose((0, 3, 1, 2)),
+    dilated_weight = dilate(weight.data, dilation)
+    split = split_by_strides(data, dilated_weight.shape[-2:], stride=stride)
+    output = Tensor(np.tensordot(split, dilated_weight, axes=[(1, 4, 5), (1, 2, 3)]).transpose((0, 3, 1, 2)),
                     requires_grad=x.requires_grad)
     if bias is not None:
         output = output + bias[:, None, None]
     if output.grad_enable:
-        output.children = [(x, padding), (weight, dilated_kernels, stride, dilation)]
+        output.children = [(x, padding), (weight, dilated_weight, stride, dilation)]
         if bias is not None:
             output.children.append((bias, None))
         output.grad_fn = Conv2dBackward()
