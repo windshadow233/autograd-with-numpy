@@ -162,7 +162,7 @@ optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 * 增加了Softplus激活函数。
 ### 2020/10/27
 * 增加了ToPILImage变换。
-* 增加了MaxPool1d与MeanPool1d。
+* 增加了MaxPool1d与AvgPool1d。
 ### 2020/10/26
 * 增加了Adam优化器。
 * 增加了ToTensor、Reshape与GaryScale三个图像变换。
