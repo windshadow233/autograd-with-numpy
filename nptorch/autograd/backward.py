@@ -548,14 +548,14 @@ class Conv2dBackward(BackwardFcn):
     def calculate_grad(self, grad, children, place):
         x, padding = children[0]
         if place == 0:
-            dilated_kernels, stride = children[1][1: 3]
+            dilated_weight, stride = children[1][1: 3]
             grad = dilate(grad, (stride[0] - 1, stride[1] - 1))
             delta_x_shape = x.shape[-2] + sum(padding[0]), x.shape[-1] + sum(padding[1])
-            add_rows, add_cols = np.array(delta_x_shape) + dilated_kernels.shape[-2:] - 1 - np.array(grad.shape[-2:])
+            add_rows, add_cols = np.array(delta_x_shape) + dilated_weight.shape[-2:] - 1 - np.array(grad.shape[-2:])
             padding_x = np.floor(add_rows / 2).astype(int), np.ceil(add_rows / 2).astype(int)
             padding_y = np.floor(add_cols / 2).astype(int), np.ceil(add_cols / 2).astype(int)
             grad = padding_zeros(grad, (padding_x, padding_y))
-            return unwrap_padding(reverse_conv2d(grad, dilated_kernels, rotate=True, invert=False), padding)
+            return unwrap_padding(reverse_conv2d(grad, dilated_weight, rotate=True, invert=False), padding)
         elif place == 1:
             x = padding_zeros(x.data, padding)
             stride, dilation = children[1][2:]
