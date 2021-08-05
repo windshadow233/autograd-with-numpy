@@ -576,7 +576,7 @@ class MeanPool2dBackward(BackwardFcn):
         return new_grad
 
 
-class MaxPool2dBackward(BackwardFcn):
+class AvgPool2dBackward(BackwardFcn):
     def calculate_grad(self, grad, children, place):
         x, argmax, kernel_size, stride = children[0]
         new_grad = np.zeros_like(x.data)
