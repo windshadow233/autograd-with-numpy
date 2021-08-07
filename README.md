@@ -7,7 +7,7 @@
 ## 使用文档
 本项目使用风格与numpy和pytorch类似,如果你会用pytorch,那么下面的基本不用看了。
 
-项目的解读请[点击此处](https://www.fyz666.xyz/blog/5640/)。
+项目的解读请[点击此处](https://www.fyz666.xyz/blog/category/content/science/machine-learning/handwritten-neural-network/)。
 
 ### 基本使用
 ```python
