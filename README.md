@@ -82,7 +82,7 @@ f()
 4. random_split函数传入一个Dataset类型实例与一个长度列表,返回按长度随机分割后的数据集。
 5. 具体使用实例可以看mnist.py文件。
 ### 模型搭建与优化
-内置模型的使用方法与pytorch高度相似,优化器目前实现了SGD与Adam两种。以一个简单的卷积神经网络和SGD优化器为例：
+内置模型的使用方法与pytorch高度相似(但功能差远了),优化器目前实现了SGD与Adam两种。以一个简单的卷积神经网络和SGD优化器为例：
 ```python
 from nptorch import nn
 from nptorch.optim import SGD
