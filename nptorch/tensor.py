@@ -1002,22 +1002,28 @@ class Tensor(object):
             return self.flip(0)
 
     def backward(self, grad=None):
-        if self.is_leaf or not self.grad_enable:
+        if not self.grad_enable:
             return
-        if grad is None:
-            assert self.size == 1, 'grad can be implicitly created only for scalar outputs'
-            grad = np.ones_like(self.data)
-            if self._retain_grad:
-                self.grad = Tensor(grad)
-        for i, child in enumerate(self.children):
-            child_tensor = child[0]
-            if isinstance(child_tensor, Tensor) and child_tensor.requires_grad:
-                child_grad = self.grad_fn.calculate_grad(grad, self.children, i)
-                if child_tensor._retain_grad:
-                    if child_tensor.grad is None:
-                        child_tensor.grad = Tensor(np.zeros_like(child_tensor.data), dtype=child_tensor.dtype)
-                    child_tensor.grad = child_tensor.grad + Tensor(child_grad, dtype=float32)
-                child_tensor.backward(child_grad)
+        stack = [(self, grad)]
+        while stack:
+            item, grad = stack.pop()
+            if item.is_leaf:
+                continue
+            if grad is None:
+                assert item.size == 1, 'grad can be implicitly created only for scalar outputs'
+                grad = np.ones_like(item.data)
+                if item._retain_grad:
+                    item.grad = Tensor(grad)
+            for i, child in enumerate(item.children):
+                child_tensor = child[0]
+                if isinstance(child_tensor, Tensor) and child_tensor.requires_grad:
+                    child_grad = item.grad_fn.calculate_grad(grad, item.children, i)
+                    if child_tensor._retain_grad:
+                        if child_tensor.grad is None:
+                            child_tensor.grad = Tensor(np.zeros_like(child_tensor.data), dtype=child_tensor.dtype)
+                        child_tensor.grad = child_tensor.grad + Tensor(child_grad, dtype=float32)
+                    stack.append((child_tensor, child_grad))
+        return
 
     add = __add__
     sub = __sub__
