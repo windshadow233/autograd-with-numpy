@@ -1007,8 +1007,6 @@ class Tensor(object):
         stack = [(self, grad)]
         while stack:
             item, grad = stack.pop()
-            if item.is_leaf:
-                continue
             if grad is None:
                 assert item.size == 1, 'grad can be implicitly created only for scalar outputs'
                 grad = np.ones_like(item.data)
@@ -1022,8 +1020,8 @@ class Tensor(object):
                         if child_tensor.grad is None:
                             child_tensor.grad = Tensor(np.zeros_like(child_tensor.data), dtype=child_tensor.dtype)
                         child_tensor.grad = child_tensor.grad + Tensor(child_grad, dtype=float32)
-                    stack.append((child_tensor, child_grad))
-        return
+                    if not child_tensor.is_leaf:
+                        stack.append((child_tensor, child_grad))
 
     add = __add__
     sub = __sub__
