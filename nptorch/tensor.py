@@ -1004,14 +1004,14 @@ class Tensor(object):
     def backward(self, grad=None):
         if not self.grad_enable:
             return
+        if grad is None:
+            assert self.size == 1, 'grad can be implicitly created only for scalar outputs'
+            grad = np.ones_like(self.data)
+            if self._retain_grad:
+                self.grad = Tensor(grad)
         stack = [(self, grad)]
         while stack:
             item, grad = stack.pop()
-            if grad is None:
-                assert item.size == 1, 'grad can be implicitly created only for scalar outputs'
-                grad = np.ones_like(item.data)
-                if item._retain_grad:
-                    item.grad = Tensor(grad)
             for i, child in enumerate(item.children):
                 child_tensor = child[0]
                 if isinstance(child_tensor, Tensor) and child_tensor.requires_grad:
