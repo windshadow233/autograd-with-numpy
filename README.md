@@ -9,7 +9,7 @@
 ## 使用文档
 本项目使用风格与 Numpy 和 PyTorch 类似（基本是后者的子集）, 如果你会用 PyTorch, 那么下面的内容基本不用看了。
 
-对于此项目的解读请[点击此处](https://blog.fyz666.xyz/blog/5640/)。
+此项目的相关博客位于[此处]([https://blog.fyz666.xyz/blog/5640/](https://blog.fyz666.xyz/categories/%E6%89%8B%E6%90%93%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/))。
 
 ### 基本使用
 ```python
