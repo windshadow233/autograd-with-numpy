@@ -1,7 +1,7 @@
 from copy import copy
 from numbers import Number
 from .autograd.backward import *
-from .autograd.grad_mode import grad_enable
+from .autograd.grad_mode import is_grad_enabled
 from .return_types import Max, Min, Sort
 from numpy import float16, float32, float64, int8, int16, int32, int64, bool_,\
     uint8, uint16, uint32, uint64, inf
@@ -35,14 +35,12 @@ class Tensor(object):
         return id(self)
 
     @property
-    def _retain_grad(self):
-        if self.is_leaf:
-            return True
+    def retains_grad(self):
         return self._retain
 
     @property
     def grad_enable(self):
-        return self.requires_grad and grad_enable()
+        return self.requires_grad and is_grad_enabled()
 
     @property
     def is_leaf(self):
@@ -211,10 +209,11 @@ class Tensor(object):
         return Tensor(self.data.argmin(axis), dtype=int64)
 
     def detach(self):
-        return Tensor(self.data)
+        return Tensor(self.data, dtype=self.dtype, requires_grad=False)
 
-    def retain_grad(self, mode=True):
-        self._retain = mode
+    def retain_grad(self):
+        assert self.requires_grad, 'you can only retain gradients of Tensors that require them'
+        self._retain = True
 
     def requires_grad_(self, mode=True):
         assert self.is_leaf, 'you can only change requires_grad flags of leaf variables'
@@ -1007,7 +1006,7 @@ class Tensor(object):
         if grad is None:
             assert self.size == 1, 'grad can be implicitly created only for scalar outputs'
             grad = np.ones_like(self.data)
-            if self._retain_grad:
+            if self.retains_grad or (self.is_leaf and self.requires_grad):
                 self.grad = Tensor(grad)
         stack = [(self, grad)]
         while stack:
@@ -1016,7 +1015,7 @@ class Tensor(object):
                 child_tensor = child[0]
                 if isinstance(child_tensor, Tensor) and child_tensor.requires_grad:
                     child_grad = item.grad_fn.calculate_grad(grad, item.children, i)
-                    if child_tensor._retain_grad:
+                    if child_tensor.retains_grad or child_tensor.is_leaf:
                         if child_tensor.grad is None:
                             child_tensor.grad = Tensor(np.zeros_like(child_tensor.data), dtype=child_tensor.dtype)
                         child_tensor.grad = child_tensor.grad + Tensor(child_grad, dtype=float32)

@@ -3,10 +3,10 @@ import functools
 
 class no_grad(object):
     def __enter__(self):
-        grad_enable.set_grad_enabled(False)
+        is_grad_enabled.set_grad_enabled(False)
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        grad_enable.set_grad_enabled(True)
+        is_grad_enabled.set_grad_enabled(True)
 
     def __call__(self, func):
         @functools.wraps(func)
@@ -32,5 +32,4 @@ class GradEnable(object):
         self._grad_enable = mode
 
 
-grad_enable = GradEnable()
-
+is_grad_enabled = GradEnable()
