@@ -1,13 +1,15 @@
-# autograd with numpy
-本项目用于自己学习,旨在用numpy实现计算图,进行梯度的自动计算,从而能完成一些深度学习任务。
+# Autograd with Numpy
 
-本项目所有运算都通过调用numpy接口实现,其本身仅仅就是套了个壳。
+本项目用于自己学习, 旨在用 Numpy 实现计算图,进行梯度的自动计算, 从而能完成一些深度学习任务。
 
-项目依赖的第三方库：numpy==1.19.1,pillow==8.0.1
+本项目所有运算都通过调用 Numpy 接口实现, 其本身仅仅就是套了个壳。
+
+项目依赖的第三方库：numpy==1.19.1, pillow==8.0.1
+
 ## 使用文档
-本项目使用风格与numpy和pytorch类似,如果你会用pytorch,那么下面的基本不用看了。
+本项目使用风格与 Numpy 和 PyTorch 类似（基本是后者的子集）, 如果你会用 PyTorch, 那么下面的内容基本不用看了。
 
-项目的解读请[点击此处](https://www.fyz666.xyz/blog/category/content/science/machine-learning/handwritten-neural-network/)。
+此项目的相关博客位于[此处](https://blog.fyz666.xyz/categories/%E6%89%8B%E6%90%93%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/)。
 
 ### 基本使用
 ```python
@@ -38,10 +40,10 @@ x = nt.random.rand(3, 4, dtype=nt.float32, requires_grad=True)
 y = nt.random.normal(mean=0., std=1., size=(3, 4))
 ```
 ### 自动求导
-1. 定义float类型的张量时,可指定参数requires_grad=True来声明需要对此张量求梯度。
-2. 当得到标量结果时,可对该标量调用backward方法,得到与该标量相关的计算图中所有叶子节点的梯度。
-3. 为节约空间,非叶子节点默认不会存储梯度,若需要其存储梯度,可调用其retain_grad()方法。
-4. 上下文管理器no_grad可实现内部计算不进行计算图的构建与求导,也可作为函数装饰器,强烈建议在验证模型准确性时使用。
+1. 定义 float 类型的张量时, 可指定参数 `requires_grad=True` 来声明需要对此张量求梯度。
+2. 当得到标量结果时, 可对该标量调用 `backward` 方法,得到与该标量相关的计算图中所有叶子节点的梯度。
+3. 为节约空间, 非叶子节点默认不会存储梯度, 若需要其存储梯度, 可调用其 `retain_grad` 方法。
+4. 上下文管理器 `no_grad` 可实现内部计算不进行计算图的构建与求导, 也可作为函数装饰器, 在不需要记录梯度时使用。
 ```python
 import nptorch as nt
 x = nt.tensor([1., 2., 3.], dtype=nt.float32, requires_grad=True)
@@ -76,13 +78,13 @@ f()
 # <class 'NoneType'>
 ```
 ### 数据集
-1. 项目封装了一个简单的data模块用以封装数据,功能比较简单。使用方法也类似pytorch,不过功能少了一些,以后再慢慢完善。
-2. 自定义的数据集类需要继承Dataset类并完善__len__与__getitem__方法。
-3. DataLoader初始化放入Dataset或Subset类型的实例,可选参数有batch_size、shuffle与collate_fn,并通过生成一个迭代器的方式批量获取其中的数据。
-4. random_split函数传入一个Dataset类型实例与一个长度列表,返回按长度随机分割后的数据集。
-5. 具体使用实例可以看mnist.py文件。
+1. 项目封装了一个简陋的 `data` 模块用以封装数据, 功能比较简单。使用方法也类似 PyTorch, 不过功能少了一些。
+2. 自定义的数据集类需要继承 `Dataset` 类并完善 `__len__` 与 `__getitem__` 方法。
+3. `DataLoader` 初始化放入 `Dataset` 或 `Subset` 类型的实例,可选参数有 `batch_size`、`shuffle` 与 `collate_fn`, 并通过生成一个迭代器的方式批量获取其中的数据。
+4. `random_split` 函数传入一个 `Dataset` 类型实例与一个长度列表, 返回按长度随机分割后的数据集。
+5. 具体使用实例可以看 `mnist.py` 文件。
 ### 模型搭建与优化
-内置模型的使用方法与pytorch高度相似(但功能差远了),优化器目前实现了SGD与Adam两种。以一个简单的卷积神经网络和SGD优化器为例：
+内置模型的使用方法与 `PyTorch` 高度相似(但功能差远了), 优化器目前实现了 `SGD` 与 `Adam` 两种。以一个简单的卷积神经网络和 `SGD` 优化器为例：
 ```python
 from nptorch import nn
 from nptorch.optim import SGD
@@ -125,72 +127,72 @@ optimizer = SGD(cnn.parameters(), lr=1e-2, momentum=0.9)
 ```
 ## 更新日志
 ### 2020/11/24
-* 增加了Conv1d类。
+* 增加了 `Conv1d` 类。
 ### 2020/11/22
-* 增加了梯度截断函数clip_grad_norm_。
+* 增加了梯度截断函数 `clip_grad_norm_`。
 ### 2020/11/21
-* 增加了Embedding类,梯度截断函数clip_grad_value_。
+* 增加了 `Embedding` 类, 梯度截断函数 `clip_grad_value_`。
 ### 2020/11/20
-* 增加了ConcatDataset类,用以Dataset类之间的加法。
+* 增加了 `ConcatDataset` 类,用以 `Dataset` 类之间的加法。
 ### 2020/11/19
-* 为Module类增加了state_dict、save_state_dict与load_state_dict方法。
+* 为 `Module` 类增加了 `state_dict`、`save_state_dict` 与 `load_state_dict` 方法。
 ### 2020/11/18
-* 增加了GRU类。
+* 增加了 `GRU` 类。
 ### 2020/11/17
-* 增加了DatasetFolder与ImageFolder类,用以读取数据文件。
-* 训练了一个孪生神经网络模型,在LFW测试集上达到了100%准确率。
+* 增加了 `DatasetFolder` 与 `ImageFolder` 类,用以读取数据文件。
+* 训练了一个孪生神经网络模型,在 LFW 测试集上达到了100%准确率。
 ### 2020/11/13
-* 增加了LSTM类。
+* 增加了 `LSTM` 类。
 ### 2020/11/12
-* 增加了ModuleList类。
+* 增加了 `ModuleList` 类。
 ### 2020/11/10
-* 对norm函数及其backward进行了修改,主要增加了axis参数。
-* 增加了pairwise_distance函数、PairwiseDistance类、cosine_similarity函数、CosineSimilarity类。
+* 对 `norm` 函数及其 backward 进行了修改, 主要增加了 `axis` 参数。
+* 增加了 `pairwise_distance` 函数、`PairwiseDistance` 类、`cosine_similarity` 函数、`CosineSimilarity` 类。
 ### 2020/11/8
-* 增加了pad_sequence、sort与argsort函数。
+* 增加了 `pad_sequence`、`sort` 与 `argsort` 函数。
 ### 2020/11/5
-* 增加了RandomCrop、RandomMask图像变换。
+* 增加了 `RandomCrop`、`RandomMask` 图像变换。
 ### 2020/11/4
-* 增加了RandomHorizontalFlip,RandomVerticalFlip与CenterCrop三个图像变换。
+* 增加了 `RandomHorizontalFlip`、`RandomVerticalFlip` 与 `CenterCrop` 三个图像变换。
 ### 2020/11/3
-* 增加了BatchNorm1d,统一了BatchNorm的forward与backward。
+* 增加了 `BatchNorm1d`, 统一了 `BatchNorm` 的 forward 与 backward。
 ### 2020/10/30
-* Conv2d增加了参数dilation,默认为(0, 0),这里的dilation相当于pytorch的dilation - 1。
-* 实现了一个简单的RNN。
+* `Conv2d` 增加了参数 `dilation`,默认为(0, 0), 由于个人理解出现问题，这里的 `dilation` 相当于 PyTorch 的 `dilation - 1`。
+* 实现了一个简单的 `RNN`。
 ### 2020/10/29
-* 增加了Normalize变换。
+* 增加了 `Normalize` 变换。
 ### 2020/10/28
-* 实现了一个简单的上下文管理器no_grad,在该上下文中的所有运算将不构造计算图。
-* 增加了Softplus激活函数。
+* 实现了一个简单的上下文管理器 `no_grad`, 在该上下文中的所有运算将不构造计算图。
+* 增加了 `Softplus` 激活函数。
 ### 2020/10/27
-* 增加了ToPILImage变换。
-* 增加了MaxPool1d与AvgPool1d。
+* 增加了 `ToPILImage` 变换。
+* 增加了 `MaxPool1d` 与 `AvgPool1d`。
 ### 2020/10/26
-* 增加了Adam优化器。
-* 增加了ToTensor、Reshape与GaryScale三个图像变换。
+* 增加了 `Adam` 优化器。
+* 增加了 `ToTensor`、`Reshape` 与 `GaryScale` 三个图像变换。
 ### 2020/10/25
-* 增加了BatchNorm2d,Dropout2d,2d部分基本写完了,开始补作业,隔段时间空了补充1d。
+* 增加了 `BatchNorm2d`、`Dropout2d`, 2d 部分基本写完了, 开始补作业, 隔段时间空了补充 1d。
 ### 2020/10/24
-* 更新了Dataset、Subset、DataLoader类与random_split函数。
-* 增加了NLLLoss、MSELoss。
+* 更新了 `Dataset`、`Subset`、`DataLoader` 类与 `random_split` 函数。
+* 增加了 `NLLLoss`、`MSELoss`。
 ### 2020/10/23
 * 调整了反向传播算法。
-* 增加了激活函数LeakyReLU,ELU。
-* 增加模型保存方法,目前只保存完整模型,以后再写仅保存参数的。
+* 增加了激活函数 `LeakyReLU`、`ELU`。
+* 增加模型保存方法, 目前只保存完整模型, 以后再写仅保存参数的。
 ### 2020/10/22
-* 实现了一个简单的模型待训练参数类Parameter。
+* 实现了一个简单的模型待训练参数类 `Parameter`。
 ### 2020/10/21
 * 增加了二维的均值池化层和最大池化层。
 ### 2020/10/20
-* 增加可做padding的二维卷积层Conv2d及其backward,使用卷积mnist准确率进一步提升,证明卷积没写错。
+* 增加可做 padding 的二维卷积层 `Conv2d` 及其 backward,使用卷积 mnist 准确率进一步提升, ~~证明卷积没写错~~。
 ### 2020/10/19
-* 实现Dropout层,完善SGD（增加动量,L1、L2正则化）。
-* 模仿pytorch对代码进行良好封装、模仿pytorch实现模型的可视化打印功能。
+* 实现 `Dropout` 层, 完善 `SGD`（增加动量, L1、L2正则化）。
+* 模仿 PyTorch 对代码进行封装、模仿 PyTorch 实现模型的结构化打印功能。
 ### 2020/10/18
-* 实现了一个简单的SGD优化器。
-* 首次用线性层跑通mnist数据集。
+* 实现了一个简单的 `SGD` 优化器。
+* 首次用线性层跑通 mnist 数据集。
 ### 2020/10/13~2020/10/17
-* 尝试了N种封装方法,最后借助numpy的ndarray类型封装了一个Tensor类,作为计算图的节点类,同时重写或补充了适用于Tensor类的上百个方法与函数,基本的运算均实现了backward。
+* 尝试了 N 种封装方法,最后借助 Numpy 的 `ndarray` 类型封装了一个 `Tensor` 类, 作为计算图的节点类, 同时重写或补充了适用于 `Tensor` 类的上百个方法与函数, 基本的运算均实现了 backward。
 * 实现线性层。
 ### 2020/10/12
-产生“写个计算图玩玩”的idea。
+产生“写个计算图玩玩”的 idea。
